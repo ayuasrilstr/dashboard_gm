@@ -59,9 +59,10 @@
         .legend{display:flex;justify-content:flex-end;gap:10px;margin-top:4px;font-size:clamp(10px,.74vw,14px);color:var(--muted);font-weight:700}
         .legend span{display:inline-flex;align-items:center;gap:5px}.dot{width:clamp(8px,.58vw,11px);height:clamp(8px,.58vw,11px);border-radius:999px;display:inline-block;background:var(--brand)}.dot.alt{background:var(--accent)}.dot.input{background:#f59e0b}.dot.output{background:var(--accent)}
         .ready .chart-area{gap:clamp(20px,1.8vw,36px);padding-left:clamp(20px,2vw,36px);padding-right:clamp(20px,2vw,36px)}.ready .vbar{width:clamp(42px,3.25vw,64px);background:linear-gradient(180deg,var(--brand),#0f5268)}.ready .vbar small{background:#17202d;color:#fff}
-        .capacity{padding:11px 13px 10px}.capacity .chart-area{gap:clamp(18px,1.8vw,36px);padding-top:28px;background:repeating-linear-gradient(to top,var(--surface-soft) 0,var(--surface-soft) 15px,var(--grid) 16px)}
-        .capacity .vbar{width:clamp(28px,2.05vw,42px);background:linear-gradient(180deg,var(--brand),#0f5268)}.capacity .vbar.alt{background:linear-gradient(180deg,#f59e0b,#b45309)}.capacity .vbar.third{background:linear-gradient(180deg,#9fc06a,#6d8737)}
+        .capacity{padding:11px 13px 10px}.capacity .chart-area{gap:clamp(24px,2.4vw,48px);padding:18px 18px 0;background:linear-gradient(180deg,#fff,var(--surface-soft))}
+        .capacity .group{flex-basis:clamp(96px,7vw,140px)}.capacity .bars{gap:clamp(5px,.42vw,8px)}.capacity .vbar{width:clamp(20px,1.45vw,30px);background:linear-gradient(180deg,var(--brand),#0f5268);box-shadow:0 7px 14px rgba(16,32,51,.12)}.capacity .vbar.alt{background:linear-gradient(180deg,#f59e0b,#b45309)}.capacity .vbar.third{background:linear-gradient(180deg,#9fc06a,#6d8737)}
         .capacity .vbar small{background:#17202d;color:#fff}.capacity .vbar.alt small{background:#92400e;color:#fff}.capacity .vbar.third small{background:#43591f;color:#fff}
+        .capacity .chart-area.clean .vbar small{display:none}
         .kpi{background:linear-gradient(180deg,#fff,#f6fafc);border:1px solid rgba(219,228,238,.95);border-radius:7px;padding:12px;color:var(--ink);box-shadow:var(--shadow)}
         .kpi span{display:block;font-size:clamp(12px,.82vw,15px);font-weight:850;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi strong{display:block;margin-top:7px;font-size:clamp(26px,1.92vw,36px);line-height:1;font-weight:900;color:var(--ink)}.kpi small{font-size:clamp(14px,1vw,19px);font-weight:850;color:var(--muted)}
         .kpi.balance-detail{display:grid;grid-template-rows:auto minmax(0,1fr);gap:5px}.kpi-balance-list{min-height:0;display:grid;gap:2px;align-content:start}.kpi-balance-row{display:grid;grid-template-columns:minmax(70px,1fr) 8px minmax(54px,.8fr) 26px;gap:5px;align-items:center;color:var(--ink);font-size:clamp(12px,.84vw,16px);font-weight:750;line-height:1.08}.kpi-balance-row b{text-align:right;font-size:inherit}.kpi-balance-row small{color:var(--muted);font-size:clamp(10px,.7vw,13px);font-weight:750}
@@ -131,7 +132,7 @@
                 </div>
             </div>
                 <div class="box chart-box capacity">
-                    <h2 class="chart-title">KAPASITAS vs OUTPUT</h2>
+                    <h2 class="chart-title">KAPASITAS vs OUTPUT vs INPUT</h2>
                     <div id="outputCapacityChart"></div>
                 <div class="legend"><span><i class="dot"></i>KAPASITAS</span><span><i class="dot input"></i>INPUT</span><span><i class="dot output"></i>OUTPUT</span></div>
             </div>
@@ -293,12 +294,24 @@ function renderEmpty(data) {
     document.querySelector('.dashboard').innerHTML = `<div class="box" style="grid-column:1/-1;padding:24px;text-align:center">${esc(data?.message || 'Data dashboard belum tersedia.')}</div>`;
 }
 
-function renderGroupedChart(target, rows, keys) {
-    const max = Math.max(...rows.flatMap(row => keys.map(key => Number(row[key]) || 0)), 1);
+function compactChartValue(value) {
+    const number = Number(value) || 0;
+    if (Math.abs(number) >= 1000) {
+        const compact = number / 1000;
+        const rounded = compact >= 10 ? Math.round(compact) : floorDecimal(compact, 1);
+        return `${fmt(rounded)}K`;
+    }
+
+    return fmt(Math.round(number));
+}
+
+function renderGroupedChart(target, rows, keys, options = {}) {
+    const displayRows = options.limit ? rows.slice(-options.limit) : rows;
+    const max = Math.max(...displayRows.flatMap(row => keys.map(key => Number(row[key]) || 0)), 1);
     const maxBarHeight = Math.max(72, target.clientHeight - 72);
     target.innerHTML = `
-        <div class="chart-area">
-            ${rows.map(row => `
+        <div class="chart-area ${options.clean ? 'clean' : ''}">
+            ${displayRows.map(row => `
                 <div class="group">
                     <div class="bars">
                         ${keys.map((key, index) => {
@@ -306,7 +319,9 @@ function renderGroupedChart(target, rows, keys) {
                             const height = Math.max(2, value / max * maxBarHeight);
                             const rounded = Math.round(value);
                             const className = index === 0 ? '' : (index === 1 ? 'alt' : 'third');
-                            return `<div class="vbar ${className}" style="height:${height}px"><small class="label-${index}">${fmt(rounded)}</small></div>`;
+                            const label = options.compactLabels ? compactChartValue(rounded) : fmt(rounded);
+                            const title = `${key.toUpperCase()}: ${fmt(rounded)} pcs`;
+                            return `<div class="vbar ${className}" style="height:${height}px" title="${esc(title)}"><small class="label-${index}">${label}</small></div>`;
                         }).join('')}
                     </div>
                     <div class="glabel">${esc(row.label)}</div>
@@ -607,7 +622,7 @@ function renderAnalytics(analytics) {
 function renderDashboardCharts(dashboard) {
     renderGroupedChart(document.getElementById('qtyPdkOutputChart'), dashboard.qty_pdk_vs_output || [], ['pdk', 'output']);
     renderGroupedChart(document.getElementById('readyToLoadChart'), dashboard.ready_to_load || [], ['ready']);
-    renderGroupedChart(document.getElementById('outputCapacityChart'), dashboard.output_vs_capacity || [], ['capacity', 'input', 'output']);
+    renderGroupedChart(document.getElementById('outputCapacityChart'), dashboard.output_vs_capacity || [], ['capacity', 'input', 'output'], {clean: true, limit: 5});
 }
 
 function renderLastUpdateList(dashboard, serverTime) {
