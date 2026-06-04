@@ -1,6 +1,92 @@
 {
-    "updated_at": "2026-06-04T03:16:29+02:00",
+    "updated_at": "2026-06-04T04:56:30+02:00",
     "items": {
+        "2026-05-25": {
+            "capacity": 17292.744444444445,
+            "captured_at": "2026-06-04T03:52:21+02:00",
+            "calendar_signature": "07f945dcc60ceab81ff9b99abf07d8ee",
+            "breakdown": [
+                {
+                    "label": "MID June",
+                    "pdk": 51218,
+                    "output": 18161,
+                    "balance": 33057,
+                    "days_left": 6,
+                    "calendar_days_left": 10,
+                    "daily_capacity": 5509.5
+                },
+                {
+                    "label": "END June",
+                    "pdk": 62118,
+                    "output": 2786,
+                    "balance": 59332,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 6592.444444444444
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 34524,
+                    "output": 0,
+                    "balance": 34524,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 3836
+                },
+                {
+                    "label": "END July",
+                    "pdk": 13548,
+                    "output": 0,
+                    "balance": 13548,
+                    "days_left": 10,
+                    "calendar_days_left": 14,
+                    "daily_capacity": 1354.8
+                }
+            ]
+        },
+        "2026-05-26": {
+            "capacity": 17292.744444444445,
+            "captured_at": "2026-06-04T03:42:24+02:00",
+            "calendar_signature": "a9b2556e3c403a8e13192663046f049c",
+            "breakdown": [
+                {
+                    "label": "MID June",
+                    "pdk": 51218,
+                    "output": 18161,
+                    "balance": 33057,
+                    "days_left": 6,
+                    "calendar_days_left": 10,
+                    "daily_capacity": 5509.5
+                },
+                {
+                    "label": "END June",
+                    "pdk": 62118,
+                    "output": 2786,
+                    "balance": 59332,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 6592.444444444444
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 34524,
+                    "output": 0,
+                    "balance": 34524,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 3836
+                },
+                {
+                    "label": "END July",
+                    "pdk": 13548,
+                    "output": 0,
+                    "balance": 13548,
+                    "days_left": 10,
+                    "calendar_days_left": 14,
+                    "daily_capacity": 1354.8
+                }
+            ]
+        },
         "2026-05-27": {
             "capacity": 16505.673015873017,
             "breakdown": []
@@ -65,45 +151,45 @@
             ]
         },
         "2026-06-04": {
-            "capacity": 17292.744444444445,
-            "captured_at": "2026-06-04T03:16:29+02:00",
-            "calendar_signature": "7f8782c8c0a669247be21ade1c9d152e",
+            "capacity": 22369.344444444447,
+            "captured_at": "2026-06-04T04:56:30+02:00",
+            "calendar_signature": "07f945dcc60ceab81ff9b99abf07d8ee",
             "breakdown": [
                 {
                     "label": "MID June",
-                    "pdk": 51218,
-                    "output": 18161,
-                    "balance": 33057,
+                    "pdk": 74758,
+                    "output": 40921,
+                    "balance": 33837,
                     "days_left": 6,
                     "calendar_days_left": 10,
-                    "daily_capacity": 5509.5
+                    "daily_capacity": 5639.5
                 },
                 {
                     "label": "END June",
-                    "pdk": 62118,
-                    "output": 2786,
-                    "balance": 59332,
+                    "pdk": 63506,
+                    "output": 3870,
+                    "balance": 59636,
                     "days_left": 9,
                     "calendar_days_left": 13,
-                    "daily_capacity": 6592.444444444444
+                    "daily_capacity": 6626.222222222223
                 },
                 {
                     "label": "MID July",
-                    "pdk": 34524,
-                    "output": 0,
-                    "balance": 34524,
+                    "pdk": 69482,
+                    "output": 5814,
+                    "balance": 63668,
                     "days_left": 9,
                     "calendar_days_left": 13,
-                    "daily_capacity": 3836
+                    "daily_capacity": 7074.222222222223
                 },
                 {
                     "label": "END July",
-                    "pdk": 13548,
+                    "pdk": 30294,
                     "output": 0,
-                    "balance": 13548,
+                    "balance": 30294,
                     "days_left": 10,
                     "calendar_days_left": 14,
-                    "daily_capacity": 1354.8
+                    "daily_capacity": 3029.4
                 }
             ]
         }
