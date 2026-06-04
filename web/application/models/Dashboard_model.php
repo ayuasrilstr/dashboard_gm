@@ -1264,6 +1264,10 @@ class Dashboard_model extends CI_Model
         $calendar_days = $this->dashboard_calendar_days();
 
         foreach ($report['rows'] as $row) {
+            if ($this->normalize($this->cell($row, $index, 'Text')) !== '[CSDB]-Transfer ~bundle_receive') {
+                continue;
+            }
+
             $date = $this->cell($row, $index, 'Date');
             $timestamp = $this->parse_date_timestamp($date);
             $order = $this->normalize_order_number($this->cell($row, $index, 'Prod. Nr'));
