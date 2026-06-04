@@ -60,8 +60,8 @@
         .legend span{display:inline-flex;align-items:center;gap:5px}.dot{width:clamp(8px,.58vw,11px);height:clamp(8px,.58vw,11px);border-radius:999px;display:inline-block;background:var(--brand)}.dot.alt{background:var(--accent)}.dot.output{background:var(--accent)}.line-key{width:clamp(16px,1.2vw,24px);height:0;border-top:3px solid #f59e0b;display:inline-block}
         .ready .chart-area{gap:clamp(20px,1.8vw,36px);padding-left:clamp(20px,2vw,36px);padding-right:clamp(20px,2vw,36px)}.ready .vbar{width:clamp(42px,3.25vw,64px);background:linear-gradient(180deg,var(--brand),#0f5268)}.ready .vbar small{background:#17202d;color:#fff}
         .capacity{padding:11px 13px 10px}.capacity .chart-area{gap:clamp(18px,1.8vw,36px);padding-top:28px;background:repeating-linear-gradient(to top,var(--surface-soft) 0,var(--surface-soft) 15px,var(--grid) 16px)}
-        .capacity .bars{position:relative}.capacity .vbar{width:clamp(34px,2.45vw,48px);background:linear-gradient(180deg,var(--brand),#0f5268)}.capacity .vbar.alt{background:linear-gradient(180deg,#9fc06a,#6d8737)}
-        .capacity .vbar small{background:#17202d;color:#fff}.capacity .vbar.alt small{background:#43591f;color:#fff}.capacity .input-line{position:absolute;left:4px;right:4px;z-index:3;height:0;border-top:3px solid #f59e0b;box-shadow:0 0 0 2px rgba(255,255,255,.72);pointer-events:auto}
+        .capacity .chart-area{position:relative}.capacity .group{position:relative;z-index:2}.capacity .bars{position:relative}.capacity .vbar{width:clamp(34px,2.45vw,48px);background:linear-gradient(180deg,var(--brand),#0f5268)}.capacity .vbar.alt{background:linear-gradient(180deg,#9fc06a,#6d8737)}
+        .capacity .vbar small{background:#17202d;color:#fff}.capacity .vbar.alt small{background:#43591f;color:#fff}.capacity .input-line-chart{position:absolute;left:24px;right:24px;top:28px;bottom:clamp(20px,1.24vw,25px);z-index:4;overflow:visible;pointer-events:none}.capacity .input-line-chart polyline{fill:none;stroke:#f59e0b;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 0 rgba(255,255,255,.9))}.capacity .input-line-chart circle{fill:#fff7ed;stroke:#f59e0b;stroke-width:2.4;pointer-events:auto}
         .kpi{background:linear-gradient(180deg,#fff,#f6fafc);border:1px solid rgba(219,228,238,.95);border-radius:7px;padding:12px;color:var(--ink);box-shadow:var(--shadow)}
         .kpi span{display:block;font-size:clamp(12px,.82vw,15px);font-weight:850;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi strong{display:block;margin-top:7px;font-size:clamp(26px,1.92vw,36px);line-height:1;font-weight:900;color:var(--ink)}.kpi small{font-size:clamp(14px,1vw,19px);font-weight:850;color:var(--muted)}
         .kpi.balance-detail{display:grid;grid-template-rows:auto minmax(0,1fr);gap:5px}.kpi-balance-list{min-height:0;display:grid;gap:2px;align-content:start}.kpi-balance-row{display:grid;grid-template-columns:minmax(70px,1fr) 8px minmax(54px,.8fr) 26px;gap:5px;align-items:center;color:var(--ink);font-size:clamp(12px,.84vw,16px);font-weight:750;line-height:1.08}.kpi-balance-row b{text-align:right;font-size:inherit}.kpi-balance-row small{color:var(--muted);font-size:clamp(10px,.7vw,13px);font-weight:750}
@@ -334,11 +334,24 @@ function renderCapacityChart(target, rows) {
     const keys = ['capacity', 'output', 'input'];
     const max = Math.max(...rows.flatMap(row => keys.map(key => Number(row[key]) || 0)), 1);
     const maxBarHeight = Math.max(72, target.clientHeight - 72);
+    const inputPoints = rows.map((row, index) => {
+        const x = rows.length > 0 ? ((index + 0.5) / rows.length) * 100 : 50;
+        const y = 100 - ((Number(row.input) || 0) / max * 100);
+        return {x, y, value: Number(row.input) || 0, label: row.label || '-'};
+    });
+    const inputPath = inputPoints.map(point => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(' ');
+
     target.innerHTML = `
         <div class="chart-area">
+            <svg class="input-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <polyline points="${esc(inputPath)}"></polyline>
+                ${inputPoints.map(point => `
+                    <circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="2.3" vector-effect="non-scaling-stroke">
+                        <title>INPUT ${esc(point.label)}: ${esc(fmt(Math.round(point.value)))} pcs</title>
+                    </circle>
+                `).join('')}
+            </svg>
             ${rows.map(row => {
-                const input = Number(row.input) || 0;
-                const inputBottom = Math.max(2, input / max * maxBarHeight);
                 return `
                 <div class="group">
                     <div class="bars">
@@ -350,7 +363,6 @@ function renderCapacityChart(target, rows) {
                             const title = `${key.toUpperCase()}: ${fmt(rounded)} pcs`;
                             return `<div class="vbar ${className}" style="height:${height}px" title="${esc(title)}"><small class="label-${index}">${fmt(rounded)}</small></div>`;
                         }).join('')}
-                        <span class="input-line" style="bottom:${inputBottom}px" title="INPUT: ${esc(fmt(Math.round(input)))} pcs"></span>
                     </div>
                     <div class="glabel">${esc(row.label)}</div>
                 </div>
