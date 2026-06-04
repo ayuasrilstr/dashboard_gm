@@ -61,7 +61,7 @@
         .ready .chart-area{gap:clamp(20px,1.8vw,36px);padding-left:clamp(20px,2vw,36px);padding-right:clamp(20px,2vw,36px)}.ready .vbar{width:clamp(42px,3.25vw,64px);background:linear-gradient(180deg,var(--brand),#0f5268)}.ready .vbar small{background:#17202d;color:#fff}
         .capacity{padding:11px 13px 10px}.capacity .chart-area{gap:clamp(18px,1.8vw,36px);padding-top:28px;background:repeating-linear-gradient(to top,var(--surface-soft) 0,var(--surface-soft) 15px,var(--grid) 16px)}
         .capacity .chart-area{position:relative}.capacity .group{position:relative;z-index:2}.capacity .bars{position:relative}.capacity .vbar{width:clamp(34px,2.45vw,48px);background:linear-gradient(180deg,var(--brand),#0f5268)}.capacity .vbar.alt{background:linear-gradient(180deg,#9fc06a,#6d8737)}
-        .capacity .vbar small{background:#17202d;color:#fff}.capacity .vbar.alt small{background:#43591f;color:#fff}.capacity .input-line-chart{position:absolute;left:24px;right:24px;top:28px;bottom:clamp(20px,1.24vw,25px);z-index:4;overflow:visible;pointer-events:none}.capacity .input-line-chart polyline{fill:none;stroke:#f59e0b;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 0 rgba(255,255,255,.9))}.capacity .input-line-chart circle{fill:#fff7ed;stroke:#f59e0b;stroke-width:2.4;pointer-events:auto}
+        .capacity .vbar small{background:#17202d;color:#fff}.capacity .vbar.alt small{background:#43591f;color:#fff}.capacity .input-line-chart{position:absolute;left:24px;right:24px;top:28px;bottom:clamp(20px,1.24vw,25px);z-index:4;overflow:visible;pointer-events:none}.capacity .input-line-chart polyline{fill:none;stroke:#f59e0b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
         .kpi{background:linear-gradient(180deg,#fff,#f6fafc);border:1px solid rgba(219,228,238,.95);border-radius:7px;padding:12px;color:var(--ink);box-shadow:var(--shadow)}
         .kpi span{display:block;font-size:clamp(12px,.82vw,15px);font-weight:850;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi strong{display:block;margin-top:7px;font-size:clamp(26px,1.92vw,36px);line-height:1;font-weight:900;color:var(--ink)}.kpi small{font-size:clamp(14px,1vw,19px);font-weight:850;color:var(--muted)}
         .kpi.balance-detail{display:grid;grid-template-rows:auto minmax(0,1fr);gap:5px}.kpi-balance-list{min-height:0;display:grid;gap:2px;align-content:start}.kpi-balance-row{display:grid;grid-template-columns:minmax(70px,1fr) 8px minmax(54px,.8fr) 26px;gap:5px;align-items:center;color:var(--ink);font-size:clamp(12px,.84vw,16px);font-weight:750;line-height:1.08}.kpi-balance-row b{text-align:right;font-size:inherit}.kpi-balance-row small{color:var(--muted);font-size:clamp(10px,.7vw,13px);font-weight:750}
@@ -345,11 +345,6 @@ function renderCapacityChart(target, rows) {
         <div class="chart-area">
             <svg class="input-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                 <polyline points="${esc(inputPath)}"></polyline>
-                ${inputPoints.map(point => `
-                    <circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="2.3" vector-effect="non-scaling-stroke">
-                        <title>INPUT ${esc(point.label)}: ${esc(fmt(Math.round(point.value)))} pcs</title>
-                    </circle>
-                `).join('')}
             </svg>
             ${rows.map(row => {
                 return `
