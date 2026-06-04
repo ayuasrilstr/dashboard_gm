@@ -1,0 +1,75 @@
+{
+  "downloads_dir": "downloads",
+  "steps": [
+    {
+      "name": "Buka halaman login CIUROX",
+      "action": "goto",
+      "url": "http://192.168.8.23/ciurox/login.php"
+    },
+    {
+      "name": "Tunggu form login",
+      "action": "wait_for_selector",
+      "selector": "button[name=\"login\"]"
+    },
+    {
+      "name": "Isi username",
+      "action": "fill_env",
+      "selector": "input[name=\"username\"], input[name=\"user\"], input[type=\"email\"], input[type=\"text\"]",
+      "env": "ACCESSORIES_USERNAME"
+    },
+    {
+      "name": "Isi password",
+      "action": "fill_env",
+      "selector": "input[name=\"password\"], input[type=\"password\"]",
+      "env": "ACCESSORIES_PASSWORD"
+    },
+    {
+      "name": "Klik login",
+      "action": "click",
+      "selector": "button[name=\"login\"]",
+      "force": true
+    },
+    {
+      "name": "Tunggu halaman setelah login",
+      "action": "wait",
+      "seconds": 2
+    },
+    {
+      "name": "Buka Accessories GM",
+      "action": "goto",
+      "url": "http://192.168.8.23/ciurox/crxoracem.php"
+    },
+    {
+      "name": "Tunggu filter Accessories GM",
+      "action": "wait_for_selector",
+      "selector": "#inputFromdate"
+    },
+    {
+      "name": "Isi tanggal awal bulan ini",
+      "action": "fill_date",
+      "selector": "#inputFromdate",
+      "which": "month_start"
+    },
+    {
+      "name": "Isi tanggal sampai hari ini",
+      "action": "fill_date",
+      "selector": "#inputTodate",
+      "which": "today"
+    },
+    {
+      "name": "Pilih status COMPLETED",
+      "action": "select_option",
+      "selector": "#filter_status",
+      "value": "COMPLETED"
+    },
+    {
+      "name": "Export Controlist Accessories",
+      "action": "download",
+      "selector": "button[onclick=\"submitExport()\"]",
+      "directory": "downloads",
+      "filename": "CONTROLIST_%Y%m%d_%H%M%S.xlsx",
+      "timeout_ms": 120000,
+      "force": true
+    }
+  ]
+}

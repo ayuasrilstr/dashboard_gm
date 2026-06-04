@@ -1,0 +1,111 @@
+{
+    "updated_at": "2026-06-04T03:16:29+02:00",
+    "items": {
+        "2026-05-27": {
+            "capacity": 16505.673015873017,
+            "breakdown": []
+        },
+        "2026-05-28": {
+            "capacity": 16505.673015873017,
+            "breakdown": []
+        },
+        "2026-05-29": {
+            "capacity": 16505.673015873017,
+            "breakdown": []
+        },
+        "2026-05-30": {
+            "capacity": 16505.673015873017,
+            "breakdown": []
+        },
+        "2026-06-02": {
+            "capacity": 16505.673015873017,
+            "breakdown": []
+        },
+        "2026-06-03": {
+            "capacity": 16505.673015873017,
+            "captured_at": "2026-06-03T10:56:59+02:00",
+            "calendar_signature": "7f8782c8c0a669247be21ade1c9d152e",
+            "breakdown": [
+                {
+                    "label": "MID June",
+                    "pdk": 51218,
+                    "output": 18161,
+                    "balance": 33057,
+                    "days_left": 7,
+                    "calendar_days_left": 11,
+                    "daily_capacity": 4722.428571428572
+                },
+                {
+                    "label": "END June",
+                    "pdk": 62118,
+                    "output": 2786,
+                    "balance": 59332,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 6592.444444444444
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 34524,
+                    "output": 0,
+                    "balance": 34524,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 3836
+                },
+                {
+                    "label": "END July",
+                    "pdk": 13548,
+                    "output": 0,
+                    "balance": 13548,
+                    "days_left": 10,
+                    "calendar_days_left": 14,
+                    "daily_capacity": 1354.8
+                }
+            ]
+        },
+        "2026-06-04": {
+            "capacity": 17292.744444444445,
+            "captured_at": "2026-06-04T03:16:29+02:00",
+            "calendar_signature": "7f8782c8c0a669247be21ade1c9d152e",
+            "breakdown": [
+                {
+                    "label": "MID June",
+                    "pdk": 51218,
+                    "output": 18161,
+                    "balance": 33057,
+                    "days_left": 6,
+                    "calendar_days_left": 10,
+                    "daily_capacity": 5509.5
+                },
+                {
+                    "label": "END June",
+                    "pdk": 62118,
+                    "output": 2786,
+                    "balance": 59332,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 6592.444444444444
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 34524,
+                    "output": 0,
+                    "balance": 34524,
+                    "days_left": 9,
+                    "calendar_days_left": 13,
+                    "daily_capacity": 3836
+                },
+                {
+                    "label": "END July",
+                    "pdk": 13548,
+                    "output": 0,
+                    "balance": 13548,
+                    "days_left": 10,
+                    "calendar_days_left": 14,
+                    "daily_capacity": 1354.8
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,359 @@
+{
+    "shortcut_path":  "C:\\Users\\iso\\Desktop\\IOS-APS - Shortcut.lnk",
+    "window_title_contains":  [
+                                  "Login",
+                                  "FrmWelcomeLoading",
+                                  "IOS-APS"
+                              ],
+    "window_timeout_seconds":  60,
+    "launch":  {
+                   "bypass_zone_check":  true
+               },
+    "security_warning":  {
+                             "enabled":  true,
+                             "title_contains":  [
+                                                    "Open File",
+                                                    "Security Warning"
+                                                ],
+                             "timeout_seconds":  8,
+                             "steps":  [
+                                           {
+                                               "action":  "key",
+                                               "key":  "enter"
+                                           },
+                                           {
+                                               "action":  "hotkey",
+                                               "keys":  [
+                                                            "alt",
+                                                            "r"
+                                                        ]
+                                           }
+                                       ]
+                         },
+    "already_running_warning":  {
+                                    "enabled":  true,
+                                    "title_contains":  [
+                                                           "Error"
+                                                       ],
+                                    "timeout_seconds":  2,
+                                    "steps":  [
+                                                  {
+                                                      "action":  "key",
+                                                      "key":  "enter"
+                                                  }
+                                              ]
+                                },
+    "steps":  [
+                  {
+                      "name":  "Tunggu form login siap",
+                      "action":  "wait",
+                      "seconds":  3
+                  },
+                  {
+                      "name":  "Klik field username",
+                      "action":  "click",
+                      "x":  1027,
+                      "y":  539
+                  },
+                  {
+                      "name":  "Pilih semua isi username lama",
+                      "action":  "hotkey",
+                      "keys":  [
+                                   "ctrl",
+                                   "a"
+                               ]
+                  },
+                  {
+                      "name":  "Hapus username lama",
+                      "action":  "key",
+                      "key":  "delete"
+                  },
+                  {
+                      "name":  "Bersihkan sisa username lama",
+                      "action":  "key",
+                      "key":  "backspace",
+                      "count":  30
+                  },
+                  {
+                      "name":  "Isi username dari .env",
+                      "action":  "type_env",
+                      "env":  "APS_USERNAME"
+                  },
+                  {
+                      "name":  "Klik field password",
+                      "action":  "click",
+                      "x":  1054,
+                      "y":  578
+                  },
+                  {
+                      "name":  "Pilih semua isi password lama",
+                      "action":  "hotkey",
+                      "keys":  [
+                                   "ctrl",
+                                   "a"
+                               ]
+                  },
+                  {
+                      "name":  "Hapus password lama",
+                      "action":  "key",
+                      "key":  "delete"
+                  },
+                  {
+                      "name":  "Bersihkan sisa password lama",
+                      "action":  "key",
+                      "key":  "backspace",
+                      "count":  30
+                  },
+                  {
+                      "name":  "Isi password dari .env",
+                      "action":  "type_env",
+                      "env":  "APS_PASSWORD"
+                  },
+                  {
+                      "name":  "Klik tombol Login",
+                      "action":  "click",
+                      "x":  1054,
+                      "y":  672
+                  },
+                  {
+                      "name":  "Tunggu halaman utama APS terbuka",
+                      "action":  "wait",
+                      "seconds":  5
+                  },
+                  {
+                      "name":  "Klik menu JO",
+                      "action":  "click",
+                      "x":  139,
+                      "y":  70
+                  },
+                  {
+                      "name":  "Tunggu halaman JO terbuka",
+                      "action":  "wait",
+                      "seconds":  5
+                  },
+                  {
+                      "name":  "Buka dropdown Factory",
+                      "action":  "click",
+                      "x":  290,
+                      "y":  123
+                  },
+                  {
+                      "name":  "Tunggu dropdown Factory terbuka",
+                      "action":  "wait",
+                      "seconds":  1.5
+                  },
+                  {
+                      "name":  "Pilih nilai Factory",
+                      "action":  "click",
+                      "x":  260,
+                      "y":  157
+                  },
+                  {
+                      "name":  "Tunggu nilai Factory terpilih",
+                      "action":  "wait",
+                      "seconds":  1
+                  },
+                  {
+                      "name":  "Buka dropdown Floor",
+                      "action":  "click",
+                      "x":  529,
+                      "y":  127
+                  },
+                  {
+                      "name":  "Tunggu dropdown Floor terbuka",
+                      "action":  "wait",
+                      "seconds":  1.5
+                  },
+                  {
+                      "name":  "Pilih nilai Floor",
+                      "action":  "click",
+                      "x":  457,
+                      "y":  145
+                  },
+                  {
+                      "name":  "Tunggu nilai Floor terpilih",
+                      "action":  "wait",
+                      "seconds":  1
+                  },
+                  {
+                      "name":  "Klik field Delivery Date From",
+                      "action":  "click",
+                      "x":  777,
+                      "y":  118,
+                      "count":  2
+                  },
+                  {
+                      "name":  "Tunggu fokus Delivery Date From",
+                      "action":  "wait",
+                      "seconds":  0.5
+                  },
+                  {
+                      "name":  "Pilih semua tanggal From lama",
+                      "action":  "hotkey",
+                      "keys":  [
+                                   "ctrl",
+                                   "a"
+                               ]
+                  },
+                  {
+                      "name":  "Hapus tanggal From lama",
+                      "action":  "key",
+                      "key":  "delete"
+                  },
+                  {
+                      "name":  "Bersihkan sisa tanggal From lama",
+                      "action":  "key",
+                      "key":  "backspace",
+                      "count":  12
+                  },
+                  {
+                      "name":  "Isi tanggal From awal bulan ini",
+                      "action":  "paste_month_date",
+                      "which":  "start",
+                      "months_offset":  0,
+                      "format":  "%d/%m/%Y"
+                  },
+                  {
+                      "name":  "Klik field Delivery Date To",
+                      "action":  "click",
+                      "x":  886,
+                      "y":  125
+                  },
+                  {
+                      "name":  "Isi tanggal To akhir bulan 3 bulan ke depan",
+                      "action":  "paste_month_date",
+                      "which":  "end",
+                      "months_offset":  3,
+                      "format":  "%d/%m/%Y"
+                  },
+                  {
+                      "name":  "Buka dropdown Status",
+                      "action":  "click",
+                      "x":  1049,
+                      "y":  117
+                  },
+                  {
+                      "name":  "Tunggu dropdown Status terbuka",
+                      "action":  "wait",
+                      "seconds":  1.5
+                  },
+                  {
+                      "name":  "Pilih nilai Status",
+                      "action":  "click",
+                      "x":  1019,
+                      "y":  138
+                  },
+                  {
+                      "name":  "Tunggu nilai Status terpilih",
+                      "action":  "wait",
+                      "seconds":  1
+                  },
+                  {
+                      "name":  "Klik Ok pada status terpilih",
+                      "action":  "click",
+                      "x":  1112,
+                      "y":  235
+                  },
+                  {
+                      "name":  "Tunggu nilai Status terpilih",
+                      "action":  "wait",
+                      "seconds":  1
+                  },
+                  {
+                      "name":  "Buka dropdown Firm Order",
+                      "action":  "click",
+                      "x":  1062,
+                      "y":  142
+                  },
+                  {
+                      "name":  "Tunggu dropdown Firm Order terbuka",
+                      "action":  "wait",
+                      "seconds":  1.5
+                  },
+                  {
+                      "name":  "Pilih nilai Firm Order",
+                      "action":  "click",
+                      "x":  1020,
+                      "y":  210
+                  },
+                  {
+                      "name":  "Tunggu nilai Firm Order terpilih",
+                      "action":  "wait",
+                      "seconds":  1
+                  },
+                  {
+                      "name":  "Klik Refresh",
+                      "action":  "click",
+                      "x":  874,
+                      "y":  61
+                  },
+                  {
+                      "name":  "Tunggu hasil refresh selesai",
+                      "action":  "wait",
+                      "seconds":  5
+                  },
+                  {
+                      "name":  "Klik export To Excel",
+                      "action":  "click",
+                      "x":  1075,
+                      "y":  59
+                  },
+                  {
+                      "name":  "Simpan file Excel ke folder downloads",
+                      "action":  "save_as",
+                      "title_contains":  [
+                                             "Save As",
+                                             "Save"
+                                         ],
+                      "timeout_seconds":  30,
+                      "directory":  "downloads",
+                      "filename":  "JO_%Y%m%d_%H%M%S.xlsx",
+                      "save_timeout_seconds":  120,
+                      "stable_seconds":  2
+                  },
+                  {
+                      "name":  "Tunggu proses export Excel",
+                      "action":  "wait",
+                      "seconds":  5
+                  },
+                  {
+                      "name":  "Close export dialog",
+                      "action":  "click",
+                      "x":  1039,
+                      "y":  613
+                  },
+                  {
+                      "name":  "Tunggu hasil close dialog selesai",
+                      "action":  "wait",
+                      "seconds":  2
+                  },
+                  {
+                      "name":  "Close APK APS",
+                      "action":  "click",
+                      "x":  1891,
+                      "y":  11
+                  },
+                  {
+                      "name":  "Tunggu hasil close dialog selesai",
+                      "action":  "wait",
+                      "seconds":  2
+                  },
+                  {
+                      "name":  "Tutup peringatan aplikasi sudah berjalan (jika muncul)",
+                      "action":  "click",
+                      "x":  971,
+                      "y":  614
+                  }
+              ],
+    "copy_downloads":  {
+                           "enabled":  true,
+                           "source_dir":  "downloads",
+                           "archive_dir":  "archive",
+                           "timeout_seconds":  120,
+                           "patterns":  [
+                                            "*.xlsx",
+                                            "*.csv",
+                                            "*.zip"
+                                        ]
+                       }
+}

@@ -1,0 +1,86 @@
+{
+  "shortcut_path": "C:\\Users\\iso\\Desktop\\IOS-APS - Shortcut.lnk",
+  "window_title_contains": [
+    "Login",
+    "FrmWelcomeLoading"
+  ],
+  "window_timeout_seconds": 60,
+  "launch": {
+    "bypass_zone_check": true
+  },
+  "security_warning": {
+    "enabled": true,
+    "title_contains": [
+      "Open File",
+      "Security Warning"
+    ],
+    "timeout_seconds": 8,
+    "steps": [
+      {
+        "action": "key",
+        "key": "enter"
+      },
+      {
+        "action": "hotkey",
+        "keys": [
+          "alt",
+          "r"
+        ]
+      }
+    ]
+  },
+  "already_running_warning": {
+    "enabled": true,
+    "title_contains": [
+      "Error"
+    ],
+    "timeout_seconds": 2,
+    "steps": [
+      {
+        "action": "key",
+        "key": "enter"
+      }
+    ]
+  },
+  "steps": [
+    {
+      "action": "wait",
+      "seconds": 3
+    },
+    {
+      "action": "type_env",
+      "env": "APS_USERNAME"
+    },
+    {
+      "action": "key",
+      "key": "tab"
+    },
+    {
+      "action": "type_env",
+      "env": "APS_PASSWORD"
+    },
+    {
+      "action": "key",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "seconds": 5
+    },
+    {
+      "action": "screenshot",
+      "name": "after-login"
+    }
+  ],
+  "copy_downloads": {
+    "enabled": true,
+    "source_dir": "C:\\Users\\iso\\Downloads",
+    "archive_dir": "D:\\00. RPA\\aps-rpa\\archive",
+    "timeout_seconds": 120,
+    "patterns": [
+      "*.xlsx",
+      "*.csv",
+      "*.zip"
+    ]
+  }
+}

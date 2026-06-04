@@ -1,0 +1,1080 @@
+[2026-06-02 10:50:46] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-02 10:50:46] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-02 10:50:46] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:53] Step: Buka halaman login CIUROX
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:56] Step: Tunggu form login
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:56] Step: Isi username
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:56] Step: Isi password
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:56] Step: Klik login
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:56] Step: Tunggu halaman setelah login
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:50:58] Step: Buka Accessories GM
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:07] Step: Tunggu filter Accessories GM
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:08] Step: Isi tanggal awal bulan ini
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:08] Step: Isi tanggal sampai hari ini
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:08] Step: Pilih status COMPLETED
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:08] Step: Export Controlist Accessories
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:08] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260602_105108.xlsx
+[2026-06-02 10:51:08] [Master Scheduler] [Accessories RPA] [2026-06-02 10:51:08] RPA Accessories selesai.
+[2026-06-02 10:51:08] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-02 10:51:08] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-02 10:51:08] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:08] Mulai download report
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:15] Login berhasil
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:19] Halaman report berhasil dibuka
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:19] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:19] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:23] Display data diklik
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:24] Jumlah row response: 200
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:25] Fetch page 1/4: total row sementara 200
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:28] Fetch page 4/4: total row sementara 783
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:28] Jumlah row export: 783
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:28] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:36] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:41] Display data diklik
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:41] Jumlah row response: 200
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:42] Fetch page 1/4: total row sementara 200
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:46] Fetch page 4/4: total row sementara 773
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:46] Jumlah row export: 773
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:46] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:54] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:58] Display data diklik
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:58] Jumlah row response: 200
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:51:59] Fetch page 1/3: total row sementara 200
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:52:02] Fetch page 3/3: total row sementara 558
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:52:02] Jumlah row export: 558
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:52:02] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx
+[2026-06-02 10:52:10] [Master Scheduler] [Engage RPA] [2026-06-02 10:52:10] Selesai download report
+[2026-06-02 10:52:10] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-02 10:52:10] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-02 10:52:10] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:10,758 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260602-105210.log
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:10,758 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:10,758 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:19,583 INFO Popup security warning tidak muncul.
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:21,588 INFO Window ditemukan: FrmWelcomeLoading
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:22,380 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260602-105222-opened.png
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:22,881 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:26,388 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:27,213 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:27,839 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:28,372 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:29,809 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:30,725 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:31,537 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:32,162 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:32,695 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:34,134 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:34,947 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:35,750 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:41,251 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:42,059 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:47,560 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:48,366 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:50,367 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:51,186 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:52,687 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:53,489 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:55,490 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:56,308 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:57,809 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:58,943 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:52:59,944 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:00,566 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:01,097 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:01,966 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:02,599 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:03,417 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:04,039 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:04,850 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:06,851 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:07,670 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:09,170 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:09,989 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:11,490 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:12,309 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:14,311 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:15,128 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:16,629 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:17,446 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:22,947 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:23,753 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:26,764 INFO Popup Save As ditemukan: Save As
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:48,444 INFO File tersimpan dan stabil: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\downloads\JO_20260602_105326.xlsx
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:48,945 INFO Step: {'name': 'Tunggu proses export Excel', 'action': 'wait', 'seconds': 5}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:54,446 INFO Step: {'name': 'Close export dialog', 'action': 'click', 'x': 1039, 'y': 613}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:55,253 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:57,754 INFO Step: {'name': 'Close APK APS', 'action': 'click', 'x': 1891, 'y': 11}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:53:58,575 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:54:01,077 INFO Step: {'name': 'Tutup peringatan aplikasi sudah berjalan (jika muncul)', 'action': 'click', 'x': 971, 'y': 614}
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:54:01,399 INFO File disalin ke archive: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\archive\JO_20260602_105326.xlsx
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:54:01,512 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260602-105401-finished.png
+[2026-06-02 10:54:01] [Master Scheduler] [APS RPA] 2026-06-02 10:54:01,512 INFO Selesai.
+[2026-06-02 10:54:01] [Master Scheduler] RPA APS RPA selesai dengan sukses.
+[2026-06-02 10:54:01] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-02 13:43:34] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 2 jam dari 07:00 sampai 23:00.
+[2026-06-02 13:43:34] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-02 13:43:34] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-02 13:43:34] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:36] Step: Buka halaman login CIUROX
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:39] Step: Tunggu form login
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:39] Step: Isi username
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:39] Step: Isi password
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:39] Step: Klik login
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:39] Step: Tunggu halaman setelah login
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:41] Step: Buka Accessories GM
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:41] Step: Tunggu filter Accessories GM
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:42] Step: Isi tanggal awal bulan ini
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:42] Step: Isi tanggal sampai hari ini
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:42] Step: Pilih status COMPLETED
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:42] Step: Export Controlist Accessories
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:42] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260602_134342.xlsx
+[2026-06-02 13:43:42] [Master Scheduler] [Accessories RPA] [2026-06-02 13:43:42] RPA Accessories selesai.
+[2026-06-02 13:43:42] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-02 13:43:42] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-02 13:43:42] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:43:42] Mulai download report
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:43:49] Login berhasil
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:43:52] Halaman report berhasil dibuka
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:43:52] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:43:52] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:01] Display data diklik
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:01] Jumlah row response: 200
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:02] Fetch page 1/5: total row sementara 200
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:09] Fetch page 5/5: total row sementara 876
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:09] Jumlah row export: 876
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:09] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:17] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:22] Display data diklik
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:22] Jumlah row response: 200
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:23] Fetch page 1/6: total row sementara 200
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:31] Fetch page 6/6: total row sementara 1071
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:31] Jumlah row export: 1071
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:31] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:39] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:44] Display data diklik
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:44] Jumlah row response: 200
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:45] Fetch page 1/8: total row sementara 200
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:56] Fetch page 8/8: total row sementara 1597
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:56] Jumlah row export: 1597
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:44:56] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx
+[2026-06-02 13:45:04] [Master Scheduler] [Engage RPA] [2026-06-02 13:45:04] Selesai download report
+[2026-06-02 13:45:04] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-02 13:45:04] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-02 13:45:04] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:05,088 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260602-134505.log
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:05,088 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:05,088 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:13,957 INFO Popup security warning tidak muncul.
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:15,969 INFO Window ditemukan: Login
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:16,684 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260602-134516-opened.png
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:17,185 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:20,691 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:21,514 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:22,138 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:22,670 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:24,102 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:25,013 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:25,817 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:26,442 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:26,975 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:28,399 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:29,212 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:30,023 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:35,524 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:36,345 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:41,846 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:42,650 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:44,651 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:45,472 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:46,973 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:47,791 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:49,792 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:50,612 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:52,113 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:53,247 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:54,248 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:54,872 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:55,406 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:56,279 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:56,911 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:57,717 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:58,341 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:45:59,152 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:01,154 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:01,973 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:03,474 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:04,292 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:05,793 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:06,610 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:08,612 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:09,430 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:10,932 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:11,748 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:17,250 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:18,072 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:20,578 INFO Popup Save As ditemukan: Save As
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:34,745 INFO File tersimpan dan stabil: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\downloads\JO_20260602_134620.xlsx
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:35,246 INFO Step: {'name': 'Tunggu proses export Excel', 'action': 'wait', 'seconds': 5}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:40,747 INFO Step: {'name': 'Close export dialog', 'action': 'click', 'x': 1039, 'y': 613}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:41,565 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:44,066 INFO Step: {'name': 'Close APK APS', 'action': 'click', 'x': 1891, 'y': 11}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:44,885 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:47,386 INFO Step: {'name': 'Tutup peringatan aplikasi sudah berjalan (jika muncul)', 'action': 'click', 'x': 971, 'y': 614}
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:47,705 INFO File disalin ke archive: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\archive\JO_20260602_134620.xlsx
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:47,825 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260602-134647-finished.png
+[2026-06-02 13:46:47] [Master Scheduler] [APS RPA] 2026-06-02 13:46:47,825 INFO Selesai.
+[2026-06-02 13:46:47] [Master Scheduler] RPA APS RPA selesai dengan sukses.
+[2026-06-02 13:46:47] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-02 13:46:47] [Master Scheduler] Run berikutnya: 2026-06-02 15:00:00
+[2026-06-02 15:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-02 15:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-02 15:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:00] Step: Buka halaman login CIUROX
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:01] Step: Tunggu form login
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:01] Step: Isi username
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:01] Step: Isi password
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:01] Step: Klik login
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:02] Step: Tunggu halaman setelah login
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:04] Step: Buka Accessories GM
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:04] Step: Tunggu filter Accessories GM
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:04] Step: Isi tanggal awal bulan ini
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:04] Step: Isi tanggal sampai hari ini
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:04] Step: Pilih status COMPLETED
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:04] Step: Export Controlist Accessories
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:05] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260602_150004.xlsx
+[2026-06-02 15:00:05] [Master Scheduler] [Accessories RPA] [2026-06-02 15:00:05] RPA Accessories selesai.
+[2026-06-02 15:00:05] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-02 15:00:05] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-02 15:00:05] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-02 15:00:05] [Master Scheduler] [Engage RPA] [2026-06-02 15:00:05] Download sekali dilewati karena scheduler/proses lain masih berjalan.
+[2026-06-02 15:00:05] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-02 15:00:05] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-02 15:00:05] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:05,900 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260602-150005.log
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:05,901 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:05,901 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:15,074 INFO Popup security warning tidak muncul.
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:17,080 INFO Window ditemukan: FrmWelcomeLoading
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:17,783 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260602-150017-opened.png
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:18,284 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:21,786 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:22,608 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:23,233 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:23,764 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:25,186 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:26,097 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:26,906 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:27,529 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:28,060 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:29,491 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:30,298 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:31,110 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:36,612 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:37,417 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:42,918 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:43,723 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:45,723 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:46,544 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:48,044 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:48,861 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:50,862 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:51,681 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:53,181 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:54,303 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:55,304 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:55,927 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:56,459 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:57,335 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:57,965 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:58,771 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:00:59,395 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:00,208 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:02,209 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:03,027 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:04,527 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:05,345 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:06,846 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:07,665 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:09,666 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:10,470 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:11,971 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:12,774 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:18,275 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:19,093 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] 2026-06-02 15:01:49,216 ERROR RPA gagal.
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] Traceback (most recent call last):
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]     raise SystemExit(main())
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]                      ~~~~^^
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 581, in main
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]     run_step(step)
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]     ~~~~~~~~^^^^^^
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 468, in run_step
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]     save_as_file(step)
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]     ~~~~~~~~~~~~^^^^^^
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 353, in save_as_file
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA]     raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA] TimeoutError: Popup Save As tidak ditemukan. Window terlihat: AS_test_result.html - samplemonitoring - Visual Studio Code, Welcome - dashboard_gm - Visual Studio Code, Tracking Issue Sistem - Google Sheets - Google Chrome, Sticky Notes, Kalibrasi Hygrometer - Mozilla Thunderbird, [Read-Only]Digital Project Charter 2026-MRTL HEAT - SIMPLE.pptx - WPS Office, Settings, Settings, Windows Input Experience, Sticky Notes
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR] Traceback (most recent call last):
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]     raise SystemExit(main())
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]                      ~~~~^^
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 581, in main
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]     run_step(step)
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~^^^^^^
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 468, in run_step
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]     save_as_file(step)
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~~~~~^^^^^^
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 353, in save_as_file
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR]     raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+[2026-06-02 15:01:49] [Master Scheduler] [APS RPA ERR] TimeoutError: Popup Save As tidak ditemukan. Window terlihat: AS_test_result.html - samplemonitoring - Visual Studio Code, Welcome - dashboard_gm - Visual Studio Code, Tracking Issue Sistem - Google Sheets - Google Chrome, Sticky Notes, Kalibrasi Hygrometer - Mozilla Thunderbird, [Read-Only]Digital Project Charter 2026-MRTL HEAT - SIMPLE.pptx - WPS Office, Settings, Settings, Windows Input Experience, Sticky Notes
+[2026-06-02 15:01:49] [Master Scheduler] RPA APS RPA gagal dengan exit code 1.
+[2026-06-02 15:01:49] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-02 15:02:49] [Master Scheduler] Run berikutnya: 2026-06-02 17:00:00
+[2026-06-03 07:02:56] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 2 jam dari 07:00 sampai 23:00.
+[2026-06-03 07:02:57] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 07:02:57] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-03 07:02:57] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:06] Step: Buka halaman login CIUROX
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:09] Step: Tunggu form login
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:09] Step: Isi username
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:09] Step: Isi password
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:09] Step: Klik login
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:10] Step: Tunggu halaman setelah login
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Step: Buka Accessories GM
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Step: Tunggu filter Accessories GM
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Step: Isi tanggal awal bulan ini
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Step: Isi tanggal sampai hari ini
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Step: Pilih status COMPLETED
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Step: Export Controlist Accessories
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:12] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260603_070312.xlsx
+[2026-06-03 07:03:13] [Master Scheduler] [Accessories RPA] [2026-06-03 07:03:13] RPA Accessories selesai.
+[2026-06-03 07:03:13] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-03 07:03:13] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-03 07:03:13] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:13] Mulai download report
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:19] Login berhasil
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:22] Halaman report berhasil dibuka
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:22] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:22] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:27] Display data diklik
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:27] Jumlah row response: 200
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:28] Fetch page 1/9: total row sementara 200
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:44] Fetch page 9/9: total row sementara 1632
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:44] Jumlah row export: 1632
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:44] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32_inflow_070344.xlsx
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:44] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:52] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:58] Display data diklik
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:03:58] Jumlah row response: 200
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:00] Fetch page 1/8: total row sementara 200
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:16] Fetch page 8/8: total row sementara 1510
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:16] Jumlah row export: 1510
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:16] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_inflow_070416.xlsx
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:16] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:24] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:30] Display data diklik
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:30] Jumlah row response: 200
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:32] Fetch page 1/12: total row sementara 200
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:49] Fetch page 10/12: total row sementara 2000
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:55] Fetch page 12/12: total row sementara 2256
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:55] Jumlah row export: 2256
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:55] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_070455.xlsx
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:04:55] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx
+[2026-06-03 07:05:03] [Master Scheduler] [Engage RPA] [2026-06-03 07:05:03] Selesai download report
+[2026-06-03 07:05:03] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-03 07:05:03] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-03 07:05:03] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:03,907 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260603-070503.log
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:03,908 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:03,908 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:12,643 INFO Popup security warning tidak muncul.
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:14,654 INFO Window ditemukan: Login
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:15,370 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-070515-opened.png
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:15,871 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:19,373 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:20,184 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:20,810 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:21,342 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:22,786 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:23,698 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:24,503 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:25,128 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:25,660 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:27,106 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:27,921 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:28,725 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:34,225 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:35,028 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:40,529 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:41,342 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:43,343 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:44,156 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:45,657 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:46,462 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:48,463 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:49,279 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:50,780 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:51,898 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:52,900 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:53,525 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:54,059 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:54,936 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:55,570 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:56,387 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:57,013 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:57,821 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:05:59,823 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:00,641 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:02,142 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:02,959 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:04,460 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:05,278 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:07,280 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:08,098 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:09,600 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:10,417 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:15,920 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:16,740 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:20,251 INFO Popup Save As ditemukan: Save As
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:43,924 INFO File tersimpan dan stabil: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\downloads\JO_20260603_070620.xlsx
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:44,425 INFO Step: {'name': 'Tunggu proses export Excel', 'action': 'wait', 'seconds': 5}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:49,926 INFO Step: {'name': 'Close export dialog', 'action': 'click', 'x': 1039, 'y': 613}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:50,739 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:53,241 INFO Step: {'name': 'Close APK APS', 'action': 'click', 'x': 1891, 'y': 11}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:54,061 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:56,563 INFO Step: {'name': 'Tutup peringatan aplikasi sudah berjalan (jika muncul)', 'action': 'click', 'x': 971, 'y': 614}
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:56,908 INFO File disalin ke archive: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\archive\JO_20260603_070620.xlsx
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:57,062 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-070656-finished.png
+[2026-06-03 07:06:57] [Master Scheduler] [APS RPA] 2026-06-03 07:06:57,063 INFO Selesai.
+[2026-06-03 07:06:57] [Master Scheduler] RPA APS RPA selesai dengan sukses.
+[2026-06-03 07:06:57] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 07:06:57] [Master Scheduler] Run berikutnya: 2026-06-03 09:00:00
+[2026-06-03 09:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 09:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-03 09:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:09] Step: Buka halaman login CIUROX
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:12] Step: Tunggu form login
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:12] Step: Isi username
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:12] Step: Isi password
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:12] Step: Klik login
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:12] Step: Tunggu halaman setelah login
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:14] Step: Buka Accessories GM
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:15] Step: Tunggu filter Accessories GM
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:15] Step: Isi tanggal awal bulan ini
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:15] Step: Isi tanggal sampai hari ini
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:15] Step: Pilih status COMPLETED
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:15] Step: Export Controlist Accessories
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:16] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260603_090015.xlsx
+[2026-06-03 09:00:16] [Master Scheduler] [Accessories RPA] [2026-06-03 09:00:16] RPA Accessories selesai.
+[2026-06-03 09:00:16] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-03 09:00:16] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-03 09:00:16] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:16] Mulai download report
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:23] Login berhasil
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:26] Halaman report berhasil dibuka
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:26] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:26] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:33] Display data diklik
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:33] Jumlah row response: 200
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:35] Fetch page 1/10: total row sementara 200
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:59] Fetch page 10/10: total row sementara 1984
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:59] Jumlah row export: 1984
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:59] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32_inflow_090059.xlsx
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:00:59] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:08] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:14] Display data diklik
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:14] Jumlah row response: 200
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:16] Fetch page 1/9: total row sementara 200
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:36] Fetch page 9/9: total row sementara 1671
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:36] Jumlah row export: 1671
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:36] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_inflow_090136.xlsx
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:36] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:44] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:49] Display data diklik
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:49] Jumlah row response: 200
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:01:52] Fetch page 1/14: total row sementara 200
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:02:16] Fetch page 10/14: total row sementara 2000
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:02:29] Fetch page 14/14: total row sementara 2601
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:02:29] Jumlah row export: 2601
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:02:29] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_090229.xlsx
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:02:29] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx
+[2026-06-03 09:02:38] [Master Scheduler] [Engage RPA] [2026-06-03 09:02:38] Selesai download report
+[2026-06-03 09:02:38] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-03 09:02:38] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-03 09:02:38] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:38,571 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260603-090238.log
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:38,572 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:38,572 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:47,310 INFO Popup security warning tidak muncul.
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:49,317 INFO Window ditemukan: FrmWelcomeLoading
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:49,997 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-090249-opened.png
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:50,498 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:54,005 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:54,822 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:55,448 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:55,982 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:57,420 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:58,328 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:59,141 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:02:59,768 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:00,301 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:01,752 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:02,563 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:03,378 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:08,879 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:09,684 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:15,185 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:15,990 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:17,991 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:18,809 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:20,310 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:21,112 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:23,113 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:23,930 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:25,433 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:26,568 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:27,569 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:28,192 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:28,724 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:29,596 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:30,231 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:31,040 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:31,665 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:32,479 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:34,480 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:35,296 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:36,798 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:37,614 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:39,116 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:39,931 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:41,932 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:42,751 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:44,252 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:45,071 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:50,573 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:51,394 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:03:55,414 INFO Popup Save As ditemukan: Save As
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:21,094 INFO File tersimpan dan stabil: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\downloads\JO_20260603_090355.xlsx
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:21,594 INFO Step: {'name': 'Tunggu proses export Excel', 'action': 'wait', 'seconds': 5}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:27,095 INFO Step: {'name': 'Close export dialog', 'action': 'click', 'x': 1039, 'y': 613}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:27,913 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:30,414 INFO Step: {'name': 'Close APK APS', 'action': 'click', 'x': 1891, 'y': 11}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:31,234 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:33,735 INFO Step: {'name': 'Tutup peringatan aplikasi sudah berjalan (jika muncul)', 'action': 'click', 'x': 971, 'y': 614}
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:34,080 INFO File disalin ke archive: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\archive\JO_20260603_090355.xlsx
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:34,215 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-090434-finished.png
+[2026-06-03 09:04:34] [Master Scheduler] [APS RPA] 2026-06-03 09:04:34,215 INFO Selesai.
+[2026-06-03 09:04:34] [Master Scheduler] RPA APS RPA selesai dengan sukses.
+[2026-06-03 09:04:34] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 09:05:34] [Master Scheduler] Run berikutnya: 2026-06-03 11:00:00
+[2026-06-03 11:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 11:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-03 11:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:06] Step: Buka halaman login CIUROX
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:09] Step: Tunggu form login
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:09] Step: Isi username
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:09] Step: Isi password
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:09] Step: Klik login
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:10] Step: Tunggu halaman setelah login
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:12] Step: Buka Accessories GM
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:12] Step: Tunggu filter Accessories GM
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:12] Step: Isi tanggal awal bulan ini
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:12] Step: Isi tanggal sampai hari ini
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:12] Step: Pilih status COMPLETED
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:12] Step: Export Controlist Accessories
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:13] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260603_110012.xlsx
+[2026-06-03 11:00:13] [Master Scheduler] [Accessories RPA] [2026-06-03 11:00:13] RPA Accessories selesai.
+[2026-06-03 11:00:13] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-03 11:00:13] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-03 11:00:13] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:13] Mulai download report
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:20] Login berhasil
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:23] Halaman report berhasil dibuka
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:23] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:23] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:32] Display data diklik
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:32] Jumlah row response: 200
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:00:35] Fetch page 1/14: total row sementara 200
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:04] Fetch page 10/14: total row sementara 2000
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:18] Fetch page 14/14: total row sementara 2784
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:18] Jumlah row export: 2784
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:18] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32_inflow_110118.xlsx
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:18] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:26] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:32] Display data diklik
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:32] Jumlah row response: 200
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:01:34] Fetch page 1/11: total row sementara 200
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:04] Fetch page 10/11: total row sementara 2000
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:09] Fetch page 11/11: total row sementara 2103
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:09] Jumlah row export: 2103
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:09] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_inflow_110209.xlsx
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:09] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:17] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:23] Display data diklik
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:23] Jumlah row response: 200
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:25] Fetch page 1/17: total row sementara 200
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:02:50] Fetch page 10/17: total row sementara 2000
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:03:12] Fetch page 17/17: total row sementara 3281
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:03:12] Jumlah row export: 3281
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:03:12] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_110312.xlsx
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:03:12] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx
+[2026-06-03 11:03:20] [Master Scheduler] [Engage RPA] [2026-06-03 11:03:20] Selesai download report
+[2026-06-03 11:03:20] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-03 11:03:20] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-03 11:03:20] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:20,520 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260603-110320.log
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:20,520 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:20,520 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:29,439 INFO Popup security warning tidak muncul.
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:31,450 INFO Window ditemukan: Login
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:32,104 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-110331-opened.png
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:32,604 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:36,106 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:36,943 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:37,566 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:38,098 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:39,539 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:40,454 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:41,280 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:41,905 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:42,437 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:43,864 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:44,673 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:45,499 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:51,000 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:51,813 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:57,315 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:03:58,129 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:00,130 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:00,934 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:02,436 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:03,249 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:05,250 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:06,054 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:07,555 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:08,686 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:09,688 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:10,313 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:10,845 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:11,720 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:12,352 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:13,186 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:13,812 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:14,629 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:16,631 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:17,469 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:18,971 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:19,777 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:21,278 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:22,093 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:24,095 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:24,906 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:26,408 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:27,212 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:32,713 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:04:33,530 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] 2026-06-03 11:05:03,724 ERROR RPA gagal.
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] Traceback (most recent call last):
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]     raise SystemExit(main())
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]                      ~~~~^^
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 581, in main
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]     run_step(step)
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]     ~~~~~~~~^^^^^^
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 468, in run_step
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]     save_as_file(step)
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]     ~~~~~~~~~~~~^^^^^^
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 353, in save_as_file
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA]     raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA] TimeoutError: Popup Save As tidak ditemukan. Window terlihat: Sticky Notes, logs - File Explorer, MRTL Dashboard Heat - Mozilla Thunderbird, [Read-Only]Digital Project Charter 2026-MRTL HEAT - SIMPLE.pptx - WPS Office, Settings, Settings, Windows Input Experience, Sticky Notes, Kualitas.php - samplemonitoring - Visual Studio Code, config.json - dashboard_gm - Visual Studio Code
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR] Traceback (most recent call last):
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]     raise SystemExit(main())
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]                      ~~~~^^
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 581, in main
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]     run_step(step)
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~^^^^^^
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 468, in run_step
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]     save_as_file(step)
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~~~~~^^^^^^
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 353, in save_as_file
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR]     raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+[2026-06-03 11:05:03] [Master Scheduler] [APS RPA ERR] TimeoutError: Popup Save As tidak ditemukan. Window terlihat: Sticky Notes, logs - File Explorer, MRTL Dashboard Heat - Mozilla Thunderbird, [Read-Only]Digital Project Charter 2026-MRTL HEAT - SIMPLE.pptx - WPS Office, Settings, Settings, Windows Input Experience, Sticky Notes, Kualitas.php - samplemonitoring - Visual Studio Code, config.json - dashboard_gm - Visual Studio Code
+[2026-06-03 11:05:03] [Master Scheduler] RPA APS RPA gagal dengan exit code 1.
+[2026-06-03 11:05:03] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 11:06:03] [Master Scheduler] Run berikutnya: 2026-06-03 13:00:00
+[2026-06-03 13:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 13:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-03 13:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:02] Step: Buka halaman login CIUROX
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:05] Step: Tunggu form login
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:05] Step: Isi username
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:05] Step: Isi password
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:05] Step: Klik login
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:05] Step: Tunggu halaman setelah login
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:07] Step: Buka Accessories GM
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:07] Step: Tunggu filter Accessories GM
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:08] Step: Isi tanggal awal bulan ini
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:08] Step: Isi tanggal sampai hari ini
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:08] Step: Pilih status COMPLETED
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:08] Step: Export Controlist Accessories
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:08] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260603_130008.xlsx
+[2026-06-03 13:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 13:00:08] RPA Accessories selesai.
+[2026-06-03 13:00:09] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-03 13:00:09] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-03 13:00:09] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:09] Mulai download report
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:15] Login berhasil
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:18] Halaman report berhasil dibuka
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:18] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:18] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:24] Display data diklik
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:24] Jumlah row response: 200
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:26] Fetch page 1/15: total row sementara 200
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:00:52] Fetch page 10/15: total row sementara 2000
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:10] Fetch page 15/15: total row sementara 2996
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:10] Jumlah row export: 2996
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:10] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32_inflow_130110.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:10] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:18] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:24] Display data diklik
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:24] Jumlah row response: 200
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:26] Fetch page 1/15: total row sementara 200
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:01:53] Fetch page 10/15: total row sementara 2000
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:08] Fetch page 15/15: total row sementara 2882
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:08] Jumlah row export: 2882
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:08] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_inflow_130208.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:08] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:16] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:23] Display data diklik
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:23] Jumlah row response: 200
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:25] Fetch page 1/19: total row sementara 200
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:02:50] Fetch page 10/19: total row sementara 2000
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:23] Fetch page 19/19: total row sementara 3722
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:23] Jumlah row export: 3722
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:23] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_130323.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:25] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_130323.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:27] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_130323.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:29] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_130323.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:31] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_130323.xlsx
+[2026-06-03 13:03:31] [Master Scheduler] [Engage RPA] [2026-06-03 13:03:31] Download gagal: Tidak bisa menulis C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx. Tutup file Excel tersebut jika sedang dibuka.
+[2026-06-03 13:03:31] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-03 13:03:31] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-03 13:03:31] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] 2026-06-03 13:03:31,679 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260603-130331.log
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] 2026-06-03 13:03:31,679 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] 2026-06-03 13:03:31,679 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] 2026-06-03 13:03:40,523 INFO Popup security warning tidak muncul.
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] 2026-06-03 13:03:42,538 INFO Window ditemukan: Login
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] 2026-06-03 13:03:43,042 ERROR RPA gagal.
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] Traceback (most recent call last):
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     raise SystemExit(main())
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]                      ~~~~^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 577, in main
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     screenshot("opened")
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     ~~~~~~~~~~^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 381, in screenshot
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     ImageGrab.grab().save(path)
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     ~~~~~~~~~~~~~~^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]   File "C:\Users\iso\AppData\Local\Programs\Python\Python314\Lib\site-packages\PIL\ImageGrab.py", line 61, in grab
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     offset, size, data = Image.core.grabscreen_win32(
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]         include_layered_windows,
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]         ^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]         all_screens,
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]         ^^^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]         int(window) if window is not None else 0,
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     )
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA]     ^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA] OSError: screen grab failed
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR] Traceback (most recent call last):
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     raise SystemExit(main())
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]                      ~~~~^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 577, in main
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     screenshot("opened")
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~~~^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 381, in screenshot
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     ImageGrab.grab().save(path)
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~~~~~~~^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]   File "C:\Users\iso\AppData\Local\Programs\Python\Python314\Lib\site-packages\PIL\ImageGrab.py", line 61, in grab
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     offset, size, data = Image.core.grabscreen_win32(
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]         include_layered_windows,
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]         ^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]         all_screens,
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]         ^^^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]         int(window) if window is not None else 0,
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     )
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR]     ^
+[2026-06-03 13:03:43] [Master Scheduler] [APS RPA ERR] OSError: screen grab failed
+[2026-06-03 13:03:43] [Master Scheduler] RPA APS RPA gagal dengan exit code 1.
+[2026-06-03 13:03:43] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 13:04:43] [Master Scheduler] Run berikutnya: 2026-06-03 15:00:00
+[2026-06-03 15:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 15:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-03 15:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:02] Step: Buka halaman login CIUROX
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:05] Step: Tunggu form login
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:05] Step: Isi username
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:05] Step: Isi password
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:05] Step: Klik login
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:05] Step: Tunggu halaman setelah login
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:07] Step: Buka Accessories GM
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:08] Step: Tunggu filter Accessories GM
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:08] Step: Isi tanggal awal bulan ini
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:08] Step: Isi tanggal sampai hari ini
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:08] Step: Pilih status COMPLETED
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:08] Step: Export Controlist Accessories
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:09] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260603_150008.xlsx
+[2026-06-03 15:00:09] [Master Scheduler] [Accessories RPA] [2026-06-03 15:00:09] RPA Accessories selesai.
+[2026-06-03 15:00:09] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-03 15:00:09] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-03 15:00:09] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:09] Mulai download report
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:16] Login berhasil
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:20] Halaman report berhasil dibuka
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:20] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:20] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:38] Display data diklik
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:38] Jumlah row response: 200
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:00:42] Fetch page 1/12: total row sementara 200
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:26] Fetch page 10/12: total row sementara 2000
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:33] Fetch page 12/12: total row sementara 2236
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:33] Jumlah row export: 2236
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:33] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32_inflow_150133.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:33] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:41] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:48] Display data diklik
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:48] Jumlah row response: 200
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:01:55] Fetch page 1/17: total row sementara 200
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:02:27] Fetch page 10/17: total row sementara 2000
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:02:53] Fetch page 17/17: total row sementara 3381
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:02:53] Jumlah row export: 3381
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:02:53] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_inflow_150253.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:02:53] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:03:01] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:03:08] Display data diklik
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:03:08] Jumlah row response: 200
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:03:13] Fetch page 1/21: total row sementara 200
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:03:55] Fetch page 10/21: total row sementara 2000
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:32] Fetch page 20/21: total row sementara 4000
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:35] Fetch page 21/21: total row sementara 4149
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:35] Jumlah row export: 4149
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:35] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_150435.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:38] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_150435.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:40] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_150435.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:42] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_150435.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:44] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-03\32a_outflow_150435.xlsx
+[2026-06-03 15:04:44] [Master Scheduler] [Engage RPA] [2026-06-03 15:04:44] Download gagal: Tidak bisa menulis C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx. Tutup file Excel tersebut jika sedang dibuka.
+[2026-06-03 15:04:44] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-03 15:04:44] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-03 15:04:44] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:44,433 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260603-150444.log
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:44,433 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:44,433 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:53,456 INFO Popup security warning tidak muncul.
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:55,465 INFO Window ditemukan: Login
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:56,147 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-150455-opened.png
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:04:56,648 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:00,156 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:00,966 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:01,593 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:02,125 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:03,553 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:04,463 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:05,285 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:05,912 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:06,444 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:07,879 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:08,687 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:09,504 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:15,005 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:15,811 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:21,312 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:22,117 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:24,118 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:24,937 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:26,439 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:27,256 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:29,256 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:30,077 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:31,578 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:32,710 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:33,710 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:34,336 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:34,867 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:35,739 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:36,373 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:37,182 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:37,807 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:38,618 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:40,620 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:41,437 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:42,939 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:43,756 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:45,257 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:46,076 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:48,077 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:48,893 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:50,394 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:51,215 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:56,715 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:57,519 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:05:59,527 INFO Popup Save As ditemukan: Save As
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:16,197 INFO File tersimpan dan stabil: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\downloads\JO_20260603_150559.xlsx
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:16,697 INFO Step: {'name': 'Tunggu proses export Excel', 'action': 'wait', 'seconds': 5}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:22,198 INFO Step: {'name': 'Close export dialog', 'action': 'click', 'x': 1039, 'y': 613}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:23,013 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:25,514 INFO Step: {'name': 'Close APK APS', 'action': 'click', 'x': 1891, 'y': 11}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:26,332 INFO Step: {'name': 'Tunggu hasil close dialog selesai', 'action': 'wait', 'seconds': 2}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:28,834 INFO Step: {'name': 'Tutup peringatan aplikasi sudah berjalan (jika muncul)', 'action': 'click', 'x': 971, 'y': 614}
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:29,163 INFO File disalin ke archive: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\archive\JO_20260603_150559.xlsx
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:29,271 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260603-150629-finished.png
+[2026-06-03 15:06:29] [Master Scheduler] [APS RPA] 2026-06-03 15:06:29,272 INFO Selesai.
+[2026-06-03 15:06:29] [Master Scheduler] RPA APS RPA selesai dengan sukses.
+[2026-06-03 15:06:29] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-03 15:07:29] [Master Scheduler] Run berikutnya: 2026-06-03 17:00:00
+[2026-06-04 07:15:04] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 2 jam dari 07:00 sampai 23:00.
+[2026-06-04 07:15:04] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-04 07:15:04] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-04 07:15:04] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:12] Step: Buka halaman login CIUROX
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:15] Step: Tunggu form login
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:15] Step: Isi username
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:15] Step: Isi password
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:15] Step: Klik login
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:15] Step: Tunggu halaman setelah login
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:17] Step: Buka Accessories GM
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:17] Step: Tunggu filter Accessories GM
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:17] Step: Isi tanggal awal bulan ini
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:17] Step: Isi tanggal sampai hari ini
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:17] Step: Pilih status COMPLETED
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:17] Step: Export Controlist Accessories
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:18] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST_20260604_071517.xlsx
+[2026-06-04 07:15:18] [Master Scheduler] [Accessories RPA] [2026-06-04 07:15:18] RPA Accessories selesai.
+[2026-06-04 07:15:18] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-04 07:15:18] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-04 07:15:18] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:19] Mulai download report
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:25] Login berhasil
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:28] Halaman report berhasil dibuka
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:28] Proses periode Jun 2026: 2026-06-01 sampai 2026-06-30
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:28] Proses download Storage=32, Direction=1, Periode=Jun 2026
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:34] Display data diklik
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:34] Jumlah row response: 200
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:15:37] Fetch page 1/18: total row sementara 200
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:07] Fetch page 10/18: total row sementara 2000
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:41] Fetch page 18/18: total row sementara 3504
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:41] Jumlah row export: 3504
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:41] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-04\32_inflow_071641.xlsx
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:41] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:49] Proses download Storage=32a, Direction=1, Periode=Jun 2026
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:55] Display data diklik
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:55] Jumlah row response: 200
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:16:57] Fetch page 1/22: total row sementara 200
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:17:23] Fetch page 10/22: total row sementara 2000
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:01] Fetch page 20/22: total row sementara 4000
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:09] Fetch page 22/22: total row sementara 4203
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:09] Jumlah row export: 4203
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:09] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-04\32a_inflow_071809.xlsx
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:09] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:17] Proses download Storage=32a, Direction=2, Periode=Jun 2026
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:24] Display data diklik
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:24] Jumlah row response: 200
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:27] Fetch page 1/22: total row sementara 200
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:18:56] Fetch page 10/22: total row sementara 2000
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:19:36] Fetch page 20/22: total row sementara 4000
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:19:44] Fetch page 22/22: total row sementara 4234
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:19:44] Jumlah row export: 4234
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:19:44] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-04\32a_outflow_071944.xlsx
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:19:44] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_outflow.xlsx
+[2026-06-04 07:19:52] [Master Scheduler] [Engage RPA] [2026-06-04 07:19:52] Selesai download report
+[2026-06-04 07:19:52] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-04 07:19:52] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-04 07:19:52] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:19:52,693 INFO Log: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\logs\run-20260604-071952.log
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:19:52,693 INFO Membuka shortcut: C:\Users\iso\Desktop\IOS-APS - Shortcut.lnk
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:19:52,693 INFO Bypass Open File security warning aktif untuk proses launch ini.
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:01,680 INFO Popup security warning tidak muncul.
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:03,686 INFO Window ditemukan: Login
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:04,524 INFO Screenshot: C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\screenshots\20260604-072004-opened.png
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:05,026 INFO Step: {'name': 'Tunggu form login siap', 'action': 'wait', 'seconds': 3}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:08,534 INFO Step: {'name': 'Klik field username', 'action': 'click', 'x': 1027, 'y': 539}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:09,348 INFO Step: {'name': 'Pilih semua isi username lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:09,972 INFO Step: {'name': 'Hapus username lama', 'action': 'key', 'key': 'delete'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:10,504 INFO Step: {'name': 'Bersihkan sisa username lama', 'action': 'key', 'key': 'backspace', 'count': 30}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:11,925 INFO Step: {'name': 'Isi username dari .env', 'action': 'type_env', 'env': 'APS_USERNAME', 'text': '***'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:12,834 INFO Step: {'name': 'Klik field password', 'action': 'click', 'x': 1054, 'y': 578, 'text': '***'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:13,635 INFO Step: {'name': 'Pilih semua isi password lama', 'action': 'hotkey', 'keys': ['ctrl', 'a'], 'text': '***'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:14,257 INFO Step: {'name': 'Hapus password lama', 'action': 'key', 'key': 'delete', 'text': '***'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:14,788 INFO Step: {'name': 'Bersihkan sisa password lama', 'action': 'key', 'key': 'backspace', 'count': 30, 'text': '***'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:16,208 INFO Step: {'name': 'Isi password dari .env', 'action': 'type_env', 'env': 'APS_PASSWORD', 'text': '***'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:17,017 INFO Step: {'name': 'Klik tombol Login', 'action': 'click', 'x': 1054, 'y': 672}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:17,819 INFO Step: {'name': 'Tunggu halaman utama APS terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:23,321 INFO Step: {'name': 'Klik menu JO', 'action': 'click', 'x': 139, 'y': 70}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:24,124 INFO Step: {'name': 'Tunggu halaman JO terbuka', 'action': 'wait', 'seconds': 5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:29,626 INFO Step: {'name': 'Buka dropdown Factory', 'action': 'click', 'x': 290, 'y': 123}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:30,428 INFO Step: {'name': 'Tunggu dropdown Factory terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:32,430 INFO Step: {'name': 'Pilih nilai Factory', 'action': 'click', 'x': 260, 'y': 157}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:33,232 INFO Step: {'name': 'Tunggu nilai Factory terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:34,734 INFO Step: {'name': 'Buka dropdown Floor', 'action': 'click', 'x': 529, 'y': 127}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:35,537 INFO Step: {'name': 'Tunggu dropdown Floor terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:37,538 INFO Step: {'name': 'Pilih nilai Floor', 'action': 'click', 'x': 457, 'y': 145}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:38,340 INFO Step: {'name': 'Tunggu nilai Floor terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:39,841 INFO Step: {'name': 'Klik field Delivery Date From', 'action': 'click', 'x': 777, 'y': 118, 'count': 2}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:40,946 INFO Step: {'name': 'Tunggu fokus Delivery Date From', 'action': 'wait', 'seconds': 0.5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:41,946 INFO Step: {'name': 'Pilih semua tanggal From lama', 'action': 'hotkey', 'keys': ['ctrl', 'a']}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:42,569 INFO Step: {'name': 'Hapus tanggal From lama', 'action': 'key', 'key': 'delete'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:43,101 INFO Step: {'name': 'Bersihkan sisa tanggal From lama', 'action': 'key', 'key': 'backspace', 'count': 12}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:43,969 INFO Step: {'name': 'Isi tanggal From awal bulan ini', 'action': 'paste_month_date', 'which': 'start', 'months_offset': 0, 'format': '%d/%m/%Y'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:44,603 INFO Step: {'name': 'Klik field Delivery Date To', 'action': 'click', 'x': 886, 'y': 125}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:45,406 INFO Step: {'name': 'Isi tanggal To akhir bulan 3 bulan ke depan', 'action': 'paste_month_date', 'which': 'end', 'months_offset': 3, 'format': '%d/%m/%Y'}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:46,032 INFO Step: {'name': 'Buka dropdown Status', 'action': 'click', 'x': 1049, 'y': 117}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:46,834 INFO Step: {'name': 'Tunggu dropdown Status terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:48,836 INFO Step: {'name': 'Pilih nilai Status', 'action': 'click', 'x': 1019, 'y': 138}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:49,639 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:51,141 INFO Step: {'name': 'Klik Ok pada status terpilih', 'action': 'click', 'x': 1112, 'y': 235}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:51,944 INFO Step: {'name': 'Tunggu nilai Status terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:53,446 INFO Step: {'name': 'Buka dropdown Firm Order', 'action': 'click', 'x': 1062, 'y': 142}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:54,248 INFO Step: {'name': 'Tunggu dropdown Firm Order terbuka', 'action': 'wait', 'seconds': 1.5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:56,251 INFO Step: {'name': 'Pilih nilai Firm Order', 'action': 'click', 'x': 1020, 'y': 210}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:57,055 INFO Step: {'name': 'Tunggu nilai Firm Order terpilih', 'action': 'wait', 'seconds': 1}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:58,557 INFO Step: {'name': 'Klik Refresh', 'action': 'click', 'x': 874, 'y': 61}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:20:59,359 INFO Step: {'name': 'Tunggu hasil refresh selesai', 'action': 'wait', 'seconds': 5}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:21:04,861 INFO Step: {'name': 'Klik export To Excel', 'action': 'click', 'x': 1075, 'y': 59}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:21:05,664 INFO Step: {'name': 'Simpan file Excel ke folder downloads', 'action': 'save_as', 'title_contains': ['Save As', 'Save'], 'timeout_seconds': 30, 'directory': 'downloads', 'filename': 'JO_%Y%m%d_%H%M%S.xlsx', 'save_timeout_seconds': 120, 'stable_seconds': 2}
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] 2026-06-04 07:21:35,774 ERROR RPA gagal.
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] Traceback (most recent call last):
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]     raise SystemExit(main())
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]                      ~~~~^^
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 581, in main
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]     run_step(step)
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]     ~~~~~~~~^^^^^^
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 468, in run_step
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]     save_as_file(step)
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]     ~~~~~~~~~~~~^^^^^^
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 353, in save_as_file
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA]     raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA] TimeoutError: Popup Save As tidak ditemukan. Window terlihat: Sticky Notes, Windows Input Experience, Sticky Notes, Program Manager
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR] Traceback (most recent call last):
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 601, in <module>
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]     raise SystemExit(main())
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]                      ~~~~^^
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 581, in main
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]     run_step(step)
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~^^^^^^
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 468, in run_step
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]     save_as_file(step)
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]     ~~~~~~~~~~~~^^^^^^
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]   File "C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py", line 353, in save_as_file
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR]     raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+[2026-06-04 07:21:35] [Master Scheduler] [APS RPA ERR] TimeoutError: Popup Save As tidak ditemukan. Window terlihat: Sticky Notes, Windows Input Experience, Sticky Notes, Program Manager
+[2026-06-04 07:21:35] [Master Scheduler] RPA APS RPA gagal dengan exit code 1.
+[2026-06-04 07:21:35] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-04 07:21:35] [Master Scheduler] Run berikutnya: 2026-06-04 09:00:00
