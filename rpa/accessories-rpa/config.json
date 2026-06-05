@@ -67,7 +67,7 @@
       "action": "download",
       "selector": "button[onclick=\"submitExport()\"]",
       "directory": "downloads",
-      "filename": "CONTROLIST_%Y%m%d_%H%M%S.xlsx",
+      "filename": "CONTROLIST.xlsx",
       "timeout_ms": 120000,
       "force": true
     }

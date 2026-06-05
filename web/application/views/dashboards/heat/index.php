@@ -59,9 +59,28 @@
         .legend{display:flex;justify-content:flex-end;gap:10px;margin-top:4px;font-size:clamp(10px,.74vw,14px);color:var(--muted);font-weight:700}
         .legend span{display:inline-flex;align-items:center;gap:5px}.dot{width:clamp(8px,.58vw,11px);height:clamp(8px,.58vw,11px);border-radius:999px;display:inline-block;background:var(--brand)}.dot.alt{background:var(--accent)}.dot.output{background:var(--accent)}.line-key{width:clamp(16px,1.2vw,24px);height:0;border-top:3px solid #f59e0b;display:inline-block}
         .ready .chart-area{gap:clamp(20px,1.8vw,36px);padding-left:clamp(20px,2vw,36px);padding-right:clamp(20px,2vw,36px)}.ready .vbar{width:clamp(42px,3.25vw,64px);background:linear-gradient(180deg,var(--brand),#0f5268)}.ready .vbar small{background:#17202d;color:#fff}
-        .capacity{padding:11px 13px 10px}.capacity .chart-area{gap:clamp(18px,1.8vw,36px);padding-top:28px;background:repeating-linear-gradient(to top,var(--surface-soft) 0,var(--surface-soft) 15px,var(--grid) 16px)}
-        .capacity .chart-area{position:relative}.capacity .group{position:relative;z-index:2}.capacity .bars{position:relative}.capacity .vbar{width:clamp(34px,2.45vw,48px);background:linear-gradient(180deg,var(--brand),#0f5268)}.capacity .vbar.alt{background:linear-gradient(180deg,#9fc06a,#6d8737)}
-        .capacity .vbar small{background:#17202d;color:#fff}.capacity .vbar.alt small{background:#43591f;color:#fff}.capacity .input-line-chart{position:absolute;left:24px;right:24px;bottom:clamp(20px,1.24vw,25px);z-index:4;overflow:hidden;pointer-events:none}.capacity .input-line-chart polyline{fill:none;stroke:#f59e0b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.capacity .input-line-labels{position:absolute;left:24px;right:24px;bottom:clamp(20px,1.24vw,25px);z-index:6;pointer-events:none}.capacity .input-value{position:absolute;transform:translateX(-50%);background:#f59e0b;color:#fff;border-radius:5px;padding:2px 5px;font-size:clamp(9px,.68vw,12px);font-weight:900;line-height:1;white-space:nowrap;box-shadow:0 0 0 2px rgba(255,255,255,.72)}.capacity .y-baseline{position:absolute;left:12px;right:12px;bottom:clamp(20px,1.24vw,25px);z-index:1;border-top:2px solid #cbd5e1;pointer-events:none}.capacity .y-zero{position:absolute;left:8px;bottom:calc(clamp(20px,1.24vw,25px) - 7px);z-index:5;background:#fff;color:var(--muted);font-size:clamp(10px,.7vw,12px);font-weight:900;line-height:1;padding:1px 4px;border:1px solid #cbd5e1;border-radius:4px}
+        .capacity{padding:11px 13px 10px}
+        .capacity .chart-area{position:relative;z-index:1;min-height:0;flex:1;border:1px solid var(--grid);border-radius:7px;background:linear-gradient(180deg,#fff,var(--surface-soft));padding:0}
+        .capacity .group{position:relative;z-index:2}
+        .capacity .bars{position:relative}
+        .capacity .vbar{width:clamp(34px,2.45vw,48px);background:linear-gradient(180deg,var(--brand),#0f5268)}
+        .capacity .vbar.alt{background:linear-gradient(180deg,#9fc06a,#6d8737)}
+        .capacity .vbar small{background:#17202d;color:#fff}
+        .capacity .vbar.alt small{background:#43591f;color:#fff}
+        .capacity .input-line-chart{position:absolute;z-index:4;overflow:visible;pointer-events:none}
+        .capacity .input-line-chart polyline{fill:none;stroke:#f59e0b;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+        .capacity .input-line-labels{position:absolute;z-index:6;pointer-events:none}
+        .capacity .input-value{position:absolute;transform:translateX(-50%);background:#f59e0b;color:#fff;border-radius:5px;padding:2px 5px;font-size:clamp(9px,.68vw,12px);font-weight:900;line-height:1;white-space:nowrap;box-shadow:0 0 0 2px rgba(255,255,255,.72)}
+        .capacity .chart-gridline{position:absolute;border-top:1px solid var(--grid);height:0;pointer-events:none;z-index:1}
+        .capacity .chart-y-label{position:absolute;color:var(--muted);font-size:clamp(9px,.65vw,11px);font-weight:800;pointer-events:none;z-index:1;line-height:1}
+        #outputCapacityChart{flex-direction:row;gap:15px}
+        .chart-sidebar{width:115px;flex-shrink:0;border-right:1px solid var(--grid);padding:5px 12px 5px 0;display:flex;flex-direction:column;gap:12px}
+        .sidebar-title{font-size:clamp(11px,.8vw,14px);font-weight:900;color:var(--ink);letter-spacing:.05em;margin-bottom:2px}
+        .sidebar-item{display:flex;flex-direction:column;gap:3px}
+        .sidebar-label{display:inline-flex;align-items:center;gap:6px;font-size:clamp(9px,.68vw,11px);font-weight:800;color:var(--muted)}
+        .sidebar-label .dot{width:8px;height:8px;margin:0}
+        .sidebar-label .line-key{width:14px;height:0;border-top:3px solid #f59e0b}
+        .sidebar-value{font-size:clamp(16px,1.2vw,22px);font-weight:900;color:var(--ink);padding-left:14px}
         .kpi{background:linear-gradient(180deg,#fff,#f6fafc);border:1px solid rgba(219,228,238,.95);border-radius:7px;padding:12px;color:var(--ink);box-shadow:var(--shadow)}
         .kpi span{display:block;font-size:clamp(12px,.82vw,15px);font-weight:850;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi strong{display:block;margin-top:7px;font-size:clamp(26px,1.92vw,36px);line-height:1;font-weight:900;color:var(--ink)}.kpi small{font-size:clamp(14px,1vw,19px);font-weight:850;color:var(--muted)}
         .kpi.balance-detail{display:grid;grid-template-rows:auto minmax(0,1fr);gap:5px}.kpi-balance-list{min-height:0;display:grid;gap:2px;align-content:start}.kpi-balance-row{display:grid;grid-template-columns:minmax(70px,1fr) 8px minmax(54px,.8fr) 26px;gap:5px;align-items:center;color:var(--ink);font-size:clamp(12px,.84vw,16px);font-weight:750;line-height:1.08}.kpi-balance-row b{text-align:right;font-size:inherit}.kpi-balance-row small{color:var(--muted);font-size:clamp(10px,.7vw,13px);font-weight:750}
@@ -70,7 +89,7 @@
         .analytics{padding:11px 14px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:9px}.analytics h2,.summary h2,.priority h2{margin:0;color:var(--ink);font-size:clamp(13px,.92vw,17px);font-weight:850;text-transform:uppercase;letter-spacing:.02em}
         .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 72px 10px 12px;min-width:0;box-shadow:0 8px 20px rgba(16,32,51,.04);position:relative;overflow:visible}.metric span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.metric strong{display:block;margin-top:6px;color:var(--ink);font-size:clamp(17px,1.36vw,26px);line-height:1;font-weight:900}.metric small{font-size:clamp(10px,.7vw,13px);color:var(--muted);font-weight:800}.metric.good{border-color:#bbf7d0;background:#f8fff9}.metric.watch{border-color:#fde68a;background:#fffdf1}.metric.risk{border-color:#fecaca;background:#fff8f8}.detail-btn{position:absolute;right:10px;bottom:9px;height:24px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--brand);font-size:10px;font-weight:850;text-transform:uppercase;padding:0 9px;cursor:pointer}.detail-btn:hover{border-color:var(--brand);background:#eef7fa}.summary-item{padding-right:72px}.summary-item .detail-btn{height:22px;right:9px;bottom:8px;font-size:9px;padding:0 8px}
         .insights{min-height:0;overflow:hidden;display:grid;grid-template-columns:1fr;gap:7px;align-content:start}.insight{display:grid;grid-template-columns:9px 1fr;gap:9px;align-items:start;min-width:0;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px}.badge{width:9px;height:9px;border-radius:999px;margin-top:5px;background:var(--brand)}.insight.good .badge,.accuracy-row.good .badge,.action-row.good .badge{background:var(--ok)}.insight.watch .badge,.accuracy-row.watch .badge,.action-row.watch .badge{background:var(--warn)}.insight.risk .badge,.accuracy-row.risk .badge,.action-row.risk .badge{background:var(--risk)}.insight b{display:block;color:var(--ink);font-size:clamp(12px,.82vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.insight p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.72vw,13px);line-height:1.28}
-        .summary{padding:11px 14px;display:grid;grid-template-rows:auto auto auto auto;gap:9px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}.summary-item{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 72px 8px 10px;position:relative;overflow:visible}.summary-item span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.summary-item strong{display:block;margin-top:4px;color:var(--ink);font-size:clamp(15px,1vw,20px);font-weight:900}.accuracy-list{min-height:0;overflow:visible;display:grid;gap:7px;align-content:start}.accuracy-row{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px;display:grid;grid-template-columns:9px 1fr;gap:9px;position:relative;overflow:visible}.accuracy-row b{display:block;color:var(--ink);font-size:clamp(11px,.74vw,13px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.accuracy-row p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.section-label{margin:0;color:var(--muted);font-size:clamp(10px,.68vw,13px);font-weight:850;text-transform:uppercase}.action-card{padding:11px 14px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:9px}.action-card h2{margin:0;color:var(--ink);font-size:clamp(13px,.92vw,17px);font-weight:850;text-transform:uppercase;letter-spacing:.02em}.action-list{min-height:0;overflow:visible;display:grid;gap:8px;align-content:start}.action-row{display:grid;grid-template-columns:9px 1fr;gap:9px;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px;position:relative;overflow:visible}.action-row b{display:block;color:var(--ink);font-size:clamp(11px,.76vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.action-row p{margin:3px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.action-row p strong{color:var(--ink);font-weight:850}.hover-detail{display:none}
+        .summary{padding:11px 14px;display:grid;grid-template-rows:auto auto auto auto;gap:9px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}.summary-item{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 72px 8px 10px;position:relative;overflow:visible}.summary-item span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.summary-item strong{display:block;margin-top:4px;color:var(--ink);font-size:clamp(15px,1vw,20px);font-weight:900}.accuracy-list{min-height:0;overflow:visible;display:grid;gap:7px;align-content:start}.accuracy-row{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px;display:grid;grid-template-columns:9px 1fr;gap:9px;position:relative;overflow:visible}.accuracy-row b{display:block;color:var(--ink);font-size:clamp(11px,.74vw,13px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.accuracy-row p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.section-label{margin:0;color:var(--muted);font-size:clamp(10px,.68vw,13px);font-weight:850;text-transform:uppercase}.action-card{padding:11px 14px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:9px}.action-card h2{margin:0;color:var(--ink);font-size:clamp(13px,.92vw,17px);font-weight:850;text-transform:uppercase;letter-spacing:.02em}.action-list{min-height:0;overflow:visible;display:grid;gap:8px;align-content:start}.action-row{display:grid;grid-template-columns:9px 1fr;gap:9px;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px;position:relative;overflow:visible}.action-row b{display:block;color:var(--ink);font-size:clamp(11px,.76vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.action-row p{margin:3px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.action-row p strong{color:var(--ink);font-weight:850}.action-row .cap-row{display:grid;grid-template-columns:88px 1fr;gap:4px;margin:2px 0 0;align-items:baseline}.action-row .cap-label{font-size:clamp(9px,.64vw,11px);font-weight:900;text-transform:uppercase;color:var(--brand);white-space:nowrap}.action-row .cap-label.penyebab{color:var(--warn)}.action-row .cap-label.pencegahan{color:var(--ok)}.action-row .cap-label.penanganan{color:var(--risk)}.action-row .cap-label.masalah{color:var(--muted)}.action-row .cap-val{font-size:clamp(10px,.68vw,12px);color:var(--ink);line-height:1.26}.hover-detail{display:none}
         .priority{padding:11px 13px}.priority h2{margin-bottom:7px}.table-scroll{height:calc(100% - 27px);overflow:hidden;border:1px solid var(--grid);border-radius:7px;background:#fff}table{width:100%;border-collapse:collapse;color:var(--ink);font-size:clamp(14px,.9vw,16px)}th{height:32px;color:var(--muted);font-size:clamp(11px,.76vw,14px);text-align:left;text-transform:uppercase;background:var(--surface-soft);font-weight:850}td{border-bottom:1px solid var(--grid);vertical-align:middle}tbody tr:nth-child(even){background:#fafcff}th:first-child,td:first-child{width:32px;text-align:right;padding-right:8px}.order{width:142px;white-space:nowrap;font-size:clamp(12px,.82vw,15px)}.style{width:150px}.delivery{text-align:center}.num{text-align:right;font-weight:850}.unit{padding-left:5px;font-size:clamp(11px,.76vw,14px);color:var(--muted);font-weight:700}.priority table{height:100%}.priority tbody tr{height:10%}
         .modal-backdrop{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:58px 18px 28px;background:rgba(16,32,51,.42)}.modal-backdrop.open{display:flex}.detail-modal{width:min(1080px,94vw);height:auto;max-height:calc(100vh - 96px);border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 28px 70px rgba(16,32,51,.28);display:grid;grid-template-rows:52px minmax(0,1fr)}.modal-head{height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid var(--grid)}.modal-head h3{margin:0;color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.modal-close{width:32px;height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-size:22px;line-height:1;cursor:pointer}.modal-body{min-height:0;max-height:calc(100vh - 148px);padding:14px;overflow:auto}.calc-note{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.calc-item{border:1px solid var(--grid);border-radius:8px;background:var(--surface-soft);padding:9px 10px;text-align:center}.calc-item span{display:block;color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase}.calc-item strong{display:block;margin-top:4px;color:var(--ink);font-size:15px;font-weight:900}.calc-formula{grid-column:1/-1;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 10px;color:var(--muted);font-size:12px;font-weight:750;text-align:center}.detail-table{border:1px solid var(--grid);border-radius:8px;overflow:auto}.detail-table table{font-size:13px}.detail-table th,.detail-table td{padding:8px 10px;text-align:center}.detail-table th:first-child,.detail-table td:first-child{width:auto;text-align:center;padding-right:10px}.detail-table .num{text-align:center}.detail-empty{padding:18px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-weight:750;text-align:center}
         .workday-modal{width:min(980px,94vw)}.calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.calendar-tools button{height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 12px;cursor:pointer}.calendar-month-title{color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.calendar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.calendar-summary-item{border:1px solid var(--grid);border-radius:7px;background:var(--surface-soft);padding:7px 8px}.calendar-summary-item span{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase}.calendar-summary-item b{display:block;margin-top:3px;color:var(--ink);font-size:15px;font-weight:900}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calendar-head{padding:6px 4px;color:var(--muted);font-size:11px;font-weight:900;text-align:center;text-transform:uppercase}.calendar-day{min-height:62px;border:1px solid var(--grid);border-radius:7px;background:#fff;color:var(--ink);display:grid;grid-template-rows:auto 1fr;align-items:start;padding:6px;text-align:left;cursor:pointer}.calendar-day b{font-size:13px}.calendar-day span{align-self:end;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase}.calendar-day.out{opacity:.38}.calendar-day.sunday{background:#fff7f7}.calendar-day.work{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.calendar-day.half{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.calendar-day.holiday{border-color:#fecaca;background:#fee2e2;color:#991b1b}.calendar-day.today{box-shadow:inset 0 0 0 2px var(--brand)}.calendar-legend{display:flex;gap:12px;align-items:center;margin-top:10px;color:var(--muted);font-size:12px;font-weight:750}.calendar-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}.legend-work{background:#f0fdf4;border:1px solid #bbf7d0}.legend-half{background:#fff7ed;border:1px solid #fed7aa}.legend-off{background:#fee2e2;border:1px solid #fecaca}.legend-sunday{background:#fff7f7;border:1px solid var(--grid)}.calendar-help{margin-top:8px;color:var(--muted);font-size:12px;font-weight:750}.modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px}.modal-actions button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 14px;cursor:pointer}.modal-actions .primary{border-color:var(--brand);background:var(--brand);color:#fff}.workday-message{margin-right:auto;color:var(--muted);font-size:12px;font-weight:750}
@@ -332,45 +351,91 @@ function renderGroupedChart(target, rows, keys, options = {}) {
 
 function renderCapacityChart(target, rows) {
     const keys = ['capacity', 'output', 'input'];
-    const max = Math.max(...rows.flatMap(row => keys.map(key => Number(row[key]) || 0)), 1);
+    const maxVal = Math.max(...rows.flatMap(row => keys.map(key => Number(row[key]) || 0)), 1);
+
+    // Calculate Y-axis step and ticks
+    const possibleSteps = [500, 1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000, 100000];
+    let step = possibleSteps[possibleSteps.length - 1];
+    for (const s of possibleSteps) {
+        const ticksCount = Math.ceil(maxVal / s);
+        if (ticksCount >= 4 && ticksCount <= 8) {
+            step = s;
+            break;
+        }
+    }
+    const roundedMax = Math.ceil(maxVal / step) * step;
+    const ticks = [];
+    for (let val = 0; val <= roundedMax; val += step) {
+        ticks.push(val);
+    }
+
+    const bottomOffset = 25; // glabel area height at bottom
     const maxBarHeight = Math.max(72, target.clientHeight - 72);
+
+    const barWidth = Math.max(34, Math.min(48, 0.0245 * window.innerWidth));
+    const gap = Math.max(4, Math.min(7, 0.0034 * window.innerWidth));
+    const pixelOffset = (barWidth + gap) / 2;
+    const chartWidth = Math.max(100, target.clientWidth - 64);
+    const shiftPercent = (pixelOffset / chartWidth) * 100;
+
     const inputPoints = rows.map((row, index) => {
-        const x = rows.length > 0 ? ((index + 0.5) / rows.length) * 100 : 50;
-        const rawY = maxBarHeight - ((Number(row.input) || 0) / max * maxBarHeight);
+        const xCenter = rows.length > 0 ? ((index + 0.5) / rows.length) * 100 : 50;
+        const x = xCenter + shiftPercent;
+        const rawY = maxBarHeight - ((Number(row.input) || 0) / roundedMax * maxBarHeight);
         const y = Math.max(0, Math.min(maxBarHeight, rawY));
-        const labelY = Math.max(0, Math.min(maxBarHeight - 16, y - 18));
+        const labelY = Math.max(0, Math.min(maxBarHeight - 18, y + 10));
         return {x, y, labelY, value: Number(row.input) || 0, label: row.label || '-'};
     });
     const inputPath = inputPoints.map(point => `${point.x.toFixed(2)},${point.y.toFixed(2)}`).join(' ');
 
     target.innerHTML = `
-        <div class="chart-area">
-            <span class="y-baseline"></span>
-            <span class="y-zero">0</span>
-            <svg class="input-line-chart" viewBox="0 0 100 ${maxBarHeight}" preserveAspectRatio="none" style="height:${maxBarHeight}px" aria-hidden="true">
+        <div class="chart-area" style="flex: 1; min-height: 0; padding: 0;">
+            <!-- Gridlines -->
+            ${ticks.map(tick => {
+                const bottomPos = bottomOffset + (tick / roundedMax) * maxBarHeight;
+                return `<div class="chart-gridline" style="bottom: ${bottomPos.toFixed(1)}px; left: 52px; right: 12px;"></div>`;
+            }).join('')}
+            
+            <!-- Y-axis labels -->
+            ${ticks.map(tick => {
+                const bottomPos = bottomOffset + (tick / roundedMax) * maxBarHeight;
+                return `<div class="chart-y-label" style="bottom: ${bottomPos.toFixed(1)}px; left: 0; width: 44px; text-align: right; transform: translateY(50%);">${fmt(tick)}</div>`;
+            }).join('')}
+            
+            <!-- Input Line Chart SVG with circles -->
+            <svg class="input-line-chart" viewBox="0 0 100 ${maxBarHeight}" preserveAspectRatio="none" style="height:${maxBarHeight}px; left: 52px; right: 12px; width: calc(100% - 64px); bottom: ${bottomOffset}px;" aria-hidden="true">
                 <polyline points="${esc(inputPath)}"></polyline>
+                ${inputPoints.map(point => `
+                    <circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="0.8" fill="#f59e0b"></circle>
+                `).join('')}
             </svg>
-            <div class="input-line-labels" style="height:${maxBarHeight}px">
+            
+            <!-- Input labels -->
+            <div class="input-line-labels" style="height:${maxBarHeight}px; left: 52px; right: 12px; width: calc(100% - 64px); bottom: ${bottomOffset}px;">
                 ${inputPoints.map(point => `
                     <span class="input-value" style="left:${point.x.toFixed(2)}%;top:${point.labelY.toFixed(0)}px" title="INPUT ${esc(point.label)}: ${esc(fmt(Math.round(point.value)))} pcs">${esc(fmt(Math.round(point.value)))}</span>
                 `).join('')}
             </div>
-            ${rows.map(row => {
-                return `
-                <div class="group">
-                    <div class="bars">
-                        ${['capacity', 'output'].map((key, index) => {
-                            const value = Number(row[key]) || 0;
-                            const height = Math.max(2, value / max * maxBarHeight);
-                            const rounded = Math.round(value);
-                            const className = index ? 'alt' : '';
-                            const title = `${key.toUpperCase()}: ${fmt(rounded)} pcs`;
-                            return `<div class="vbar ${className}" style="height:${height}px" title="${esc(title)}"><small class="label-${index}">${fmt(rounded)}</small></div>`;
-                        }).join('')}
+            
+            <!-- Columns/Bars -->
+            <div class="chart-columns" style="margin-left: 52px; margin-right: 12px; height: 100%; display: flex; justify-content: space-around; position: relative; z-index: 2; width: calc(100% - 64px);">
+                ${rows.map(row => {
+                    return `
+                    <div class="group">
+                        <div class="bars">
+                            ${['capacity', 'output'].map((key, index) => {
+                                const value = Number(row[key]) || 0;
+                                const height = Math.max(2, value / roundedMax * maxBarHeight);
+                                const rounded = Math.round(value);
+                                const className = index ? 'alt' : '';
+                                const title = `${key.toUpperCase()}: ${fmt(rounded)} pcs`;
+                                return `<div class="vbar ${className}" style="height:${height}px" title="${esc(title)}"><small class="label-${index}">${fmt(rounded)}</small></div>`;
+                            }).join('')}
+                        </div>
+                        <div class="glabel">${esc(row.label)}</div>
                     </div>
-                    <div class="glabel">${esc(row.label)}</div>
-                </div>
-            `}).join('')}
+                `}).join('')}
+            </div>
         </div>
     `;
 }
@@ -636,17 +701,27 @@ function renderAnalytics(analytics) {
         </div>
     `).join('');
 
-    document.getElementById('managementActions').innerHTML = actions.map(item => `
+    document.getElementById('managementActions').innerHTML = actions.map(item => {
+        const hasStructured = item.masalah !== undefined || item.penyebab !== undefined;
+        const capRows = hasStructured ? [
+            item.masalah    ? `<div class="cap-row"><span class="cap-label masalah">Masalah :</span><span class="cap-val">${esc(item.masalah)}</span></div>` : '',
+            item.penyebab   ? `<div class="cap-row"><span class="cap-label penyebab">Penyebab :</span><span class="cap-val">${esc(item.penyebab)}</span></div>` : '',
+            item.prevention ? `<div class="cap-row"><span class="cap-label pencegahan">Pencegahan :</span><span class="cap-val">${esc(item.prevention)}</span></div>` : '',
+            item.handling   ? `<div class="cap-row"><span class="cap-label penanganan">Penanganan :</span><span class="cap-val">${esc(item.handling)}</span></div>` : '',
+        ].join('') : [
+            item.result     ? `<p><strong>Hasil:</strong> ${esc(item.result)}</p>` : '',
+            item.prevention ? `<p><strong>Pencegahan:</strong> ${esc(item.prevention)}</p>` : '',
+            item.handling   ? `<p><strong>Penanganan:</strong> ${esc(item.handling)}</p>` : '',
+        ].join('');
+        return `
         <div class="action-row ${esc(item.status || '')}">
             <i class="badge"></i>
             <div>
                 <b>${esc(item.title)}</b>
-                <p><strong>Hasil:</strong> ${esc(item.result)}</p>
-                <p><strong>Pencegahan:</strong> ${esc(item.prevention)}</p>
-                <p><strong>Penanganan:</strong> ${esc(item.handling)}</p>
+                ${capRows}
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 
     document.getElementById('dataAccuracyRows').innerHTML = (accuracyIssues.length ? accuracyIssues : [{
         status: dataAccuracy.status || 'good',

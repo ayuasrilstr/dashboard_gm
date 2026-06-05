@@ -181,7 +181,7 @@ async def set_date_filter(page, date_from, date_to):
         raise RuntimeError("Field tanggal warein_datvon/warein_datbis tidak ditemukan di halaman report")
 
 
-async def wait_for_loading_done(page, timeout=120000):
+async def wait_for_loading_done(page, timeout=600000):
     try:
         await page.wait_for_selector("#wwloading.modal.show", state="hidden", timeout=timeout)
     except PlaywrightTimeoutError:
@@ -195,7 +195,7 @@ async def get_displayed_row_count(page):
 async def click_display_and_get_row_count(page):
     async with page.expect_response(
         lambda response: "khtx/warein/fillscreen" in response.url,
-        timeout=120000,
+        timeout=600000,
     ) as response_info:
         await page.click("#IDD_DISPLAY")
 
@@ -283,7 +283,19 @@ def format_report_date(value):
 
 
 def get_month_periods(reference_date=None):
-    reference_date = reference_date or datetime.now()
+    if reference_date is None:
+        # Default to last 10 days (including today)
+        date_to = datetime.now()
+        date_from = date_to - timedelta(days=9)
+        return [
+            {
+                "key": "last-10-days",
+                "label": f"Last 10 Days ({date_from:%d %b} - {date_to:%d %b})",
+                "date_from": date_from,
+                "date_to": date_to,
+            }
+        ]
+
     year = reference_date.year
     month = reference_date.month
     last_day = monthrange(year, month)[1]
@@ -399,7 +411,7 @@ def save_report_rows(rows, download_path):
             time.sleep(2)
 
 
-async def fetch_report_page(page, page_number, timeout_ms=120000):
+async def fetch_report_page(page, page_number, timeout_ms=600000):
     return await page.evaluate(
         """async ({ pageNumber, timeoutMs }) => {
             async function refreshToken() {
@@ -505,6 +517,8 @@ async def download_reports(reference_date=None, storage_filter=None, direction_f
         )
 
         page = await context.new_page()
+        page.set_default_timeout(600000)
+        page.set_default_navigation_timeout(600000)
 
         # buka login
         await page.goto(LOGIN_URL)

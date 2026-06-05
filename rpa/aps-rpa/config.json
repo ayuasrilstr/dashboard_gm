@@ -207,10 +207,10 @@
                       "count":  12
                   },
                   {
-                      "name":  "Isi tanggal From awal bulan ini",
+                      "name":  "Isi tanggal From awal bulan lalu",
                       "action":  "paste_month_date",
                       "which":  "start",
-                      "months_offset":  0,
+                      "months_offset":  -1,
                       "format":  "%d/%m/%Y"
                   },
                   {
@@ -220,10 +220,10 @@
                       "y":  125
                   },
                   {
-                      "name":  "Isi tanggal To akhir bulan 3 bulan ke depan",
+                      "name":  "Isi tanggal To akhir 2 bulan ke depan",
                       "action":  "paste_month_date",
                       "which":  "end",
-                      "months_offset":  3,
+                      "months_offset":  2,
                       "format":  "%d/%m/%Y"
                   },
                   {
@@ -307,7 +307,7 @@
                                          ],
                       "timeout_seconds":  30,
                       "directory":  "downloads",
-                      "filename":  "JO_%Y%m%d_%H%M%S.xlsx",
+                      "filename":  "JO.xlsx",
                       "save_timeout_seconds":  120,
                       "stable_seconds":  2
                   },
@@ -346,7 +346,7 @@
                   }
               ],
     "copy_downloads":  {
-                           "enabled":  true,
+                           "enabled":  false,
                            "source_dir":  "downloads",
                            "archive_dir":  "archive",
                            "timeout_seconds":  120,

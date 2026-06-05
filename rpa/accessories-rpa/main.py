@@ -56,6 +56,13 @@ def date_value(which):
         return today.replace(day=1).isoformat()
     if which == "today":
         return today.isoformat()
+    if which.startswith("days_back_"):
+        try:
+            days = int(which.split("_")[-1])
+            from datetime import timedelta
+            return (today - timedelta(days=days)).isoformat()
+        except ValueError:
+            raise ValueError(f"Format days_back tidak valid: {which}")
 
     raise ValueError(f"Pilihan tanggal tidak dikenal: {which}")
 
@@ -89,6 +96,13 @@ async def run_step(page, step):
         await page.fill(step["selector"], date_value(step["which"]))
         return
 
+    if action == "fill_date_offset":
+        from datetime import timedelta
+        days_back = int(step.get("days_back", 0))
+        date_str = (datetime.now().date() - timedelta(days=days_back)).isoformat()
+        await page.fill(step["selector"], date_str)
+        return
+
     if action == "click":
         await page.click(
             step["selector"],
@@ -110,6 +124,9 @@ async def run_step(page, step):
         directory.mkdir(parents=True, exist_ok=True)
         filename = format_filename(step.get("filename", "CONTROLIST_%Y%m%d_%H%M%S.xlsx"))
         target = directory / filename
+        temp_target = target.with_name(f".{target.stem}.tmp{target.suffix}")
+        if temp_target.exists():
+            temp_target.unlink()
 
         async with page.expect_download(timeout=int(step.get("timeout_ms", 120000))) as download_info:
             await page.click(
@@ -119,7 +136,8 @@ async def run_step(page, step):
             )
 
         download = await download_info.value
-        await download.save_as(target)
+        await download.save_as(temp_target)
+        os.replace(temp_target, target)
         log(f"Download tersimpan: {target}")
         return
 

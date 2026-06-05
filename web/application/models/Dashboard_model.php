@@ -949,10 +949,14 @@ class Dashboard_model extends CI_Model
 
         return array(
             'aps' => $this->latest_matching_file(array(
+                $aps_dir . DIRECTORY_SEPARATOR . 'JO.xlsx',
+                $aps_dir . DIRECTORY_SEPARATOR . 'JO.xls',
                 $aps_dir . DIRECTORY_SEPARATOR . 'JO_*.xlsx',
                 $aps_dir . DIRECTORY_SEPARATOR . 'JO_*.xls',
             )),
             'accessories' => $this->latest_matching_file(array(
+                $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST.xlsx',
+                $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST.xls',
                 $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST_*.xlsx',
                 $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST_*.xls',
             )),
@@ -2150,7 +2154,10 @@ class Dashboard_model extends CI_Model
             $required_daily_output,
             $avg_daily_output,
             $critical_orders,
-            $data_accuracy
+            $data_accuracy,
+            $total_ready,
+            $avg_daily_capacity,
+            $ready_rows
         );
         $overall_condition = $this->build_overall_condition(
             $achievement_rate,
@@ -2525,67 +2532,105 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    private function build_management_action_plan($achievement_rate, $ready_coverage_days, $required_daily_output, $avg_daily_output, $critical_orders, $data_accuracy)
+    private function build_management_action_plan($achievement_rate, $ready_coverage_days, $required_daily_output, $avg_daily_output, $critical_orders, $data_accuracy, $total_ready = 0, $avg_daily_capacity = 0, $ready_rows = array())
     {
         $items = array();
 
+        // 1. Data Accuracy
         if ($data_accuracy['score'] < 90) {
             $items[] = array(
-                'status' => $data_accuracy['status'],
-                'title' => 'Akurasi urutan produksi',
-                'result' => 'Ada indikasi periode baru sudah diproses saat periode sebelumnya belum clear.',
-                'prevention' => 'Kunci rule FIFO/periode saat load PDK dan wajibkan validasi sisa END/MID sebelum menjalankan periode berikutnya.',
-                'handling' => 'Review issue yang muncul, tahan proses periode berikutnya bila perlu, lalu selesaikan atau koreksi data periode yang masih tersisa.',
+                'status'     => $data_accuracy['status'],
+                'title'      => '1. Data Accuracy',
+                'masalah'    => 'Akurasi dibawah 90%',
+                'penyebab'   => implode('; ', array(
+                    '1. Jalan produksi tidak sesuai delivery prioritas',
+                    '2. Panel delivery prioritas datang sesudah delivery berikutnya di proses produksi',
+                )),
+                'prevention' => 'Sebelum jalan produksi diwajibkan melihat ready to load agar jalan sesuai delivery prioritas.',
+                'handling'   => 'Review issue yang muncul, tahan proses periode berikutnya bila perlu, lalu selesaikan atau koreksi data periode yang masih tersisa.',
             );
         }
 
+        // 2. Output Achievement
         if ($achievement_rate < 90) {
+            $ready_period_list = array();
+            foreach ($ready_rows as $row) {
+                if (!empty($row['label']) && isset($row['ready']) && $row['ready'] > 0) {
+                    $ready_period_list[] = $row['label'] . ': ' . $this->format_compact_number($row['ready']) . ' pcs';
+                }
+            }
+            $ready_info = $ready_period_list
+                ? 'Ready to load tersedia: ' . implode(', ', $ready_period_list) . '.'
+                : 'Ready to load tidak tersedia sesuai kapasitas.';
+
             $items[] = array(
-                'status' => $achievement_rate >= 75 ? 'watch' : 'risk',
-                'title' => 'Pencapaian output',
-                'result' => 'Output baru mencapai ' . $this->format_percent($achievement_rate) . ' dari total PDK.',
-                'prevention' => 'Pantau target harian per shift dan update progress minimal setiap akhir shift.',
-                'handling' => 'Fokuskan kapasitas ke balance terbesar, pecah bottleneck material/loading, dan tambah jam kerja bila target harian tidak tercapai.',
+                'status'     => $achievement_rate >= 75 ? 'watch' : 'risk',
+                'title'      => '2. Output Achievement',
+                'masalah'    => 'Pencapaian output tidak sesuai kapasitas (bisa lebih/kurang)',
+                'penyebab'   => implode('; ', array(
+                    '1. Pemakaian operator tidak sesuai dengan kapasitas (bisa kelebihan operator/kekurangan operator)',
+                    '2. Efisiensi operator tdk tercapai (dibawah 83%)',
+                    '3. Efisiensi operator diatas 83%',
+                    '4. Ready to load tidak tersedia sesuai kapasitas',
+                )),
+                'prevention' => implode(' ', array(
+                    '1. Pemakaian operator disesuaikan dengan kapasitas,',
+                    '2. Pantau target harian per jam,',
+                    '3. Jaga buffer ready to load minimal untuk 5 hari kapasitas',
+                )),
+                'handling'   => 'Fokuskan kapasitas ke balance terbesar, pecah bottleneck material/loading, dan tambah jam kerja bila target harian tidak tercapai. ' . $ready_info,
             );
         }
 
+        // 3. Coverage Ready Load (dipisahkan, bisa dari output achievement)
         if ($ready_coverage_days < 10) {
+            $coverage_from_output = ($achievement_rate < 90) ? ' (lihat juga CAP Output Achievement)' : '';
             $items[] = array(
-                'status' => $ready_coverage_days >= 5 ? 'watch' : 'risk',
-                'title' => 'Coverage ready load',
-                'result' => 'Ready load hanya cukup untuk ' . number_format($ready_coverage_days, 1) . ' hari kapasitas.',
-                'prevention' => 'Jaga buffer ready load minimal 10 hari kapasitas untuk mengurangi risiko line stop.',
-                'handling' => 'Prioritaskan picking/material untuk order delivery terdekat dan order dengan balance terbesar.',
+                'status'     => $ready_coverage_days >= 5 ? 'watch' : 'risk',
+                'title'      => '3. Coverage Ready Load',
+                'masalah'    => 'Buffer ready load hanya ' . number_format($ready_coverage_days, 1) . ' hari kapasitas (target minimal 5 hari)',
+                'penyebab'   => implode('; ', array(
+                    '1. Ready to load tidak tersedia sesuai kapasitas',
+                    '2. Output achievement rendah sehingga stok ready tidak terbentuk',
+                )),
+                'prevention' => 'Jaga buffer ready to load minimal untuk 5 hari kapasitas' . $coverage_from_output . '.',
+                'handling'   => 'Prioritaskan picking/material untuk order delivery terdekat dan order dengan balance terbesar.',
             );
         }
 
+        // 4. Kebutuhan output harian
         if ($avg_daily_output < $required_daily_output) {
             $items[] = array(
-                'status' => $avg_daily_output >= ($required_daily_output * 0.9) ? 'watch' : 'risk',
-                'title' => 'Kebutuhan output harian',
-                'result' => 'Rata-rata output harian belum memenuhi kebutuhan ' . $this->format_compact_number($required_daily_output) . ' pcs/hari.',
+                'status'     => $avg_daily_output >= ($required_daily_output * 0.9) ? 'watch' : 'risk',
+                'title'      => '4. Kebutuhan Output Harian',
+                'masalah'    => 'Rata-rata output harian belum memenuhi kebutuhan ' . $this->format_compact_number($required_daily_output) . ' pcs/hari',
+                'penyebab'   => 'Output harian tidak mencapai target kapasitas yang dibutuhkan.',
                 'prevention' => 'Bandingkan required daily output dengan plan kapasitas sebelum mengunci komitmen delivery.',
-                'handling' => 'Naikkan output harian lewat tambahan slot produksi, penyesuaian prioritas, atau negosiasi delivery bila gap tidak tertutup.',
+                'handling'   => 'Naikkan output harian lewat tambahan slot produksi, penyesuaian prioritas, atau negosiasi delivery bila gap tidak tertutup.',
             );
         }
 
+        // 5. Order delivery kritis
         if ($critical_orders > 0) {
             $items[] = array(
-                'status' => 'risk',
-                'title' => 'Order delivery kritis',
-                'result' => $critical_orders . ' order prioritas berada dalam horizon delivery 5 hari.',
+                'status'     => 'risk',
+                'title'      => '5. Order Delivery Kritis',
+                'masalah'    => $critical_orders . ' order prioritas berada dalam horizon delivery 5 hari',
+                'penyebab'   => 'Order mendekati due date masih belum ready atau belum selesai produksi.',
                 'prevention' => 'Gunakan aging delivery harian agar order mendekati due date tidak tertinggal di queue.',
-                'handling' => 'Tarik order kritis ke prioritas pertama, pastikan material ready, dan monitor output order tersebut per shift.',
+                'handling'   => 'Tarik order kritis ke prioritas pertama, pastikan material ready, dan monitor output order tersebut per shift.',
             );
         }
 
+        // Jika semua kondisi baik
         if (!$items) {
             $items[] = array(
-                'status' => 'good',
-                'title' => 'Kondisi terkendali',
-                'result' => 'Tidak ada risiko mayor dari indikator management analytics saat ini.',
-                'prevention' => 'Pertahankan validasi FIFO/periode, buffer ready load minimal 10 hari, dan monitoring output harian.',
-                'handling' => 'Lanjutkan produksi sesuai prioritas berjalan dan review ulang saat data dashboard berikutnya masuk.',
+                'status'     => 'good',
+                'title'      => 'Kondisi terkendali',
+                'masalah'    => '',
+                'penyebab'   => '',
+                'prevention' => 'Validasi order/delivery, buffer ready load minimal 5 hari, dan monitoring output harian.',
+                'handling'   => 'Lanjutkan produksi sesuai prioritas berjalan dan review ulang saat data dashboard berikutnya masuk.',
             );
         }
 

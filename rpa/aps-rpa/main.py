@@ -356,6 +356,8 @@ def save_as_file(step: dict) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     filename = format_filename(str(step.get("filename", "jo-export-%Y%m%d-%H%M%S.xlsx")))
     full_path = directory / filename
+    if full_path.exists():
+        full_path.unlink()
 
     hwnd, title = found
     logging.info("Popup Save As ditemukan: %s", title)
