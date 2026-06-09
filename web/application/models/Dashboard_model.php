@@ -219,7 +219,7 @@ class Dashboard_model extends CI_Model
         $calendar_signature = $this->dashboard_calendar_signature();
         if (
             !isset($payload['cache_version'], $payload['source_path'], $payload['source_mtime'], $payload['source_size'], $payload['calendar_signature']) ||
-            $payload['cache_version'] !== 37 ||
+            $payload['cache_version'] !== 38 ||
             $payload['source_path'] !== $source_path ||
             (int) $payload['source_mtime'] !== (int) $source_mtime ||
             (int) $payload['source_size'] !== (int) $source_size ||
@@ -240,7 +240,7 @@ class Dashboard_model extends CI_Model
         }
 
         $payload = array(
-            'cache_version' => 37,
+            'cache_version' => 38,
             'source_path' => $source_path,
             'source_mtime' => filemtime($source_path),
             'source_size' => filesize($source_path),
@@ -1608,20 +1608,28 @@ class Dashboard_model extends CI_Model
 
         $capacity_history = $this->read_heat_capacity_history();
         $capacity_history_changed = FALSE;
-        $capacity_value = is_array($daily_capacity) && isset($daily_capacity['capacity']) ? $daily_capacity['capacity'] : $daily_capacity;
-        $capacity_breakdown = is_array($daily_capacity) && isset($daily_capacity['breakdown']) ? $daily_capacity['breakdown'] : array();
         $items = array();
+        $remaining_balance = $this->starting_balance_for_capacity_days($days, $daily, $daily_capacity);
 
         foreach ($days as $day) {
-            $capacity_entry = $this->capacity_for_output_day($day, $capacity_value, $capacity_breakdown, $capacity_history, $capacity_history_changed);
+            $capacity_detail = $this->daily_capacity_detail_for_date($daily_capacity, $day, $remaining_balance);
+            $capacity_entry = $this->capacity_for_output_day(
+                $day,
+                $capacity_detail['capacity'],
+                $capacity_detail['breakdown'],
+                $capacity_history,
+                $capacity_history_changed
+            );
+            $output = isset($daily[$day]) ? $daily[$day] : 0;
             $items[] = array(
                 'label' => date('d M Y', strtotime($day)),
-                'output' => isset($daily[$day]) ? $daily[$day] : 0,
+                'output' => $output,
                 'input' => isset($daily_input[$day]) ? $daily_input[$day] : 0,
                 'capacity' => $capacity_entry['capacity'],
                 'capacity_captured_at' => isset($capacity_entry['captured_at']) ? $capacity_entry['captured_at'] : NULL,
                 'capacity_breakdown' => isset($capacity_entry['breakdown']) ? $capacity_entry['breakdown'] : array(),
             );
+            $remaining_balance = max(0, $remaining_balance - $output);
         }
 
         if ($capacity_history_changed) {
@@ -2148,6 +2156,75 @@ class Dashboard_model extends CI_Model
         return array('capacity' => $capacity, 'breakdown' => $breakdown);
     }
 
+    private function total_capacity_balance($daily_capacity)
+    {
+        if (is_array($daily_capacity) && !empty($daily_capacity['breakdown'])) {
+            $first = $daily_capacity['breakdown'][0];
+            if (isset($first['total_balance'])) {
+                return max(0, (float) $first['total_balance']);
+            }
+
+            $total = 0;
+            foreach ($daily_capacity['breakdown'] as $item) {
+                $total += isset($item['balance']) ? max(0, (float) $item['balance']) : 0;
+            }
+            return $total;
+        }
+
+        return 0;
+    }
+
+    private function starting_balance_for_capacity_days($days, $daily_output, $daily_capacity)
+    {
+        $balance = $this->total_capacity_balance($daily_capacity);
+        foreach ($days as $day) {
+            $balance += isset($daily_output[$day]) ? max(0, (float) $daily_output[$day]) : 0;
+        }
+
+        return $balance;
+    }
+
+    private function daily_capacity_detail_for_date($daily_capacity, $date, $remaining_balance)
+    {
+        $base_breakdown = is_array($daily_capacity) && isset($daily_capacity['breakdown']) ? $daily_capacity['breakdown'] : array();
+        $total_days_left = 0;
+        $breakdown = array();
+
+        foreach ($base_breakdown as $item) {
+            if (empty($item['label'])) {
+                continue;
+            }
+
+            $calendar = $this->build_period_calendar($item['label'], $date);
+            $days_left = isset($calendar['export_remaining_workdays'])
+                ? $calendar['export_remaining_workdays']
+                : (isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : 0);
+            if ($days_left <= 0) {
+                continue;
+            }
+
+            $total_days_left += $days_left;
+            $breakdown[] = array(
+                'label' => $item['label'],
+                'pdk' => isset($item['pdk']) ? $item['pdk'] : 0,
+                'output' => isset($item['output']) ? $item['output'] : 0,
+                'balance' => $remaining_balance,
+                'days_left' => $days_left,
+                'calendar_days_left' => isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : $days_left,
+                'daily_capacity' => 0,
+            );
+        }
+
+        $capacity = $total_days_left > 0 ? $remaining_balance / $total_days_left : 0;
+        foreach ($breakdown as $index => $item) {
+            $breakdown[$index]['daily_capacity'] = $capacity;
+            $breakdown[$index]['total_balance'] = $remaining_balance;
+            $breakdown[$index]['total_days_left'] = $total_days_left;
+        }
+
+        return array('capacity' => $capacity, 'breakdown' => $breakdown);
+    }
+
     private function auto_remaining_workdays($label)
     {
         $range = $this->period_date_range($label);
@@ -2168,8 +2245,6 @@ class Dashboard_model extends CI_Model
     {
         $daily = array();
         $calendar_days = $this->dashboard_calendar_days();
-        $capacity_value = is_array($daily_capacity) && isset($daily_capacity['capacity']) ? $daily_capacity['capacity'] : $daily_capacity;
-        $capacity_breakdown = is_array($daily_capacity) && isset($daily_capacity['breakdown']) ? $daily_capacity['breakdown'] : array();
         foreach ($daily_output_keys as $item) {
             $day = $item['day'];
             if ($this->calendar_workday_value($this->excel_serial_to_date($day), $calendar_days) > 0) {
@@ -2190,10 +2265,25 @@ class Dashboard_model extends CI_Model
         $capacity_history = $this->read_heat_capacity_history();
         $capacity_history_changed = FALSE;
         $items = array();
+        $daily_by_date = array();
+        foreach ($daily as $serial => $output) {
+            $daily_by_date[$this->excel_serial_to_date($serial)] = $output;
+        }
+        $dates = array_values(array_map(function ($serial) {
+            return $this->excel_serial_to_date($serial);
+        }, array_keys($daily)));
+        $remaining_balance = $this->starting_balance_for_capacity_days($dates, $daily_by_date, $daily_capacity);
 
         foreach ($daily as $serial => $output) {
             $date = $this->excel_serial_to_date($serial);
-            $capacity_entry = $this->capacity_for_output_day($date, $capacity_value, $capacity_breakdown, $capacity_history, $capacity_history_changed);
+            $capacity_detail = $this->daily_capacity_detail_for_date($daily_capacity, $date, $remaining_balance);
+            $capacity_entry = $this->capacity_for_output_day(
+                $date,
+                $capacity_detail['capacity'],
+                $capacity_detail['breakdown'],
+                $capacity_history,
+                $capacity_history_changed
+            );
             $items[] = array(
                 'label' => $this->format_output_day_label_from_serial($serial),
                 'output' => $output,
@@ -2202,6 +2292,7 @@ class Dashboard_model extends CI_Model
                 'capacity_captured_at' => isset($capacity_entry['captured_at']) ? $capacity_entry['captured_at'] : NULL,
                 'capacity_breakdown' => isset($capacity_entry['breakdown']) ? $capacity_entry['breakdown'] : array(),
             );
+            $remaining_balance = max(0, $remaining_balance - $output);
         }
 
         if ($capacity_history_changed) {
@@ -2661,7 +2752,7 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    private function build_period_calendar($label)
+    private function build_period_calendar($label, $current_date = NULL)
     {
         if (trim((string) $label) === '') {
             return $this->empty_period_calendar();
@@ -2669,7 +2760,7 @@ class Dashboard_model extends CI_Model
 
         $range = $this->period_date_range($label);
         $calendar_days = $this->dashboard_calendar_days();
-        $today = date('Y-m-d');
+        $today = $current_date ? date('Y-m-d', strtotime($current_date)) : date('Y-m-d');
         $start = $range ? max($range['start'], $today) : '';
         $remaining = $range && $start <= $range['end'] ? $this->count_workdays($start, $range['end'], $calendar_days) : 0;
         $total = $range ? $this->count_workdays($range['start'], $range['end'], $calendar_days) : 0;

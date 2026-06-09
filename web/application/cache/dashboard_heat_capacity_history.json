@@ -1,5 +1,5 @@
 {
-    "updated_at": "2026-06-09T08:59:43+02:00",
+    "updated_at": "2026-06-09T09:47:24+02:00",
     "items": {
         "2026-05-25": {
             "capacity": 17292.744444444445,
@@ -155,175 +155,175 @@
             ]
         },
         "2026-06-03": {
-            "capacity": 4284.823529411765,
-            "captured_at": "2026-06-09T08:59:43+02:00",
+            "capacity": 4818.2307692307695,
+            "captured_at": "2026-06-09T09:47:24+02:00",
             "calendar_signature": "873eb60d07582c484e71de779a00ad16",
             "breakdown": [
                 {
                     "label": "MID June",
                     "pdk": 43460,
                     "output": 43377,
-                    "balance": 83,
-                    "days_left": 1.5,
-                    "calendar_days_left": 5.5,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "balance": 62637,
+                    "days_left": 6,
+                    "calendar_days_left": 10,
+                    "daily_capacity": 4818.2307692307695,
+                    "total_balance": 62637,
+                    "total_days_left": 13
                 },
                 {
                     "label": "END June",
                     "pdk": 67782,
                     "output": 31444,
-                    "balance": 36338,
+                    "balance": 62637,
                     "days_left": 7,
                     "calendar_days_left": 11,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "daily_capacity": 4818.2307692307695,
+                    "total_balance": 62637,
+                    "total_days_left": 13
                 }
             ]
         },
         "2026-06-04": {
-            "capacity": 4284.823529411765,
-            "captured_at": "2026-06-09T08:59:43+02:00",
+            "capacity": 4803.75,
+            "captured_at": "2026-06-09T09:47:24+02:00",
             "calendar_signature": "873eb60d07582c484e71de779a00ad16",
             "breakdown": [
                 {
                     "label": "MID June",
                     "pdk": 43460,
                     "output": 43377,
-                    "balance": 83,
-                    "days_left": 1.5,
-                    "calendar_days_left": 5.5,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "balance": 57645,
+                    "days_left": 5,
+                    "calendar_days_left": 9,
+                    "daily_capacity": 4803.75,
+                    "total_balance": 57645,
+                    "total_days_left": 12
                 },
                 {
                     "label": "END June",
                     "pdk": 67782,
                     "output": 31444,
-                    "balance": 36338,
+                    "balance": 57645,
                     "days_left": 7,
                     "calendar_days_left": 11,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "daily_capacity": 4803.75,
+                    "total_balance": 57645,
+                    "total_days_left": 12
                 }
             ]
         },
         "2026-06-05": {
-            "capacity": 4284.823529411765,
-            "captured_at": "2026-06-09T08:59:43+02:00",
+            "capacity": 4693.727272727273,
+            "captured_at": "2026-06-09T09:47:24+02:00",
             "calendar_signature": "873eb60d07582c484e71de779a00ad16",
             "breakdown": [
                 {
                     "label": "MID June",
                     "pdk": 43460,
                     "output": 43377,
-                    "balance": 83,
-                    "days_left": 1.5,
-                    "calendar_days_left": 5.5,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "balance": 51631,
+                    "days_left": 4,
+                    "calendar_days_left": 8,
+                    "daily_capacity": 4693.727272727273,
+                    "total_balance": 51631,
+                    "total_days_left": 11
                 },
                 {
                     "label": "END June",
                     "pdk": 67782,
                     "output": 31444,
-                    "balance": 36338,
+                    "balance": 51631,
                     "days_left": 7,
                     "calendar_days_left": 11,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "daily_capacity": 4693.727272727273,
+                    "total_balance": 51631,
+                    "total_days_left": 11
                 }
             ]
         },
         "2026-06-06": {
-            "capacity": 4284.823529411765,
-            "captured_at": "2026-06-09T08:59:43+02:00",
+            "capacity": 4609.5,
+            "captured_at": "2026-06-09T09:47:24+02:00",
             "calendar_signature": "873eb60d07582c484e71de779a00ad16",
             "breakdown": [
                 {
                     "label": "MID June",
                     "pdk": 43460,
                     "output": 43377,
-                    "balance": 83,
-                    "days_left": 1.5,
-                    "calendar_days_left": 5.5,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "balance": 46095,
+                    "days_left": 3,
+                    "calendar_days_left": 7,
+                    "daily_capacity": 4609.5,
+                    "total_balance": 46095,
+                    "total_days_left": 10
                 },
                 {
                     "label": "END June",
                     "pdk": 67782,
                     "output": 31444,
-                    "balance": 36338,
+                    "balance": 46095,
                     "days_left": 7,
                     "calendar_days_left": 11,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "daily_capacity": 4609.5,
+                    "total_balance": 46095,
+                    "total_days_left": 10
                 }
             ]
         },
         "2026-06-08": {
-            "capacity": 4284.823529411765,
-            "captured_at": "2026-06-09T08:59:43+02:00",
+            "capacity": 4531.473684210527,
+            "captured_at": "2026-06-09T09:47:24+02:00",
             "calendar_signature": "873eb60d07582c484e71de779a00ad16",
             "breakdown": [
                 {
                     "label": "MID June",
                     "pdk": 43460,
                     "output": 43377,
-                    "balance": 83,
-                    "days_left": 1.5,
-                    "calendar_days_left": 5.5,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "balance": 43049,
+                    "days_left": 2.5,
+                    "calendar_days_left": 6.5,
+                    "daily_capacity": 4531.473684210527,
+                    "total_balance": 43049,
+                    "total_days_left": 9.5
                 },
                 {
                     "label": "END June",
                     "pdk": 67782,
                     "output": 31444,
-                    "balance": 36338,
+                    "balance": 43049,
                     "days_left": 7,
                     "calendar_days_left": 11,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
-                    "total_days_left": 8.5
+                    "daily_capacity": 4531.473684210527,
+                    "total_balance": 43049,
+                    "total_days_left": 9.5
                 }
             ]
         },
         "2026-06-09": {
-            "capacity": 4284.823529411765,
-            "captured_at": "2026-06-09T08:59:43+02:00",
+            "capacity": 4559.529411764706,
+            "captured_at": "2026-06-09T09:47:24+02:00",
             "calendar_signature": "873eb60d07582c484e71de779a00ad16",
             "breakdown": [
                 {
                     "label": "MID June",
                     "pdk": 43460,
                     "output": 43377,
-                    "balance": 83,
+                    "balance": 38756,
                     "days_left": 1.5,
                     "calendar_days_left": 5.5,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
+                    "daily_capacity": 4559.529411764706,
+                    "total_balance": 38756,
                     "total_days_left": 8.5
                 },
                 {
                     "label": "END June",
                     "pdk": 67782,
                     "output": 31444,
-                    "balance": 36338,
+                    "balance": 38756,
                     "days_left": 7,
                     "calendar_days_left": 11,
-                    "daily_capacity": 4284.823529411765,
-                    "total_balance": 36421,
+                    "daily_capacity": 4559.529411764706,
+                    "total_balance": 38756,
                     "total_days_left": 8.5
                 }
             ]
