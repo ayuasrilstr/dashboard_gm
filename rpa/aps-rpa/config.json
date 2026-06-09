@@ -121,43 +121,55 @@
                       "seconds":  5
                   },
                   {
-                      "name":  "Klik menu JO",
+                      "name":  "Klik menu Analysis",
                       "action":  "click",
-                      "x":  139,
-                      "y":  70
+                      "x":  340,
+                      "y":  31
                   },
                   {
-                      "name":  "Tunggu halaman JO terbuka",
+                      "name":  "Klik sub menu JO Tracking Report",
+                      "action":  "click",
+                      "x":  362,
+                      "y":  60
+                  },
+                  {
+                      "name":  "Tunggu halaman JO Tracking Report terbuka",
                       "action":  "wait",
                       "seconds":  5
                   },
                   {
-                      "name":  "Buka dropdown Factory",
+                      "name":  "Buka dropdown filter",
                       "action":  "click",
-                      "x":  290,
-                      "y":  123
+                      "x":  282,
+                      "y":  119
                   },
                   {
-                      "name":  "Tunggu dropdown Factory terbuka",
+                      "name":  "Tunggu dropdown filter terbuka",
                       "action":  "wait",
                       "seconds":  1.5
                   },
                   {
-                      "name":  "Pilih nilai Factory",
+                      "name":  "Pilih nilai filter",
                       "action":  "click",
-                      "x":  260,
-                      "y":  157
+                      "x":  227,
+                      "y":  156
                   },
                   {
-                      "name":  "Tunggu nilai Factory terpilih",
+                      "name":  "Klik OK filter",
+                      "action":  "click",
+                      "x":  301,
+                      "y":  192
+                  },
+                  {
+                      "name":  "Tunggu nilai filter terpilih",
                       "action":  "wait",
                       "seconds":  1
                   },
                   {
                       "name":  "Buka dropdown Floor",
                       "action":  "click",
-                      "x":  529,
-                      "y":  127
+                      "x":  435,
+                      "y":  116
                   },
                   {
                       "name":  "Tunggu dropdown Floor terbuka",
@@ -167,8 +179,14 @@
                   {
                       "name":  "Pilih nilai Floor",
                       "action":  "click",
-                      "x":  457,
-                      "y":  145
+                      "x":  391,
+                      "y":  137
+                  },
+                  {
+                      "name":  "Klik OK Floor",
+                      "action":  "click",
+                      "x":  469,
+                      "y":  267
                   },
                   {
                       "name":  "Tunggu nilai Floor terpilih",
@@ -178,8 +196,8 @@
                   {
                       "name":  "Klik field Delivery Date From",
                       "action":  "click",
-                      "x":  777,
-                      "y":  118,
+                      "x":  628,
+                      "y":  116,
                       "count":  2
                   },
                   {
@@ -216,8 +234,8 @@
                   {
                       "name":  "Klik field Delivery Date To",
                       "action":  "click",
-                      "x":  886,
-                      "y":  125
+                      "x":  791,
+                      "y":  120
                   },
                   {
                       "name":  "Isi tanggal To akhir 2 bulan ke depan",
@@ -229,8 +247,8 @@
                   {
                       "name":  "Buka dropdown Status",
                       "action":  "click",
-                      "x":  1049,
-                      "y":  117
+                      "x":  969,
+                      "y":  120
                   },
                   {
                       "name":  "Tunggu dropdown Status terbuka",
@@ -240,8 +258,8 @@
                   {
                       "name":  "Pilih nilai Status",
                       "action":  "click",
-                      "x":  1019,
-                      "y":  138
+                      "x":  940,
+                      "y":  205
                   },
                   {
                       "name":  "Tunggu nilai Status terpilih",
@@ -251,8 +269,8 @@
                   {
                       "name":  "Klik Ok pada status terpilih",
                       "action":  "click",
-                      "x":  1112,
-                      "y":  235
+                      "x":  996,
+                      "y":  216
                   },
                   {
                       "name":  "Tunggu nilai Status terpilih",
@@ -262,8 +280,8 @@
                   {
                       "name":  "Buka dropdown Firm Order",
                       "action":  "click",
-                      "x":  1062,
-                      "y":  142
+                      "x":  972,
+                      "y":  144
                   },
                   {
                       "name":  "Tunggu dropdown Firm Order terbuka",
@@ -273,8 +291,8 @@
                   {
                       "name":  "Pilih nilai Firm Order",
                       "action":  "click",
-                      "x":  1020,
-                      "y":  210
+                      "x":  940,
+                      "y":  205
                   },
                   {
                       "name":  "Tunggu nilai Firm Order terpilih",
@@ -282,15 +300,43 @@
                       "seconds":  1
                   },
                   {
-                      "name":  "Klik Refresh",
+                      "name":  "Buka dropdown Customer Name",
                       "action":  "click",
-                      "x":  874,
-                      "y":  61
+                      "x":  689,
+                      "y":  173
                   },
                   {
-                      "name":  "Tunggu hasil refresh selesai",
+                      "name":  "Tunggu dropdown Customer Name terbuka",
                       "action":  "wait",
-                      "seconds":  5
+                      "seconds":  1.5
+                  },
+                  {
+                      "name":  "Pilih nilai Customer Name",
+                      "action":  "click",
+                      "x":  612,
+                      "y":  207
+                  },
+                  {
+                      "name":  "Klik OK Customer Name",
+                      "action":  "click",
+                      "x":  736,
+                      "y":  365
+                  },
+                  {
+                      "name":  "Tunggu nilai Customer Name terpilih",
+                      "action":  "wait",
+                      "seconds":  1
+                  },
+                  {
+                      "name":  "Klik Refresh",
+                      "action":  "click",
+                      "x":  879,
+                      "y":  56
+                  },
+                  {
+                      "name":  "Tunggu loading data selesai",
+                      "action":  "wait",
+                      "seconds":  60
                   },
                   {
                       "name":  "Klik export To Excel",
@@ -315,17 +361,6 @@
                       "name":  "Tunggu proses export Excel",
                       "action":  "wait",
                       "seconds":  5
-                  },
-                  {
-                      "name":  "Close export dialog",
-                      "action":  "click",
-                      "x":  1039,
-                      "y":  613
-                  },
-                  {
-                      "name":  "Tunggu hasil close dialog selesai",
-                      "action":  "wait",
-                      "seconds":  2
                   },
                   {
                       "name":  "Close APK APS",

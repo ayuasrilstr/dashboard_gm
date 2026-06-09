@@ -27,11 +27,14 @@
         *{box-sizing:border-box}
         body{margin:0;height:100vh;overflow:auto;background:radial-gradient(circle at top left,rgba(100,166,189,.22),transparent 32%),linear-gradient(180deg,#f8fbff 0,var(--bg) 100%);color:var(--ink);font-family:Segoe UI,Arial,Helvetica,sans-serif}
         .page{height:calc(100vh / var(--tv-scale));width:calc(100vw / var(--tv-scale));padding:6px var(--tv-safe-x) var(--tv-safe-bottom);display:grid;grid-template-rows:38px minmax(0,1fr);gap:6px;transform:scale(var(--tv-scale));transform-origin:top left}
-        .top{display:grid;grid-template-columns:minmax(640px,38vw) auto auto 1fr;align-items:center;gap:10px}
+        .top{display:grid;grid-template-columns:minmax(520px,34vw) auto auto auto 1fr;align-items:center;gap:10px}
         .title{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.92);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:clamp(18px,1.22vw,24px);font-weight:850;letter-spacing:.3px;color:var(--ink);white-space:nowrap;overflow:hidden}
         .menu{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.78);box-shadow:var(--shadow);display:flex;align-items:center;padding:3px;gap:4px}
         .menu button{height:27px;border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:clamp(11px,.8vw,14px);font-weight:800;text-transform:uppercase;padding:0 12px;cursor:pointer}
         .menu button.active{background:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(23,107,135,.22)}
+        .delivery-toggle{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.78);box-shadow:var(--shadow);display:flex;align-items:center;padding:3px;gap:4px}
+        .delivery-toggle button{height:27px;border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:clamp(11px,.8vw,14px);font-weight:800;text-transform:uppercase;padding:0 10px;cursor:pointer;white-space:nowrap}
+        .delivery-toggle button.active{background:var(--accent);color:#fff;box-shadow:0 8px 18px rgba(124,154,66,.2)}
         .workday-open{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:#fff;color:var(--brand);font-size:clamp(11px,.8vw,14px);font-weight:850;text-transform:uppercase;box-shadow:var(--shadow);padding:0 14px;cursor:pointer}
         .last-update{justify-self:end;position:relative}.last-update button{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:999px;background:rgba(255,255,255,.82);color:var(--muted);font-size:clamp(12px,.84vw,15px);font-weight:750;box-shadow:var(--shadow);padding:0 13px;cursor:pointer}.last-update-panel{position:fixed;right:var(--tv-safe-x);top:50px;z-index:60;width:min(420px,calc(100vw - (var(--tv-safe-x) * 2)));max-height:calc(100vh - 112px);overflow:auto;display:none;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 18px 44px rgba(16,32,51,.18);padding:10px}.last-update.open .last-update-panel{display:block}.last-update-panel h3{margin:0 0 8px;color:var(--ink);font-size:12px;font-weight:900;text-transform:uppercase}.db-last-list{display:grid;gap:7px;max-height:calc(100vh - 166px);overflow:auto}.db-last-item{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px}.db-last-item b{display:block;color:var(--ink);font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.db-last-item p{margin:3px 0 0;color:var(--muted);font-size:12px;line-height:1.3}.db-last-empty{padding:12px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:12px;font-weight:750;text-align:center}
         .dashboard{min-height:0;display:grid;grid-template-columns:56% 44%;gap:8px}
@@ -116,6 +119,29 @@
             .action-row p,.accuracy-row p,.insight p{font-size:clamp(9px,.62vw,11px)}
         }
         .login-modal{width:min(360px,92vw)}.login-fields{display:grid;gap:10px}.login-fields label{display:grid;gap:5px;color:var(--muted);font-size:12px;font-weight:850;text-transform:uppercase}.login-fields input{height:38px;border:1px solid var(--line);border-radius:7px;padding:0 10px;color:var(--ink);font-size:14px;font-weight:750;outline:none}.login-fields input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(11,111,150,.14)}.login-message{margin-right:auto;color:var(--risk);font-size:12px;font-weight:750}
+        .calendar-day.quarter{border-color:#bfdbfe;background:#eff6ff;color:#1d4ed8}.legend-quarter{background:#eff6ff;border:1px solid #bfdbfe}
+        .public-analytics.analytics-view{grid-template-rows:72px minmax(132px,auto) minmax(0,1fr)}
+        .public-analytics .condition-card.simple{grid-template-columns:220px 150px minmax(0,1fr)}
+        .public-analytics .condition-shortage,.public-analytics .summary,.public-analytics .action-card{display:none}
+        .public-analytics .metric-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+        .public-analytics .metric{padding-right:72px}
+        .public-analytics .analytics-detail{grid-template-columns:1fr}
+        .public-analytics.show-actions .analytics-detail{grid-template-columns:1fr 1.18fr}
+        .public-analytics.show-actions .action-card{display:grid}
+        .analytics-secret{position:fixed;right:7px;bottom:7px;z-index:45;width:18px;height:18px;border:0;border-radius:999px;background:rgba(96,114,135,.08);opacity:.14;cursor:default}
+        .analytics-secret:hover{opacity:.28}
+        .analytics-menu{width:min(620px,94vw)}
+        .analytics-card-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:min(56vh,430px);overflow:auto}
+        .analytics-card-option{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:9px 10px;display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;color:var(--ink);font-size:13px;font-weight:850}
+        .analytics-card-option input{margin-top:1px}
+        .analytics-card-option span{display:block;color:var(--muted);font-size:11px;font-weight:750;line-height:1.25;margin-top:2px}
+        .analytics-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+        .analytics-head-tools{display:flex;align-items:center;gap:6px}
+        .analytics-lang{height:18px;border:1px solid rgba(96,114,135,.18);border-radius:5px;background:rgba(255,255,255,.75);display:flex;overflow:hidden}
+        .analytics-lang button{width:28px;border:0;background:transparent;color:rgba(96,114,135,.68);font-size:10px;font-weight:900;cursor:pointer}
+        .analytics-lang button.active{background:rgba(23,107,135,.14);color:var(--brand)}
+        .analytics-tune{width:22px;height:18px;border:0;border-radius:5px;background:rgba(96,114,135,.12);color:rgba(96,114,135,.62);font-size:12px;font-weight:900;line-height:1;cursor:pointer}
+        .analytics-tune:hover{background:rgba(23,107,135,.16);color:var(--brand)}
     </style>
 </head>
 <body>
@@ -126,6 +152,10 @@
             <button type="button" class="active" data-view="dashboard">Dashboard</button>
             <button type="button" data-view="analytic">Analytic</button>
         </nav>
+        <div class="delivery-toggle" aria-label="Jumlah delivery">
+            <button type="button" data-delivery-count="2">2 Delivery</button>
+            <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
+        </div>
         <button type="button" class="workday-open" id="workdayOpen">Production Calender</button>
         <div class="last-update" id="lastUpdateBox">
             <button type="button" id="lastUpdate">*Last Update : -</button>
@@ -174,7 +204,7 @@
         </section>
     </main>
 
-    <main class="view analytics-view" id="analyticView">
+    <main class="view analytics-view public-analytics" id="analyticView">
         <section class="box condition-card" id="overallCondition">
             <h2>Kondisi Utama Area :</h2>
             <div class="condition-level" id="conditionLevel">-</div>
@@ -183,12 +213,21 @@
             <div class="condition-meta" id="conditionMeta">Overall Level</div>
         </section>
         <section class="box analytics">
-            <h2>Data-Driven & Management Analytics :</h2>
+            <h2 class="analytics-head">
+                <span id="analyticsTitle">Data-Driven & Management Analytics :</span>
+                <span class="analytics-head-tools">
+                    <span class="analytics-lang" aria-label="Analytics language">
+                        <button type="button" data-analytics-lang="id">ID</button>
+                        <button type="button" data-analytics-lang="en">EN</button>
+                    </span>
+                    <button type="button" class="analytics-tune" id="analyticsTune" aria-label="Analytics display">...</button>
+                </span>
+            </h2>
             <div class="metric-grid" id="analyticsMetrics"></div>
         </section>
         <section class="analytics-detail">
             <div class="box analytics">
-                <h2>Management Insight :</h2>
+                <h2 id="analyticsInsightTitle">Management Insight :</h2>
                 <div class="insights" id="analyticsInsights"></div>
             </div>
             <div class="box summary">
@@ -204,6 +243,7 @@
         </section>
     </main>
 </div>
+<button type="button" class="analytics-secret" id="analyticsSecret" aria-label=""></button>
 
 <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
     <section class="detail-modal">
@@ -233,6 +273,7 @@
                 <span><i class="legend-sunday"></i>Minggu/off</span>
                 <span><i class="legend-work"></i>Kerja</span>
                 <span><i class="legend-half"></i>1/2 hari</span>
+                <span><i class="legend-quarter"></i>1/4 hari</span>
                 <span><i class="legend-off"></i>Libur</span>
             </div>
             <div class="calendar-help">Klik tanggal untuk mengganti status. Minggu bisa dijadikan kerja bila diperlukan.</div>
@@ -265,6 +306,24 @@
     </section>
 </div>
 
+<div class="modal-backdrop" id="analyticsMenuModal" role="dialog" aria-modal="true" aria-labelledby="analyticsMenuTitle">
+    <section class="detail-modal analytics-menu">
+        <div class="modal-head">
+            <h3 id="analyticsMenuTitle">Analytics Display</h3>
+            <button type="button" class="modal-close" id="analyticsMenuClose" aria-label="Tutup analytics display">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="analytics-card-options" id="analyticsCardOptions"></div>
+            <div class="modal-actions">
+                <span class="workday-message" id="analyticsMenuMessage"></span>
+                <button type="button" id="analyticsMenuReset">Default</button>
+                <button type="button" id="analyticsMenuCancel">Batal</button>
+                <button type="button" class="primary" id="analyticsMenuSave">Simpan</button>
+            </div>
+        </div>
+    </section>
+</div>
+
 <script>
 const urls = {
     status: <?= json_encode($status_url) ?>,
@@ -274,18 +333,272 @@ const urls = {
     run: <?= json_encode($run_url) ?>,
     download: <?= json_encode($download_url) ?>
 };
+const featureVisibility = {
+    criticalOrders: false,
+    internalAnalytics: false
+};
+const analyticsCardStorageKey = 'heatAnalyticsVisibleCards';
+const analyticsLangStorageKey = 'heatAnalyticsLanguage';
+const defaultAnalyticsCards = [
+    'production_status',
+    'output_achievement',
+    'data_accuracy'
+];
+const analyticsText = {
+    en: {
+        analyticsTitle: 'Data-Driven & Management Analytics :',
+        insightTitle: 'Management Insight :',
+        analyticsDisplay: 'Analytics Display',
+        production_status: 'Production Status',
+        output_achievement: 'Output Achievement',
+        data_accuracy: 'Data Accuracy',
+        plan_completion: 'Plan Completion',
+        monitoring_coverage: 'Monitoring Coverage',
+        source_sync: 'Source Sync',
+        data_update: 'Data Update',
+        trend: 'Trend',
+        production_flow: 'Production Flow',
+        data_reliability: 'Data Reliability',
+        ready_coverage: 'Ready Coverage',
+        req_daily_output: 'Req. Daily Output',
+        total_ready_load: 'Total Ready Load',
+        avg_daily_output: 'Avg Daily Output',
+        avg_daily_capacity: 'Avg Daily Capacity',
+        capacity_gap: 'Capacity Gap',
+        capacity_surplus: 'Capacity Surplus',
+        sequence_issues: 'Sequence Issues',
+        critical_orders: 'Critical Orders',
+        cap_data_accuracy: 'CAP Data Accuracy',
+        cap_output_achievement: 'CAP Output Achievement',
+        cap_coverage_ready: 'CAP Coverage Ready Load',
+        cap_daily_output: 'CAP Daily Output Requirement',
+        cap_critical_order: 'CAP Critical Delivery Order',
+        cap_controlled: 'CAP Controlled Condition',
+        note_public_status: 'General status without operational detail.',
+        note_percent_output: 'Production performance percentage.',
+        note_percent_accuracy: 'Data accuracy percentage.',
+        note_plan_completion: 'Completion percentage from output data.',
+        note_monitoring: 'Coverage of dashboard modules being monitored.',
+        note_source_sync: 'Number of synced data sources.',
+        note_update: 'Latest update time from each data source.',
+        note_trend: 'General trend status.',
+        note_flow: 'General production flow status.',
+        note_reliability: 'Reliability based on data accuracy.',
+        note_internal_ready: 'Ready-load coverage data.',
+        note_internal_daily: 'Daily output requirement data.',
+        note_internal_total_ready: 'Total ready-load data.',
+        note_internal_avg_output: 'Average daily output data.',
+        note_internal_capacity: 'Average daily capacity data.',
+        note_internal_gap: 'Capacity gap/surplus data.',
+        note_internal_sequence: 'Data sequence issue count.',
+        note_internal_critical: 'Critical order count.',
+        note_internal_cap: 'Issue, cause, prevention, handling.',
+        note_internal_cap_simple: 'Prevention and handling.',
+        item: 'Item',
+        description: 'Description',
+        card_value: 'Card Value',
+        display_mode: 'Display Mode',
+        summary_view: 'Summary view',
+        display_note: 'Shows the dashboard source data used by this card.',
+        formula: 'Formula',
+        module: 'Module',
+        source: 'Source',
+        last_update: 'Last Update',
+        status: 'Status',
+        validation: 'Validation',
+        detail_qty_hidden: 'The percentage shows completion against plan. The table below shows the dashboard rows used by this card.',
+        production_status_formula: 'Production Status is summarized from active delivery condition, output achievement, and data validation.',
+        output_formula: 'Achievement = completed output / PDK plan x 100%.',
+        output_source: 'Plan and output data from synced RPA files.',
+        accuracy_formula: 'Score = 100% minus data-sequence issue penalties.',
+        monitoring_note: 'Monitoring Coverage shows dashboard modules included in the monitoring scope.',
+        source_sync_formula: 'Source Sync compares available data sources against total monitored sources.',
+        data_update_formula: 'Data Update shows the latest timestamp recorded from each dashboard source.',
+        general_indicator_note: 'This card is used as a general review indicator.',
+        detail_unavailable: 'Card detail is not available yet.',
+        monitored: 'Monitored',
+        synced: 'Synced',
+        missing: 'Missing',
+        today: 'Today',
+        stable: 'Stable',
+        on_track: 'On Track',
+        pcs: 'Pcs',
+        days: 'Days',
+        issue: 'Issue',
+        order: 'Order',
+        output_insight: 'Output Achievement Insight',
+        output_insight_text: 'Output performance on track at {value}%.',
+        reliability: 'Data Reliability',
+        reliability_text: 'Dashboard data validation is stable at {value}%.',
+        flow_text: 'Production progress is aligned with the active delivery plan.',
+        monitoring_status: 'Monitoring Status',
+        monitoring_text: 'Dashboard monitoring is active and ready for review.',
+        analytics_ready: 'Analytics display is ready.',
+        production_status_insight: 'Production is {status}. Dashboard total output is {output} pcs with balance {balance} pcs.',
+        output_achievement_insight: 'Output achievement is {value} based on dashboard output {output} pcs.',
+        data_accuracy_insight: 'Data accuracy is {value}; validation follows the period rows shown in dashboard detail.',
+        monitoring_coverage_insight: 'Monitoring covers {value} of active dashboard modules.',
+        source_sync_insight: 'Source sync is {value}; available source data is ready for dashboard calculation.',
+        data_update_insight: 'Latest dashboard data update is {value}.',
+        ready_coverage_insight: 'Ready coverage is {value}; total ready load is {ready} pcs.',
+        req_daily_output_insight: 'Required daily output is {value}; dashboard balance is {balance} pcs.',
+        total_ready_load_insight: 'Total ready load is {value}, taken from dashboard ready-to-load data.',
+        avg_daily_output_insight: 'Average daily output is {value}, compared with current dashboard capacity.',
+        avg_daily_capacity_insight: 'Average daily capacity is {value}, based on active delivery capacity calculation.',
+        capacity_gap_insight: '{label} is {value}; this compares daily output with available capacity.',
+        sequence_issues_insight: 'Sequence issues detected: {value}; this affects data validation status.',
+        critical_orders_insight: 'Critical orders detected: {value}; detail follows the priority order list.',
+        cap_insight: '{label} is displayed as a follow-up item for the selected analytics card.'
+    },
+    id: {
+        analyticsTitle: 'Analitik Berbasis Data :',
+        insightTitle: 'Insight Manajemen :',
+        analyticsDisplay: 'Tampilan Analytics',
+        production_status: 'Status Produksi',
+        output_achievement: 'Pencapaian Output',
+        data_accuracy: 'Akurasi Data',
+        plan_completion: 'Penyelesaian Plan',
+        monitoring_coverage: 'Cakupan Monitoring',
+        source_sync: 'Sinkronisasi Sumber',
+        data_update: 'Update Data',
+        trend: 'Tren',
+        production_flow: 'Alur Produksi',
+        data_reliability: 'Reliabilitas Data',
+        ready_coverage: 'Coverage Ready',
+        req_daily_output: 'Kebutuhan Output Harian',
+        total_ready_load: 'Total Ready Load',
+        avg_daily_output: 'Rata-rata Output Harian',
+        avg_daily_capacity: 'Rata-rata Kapasitas Harian',
+        capacity_gap: 'Gap Kapasitas',
+        capacity_surplus: 'Surplus Kapasitas',
+        sequence_issues: 'Sequence Issues',
+        critical_orders: 'Order Kritis',
+        cap_data_accuracy: 'CAP Akurasi Data',
+        cap_output_achievement: 'CAP Pencapaian Output',
+        cap_coverage_ready: 'CAP Coverage Ready Load',
+        cap_daily_output: 'CAP Kebutuhan Output Harian',
+        cap_critical_order: 'CAP Order Delivery Kritis',
+        cap_controlled: 'CAP Kondisi Terkendali',
+        note_public_status: 'Status umum tanpa detail operasional.',
+        note_percent_output: 'Persentase performa produksi.',
+        note_percent_accuracy: 'Persentase akurasi data.',
+        note_plan_completion: 'Persentase completion dari data output.',
+        note_monitoring: 'Cakupan modul dashboard yang sedang dipantau.',
+        note_source_sync: 'Jumlah sumber data yang tersinkron.',
+        note_update: 'Waktu update terakhir dari setiap sumber data.',
+        note_trend: 'Status tren umum.',
+        note_flow: 'Status alur produksi umum.',
+        note_reliability: 'Reliabilitas berdasarkan akurasi data.',
+        note_internal_ready: 'Data coverage ready load.',
+        note_internal_daily: 'Data kebutuhan output harian.',
+        note_internal_total_ready: 'Data total ready load.',
+        note_internal_avg_output: 'Data rata-rata output harian.',
+        note_internal_capacity: 'Data rata-rata kapasitas harian.',
+        note_internal_gap: 'Data gap/surplus kapasitas.',
+        note_internal_sequence: 'Jumlah issue urutan data.',
+        note_internal_critical: 'Jumlah order kritis.',
+        note_internal_cap: 'Masalah, penyebab, pencegahan, penanganan.',
+        note_internal_cap_simple: 'Pencegahan dan penanganan.',
+        item: 'Item',
+        description: 'Keterangan',
+        card_value: 'Nilai Card',
+        display_mode: 'Mode Tampilan',
+        summary_view: 'Tampilan ringkas',
+        display_note: 'Menampilkan data dashboard yang dipakai untuk membentuk card ini.',
+        formula: 'Formula',
+        module: 'Modul',
+        source: 'Sumber',
+        last_update: 'Update Terakhir',
+        status: 'Status',
+        validation: 'Validasi',
+        detail_qty_hidden: 'Persentase menunjukkan tingkat penyelesaian terhadap plan. Tabel di bawah menampilkan baris dashboard yang dipakai oleh card ini.',
+        production_status_formula: 'Status Produksi diringkas dari kondisi delivery aktif, pencapaian output, dan validasi data.',
+        output_formula: 'Achievement = output selesai / plan PDK x 100%.',
+        output_source: 'Data plan dan output dari file RPA yang sudah tersinkron.',
+        accuracy_formula: 'Score = 100% dikurangi penalti issue urutan data.',
+        monitoring_note: 'Cakupan Monitoring menunjukkan modul dashboard yang masuk area pantauan.',
+        source_sync_formula: 'Sinkronisasi Sumber membandingkan sumber data tersedia dengan total sumber yang dipantau.',
+        data_update_formula: 'Update Data menunjukkan timestamp terakhir yang tercatat dari setiap sumber dashboard.',
+        general_indicator_note: 'Card ini dipakai sebagai indikator ringkas untuk review umum.',
+        detail_unavailable: 'Detail card belum tersedia.',
+        monitored: 'Dipantau',
+        synced: 'Sinkron',
+        missing: 'Belum Ada',
+        today: 'Hari Ini',
+        stable: 'Stabil',
+        on_track: 'On Track',
+        pcs: 'Pcs',
+        days: 'Hari',
+        issue: 'Issue',
+        order: 'Order',
+        output_insight: 'Insight Pencapaian Output',
+        output_insight_text: 'Performa output berjalan sesuai target di {value}%.',
+        reliability: 'Reliabilitas Data',
+        reliability_text: 'Validasi data dashboard stabil di {value}%.',
+        flow_text: 'Progress produksi selaras dengan plan delivery aktif.',
+        monitoring_status: 'Status Monitoring',
+        monitoring_text: 'Monitoring dashboard aktif dan siap direview.',
+        analytics_ready: 'Tampilan analytics siap.',
+        production_status_insight: 'Produksi {status}. Total output dashboard {output} pcs dengan balance {balance} pcs.',
+        output_achievement_insight: 'Pencapaian output {value} berdasarkan output dashboard {output} pcs.',
+        data_accuracy_insight: 'Akurasi data {value}; validasi mengikuti baris periode pada detail dashboard.',
+        monitoring_coverage_insight: 'Monitoring mencakup {value} modul dashboard aktif.',
+        source_sync_insight: 'Sinkronisasi sumber {value}; data source tersedia untuk kalkulasi dashboard.',
+        data_update_insight: 'Update data dashboard terakhir: {value}.',
+        ready_coverage_insight: 'Coverage ready {value}; total ready load {ready} pcs.',
+        req_daily_output_insight: 'Kebutuhan output harian {value}; balance dashboard {balance} pcs.',
+        total_ready_load_insight: 'Total ready load {value}, diambil dari data ready-to-load dashboard.',
+        avg_daily_output_insight: 'Rata-rata output harian {value}, dibandingkan dengan kapasitas dashboard saat ini.',
+        avg_daily_capacity_insight: 'Rata-rata kapasitas harian {value}, berdasarkan kalkulasi kapasitas delivery aktif.',
+        capacity_gap_insight: '{label} sebesar {value}; membandingkan output harian dengan kapasitas tersedia.',
+        sequence_issues_insight: 'Sequence issues terdeteksi: {value}; ini memengaruhi status validasi data.',
+        critical_orders_insight: 'Order kritis terdeteksi: {value}; detail mengikuti daftar order prioritas.',
+        cap_insight: '{label} ditampilkan sebagai item tindak lanjut dari card analytics yang dipilih.'
+    }
+};
+const analyticsCardDefinitions = [
+    {key:'production_status', note:'note_public_status'},
+    {key:'output_achievement', note:'note_percent_output'},
+    {key:'data_accuracy', note:'note_percent_accuracy'},
+    {key:'monitoring_coverage', note:'note_monitoring'},
+    {key:'source_sync', note:'note_source_sync'},
+    {key:'data_update', note:'note_update'},
+    {key:'ready_coverage', note:'note_internal_ready'},
+    {key:'req_daily_output', note:'note_internal_daily'},
+    {key:'total_ready_load', note:'note_internal_total_ready'},
+    {key:'avg_daily_output', note:'note_internal_avg_output'},
+    {key:'avg_daily_capacity', note:'note_internal_capacity'},
+    {key:'capacity_gap', note:'note_internal_gap'},
+    {key:'sequence_issues', note:'note_internal_sequence'},
+    {key:'critical_orders', note:'note_internal_critical'},
+    {key:'cap_data_accuracy', note:'note_internal_cap'},
+    {key:'cap_output_achievement', note:'note_internal_cap'},
+    {key:'cap_coverage_ready', note:'note_internal_cap'},
+    {key:'cap_daily_output', note:'note_internal_cap'},
+    {key:'cap_critical_order', note:'note_internal_cap'},
+    {key:'cap_controlled', note:'note_internal_cap_simple'}
+];
 const rupiah = new Intl.NumberFormat('id-ID');
 const percentNumber = new Intl.NumberFormat('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const fmt = (value) => value === null || value === undefined || isNaN(Number(value)) ? '-' : rupiah.format(Number(value));
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
 const dateOnly = (value) => value ? new Intl.DateTimeFormat('id-ID', {day:'2-digit', month:'long', year:'numeric'}).format(new Date(value)) : '-';
 const dateTime = (value) => value ? new Intl.DateTimeFormat('id-ID', {day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'}).format(new Date(value)) : '-';
+let analyticsLanguage = localStorage.getItem(analyticsLangStorageKey) === 'en' ? 'en' : 'id';
+const text = (key) => analyticsText[analyticsLanguage]?.[key] || analyticsText.en[key] || key;
+const textTemplate = (key, values = {}) => Object.keys(values).reduce(
+    (result, name) => result.replaceAll(`{${name}}`, values[name]),
+    text(key)
+);
 let currentDashboard = null;
 let calendarCursor = new Date();
 let selectedHolidays = new Set();
 let selectedHalfDays = new Set();
+let selectedQuarterDays = new Set();
 let selectedWorkDays = new Set();
 let calendarAuthenticated = false;
+let pendingLoginAction = null;
+let selectedDeliveryCount = Number(localStorage.getItem('heatDeliveryCount')) === 2 ? 2 : 4;
 
 function floorDecimal(value, decimals) {
     const factor = Math.pow(10, decimals);
@@ -585,7 +898,7 @@ function openAnalyticsDetail(key) {
                 ${tableCell(row.capacity, true)}
                 ${tableCell((Number(row.capacity) || 0) - (Number(row.output) || 0), true)}
                 ${tableCell(row.capacity_captured_at ? dateTime(row.capacity_captured_at) : '-')}
-                ${tableCell((row.capacity_breakdown || []).map(item => `${item.label}: ${fmt(Math.round(item.balance || 0))}/${fmt(Number(item.days_left || 0).toFixed(1))}=${fmt(Math.round(item.daily_capacity || 0))}`).join(', ') || '-')}
+                ${tableCell((row.capacity_breakdown || []).map(item => `${item.label}: total ${fmt(Math.round(item.total_balance || item.balance || 0))}/${fmt(Number(item.total_days_left || item.days_left || 0).toFixed(1))}=${fmt(Math.round(item.daily_capacity || 0))}`).join(', ') || '-')}
             </tr>
         `);
         renderDetailTable('Detail Daily Output', ['Hari', 'Output', 'Input 32a', 'Capacity', 'Gap', 'Snapshot', 'History Kapasitas'], rows, [
@@ -593,7 +906,7 @@ function openAnalyticsDetail(key) {
             ['Calendar Days', `${fmt(Number(calendar.remaining_workdays || 0).toFixed(1))} Days`],
             ['Export Days Left', `${fmt(daysLeft.toFixed(1))} Days`],
             ['Req. Daily', `${fmt(Math.round(requiredDaily))} Pcs/Day`]
-        ], `Required Daily Output = SUM(balance tiap delivery / sisa hari kerja export tiap delivery). Card kalender menampilkan hari produktif sesuai tanda kalender, sedangkan Status Export memakai buffer 4 hari. Avg Daily Output saat ini: ${fmt(Math.round(avgOutput))} pcs/day. Gap per hari = Capacity - Output.`);
+        ], `Required Daily Output = total balance delivery aktif / total sisa hari kerja export delivery aktif. Card kalender menampilkan hari produktif sesuai tanda kalender, sedangkan Status Export memakai buffer 4 hari. Avg Daily Output saat ini: ${fmt(Math.round(avgOutput))} pcs/day. Gap per hari = Capacity - Output.`);
         return;
     }
 
@@ -645,6 +958,372 @@ function detailKeyForMetric(label) {
     }[label] || '';
 }
 
+function getVisibleAnalyticsCards() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(analyticsCardStorageKey) || 'null');
+        if (Array.isArray(saved) && saved.length) {
+            const validKeys = new Set(analyticsCardDefinitions.map(item => item.key));
+            const filtered = saved.filter(key => validKeys.has(key));
+            return filtered.length ? filtered : [...defaultAnalyticsCards];
+        }
+    } catch (error) {
+        // Abaikan setting lama yang tidak valid.
+    }
+    return [...defaultAnalyticsCards];
+}
+
+function setVisibleAnalyticsCards(keys) {
+    localStorage.setItem(analyticsCardStorageKey, JSON.stringify(keys));
+}
+
+function metricByLabel(metrics, label) {
+    return metrics.find(item => item.label === label) || {};
+}
+
+function analyticsCards(analytics) {
+    const metrics = analytics?.metrics || [];
+    const summary = analytics?.summary || {};
+    const outputMetric = metricByLabel(metrics, 'Output Achievement');
+    const accuracyMetric = metricByLabel(metrics, 'Data Accuracy');
+    const readyMetric = metricByLabel(metrics, 'Ready Coverage');
+    const dailyMetric = metricByLabel(metrics, 'Req. Daily Output');
+    const sources = currentDashboard?.sources || [];
+    const syncedSources = sources.filter(item => item.exists).length;
+    const totalSources = sources.length || 3;
+    const capacityGap = Number(summary.capacity_gap || 0);
+    const capacityGapLabel = capacityGap < 0 ? 'Capacity Surplus' : 'Capacity Gap';
+
+    const cards = {
+        production_status: {label:text('production_status'), value:text('on_track'), suffix:'', status:'good'},
+        output_achievement: {...outputMetric, label:text('output_achievement')},
+        data_accuracy: {...accuracyMetric, label:text('data_accuracy')},
+        plan_completion: {label:text('plan_completion'), value: outputMetric.value ?? 0, suffix:'%', status: outputMetric.status || 'good'},
+        monitoring_coverage: {label:text('monitoring_coverage'), value: 100, suffix:'%', status:'good'},
+        source_sync: {label:text('source_sync'), value: `${syncedSources}/${totalSources}`, suffix:'', status: syncedSources >= totalSources ? 'good' : 'watch'},
+        data_update: {label:text('data_update'), value:text('today'), suffix:'', status:'good'},
+        trend: {label:text('trend'), value:text('stable'), suffix:'', status:'good'},
+        production_flow: {label:text('production_flow'), value:text('on_track'), suffix:'', status:'good'},
+        data_reliability: {label:text('data_reliability'), value: accuracyMetric.value ?? 0, suffix:'%', status: accuracyMetric.status || 'good'},
+        ready_coverage: {...readyMetric, label:text('ready_coverage')},
+        req_daily_output: {...dailyMetric, label:text('req_daily_output')},
+        total_ready_load: {label:text('total_ready_load'), value: Math.round(summary.total_ready || 0), suffix:text('pcs'), status:'good'},
+        avg_daily_output: {label:text('avg_daily_output'), value: Math.round(summary.avg_daily_output || 0), suffix:text('pcs'), status:'good'},
+        avg_daily_capacity: {label:text('avg_daily_capacity'), value: Math.round(summary.avg_daily_capacity || 0), suffix:text('pcs'), status:'good'},
+        capacity_gap: {label:capacityGap < 0 ? text('capacity_surplus') : text('capacity_gap'), value: Math.round(Math.abs(capacityGap)), suffix:text('pcs'), status: capacityGap < 0 ? 'good' : 'watch'},
+        sequence_issues: {label:text('sequence_issues'), value: Math.round(summary.sequence_issues || 0), suffix:text('issue'), status: Number(summary.sequence_issues || 0) > 0 ? 'watch' : 'good'},
+        critical_orders: {label:text('critical_orders'), value: Math.round(summary.critical_orders || 0), suffix:text('order'), status: Number(summary.critical_orders || 0) > 0 ? 'risk' : 'good'}
+    };
+
+    Object.keys(cards).forEach(key => {
+        cards[key].key = key;
+    });
+
+    return cards;
+}
+
+function latestSourceUpdateLabel() {
+    const sources = currentDashboard?.sources || [];
+    const timestamps = sources
+        .map(source => source.updated_at ? new Date(source.updated_at) : null)
+        .filter(date => date && !isNaN(date.getTime()))
+        .sort((a, b) => b.getTime() - a.getTime());
+    return timestamps.length ? dateTime(timestamps[0]) : text('today');
+}
+
+function analyticsInsightForCard(key, card, analytics) {
+    const dashboard = currentDashboard || {};
+    const summary = analytics?.summary || {};
+    const kpis = dashboard.kpis || {};
+    const details = analytics?.details || {};
+    const balance = numberValue(kpis.balance_qty, details.daily_requirement?.balance_qty, details.output?.balance_qty);
+    const output = numberValue(kpis.total_output, details.output?.total_output);
+    const cardValue = `${metricValue(card)}${card.suffix ? ` ${card.suffix}` : ''}`;
+    const capKeys = ['cap_data_accuracy', 'cap_output_achievement', 'cap_coverage_ready', 'cap_daily_output', 'cap_critical_order', 'cap_controlled'];
+
+    const insightMap = {
+        production_status: {
+            title: text('production_status'),
+            text: textTemplate('production_status_insight', {status: metricValue(card), output: fmt(Math.round(output)), balance: fmt(Math.round(balance))})
+        },
+        output_achievement: {
+            title: text('output_achievement'),
+            text: textTemplate('output_achievement_insight', {value: cardValue, output: fmt(Math.round(output))})
+        },
+        data_accuracy: {
+            title: text('data_accuracy'),
+            text: textTemplate('data_accuracy_insight', {value: cardValue})
+        },
+        monitoring_coverage: {
+            title: text('monitoring_coverage'),
+            text: textTemplate('monitoring_coverage_insight', {value: cardValue})
+        },
+        source_sync: {
+            title: text('source_sync'),
+            text: textTemplate('source_sync_insight', {value: cardValue})
+        },
+        data_update: {
+            title: text('data_update'),
+            text: textTemplate('data_update_insight', {value: latestSourceUpdateLabel()})
+        },
+        ready_coverage: {
+            title: text('ready_coverage'),
+            text: textTemplate('ready_coverage_insight', {value: cardValue, ready: fmt(Math.round(summary.total_ready || 0))})
+        },
+        req_daily_output: {
+            title: text('req_daily_output'),
+            text: textTemplate('req_daily_output_insight', {value: cardValue, balance: fmt(Math.round(balance))})
+        },
+        total_ready_load: {
+            title: text('total_ready_load'),
+            text: textTemplate('total_ready_load_insight', {value: cardValue})
+        },
+        avg_daily_output: {
+            title: text('avg_daily_output'),
+            text: textTemplate('avg_daily_output_insight', {value: cardValue})
+        },
+        avg_daily_capacity: {
+            title: text('avg_daily_capacity'),
+            text: textTemplate('avg_daily_capacity_insight', {value: cardValue})
+        },
+        capacity_gap: {
+            title: card.label || text('capacity_gap'),
+            text: textTemplate('capacity_gap_insight', {label: card.label || text('capacity_gap'), value: cardValue})
+        },
+        sequence_issues: {
+            title: text('sequence_issues'),
+            text: textTemplate('sequence_issues_insight', {value: cardValue})
+        },
+        critical_orders: {
+            title: text('critical_orders'),
+            text: textTemplate('critical_orders_insight', {value: cardValue})
+        }
+    };
+
+    if (capKeys.includes(key)) {
+        return {
+            status: card.status || 'watch',
+            title: card.label || text(key),
+            text: textTemplate('cap_insight', {label: card.label || text(key)})
+        };
+    }
+
+    if (!insightMap[key]) return null;
+    return {
+        status: card.status || 'good',
+        ...insightMap[key]
+    };
+}
+
+function analyticsInsightsForCards(cards, analytics) {
+    const byKey = analyticsCards(analytics);
+    const insights = cards
+        .map(key => analyticsInsightForCard(key, byKey[key] || {}, analytics))
+        .filter(Boolean);
+
+    return insights.length ? insights : [{
+        status: 'good',
+        title: text('production_status'),
+        text: text('analytics_ready')
+    }];
+}
+
+function actionMatchesCard(item, key) {
+    const title = String(item?.title || '');
+    return {
+        cap_data_accuracy: title === '1. Data Accuracy',
+        cap_output_achievement: title === '2. Output Achievement',
+        cap_coverage_ready: title === '3. Coverage Ready Load',
+        cap_daily_output: title === '4. Kebutuhan Output Harian',
+        cap_critical_order: title === '5. Order Delivery Kritis',
+        cap_controlled: title === 'Kondisi terkendali'
+    }[key] || false;
+}
+
+function openAnalyticsCardDetail(key) {
+    const dashboard = currentDashboard || {};
+    const analytics = dashboard.management_analytics || {};
+    const details = analytics.details || {};
+    const summary = analytics.summary || {};
+    const dataAccuracy = analytics.data_accuracy || {};
+    const cards = analyticsCards(analytics);
+    const card = cards[key] || {};
+    const value = `${metricValue(card)}${card.suffix ? ` ${card.suffix}` : ''}`;
+    const safeRows = [];
+    const internalRows = [];
+    const periodRows = (dashboard.qty_pdk_vs_output || []).map(row => `
+        <tr>
+            ${tableCell(row.label)}
+            ${tableCell(row.pdk, true)}
+            ${tableCell(row.output, true)}
+            ${tableCell((Number(row.pdk) || 0) - (Number(row.output) || 0), true)}
+        </tr>
+    `);
+    const readyRows = (dashboard.ready_to_load || []).map(row => `
+        <tr>
+            ${tableCell(row.label)}
+            ${tableCell(row.ready, true)}
+        </tr>
+    `);
+    const capacityRows = (dashboard.output_vs_capacity || []).map(row => `
+        <tr>
+            ${tableCell(row.label)}
+            ${tableCell(row.output, true)}
+            ${tableCell(row.input, true)}
+            ${tableCell(row.capacity, true)}
+            ${tableCell((Number(row.capacity) || 0) - (Number(row.output) || 0), true)}
+        </tr>
+    `);
+    const orderRows = (dashboard.top_priority_orders || []).map(row => `
+        <tr>
+            ${tableCell(row.order)}
+            ${tableCell(row.style)}
+            ${tableCell(row.delivery)}
+            ${tableCell(row.qty_pdk, true)}
+            ${tableCell(row.qty_ready, true)}
+        </tr>
+    `);
+
+    const addRow = (rows, label, description) => rows.push(`
+        <tr>
+            ${tableCell(label)}
+            ${tableCell(description)}
+        </tr>
+    `);
+
+    if (key === 'production_status') {
+        return renderDetailTable(`Detail ${card.label || text('production_status')}`, ['Order', 'Style', 'Delivery', 'QTY PDK', 'QTY Ready'], orderRows, [
+            [text('card_value'), value],
+            [text('formula'), text('production_status_formula')]
+        ], text('display_note'));
+    }
+
+    if (key === 'output_achievement' || key === 'plan_completion') {
+        return renderDetailTable(`Detail ${card.label || text('output_achievement')}`, ['Period', 'QTY PDK', 'QTY Output', 'Balance'], periodRows, [
+            [text('card_value'), value],
+            [text('formula'), text('output_formula')]
+        ], text('detail_qty_hidden'));
+    }
+
+    if (key === 'data_accuracy' || key === 'data_reliability') {
+        const rows = (dataAccuracy.periods || []).map(row => `
+            <tr>
+                ${tableCell(row.label)}
+                ${tableCell(row.pdk, true)}
+                ${tableCell(row.output, true)}
+                ${tableCell(row.balance, true)}
+                ${tableCell(row.ready, true)}
+            </tr>
+        `);
+        return renderDetailTable(`Detail ${card.label || text('data_accuracy')}`, ['Period', 'PDK', 'Output', 'Balance', 'Ready'], rows, [
+            [text('card_value'), value],
+            [text('validation'), dataAccuracy.message || '-']
+        ], text('accuracy_formula'));
+    }
+
+    if (key === 'monitoring_coverage') {
+        const modules = [
+            'APS JO Tracking',
+            'Engage 32a Inflow',
+            'Engage 32a Outflow',
+            'Accessories Controlist',
+            'Dashboard Analytics'
+        ];
+        const rows = modules.map(module => `
+            <tr>
+                ${tableCell(module)}
+                ${tableCell(text('monitored'))}
+            </tr>
+        `);
+        return renderDetailTable(`Detail ${card.label || text('monitoring_coverage')}`, [text('module'), text('status')], rows, [
+            [text('card_value'), value]
+        ], text('monitoring_note'));
+    }
+
+    if (key === 'source_sync') {
+        const sources = dashboard.sources || [];
+        const rows = sources.map(source => `
+            <tr>
+                ${tableCell(source.label || source.key || '-')}
+                ${tableCell(source.exists ? text('synced') : text('missing'))}
+            </tr>
+        `);
+        return renderDetailTable(`Detail ${card.label || text('source_sync')}`, ['Source', text('status')], rows, [
+            [text('card_value'), value]
+        ], text('source_sync_formula'));
+    }
+
+    if (key === 'data_update') {
+        const sources = dashboard.sources || [];
+        const rows = sources.map(source => `
+            <tr>
+                ${tableCell(source.label || source.key || '-')}
+                ${tableCell(dateTime(source.updated_at))}
+                ${tableCell(source.exists ? text('synced') : text('missing'))}
+            </tr>
+        `);
+        return renderDetailTable(`Detail ${card.label || text('data_update')}`, [text('source'), text('last_update'), text('status')], rows, [
+            [text('card_value'), value]
+        ], text('data_update_formula'));
+    }
+
+    if (['trend', 'production_flow'].includes(key)) {
+        return renderDetailTable(`Detail ${card.label || 'Analytics Card'}`, ['Order', 'Style', 'Delivery', 'QTY PDK', 'QTY Ready'], orderRows, [
+            [text('card_value'), value]
+        ], text('general_indicator_note'));
+    }
+
+    if (key === 'ready_coverage') {
+        return renderDetailTable(`Detail ${card.label || text('ready_coverage')}`, ['Period', 'Ready Load'], readyRows, [
+            [text('card_value'), value]
+        ], 'Ready Coverage = Total Ready Load / Avg Daily Capacity.');
+    }
+
+    if (key === 'req_daily_output') {
+        return renderDetailTable(`Detail ${card.label || text('req_daily_output')}`, ['Period', 'QTY PDK', 'QTY Output', 'Balance'], periodRows, [
+            [text('card_value'), value],
+            ['Export Days Left', `${fmt(Number(details.daily_requirement?.period_days_left || 0).toFixed(1))} ${text('days')}`]
+        ], 'Required Daily Output = balance delivery aktif / sisa hari kerja export.');
+    }
+
+    if (['total_ready_load', 'avg_daily_output', 'avg_daily_capacity', 'capacity_gap', 'sequence_issues', 'critical_orders'].includes(key)) {
+        if (key === 'total_ready_load') {
+            return renderDetailTable(`Detail ${card.label}`, ['Period', 'Ready Load'], readyRows, [[text('card_value'), value]], 'Total Ready Load = total ready dari periode yang tampil di dashboard.');
+        }
+        if (['avg_daily_output', 'avg_daily_capacity', 'capacity_gap'].includes(key)) {
+            return renderDetailTable(`Detail ${card.label}`, ['Hari', 'Output', 'Input', 'Capacity', 'Gap'], capacityRows, [[text('card_value'), value]], 'Data berasal dari grafik kapasitas vs output vs input.');
+        }
+        if (key === 'critical_orders') {
+            return renderDetailTable(`Detail ${card.label}`, ['Order', 'Style', 'Delivery', 'QTY PDK', 'QTY Ready'], orderRows, [[text('card_value'), value]], 'Critical Orders dihitung dari order prioritas dalam horizon delivery.');
+        }
+        return renderDetailTable(`Detail ${card.label}`, ['Period', 'PDK', 'Output', 'Balance', 'Ready'], (dataAccuracy.periods || []).map(row => `
+            <tr>
+                ${tableCell(row.label)}
+                ${tableCell(row.pdk, true)}
+                ${tableCell(row.output, true)}
+                ${tableCell(row.balance, true)}
+                ${tableCell(row.ready, true)}
+            </tr>
+        `), [[text('card_value'), value]], 'Sequence Issues berasal dari validasi urutan periode dashboard.');
+    }
+
+    if (key.startsWith('cap_')) {
+        const action = (analytics.action_plan || []).find(item => actionMatchesCard(item, key));
+        const rows = action ? [
+            action.masalah ? `<tr>${tableCell('Masalah')}${tableCell(action.masalah)}</tr>` : '',
+            action.penyebab ? `<tr>${tableCell('Penyebab')}${tableCell(action.penyebab)}</tr>` : '',
+            action.prevention ? `<tr>${tableCell('Pencegahan')}${tableCell(action.prevention)}</tr>` : '',
+            action.handling ? `<tr>${tableCell('Penanganan')}${tableCell(action.handling)}</tr>` : ''
+        ].filter(Boolean) : [];
+        return renderDetailTable(`Detail ${card.label || 'CAP'}`, ['Item', 'Keterangan'], rows, [
+            ['Status', action?.status || '-']
+        ], 'CAP berisi masalah, penyebab, prevention, dan handling dari data dashboard.');
+    }
+
+    renderDetailTable('Detail Analytics Card', ['Item', 'Keterangan'], safeRows, [
+        ['Nilai', value || '-']
+    ], 'Detail card belum tersedia.');
+}
+
 function renderAnalytics(analytics) {
     const condition = analytics?.overall_condition || {};
     const metrics = analytics?.metrics || [];
@@ -656,24 +1335,43 @@ function renderAnalytics(analytics) {
     const actions = analytics?.action_plan || [];
     const capacityGap = Number(summary.capacity_gap || 0);
     const capacityGapLabel = capacityGap < 0 ? 'Capacity Surplus' : 'Capacity Gap';
+    const selectedCards = getVisibleAnalyticsCards();
+    const selectedCapCards = selectedCards.filter(key => key.startsWith('cap_'));
+    const visibleActions = featureVisibility.internalAnalytics
+        ? actions
+        : actions.filter(item => selectedCapCards.some(key => actionMatchesCard(item, key)));
+    document.getElementById('analyticsTitle').textContent = text('analyticsTitle');
+    document.getElementById('analyticsInsightTitle').textContent = text('insightTitle');
+    document.querySelectorAll('[data-analytics-lang]').forEach(button => {
+        button.classList.toggle('active', button.dataset.analyticsLang === analyticsLanguage);
+    });
+    document.getElementById('analyticView').classList.toggle('show-actions', visibleActions.length > 0);
 
     const conditionCard = document.getElementById('overallCondition');
-    conditionCard.className = `box condition-card simple ${esc(condition.status || '')}`;
-    document.querySelector('#overallCondition h2').textContent = condition.title || '-';
-    document.getElementById('conditionLevel').textContent = condition.level || '-';
-    document.querySelector('#conditionShortage b').textContent = fmt(Math.round(details.output?.balance_qty || 0));
+    conditionCard.className = `box condition-card simple ${featureVisibility.internalAnalytics ? esc(condition.status || '') : 'good'}`;
+    document.querySelector('#overallCondition h2').textContent = featureVisibility.internalAnalytics ? (condition.title || '-') : 'Production Status:';
+    document.getElementById('conditionLevel').textContent = featureVisibility.internalAnalytics ? (condition.level || '-') : 'On Track';
+    document.querySelector('#conditionShortage b').textContent = featureVisibility.internalAnalytics ? fmt(Math.round(details.output?.balance_qty || 0)) : '-';
     document.getElementById('conditionSummary').textContent = '';
     document.getElementById('conditionMeta').textContent = '';
 
-    document.getElementById('analyticsMetrics').innerHTML = metrics.map(item => `
+    const allCards = analyticsCards(analytics);
+    const visibleMetrics = featureVisibility.internalAnalytics
+        ? metrics
+        : selectedCards.map(key => allCards[key]).filter(item => item && item.label);
+    const visibleInsights = featureVisibility.internalAnalytics
+        ? insights
+        : analyticsInsightsForCards(selectedCards, analytics);
+
+    document.getElementById('analyticsMetrics').innerHTML = visibleMetrics.map(item => `
         <div class="metric ${esc(item.status || '')}">
             <span>${esc(item.label)}</span>
             <strong>${metricValue(item)} <small>${esc(item.suffix)}</small></strong>
-            <button type="button" class="detail-btn" onclick="openAnalyticsDetail('${esc(detailKeyForMetric(item.label))}')">Detail</button>
+            <button type="button" class="detail-btn" onclick="openAnalyticsCardDetail('${esc(item.key || '')}')">Detail</button>
         </div>
     `).join('');
 
-    document.getElementById('analyticsInsights').innerHTML = insights.map(item => `
+    document.getElementById('analyticsInsights').innerHTML = visibleInsights.map(item => `
         <div class="insight ${esc(item.status || '')}">
             <i class="badge"></i>
             <div>
@@ -686,12 +1384,15 @@ function renderAnalytics(analytics) {
     const summaryCards = [
         ['Total Ready Load', `${fmt(Math.round(summary.total_ready || 0))} Pcs`, [`Ready periods: ${(details.ready?.periods || []).map(row => `${row.label} ${fmt(Math.round(row.ready || 0))} pcs`).join(', ') || '-'}`], 'ready'],
         ['Avg Daily Output', `${fmt(Math.round(summary.avg_daily_output || 0))} Pcs`, [`Required daily output: ${fmt(Math.round(details.daily_requirement?.required_daily_output || 0))} pcs/day`], 'daily'],
-        ['Avg Daily Capacity', `${fmt(Math.round(summary.avg_daily_capacity || 0))} Pcs`, ['Capacity = total kebutuhan harian dari semua delivery aktif.'], 'daily'],
+        ['Avg Daily Capacity', `${fmt(Math.round(summary.avg_daily_capacity || 0))} Pcs`, ['Capacity = total balance delivery aktif / total sisa hari MID + END.'], 'daily'],
         [capacityGapLabel, `${fmt(Math.round(Math.abs(capacityGap)))} Pcs`, ['Selisih total kapasitas dengan output harian.'], 'daily'],
-        ['Critical Orders', `${fmt(Math.round(summary.critical_orders || 0))} Order`, (details.priority?.orders || []).slice(0, 3).map(row => `${row.order} ${row.delivery}: ${fmt(Math.round(row.qty_ready || 0))} pcs`), 'critical'],
         ['Data Accuracy', `${fmt(Math.round(summary.data_accuracy_score || 0))}%`, accuracyIssues.map(item => `${item.title}: ${item.text}`), 'accuracy'],
         ['Sequence Issues', `${fmt(Math.round(summary.sequence_issues || 0))} Issue`, accuracyIssues.map(item => `${item.title}: ${item.text}`), 'accuracy']
     ];
+
+    if (featureVisibility.criticalOrders && featureVisibility.internalAnalytics) {
+        summaryCards.splice(4, 0, ['Critical Orders', `${fmt(Math.round(summary.critical_orders || 0))} Order`, (details.priority?.orders || []).slice(0, 3).map(row => `${row.order} ${row.delivery}: ${fmt(Math.round(row.qty_ready || 0))} pcs`), 'critical']);
+    }
 
     document.getElementById('analyticsSummary').innerHTML = summaryCards.map((item, index) => `
         <div class="summary-item">
@@ -701,7 +1402,7 @@ function renderAnalytics(analytics) {
         </div>
     `).join('');
 
-    document.getElementById('managementActions').innerHTML = actions.map(item => {
+    document.getElementById('managementActions').innerHTML = visibleActions.map(item => {
         const hasStructured = item.masalah !== undefined || item.penyebab !== undefined;
         const capRows = hasStructured ? [
             item.masalah    ? `<div class="cap-row"><span class="cap-label masalah">Masalah :</span><span class="cap-val">${esc(item.masalah)}</span></div>` : '',
@@ -736,6 +1437,59 @@ function renderAnalytics(analytics) {
             </div>
         </div>
     `).join('');
+}
+
+function renderAnalyticsCardOptions() {
+    const selected = new Set(getVisibleAnalyticsCards());
+    document.getElementById('analyticsMenuTitle').textContent = text('analyticsDisplay');
+    document.getElementById('analyticsCardOptions').innerHTML = analyticsCardDefinitions.map(item => `
+        <label class="analytics-card-option">
+            <input type="checkbox" value="${esc(item.key)}" ${selected.has(item.key) ? 'checked' : ''}>
+            <div>${esc(text(item.key))}<span>${esc(text(item.note))}</span></div>
+        </label>
+    `).join('');
+}
+
+function openAnalyticsMenu() {
+    renderAnalyticsCardOptions();
+    document.getElementById('analyticsMenuMessage').textContent = '';
+    const modal = document.getElementById('analyticsMenuModal');
+    modal.classList.add('open');
+    modal.style.display = 'flex';
+}
+
+function closeAnalyticsMenu() {
+    const modal = document.getElementById('analyticsMenuModal');
+    modal.classList.remove('open');
+    modal.style.display = 'none';
+}
+
+function closeAnalyticsMenuAndLogout() {
+    closeAnalyticsMenu();
+    if (calendarAuthenticated) {
+        logoutCalendar();
+    }
+}
+
+function saveAnalyticsMenu() {
+    const selected = Array.from(document.querySelectorAll('#analyticsCardOptions input:checked')).map(input => input.value);
+    if (!selected.length) {
+        document.getElementById('analyticsMenuMessage').textContent = 'Pilih minimal 1 card.';
+        return;
+    }
+    setVisibleAnalyticsCards(selected);
+    if (currentDashboard?.management_analytics) {
+        renderAnalytics(currentDashboard.management_analytics);
+    }
+    closeAnalyticsMenuAndLogout();
+}
+
+function resetAnalyticsMenu() {
+    setVisibleAnalyticsCards(defaultAnalyticsCards);
+    renderAnalyticsCardOptions();
+    if (currentDashboard?.management_analytics) {
+        renderAnalytics(currentDashboard.management_analytics);
+    }
 }
 
 function renderDashboardCharts(dashboard) {
@@ -835,6 +1589,7 @@ function calendarWorkdayValue(date) {
     const iso = isoDate(date);
     if (selectedHolidays.has(iso)) return 0;
     if (selectedHalfDays.has(iso)) return 0.5;
+    if (selectedQuarterDays.has(iso)) return 0.25;
     if (date.getDay() === 0 && !selectedWorkDays.has(iso)) return 0;
     return 1;
 }
@@ -870,10 +1625,11 @@ function renderCalendar() {
         const isSunday = date.getDay() === 0;
         const isHoliday = selectedHolidays.has(iso);
         const isHalf = selectedHalfDays.has(iso);
+        const isQuarter = selectedQuarterDays.has(iso);
         const isWork = selectedWorkDays.has(iso);
-        const label = isHoliday ? 'Libur' : (isHalf ? '1/2 Hari' : (isWork ? 'Kerja' : (isSunday ? 'Minggu' : 'Kerja')));
+        const label = isHoliday ? 'Libur' : (isQuarter ? '1/4 Hari' : (isHalf ? '1/2 Hari' : (isWork ? 'Kerja' : (isSunday ? 'Minggu' : 'Kerja'))));
         cells.push(`
-            <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''}" data-date="${iso}">
+            <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isQuarter ? 'quarter' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''}" data-date="${iso}">
                 <b>${date.getDate()}</b>
                 <span>${label}</span>
             </button>
@@ -907,26 +1663,32 @@ function cycleCalendarDay(date) {
     const isSunday = day === 0;
     const isHoliday = selectedHolidays.has(date);
     const isHalf = selectedHalfDays.has(date);
+    const isQuarter = selectedQuarterDays.has(date);
     const isWork = selectedWorkDays.has(date);
 
     selectedHolidays.delete(date);
     selectedHalfDays.delete(date);
+    selectedQuarterDays.delete(date);
     selectedWorkDays.delete(date);
 
     if (isSunday) {
-        if (!isWork && !isHalf && !isHoliday) {
+        if (!isWork && !isHalf && !isQuarter && !isHoliday) {
             selectedWorkDays.add(date);
         } else if (isWork) {
             selectedHalfDays.add(date);
         } else if (isHalf) {
+            selectedQuarterDays.add(date);
+        } else if (isQuarter) {
             selectedHolidays.add(date);
         }
         return;
     }
 
-    if (!isHalf && !isHoliday) {
+    if (!isHalf && !isQuarter && !isHoliday) {
         selectedHalfDays.add(date);
     } else if (isHalf) {
+        selectedQuarterDays.add(date);
+    } else if (isQuarter) {
         selectedHolidays.add(date);
     }
 }
@@ -939,6 +1701,7 @@ function openWorkdayModal() {
     const settings = currentDashboard?.holiday_settings || {};
     selectedHolidays = new Set(Array.isArray(settings) ? settings : (settings.holidays || []));
     selectedHalfDays = new Set(Array.isArray(settings) ? [] : (settings.half_days || []));
+    selectedQuarterDays = new Set(Array.isArray(settings) ? [] : (settings.quarter_days || []));
     selectedWorkDays = new Set(Array.isArray(settings) ? [] : (settings.work_days || []));
     document.getElementById('workdayMessage').textContent = '';
     renderCalendar();
@@ -965,6 +1728,7 @@ function openCalendarLoginModal() {
     document.getElementById('calendarLoginMessage').textContent = '';
     document.getElementById('calendarUsername').value = '';
     document.getElementById('calendarPassword').value = '';
+    document.getElementById('calendarLoginTitle').textContent = pendingLoginAction ? 'Login' : 'Login Production Calender';
     const modal = document.getElementById('calendarLoginModal');
     modal.classList.add('open');
     modal.style.display = 'flex';
@@ -998,7 +1762,13 @@ async function loginCalendar() {
         }
         calendarAuthenticated = true;
         closeCalendarLoginModal();
-        openWorkdayModal();
+        const action = pendingLoginAction;
+        pendingLoginAction = null;
+        if (typeof action === 'function') {
+            action();
+        } else {
+            openWorkdayModal();
+        }
     } catch (error) {
         message.textContent = error.message || 'Login gagal.';
     } finally {
@@ -1017,6 +1787,7 @@ async function saveWorkdays() {
     const message = document.getElementById('workdayMessage');
     const holidays = Array.from(selectedHolidays).sort();
     const halfDays = Array.from(selectedHalfDays).sort();
+    const quarterDays = Array.from(selectedQuarterDays).sort();
     const workDays = Array.from(selectedWorkDays).sort();
 
     button.disabled = true;
@@ -1026,7 +1797,7 @@ async function saveWorkdays() {
         const response = await fetch(urls.saveWorkdays, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({holidays, half_days: halfDays, work_days: workDays})
+            body: JSON.stringify({holidays, half_days: halfDays, quarter_days: quarterDays, work_days: workDays})
         });
         const result = await response.json();
         if (!response.ok || !result.ok) {
@@ -1085,7 +1856,7 @@ function render(data) {
     renderLastUpdateList(dashboard, data.server_time);
     document.getElementById('totalOutput').textContent = fmt(Math.round(numberValue(dashboard.kpis?.total_output)));
     document.getElementById('balanceQty').textContent = fmt(Math.round(balanceQty));
-    renderBalanceBreakdown(dashboard.qty_pdk_vs_output);
+    renderBalanceBreakdown(dashboard.balance_breakdown || dashboard.qty_pdk_vs_output);
 
     if (document.getElementById('dashboardView').classList.contains('active')) {
         renderDashboardCharts(dashboard);
@@ -1105,13 +1876,41 @@ function render(data) {
 }
 
 async function loadStatus() {
-    const response = await fetch(urls.status, {cache:'no-store'});
+    const statusUrl = `${urls.status}?delivery_count=${encodeURIComponent(selectedDeliveryCount)}`;
+    const response = await fetch(statusUrl, {cache:'no-store'});
     render(await response.json());
+}
+
+function renderDeliveryToggle() {
+    document.querySelectorAll('.delivery-toggle button').forEach(button => {
+        button.classList.toggle('active', Number(button.dataset.deliveryCount) === selectedDeliveryCount);
+    });
 }
 
 document.querySelectorAll('.menu button').forEach(button => {
     button.addEventListener('click', () => setActiveView(button.dataset.view));
 });
+
+document.querySelectorAll('.delivery-toggle button').forEach(button => {
+    button.addEventListener('click', async () => {
+        selectedDeliveryCount = Number(button.dataset.deliveryCount) === 2 ? 2 : 4;
+        localStorage.setItem('heatDeliveryCount', selectedDeliveryCount);
+        renderDeliveryToggle();
+        await loadStatus();
+    });
+});
+
+document.querySelectorAll('[data-analytics-lang]').forEach(button => {
+    button.addEventListener('click', () => {
+        analyticsLanguage = button.dataset.analyticsLang === 'en' ? 'en' : 'id';
+        localStorage.setItem(analyticsLangStorageKey, analyticsLanguage);
+        if (currentDashboard?.management_analytics) {
+            renderAnalytics(currentDashboard.management_analytics);
+        }
+    });
+});
+
+renderDeliveryToggle();
 
 document.getElementById('lastUpdate').addEventListener('click', event => {
     event.stopPropagation();
@@ -1138,7 +1937,48 @@ document.getElementById('workdayOpen').addEventListener('click', () => {
     if (calendarAuthenticated) {
         openWorkdayModal();
     } else {
+        pendingLoginAction = openWorkdayModal;
         openCalendarLoginModal();
+    }
+});
+
+document.getElementById('analyticsSecret').addEventListener('click', () => {
+    if (calendarAuthenticated) {
+        openAnalyticsMenu();
+    } else {
+        pendingLoginAction = openAnalyticsMenu;
+        openCalendarLoginModal();
+    }
+});
+
+document.getElementById('analyticsTune').addEventListener('click', () => {
+    if (calendarAuthenticated) {
+        openAnalyticsMenu();
+    } else {
+        pendingLoginAction = openAnalyticsMenu;
+        openCalendarLoginModal();
+    }
+});
+
+document.getElementById('analyticsMenuClose').addEventListener('click', () => {
+    closeAnalyticsMenuAndLogout();
+});
+
+document.getElementById('analyticsMenuCancel').addEventListener('click', () => {
+    closeAnalyticsMenuAndLogout();
+});
+
+document.getElementById('analyticsMenuSave').addEventListener('click', () => {
+    saveAnalyticsMenu();
+});
+
+document.getElementById('analyticsMenuReset').addEventListener('click', () => {
+    resetAnalyticsMenu();
+});
+
+document.getElementById('analyticsMenuModal').addEventListener('click', event => {
+    if (event.target.id === 'analyticsMenuModal') {
+        closeAnalyticsMenuAndLogout();
     }
 });
 
@@ -1171,10 +2011,12 @@ document.getElementById('workdayModal').addEventListener('click', event => {
 });
 
 document.getElementById('calendarLoginClose').addEventListener('click', () => {
+    pendingLoginAction = null;
     closeCalendarLoginModal();
 });
 
 document.getElementById('calendarLoginCancel').addEventListener('click', () => {
+    pendingLoginAction = null;
     closeCalendarLoginModal();
 });
 
@@ -1190,6 +2032,7 @@ document.getElementById('calendarPassword').addEventListener('keydown', event =>
 
 document.getElementById('calendarLoginModal').addEventListener('click', event => {
     if (event.target.id === 'calendarLoginModal') {
+        pendingLoginAction = null;
         closeCalendarLoginModal();
     }
 });
@@ -1197,6 +2040,7 @@ document.getElementById('calendarLoginModal').addEventListener('click', event =>
 document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
         closeDetailModal();
+        closeAnalyticsMenuAndLogout();
         closeWorkdayModalAndLogout();
         closeCalendarLoginModal();
     }

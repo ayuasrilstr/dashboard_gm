@@ -346,12 +346,6 @@ def wait_for_file_stable(path: Path, timeout_seconds: int, stable_seconds: float
 
 
 def save_as_file(step: dict) -> Path:
-    title_contains = step.get("title_contains", ["Save As", "Save"])
-    found = wait_for_any_window(title_contains if isinstance(title_contains, list) else [title_contains], int(step.get("timeout_seconds", 30)))
-    if not found:
-        visible = ", ".join(title for _, title in visible_windows()[:10])
-        raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
-
     directory = project_path(step.get("directory", ROOT / "downloads" / "dashboard"))
     directory.mkdir(parents=True, exist_ok=True)
     filename = format_filename(str(step.get("filename", "jo-export-%Y%m%d-%H%M%S.xlsx")))
@@ -359,9 +353,17 @@ def save_as_file(step: dict) -> Path:
     if full_path.exists():
         full_path.unlink()
 
-    hwnd, title = found
-    logging.info("Popup Save As ditemukan: %s", title)
-    focus_window(hwnd)
+    if not step.get("assume_open", False):
+        title_contains = step.get("title_contains", ["Save As", "Save"])
+        found = wait_for_any_window(title_contains if isinstance(title_contains, list) else [title_contains], int(step.get("timeout_seconds", 30)))
+        if not found:
+            visible = ", ".join(title for _, title in visible_windows()[:10])
+            raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+
+        hwnd, title = found
+        logging.info("Popup Save As ditemukan: %s", title)
+        focus_window(hwnd)
+
     paste_text(str(full_path))
     time.sleep(0.5)
     press_key("enter")
@@ -483,6 +485,17 @@ def run_step(step: dict) -> None:
         raise ValueError(f"Action tidak dikenal: {action}")
 
 
+def focus_step_window(step: dict, default_hwnd: int) -> None:
+    title_contains = step.get("window_title_contains")
+    if title_contains:
+        hwnd, title = wait_for_window(title_contains, int(step.get("window_timeout_seconds", 60)))
+        logging.info("Window target step ditemukan: %s", title)
+        focus_window(hwnd)
+        return
+    if not step.get("keep_current_window", False):
+        focus_window(default_hwnd)
+
+
 def handle_security_warning(config: dict) -> None:
     warning = config.get("security_warning", {})
     if not warning.get("enabled", True):
@@ -579,7 +592,7 @@ def main() -> int:
     screenshot("opened")
 
     for step in config.get("steps", []):
-        focus_window(hwnd)
+        focus_step_window(step, hwnd)
         run_step(step)
 
     download_cfg = config.get("copy_downloads")

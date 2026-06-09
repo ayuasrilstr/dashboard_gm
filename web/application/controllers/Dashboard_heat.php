@@ -54,8 +54,9 @@ class Dashboard_heat extends Dashboard_base
 
     public function api_status()
     {
+        $delivery_count = (int) $this->input->get('delivery_count', TRUE);
         return $this->json(array(
-            'dashboard_data' => $this->dashboard->get_heat_dashboard_data(),
+            'dashboard_data' => $this->dashboard->get_heat_dashboard_data($delivery_count),
             'server_time' => date('c'),
             'calendar_authenticated' => $this->calendar_authenticated(),
         ));
@@ -89,6 +90,7 @@ class Dashboard_heat extends Dashboard_base
         $result = $this->dashboard->save_heat_holiday_settings(array(
             'holidays' => isset($payload['holidays']) ? $payload['holidays'] : array(),
             'half_days' => isset($payload['half_days']) ? $payload['half_days'] : array(),
+            'quarter_days' => isset($payload['quarter_days']) ? $payload['quarter_days'] : array(),
             'work_days' => isset($payload['work_days']) ? $payload['work_days'] : array(),
         ));
         return $this->json($result, !empty($result['ok']) ? 200 : 500);

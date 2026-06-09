@@ -133,21 +133,23 @@ class Dashboard_model extends CI_Model
     {
         $path = $this->heat_holidays_path();
         if (!is_file($path) || !is_readable($path)) {
-            return array('holidays' => array(), 'half_days' => array(), 'work_days' => array());
+            return array('holidays' => array(), 'half_days' => array(), 'quarter_days' => array(), 'work_days' => array());
         }
 
         $payload = json_decode(file_get_contents($path), TRUE);
         if (!is_array($payload)) {
-            return array('holidays' => array(), 'half_days' => array(), 'work_days' => array());
+            return array('holidays' => array(), 'half_days' => array(), 'quarter_days' => array(), 'work_days' => array());
         }
 
         $holidays = isset($payload['holidays']) && is_array($payload['holidays']) ? $payload['holidays'] : array();
         $half_days = isset($payload['half_days']) && is_array($payload['half_days']) ? $payload['half_days'] : array();
+        $quarter_days = isset($payload['quarter_days']) && is_array($payload['quarter_days']) ? $payload['quarter_days'] : array();
         $work_days = isset($payload['work_days']) && is_array($payload['work_days']) ? $payload['work_days'] : array();
 
         return array(
             'holidays' => $this->normalize_calendar_dates($holidays),
             'half_days' => $this->normalize_calendar_dates($half_days),
+            'quarter_days' => $this->normalize_calendar_dates($quarter_days),
             'work_days' => $this->normalize_calendar_dates($work_days),
         );
     }
@@ -171,10 +173,12 @@ class Dashboard_model extends CI_Model
 
         $holidays = isset($calendar['holidays']) && is_array($calendar['holidays']) ? $calendar['holidays'] : $calendar;
         $half_days = isset($calendar['half_days']) && is_array($calendar['half_days']) ? $calendar['half_days'] : array();
+        $quarter_days = isset($calendar['quarter_days']) && is_array($calendar['quarter_days']) ? $calendar['quarter_days'] : array();
         $work_days = isset($calendar['work_days']) && is_array($calendar['work_days']) ? $calendar['work_days'] : array();
         $clean_holidays = $this->normalize_calendar_dates($holidays);
         $clean_half_days = array_values(array_diff($this->normalize_calendar_dates($half_days), $clean_holidays));
-        $clean_work_days = array_values(array_diff($this->normalize_calendar_dates($work_days), array_merge($clean_holidays, $clean_half_days)));
+        $clean_quarter_days = array_values(array_diff($this->normalize_calendar_dates($quarter_days), array_merge($clean_holidays, $clean_half_days)));
+        $clean_work_days = array_values(array_diff($this->normalize_calendar_dates($work_days), array_merge($clean_holidays, $clean_half_days, $clean_quarter_days)));
 
         $path = $this->heat_holidays_path();
         $dir = dirname($path);
@@ -186,6 +190,7 @@ class Dashboard_model extends CI_Model
             'updated_at' => date('c'),
             'holidays' => $clean_holidays,
             'half_days' => $clean_half_days,
+            'quarter_days' => $clean_quarter_days,
             'work_days' => $clean_work_days,
         );
 
@@ -213,7 +218,7 @@ class Dashboard_model extends CI_Model
         $calendar_signature = $this->dashboard_calendar_signature();
         if (
             !isset($payload['cache_version'], $payload['source_path'], $payload['source_mtime'], $payload['source_size'], $payload['calendar_signature']) ||
-            $payload['cache_version'] !== 27 ||
+            $payload['cache_version'] !== 37 ||
             $payload['source_path'] !== $source_path ||
             (int) $payload['source_mtime'] !== (int) $source_mtime ||
             (int) $payload['source_size'] !== (int) $source_size ||
@@ -234,7 +239,7 @@ class Dashboard_model extends CI_Model
         }
 
         $payload = array(
-            'cache_version' => 27,
+            'cache_version' => 37,
             'source_path' => $source_path,
             'source_mtime' => filemtime($source_path),
             'source_size' => filesize($source_path),
@@ -306,7 +311,14 @@ class Dashboard_model extends CI_Model
         $capacity = max(0, (float) $daily_capacity);
         $today = date('Y-m-d');
 
-        if ($date < $today && isset($history[$date])) {
+        if (
+            $date < $today &&
+            isset($history[$date]) &&
+            isset($history[$date]['calendar_signature']) &&
+            $history[$date]['calendar_signature'] === $this->dashboard_calendar_signature() &&
+            isset($history[$date]['breakdown']) &&
+            $history[$date]['breakdown'] === $capacity_breakdown
+        ) {
             return $history[$date];
         }
 
@@ -387,9 +399,10 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    public function get_heat_dashboard_data()
+    public function get_heat_dashboard_data($delivery_count = 4)
     {
-        $rpa_data = $this->get_heat_dashboard_data_from_rpa();
+        $delivery_count = $this->normalize_delivery_count($delivery_count);
+        $rpa_data = $this->get_heat_dashboard_data_from_rpa($delivery_count);
         if ($rpa_data && !empty($rpa_data['available'])) {
             return $rpa_data;
         }
@@ -402,8 +415,9 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    private function get_heat_dashboard_data_from_rpa()
+    private function get_heat_dashboard_data_from_rpa($delivery_count = 4)
     {
+        $delivery_count = $this->normalize_delivery_count($delivery_count);
         $sources = $this->heat_rpa_sources();
         $required = array('aps', 'engage_32a_inflow', 'engage_32a_outflow');
         foreach ($required as $key) {
@@ -421,7 +435,7 @@ class Dashboard_model extends CI_Model
             return array('available' => FALSE, 'message' => 'Header data RPA APS atau Engage belum bisa dibaca.');
         }
 
-        $source_data = $this->build_heat_data_from_rpa_sources($aps, $inflow_32a, $outflow_32a, $accessories);
+        $source_data = $this->build_heat_data_from_rpa_sources($aps, $inflow_32a, $outflow_32a, $accessories, $delivery_count);
         if (!$source_data['qty_pdk_vs_output'] && !$source_data['ready_to_load']) {
             return array('available' => FALSE, 'message' => 'Data RPA terbaca, tetapi belum ada order Heat Transfer yang bisa ditampilkan.');
         }
@@ -431,13 +445,16 @@ class Dashboard_model extends CI_Model
         $balance_qty = $source_data['balance_qty'];
         $prod_days_left = $source_data['prod_days_left'];
         $qty_pdk_vs_output = $source_data['qty_pdk_vs_output'];
+        $selected_qty_pdk_vs_output = isset($source_data['selected_qty_pdk_vs_output']) ? $source_data['selected_qty_pdk_vs_output'] : $qty_pdk_vs_output;
         $ready_to_load = $source_data['ready_to_load'];
+        $selected_ready_to_load = isset($source_data['selected_ready_to_load']) ? $source_data['selected_ready_to_load'] : $ready_to_load;
         $output_vs_capacity = $source_data['output_vs_capacity'];
         $top_priority_orders = $source_data['top_priority_orders'];
 
         return array(
             'available' => TRUE,
             'source' => 'RPA: APS + Engage + Accessories',
+            'delivery_count' => $delivery_count,
             'source_updated_at' => $this->latest_mtime_iso($sources),
             'sources' => $this->source_status_rows($sources),
             'kpis' => array(
@@ -456,8 +473,8 @@ class Dashboard_model extends CI_Model
                 $total_output,
                 $balance_qty,
                 $prod_days_left,
-                $qty_pdk_vs_output,
-                $ready_to_load,
+                $selected_qty_pdk_vs_output,
+                $selected_ready_to_load,
                 $output_vs_capacity,
                 $top_priority_orders
             ),
@@ -728,14 +745,122 @@ class Dashboard_model extends CI_Model
             $rows[] = $row;
         }
 
+        return $this->normalize_xlsx_report_rows($rows);
+    }
+
+    private function normalize_xlsx_report_rows($rows)
+    {
         if (!$rows) {
             return array('headers' => array(), 'rows' => array());
         }
 
+        $header_index = 0;
+        $best_score = 0;
+        foreach ($rows as $index => $row) {
+            $score = $this->xlsx_header_score($row);
+            if ($score > $best_score) {
+                $best_score = $score;
+                $header_index = $index;
+            }
+        }
+
+        if ($best_score < 2) {
+            return array(
+                'headers' => array_shift($rows),
+                'rows' => $rows,
+            );
+        }
+
+        $header_row = $rows[$header_index];
+        $next_row = isset($rows[$header_index + 1]) ? $rows[$header_index + 1] : array();
+        $has_group_subheader = $this->xlsx_has_group_subheader($header_row, $next_row);
+        $headers = $has_group_subheader
+            ? $this->combine_xlsx_group_headers($header_row, $next_row)
+            : $header_row;
+
         return array(
-            'headers' => array_shift($rows),
-            'rows' => $rows,
+            'headers' => $headers,
+            'rows' => array_slice($rows, $header_index + ($has_group_subheader ? 2 : 1)),
         );
+    }
+
+    private function xlsx_header_score($row)
+    {
+        $wanted = array(
+            'customer name',
+            'order no.',
+            'jo',
+            'delivery date',
+            'plan qty',
+            'process route',
+            'process route name',
+            'factory style',
+        );
+        $values = array();
+        foreach ($row as $value) {
+            $values[] = strtolower($this->normalize($value));
+        }
+
+        $score = 0;
+        foreach ($wanted as $name) {
+            if (in_array($name, $values, TRUE)) {
+                $score++;
+            }
+        }
+        return $score;
+    }
+
+    private function xlsx_has_group_subheader($header_row, $next_row)
+    {
+        if (!$next_row) {
+            return FALSE;
+        }
+
+        $groups = array('sewing', 'complete assembly', 'heat transfer');
+        $has_group = FALSE;
+        foreach ($header_row as $value) {
+            if (in_array(strtolower($this->normalize($value)), $groups, TRUE)) {
+                $has_group = TRUE;
+                break;
+            }
+        }
+        if (!$has_group) {
+            return FALSE;
+        }
+
+        foreach ($next_row as $value) {
+            $normalized = strtolower($this->normalize($value));
+            if (in_array($normalized, array('plan qty', 'qty.', 'non-finished qty', 'schedule start date'), TRUE)) {
+                return TRUE;
+            }
+        }
+
+        return FALSE;
+    }
+
+    private function combine_xlsx_group_headers($header_row, $subheader_row)
+    {
+        $max = max(count($header_row), count($subheader_row));
+        $headers = array();
+        $current_group = '';
+        $groups = array('sewing', 'complete assembly', 'heat transfer');
+
+        for ($i = 0; $i < $max; $i++) {
+            $header = isset($header_row[$i]) ? $this->normalize($header_row[$i]) : '';
+            $subheader = isset($subheader_row[$i]) ? $this->normalize($subheader_row[$i]) : '';
+            if ($header !== '') {
+                $current_group = $header;
+            }
+
+            if ($subheader !== '' && in_array(strtolower($current_group), $groups, TRUE)) {
+                $headers[] = $current_group . ' ' . $subheader;
+                continue;
+            }
+
+            $headers[] = $header !== '' ? $header : $subheader;
+        }
+
+        return $headers;
     }
 
     private function read_xlsx_sheet_grid($path, $sheet_name)
@@ -1077,8 +1202,9 @@ class Dashboard_model extends CI_Model
         return array_values(array_unique(array_filter($roots, 'is_dir')));
     }
 
-    private function build_heat_data_from_rpa_sources($aps, $inflow_32a, $outflow_32a, $accessories)
+    private function build_heat_data_from_rpa_sources($aps, $inflow_32a, $outflow_32a, $accessories, $delivery_count = 4)
     {
+        $delivery_count = $this->normalize_delivery_count($delivery_count);
         $aps_index = $this->header_index($aps['headers']);
         $orders = array();
         $periods = array();
@@ -1086,18 +1212,21 @@ class Dashboard_model extends CI_Model
         $output_by_period = array();
 
         foreach ($aps['rows'] as $row) {
-            $route = strtoupper($this->cell($row, $aps_index, 'Process Route'));
-            if (!$this->is_heat_rpa_route($route)) {
+            $route = strtoupper($this->cell_any($row, $aps_index, array('Process Route', 'Process Route Name')));
+            $heat_plan = $this->parse_number($this->cell_any($row, $aps_index, array('HEAT TRANSFER Plan qty', 'Heat Transfer Plan Qty')));
+            $heat_finished = $this->parse_number($this->cell_any($row, $aps_index, array('HEAT TRANSFER Qty.', 'Heat Transfer Qty')));
+            $heat_balance = $this->parse_number($this->cell_any($row, $aps_index, array('HEAT TRANSFER Non-finished Qty', 'Heat Transfer Non Finished Qty')));
+            if (!$this->is_heat_rpa_route($route) && $heat_plan <= 0 && $heat_finished <= 0 && $heat_balance <= 0) {
                 continue;
             }
 
-            $jo = $this->cell($row, $aps_index, 'JO');
+            $jo = $this->cell_any($row, $aps_index, array('JO', 'Order No.'));
             $order = $this->normalize_order_number($jo);
             if ($order === '') {
                 continue;
             }
 
-            $qty = $this->parse_number($this->cell($row, $aps_index, 'Plan Qty'));
+            $qty = $heat_plan > 0 ? $heat_plan : $this->parse_number($this->cell($row, $aps_index, 'Plan Qty'));
             if ($qty <= 0) {
                 $qty = $this->parse_number($this->cell($row, $aps_index, 'Qty'));
             }
@@ -1111,7 +1240,7 @@ class Dashboard_model extends CI_Model
                 continue;
             }
 
-            $finished = $this->parse_number($this->cell($row, $aps_index, 'Finished Qty'));
+            $finished = $heat_finished > 0 ? $heat_finished : $this->parse_number($this->cell_any($row, $aps_index, array('Finished Qty', 'Qty.')));
             $style = $this->cell($row, $aps_index, 'Factory Style');
             if ($style === '') {
                 $style = $this->cell($row, $aps_index, 'Cust. Style');
@@ -1186,22 +1315,29 @@ class Dashboard_model extends CI_Model
                 break;
             }
         }
+        $selected_qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, $delivery_count);
         $qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, 4);
+        $balance_breakdown = $qty_pdk_vs_output;
 
         $ready_to_load = array();
-        foreach ($period_labels as $period) {
+        foreach ($qty_pdk_vs_output as $row) {
+            $period = $row['label'];
             $ready = isset($ready_by_period[$period]) ? $ready_by_period[$period] : 0;
-            if ($ready > 0 || $this->period_is_near_slice($period, $qty_pdk_vs_output)) {
-                $ready_to_load[] = array('label' => $period, 'ready' => $ready);
-            }
+            $ready_to_load[] = array('label' => $period, 'ready' => $ready);
         }
-        $ready_to_load = array_slice($ready_to_load, 0, 7);
 
-        $total_pdk = array_sum(array_column($qty_pdk_vs_output, 'pdk'));
-        $total_output = array_sum(array_column($qty_pdk_vs_output, 'output'));
+        $selected_ready_to_load = array();
+        foreach ($selected_qty_pdk_vs_output as $row) {
+            $period = $row['label'];
+            $ready = isset($ready_by_period[$period]) ? $ready_by_period[$period] : 0;
+            $selected_ready_to_load[] = array('label' => $period, 'ready' => $ready);
+        }
+
+        $total_pdk = array_sum(array_column($selected_qty_pdk_vs_output, 'pdk'));
+        $total_output = array_sum(array_column($selected_qty_pdk_vs_output, 'output'));
         $balance_qty = max(0, $total_pdk - $total_output);
-        $prod_days_left = $this->source_prod_days_left($qty_pdk_vs_output);
-        $daily_capacity = $this->source_daily_capacity_detail($qty_pdk_vs_output);
+        $prod_days_left = $this->source_prod_days_left($selected_qty_pdk_vs_output);
+        $daily_capacity = $this->source_daily_capacity_detail($selected_qty_pdk_vs_output);
         $output_vs_capacity = $this->build_output_vs_capacity_from_engage_daily($out_summary['daily'], $daily_capacity, $in_summary['daily']);
 
         return array(
@@ -1210,7 +1346,10 @@ class Dashboard_model extends CI_Model
             'balance_qty' => $balance_qty,
             'prod_days_left' => $prod_days_left,
             'qty_pdk_vs_output' => $qty_pdk_vs_output,
+            'selected_qty_pdk_vs_output' => $selected_qty_pdk_vs_output,
+            'balance_breakdown' => $balance_breakdown,
             'ready_to_load' => $ready_to_load,
+            'selected_ready_to_load' => $selected_ready_to_load,
             'output_vs_capacity' => $output_vs_capacity,
             'top_priority_orders' => $this->build_priority_orders_from_rpa($ready_by_order, $orders, $out_summary['orders']),
         );
@@ -1219,6 +1358,11 @@ class Dashboard_model extends CI_Model
     private function is_heat_rpa_route($route)
     {
         return strpos($route, 'HT') !== FALSE;
+    }
+
+    private function normalize_delivery_count($delivery_count)
+    {
+        return (int) $delivery_count === 2 ? 2 : 4;
     }
 
     private function normalize_order_number($value)
@@ -1264,19 +1408,20 @@ class Dashboard_model extends CI_Model
         $index = $this->header_index($report['headers']);
         $orders = array();
         $daily = array();
+        $daily_materials = array();
         $seen = array();
         $calendar_days = $this->dashboard_calendar_days();
 
         foreach ($report['rows'] as $row) {
-            if ($this->normalize($this->cell($row, $index, 'Text')) !== '[CSDB]-Transfer ~bundle_receive') {
+            if (strpos($this->normalize($this->cell($row, $index, 'Text')), '[CSDB]-Transfer ~bundle_receive') === FALSE) {
                 continue;
             }
 
             $date = $this->cell($row, $index, 'Date');
             $timestamp = $this->parse_date_timestamp($date);
-            $order = $this->normalize_order_number($this->cell($row, $index, 'Prod. Nr'));
+            $order = $this->normalize_order_number($this->cell($row, $index, 'Cost Center'));
             if ($order === '') {
-                $order = $this->normalize_order_number($this->cell($row, $index, 'Cost Center'));
+                $order = $this->normalize_order_number($this->cell($row, $index, 'Prod. Nr'));
             }
             if ($order === '') {
                 $order = $this->normalize_order_number($this->cell($row, $index, 'Udef 8'));
@@ -1287,7 +1432,8 @@ class Dashboard_model extends CI_Model
             }
 
             $item = $this->cell($row, $index, 'Item Nr');
-            $identity = $date . "\n" . $order . "\n" . $item . "\n" . $qty . "\n" . $this->cell($row, $index, 'Udef 10');
+            $material_key = $this->engage_heat_material_key($row, $index, $order);
+            $identity = $date . "\n" . $material_key . "\n" . $qty . "\n" . $this->cell($row, $index, 'Udef 10');
             if (isset($seen[$identity])) {
                 continue;
             }
@@ -1298,9 +1444,10 @@ class Dashboard_model extends CI_Model
                     'qty' => 0,
                     'style' => $this->cell($row, $index, 'Udef 1'),
                     'date' => $date,
+                    'materials' => array(),
                 );
             }
-            $orders[$order]['qty'] += $qty;
+            $orders[$order]['materials'][$material_key] = max(isset($orders[$order]['materials'][$material_key]) ? $orders[$order]['materials'][$material_key] : 0, $qty);
 
             if ($timestamp) {
                 $day = date('Y-m-d', $timestamp);
@@ -1308,12 +1455,38 @@ class Dashboard_model extends CI_Model
                 $is_sunday = (int) date('w', $timestamp) === 0;
                 $is_scheduled_sunday = in_array($day, $calendar_days['work_days'], TRUE) || in_array($day, $calendar_days['half_days'], TRUE);
                 if (!$is_holiday && (!$is_sunday || $is_scheduled_sunday)) {
-                    $daily[$day] = isset($daily[$day]) ? $daily[$day] + $qty : $qty;
+                    $daily_key = $day . "\n" . $material_key;
+                    $daily_materials[$daily_key] = array(
+                        'day' => $day,
+                        'qty' => max(isset($daily_materials[$daily_key]['qty']) ? $daily_materials[$daily_key]['qty'] : 0, $qty),
+                    );
                 }
             }
         }
 
+        foreach ($orders as $order => $data) {
+            $orders[$order]['qty'] = array_sum($data['materials']);
+            unset($orders[$order]['materials']);
+        }
+
+        foreach ($daily_materials as $item) {
+            $day = $item['day'];
+            $daily[$day] = isset($daily[$day]) ? $daily[$day] + $item['qty'] : $item['qty'];
+        }
+
         return array('orders' => $orders, 'daily' => $daily);
+    }
+
+    private function engage_heat_material_key($row, $index, $order)
+    {
+        $udef3 = strtoupper($this->normalize($this->cell($row, $index, 'Udef 3')));
+        $udef4 = strtoupper($this->normalize($this->cell($row, $index, 'Udef 4')));
+
+        if ($udef3 !== '' || $udef4 !== '') {
+            return $order . "\n" . $udef3 . "\n" . $udef4;
+        }
+
+        return $order;
     }
 
     private function summarize_accessories_completed_orders($report)
@@ -1452,8 +1625,9 @@ class Dashboard_model extends CI_Model
         return $timestamp ? date('d M Y', $timestamp) : $value;
     }
 
-    private function build_heat_data_from_database_delivery($database_rows, $delivery_rows)
+    private function build_heat_data_from_database_delivery($database_rows, $delivery_rows, $delivery_count = 4)
     {
+        $delivery_count = $this->normalize_delivery_count($delivery_count);
         $delivery_cols = array(
             'order' => $this->column_letters_to_index('G'),
             'style' => $this->column_letters_to_index('E'),
@@ -1602,20 +1776,27 @@ class Dashboard_model extends CI_Model
                 break;
             }
         }
+        $selected_qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, $delivery_count);
         $qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, 4);
+        $balance_breakdown = $qty_pdk_vs_output;
 
         $ready_to_load = array();
-        foreach ($period_labels as $period) {
+        foreach ($qty_pdk_vs_output as $row) {
+            $period = $row['label'];
             $ready = isset($ready_by_period[$period]) ? $ready_by_period[$period] : 0;
-            if ($ready > 0 || $this->period_is_near_slice($period, $qty_pdk_vs_output)) {
-                $ready_to_load[] = array('label' => $period, 'ready' => $ready);
-            }
+            $ready_to_load[] = array('label' => $period, 'ready' => $ready);
         }
-        $ready_to_load = array_slice($ready_to_load, 0, 7);
+
+        $selected_ready_to_load = array();
+        foreach ($selected_qty_pdk_vs_output as $row) {
+            $period = $row['label'];
+            $ready = isset($ready_by_period[$period]) ? $ready_by_period[$period] : 0;
+            $selected_ready_to_load[] = array('label' => $period, 'ready' => $ready);
+        }
 
         $top_priority_orders = $this->build_priority_orders_from_source($ready_by_order, $delivery_by_order, $output_keys);
-        $total_pdk = array_sum(array_column($qty_pdk_vs_output, 'pdk'));
-        $total_output = array_sum(array_column($qty_pdk_vs_output, 'output'));
+        $total_pdk = array_sum(array_column($selected_qty_pdk_vs_output, 'pdk'));
+        $total_output = array_sum(array_column($selected_qty_pdk_vs_output, 'output'));
         $balance_qty = max(0, $total_pdk - $total_output);
 
         return array(
@@ -1623,10 +1804,13 @@ class Dashboard_model extends CI_Model
             'total_output' => $total_output,
             'total_output_balance' => $total_output,
             'balance_qty' => $balance_qty,
-            'prod_days_left' => $this->source_prod_days_left($qty_pdk_vs_output),
+            'prod_days_left' => $this->source_prod_days_left($selected_qty_pdk_vs_output),
             'qty_pdk_vs_output' => $qty_pdk_vs_output,
+            'selected_qty_pdk_vs_output' => $selected_qty_pdk_vs_output,
+            'balance_breakdown' => $balance_breakdown,
             'ready_to_load' => $ready_to_load,
-            'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $this->source_daily_capacity_detail($qty_pdk_vs_output)),
+            'selected_ready_to_load' => $selected_ready_to_load,
+            'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $this->source_daily_capacity_detail($selected_qty_pdk_vs_output)),
             'top_priority_orders' => $top_priority_orders,
         );
     }
@@ -1827,7 +2011,8 @@ class Dashboard_model extends CI_Model
 
     private function source_daily_capacity_detail($qty_rows)
     {
-        $capacity = 0;
+        $total_balance = 0;
+        $total_days_left = 0;
         $breakdown = array();
 
         foreach ($qty_rows ?: array() as $row) {
@@ -1842,8 +2027,8 @@ class Dashboard_model extends CI_Model
                 : (isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : 0);
 
             if ($days_left > 0) {
-                $daily = $balance / $days_left;
-                $capacity += $daily;
+                $total_balance += $balance;
+                $total_days_left += $days_left;
                 $breakdown[] = array(
                     'label' => $row['label'],
                     'pdk' => isset($row['pdk']) ? $row['pdk'] : 0,
@@ -1851,9 +2036,16 @@ class Dashboard_model extends CI_Model
                     'balance' => $balance,
                     'days_left' => $days_left,
                     'calendar_days_left' => isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : $days_left,
-                    'daily_capacity' => $daily,
+                    'daily_capacity' => 0,
                 );
             }
+        }
+
+        $capacity = $total_days_left > 0 ? $total_balance / $total_days_left : 0;
+        foreach ($breakdown as $index => $item) {
+            $breakdown[$index]['daily_capacity'] = $capacity;
+            $breakdown[$index]['total_balance'] = $total_balance;
+            $breakdown[$index]['total_days_left'] = $total_days_left;
         }
 
         return array('capacity' => $capacity, 'breakdown' => $breakdown);
@@ -2366,6 +2558,7 @@ class Dashboard_model extends CI_Model
             'export_remaining_workdays' => 0,
             'holidays' => array(),
             'half_days' => array(),
+            'quarter_days' => array(),
             'work_days' => array(),
             'manual_remaining' => FALSE,
         );
@@ -2400,6 +2593,7 @@ class Dashboard_model extends CI_Model
             'export_remaining_workdays' => $export_remaining,
             'holidays' => $calendar_days['holidays'],
             'half_days' => $calendar_days['half_days'],
+            'quarter_days' => $calendar_days['quarter_days'],
             'work_days' => $calendar_days['work_days'],
             'manual_remaining' => FALSE,
         );
@@ -2470,6 +2664,7 @@ class Dashboard_model extends CI_Model
     {
         $holidays = isset($calendar_days['holidays']) && is_array($calendar_days['holidays']) ? $calendar_days['holidays'] : array();
         $half_days = isset($calendar_days['half_days']) && is_array($calendar_days['half_days']) ? $calendar_days['half_days'] : array();
+        $quarter_days = isset($calendar_days['quarter_days']) && is_array($calendar_days['quarter_days']) ? $calendar_days['quarter_days'] : array();
         $work_days = isset($calendar_days['work_days']) && is_array($calendar_days['work_days']) ? $calendar_days['work_days'] : array();
 
         if (in_array($date, $holidays, TRUE)) {
@@ -2478,6 +2673,10 @@ class Dashboard_model extends CI_Model
 
         if (in_array($date, $half_days, TRUE)) {
             return 0.5;
+        }
+
+        if (in_array($date, $quarter_days, TRUE)) {
+            return 0.25;
         }
 
         $day_of_week = (int) date('w', strtotime($date));
@@ -2520,14 +2719,17 @@ class Dashboard_model extends CI_Model
             return $timestamp ? date('Y-m-d', $timestamp) : NULL;
         }, $holidays))));
         $half_days = array_values(array_diff($calendar['half_days'], $holidays));
-        $work_days = array_values(array_diff($calendar['work_days'], array_merge($holidays, $half_days)));
+        $quarter_days = array_values(array_diff($calendar['quarter_days'], array_merge($holidays, $half_days)));
+        $work_days = array_values(array_diff($calendar['work_days'], array_merge($holidays, $half_days, $quarter_days)));
         sort($holidays);
         sort($half_days);
+        sort($quarter_days);
         sort($work_days);
 
         return array(
             'holidays' => $holidays,
             'half_days' => $half_days,
+            'quarter_days' => $quarter_days,
             'work_days' => $work_days,
         );
     }
@@ -3196,6 +3398,18 @@ class Dashboard_model extends CI_Model
     {
         $key = strtolower($name);
         return isset($index[$key], $row[$index[$key]]) ? $row[$index[$key]] : '';
+    }
+
+    private function cell_any($row, $index, $names)
+    {
+        foreach ($names as $name) {
+            $value = $this->cell($row, $index, $name);
+            if ($value !== '') {
+                return $value;
+            }
+        }
+
+        return '';
     }
 
     private function sum_qty($rows, $index)
