@@ -147,20 +147,20 @@
 <body>
 <div class="page">
     <header class="top">
-        <div class="title">DASHBOARD HEAT TRANSFER</div>
+        <div class="title" data-i18n="app_title">DASHBOARD HEAT TRANSFER</div>
         <nav class="menu" aria-label="Menu dashboard">
-            <button type="button" class="active" data-view="dashboard">Dashboard</button>
-            <button type="button" data-view="analytic">Analytic</button>
+            <button type="button" class="active" data-view="dashboard" data-i18n="dashboard">Dashboard</button>
+            <button type="button" data-view="analytic" data-i18n="analytic">Analytic</button>
         </nav>
         <div class="delivery-toggle" aria-label="Jumlah delivery">
             <button type="button" data-delivery-count="2">2 Delivery</button>
             <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
         </div>
-        <button type="button" class="workday-open" id="workdayOpen">Production Calender</button>
+        <button type="button" class="workday-open" id="workdayOpen" data-i18n="production_calendar">Production Calender</button>
         <div class="last-update" id="lastUpdateBox">
             <button type="button" id="lastUpdate">*Last Update : -</button>
             <div class="last-update-panel" id="lastUpdatePanel">
-                <h3>Data Terakhir</h3>
+                <h3 data-i18n="last_data">Data Terakhir</h3>
                 <div id="lastUpdateRows"></div>
             </div>
         </div>
@@ -170,33 +170,33 @@
         <section class="left">
             <div class="top-charts">
                 <div class="box chart-box qty">
-                    <h2 class="chart-title">QTY PDK vs QTY OUTPUT</h2>
+                    <h2 class="chart-title" data-i18n="qty_pdk_output_chart">QTY PDK vs QTY OUTPUT</h2>
                     <div id="qtyPdkOutputChart"></div>
-                    <div class="legend"><span><i class="dot"></i>QTY PDK</span><span><i class="dot alt"></i>QTY OUT</span></div>
+                    <div class="legend"><span><i class="dot"></i><span data-i18n="qty_pdk">QTY PDK</span></span><span><i class="dot alt"></i><span data-i18n="qty_out">QTY OUT</span></span></div>
                 </div>
                 <div class="box chart-box ready">
-                    <h2 class="chart-title">READY TO LOAD PRODUCTION</h2>
+                    <h2 class="chart-title" data-i18n="ready_to_load_chart">READY TO LOAD PRODUCTION</h2>
                     <div id="readyToLoadChart"></div>
                 </div>
             </div>
                 <div class="box chart-box capacity">
-                    <h2 class="chart-title">KAPASITAS vs OUTPUT vs INPUT</h2>
+                    <h2 class="chart-title" data-i18n="capacity_output_input_chart">KAPASITAS vs OUTPUT vs INPUT</h2>
                     <div id="outputCapacityChart"></div>
-                <div class="legend"><span><i class="dot"></i>KAPASITAS</span><span><i class="dot output"></i>OUTPUT</span><span><i class="line-key"></i>INPUT</span></div>
+                <div class="legend"><span><i class="dot"></i><span data-i18n="capacity">KAPASITAS</span></span><span><i class="dot output"></i><span data-i18n="output">OUTPUT</span></span><span><i class="line-key"></i><span data-i18n="input">INPUT</span></span></div>
             </div>
         </section>
 
         <section class="right">
             <div class="kpis">
-                <article class="kpi"><span>Total Output :</span><strong><b id="totalOutput">-</b> <small>Pcs</small></strong></article>
-                <article class="kpi"><span>Balance Qty :</span><strong><b id="balanceQty">-</b> <small>Pcs</small></strong></article>
-                <article class="kpi balance-detail"><span>Qty Yang Kurang :</span><div class="kpi-balance-list" id="balanceBreakdown"></div></article>
+                <article class="kpi"><span data-i18n="total_output_label">Total Output :</span><strong><b id="totalOutput">-</b> <small data-i18n="pcs">Pcs</small></strong></article>
+                <article class="kpi"><span data-i18n="balance_qty_label">Balance Qty :</span><strong><b id="balanceQty">-</b> <small data-i18n="pcs">Pcs</small></strong></article>
+                <article class="kpi balance-detail"><span data-i18n="qty_short_label">Qty Yang Kurang :</span><div class="kpi-balance-list" id="balanceBreakdown"></div></article>
             </div>
             <div class="box priority">
-                <h2>Top 10 Priority Orders Ready For Production :</h2>
+                <h2 data-i18n="top_priority_title">Top 10 Priority Orders Ready For Production :</h2>
                 <div class="table-scroll">
                     <table>
-                        <thead><tr><th>No.</th><th></th><th>Style</th><th>Tgl. Delivery</th><th>Qty Ready</th><th></th></tr></thead>
+                        <thead><tr><th>No.</th><th></th><th>Style</th><th data-i18n="delivery_date">Tgl. Delivery</th><th data-i18n="qty_ready">Qty Ready</th><th></th></tr></thead>
                         <tbody id="priorityRows"></tbody>
                     </table>
                 </div>
@@ -206,11 +206,11 @@
 
     <main class="view analytics-view public-analytics" id="analyticView">
         <section class="box condition-card" id="overallCondition">
-            <h2>Kondisi Utama Area :</h2>
+            <h2 data-i18n="main_condition">Kondisi Utama Area :</h2>
             <div class="condition-level" id="conditionLevel">-</div>
             <div class="condition-text" id="conditionSummary">-</div>
-            <div class="condition-shortage" id="conditionShortage">Kurang: <b>-</b> Pcs</div>
-            <div class="condition-meta" id="conditionMeta">Overall Level</div>
+            <div class="condition-shortage" id="conditionShortage"><span data-i18n="shortage">Kurang</span>: <b>-</b> <span data-i18n="pcs">Pcs</span></div>
+            <div class="condition-meta" id="conditionMeta" data-i18n="overall_level">Overall Level</div>
         </section>
         <section class="box analytics">
             <h2 class="analytics-head">
@@ -231,13 +231,13 @@
                 <div class="insights" id="analyticsInsights"></div>
             </div>
             <div class="box summary">
-                <h2>Management Summary :</h2>
+                <h2 data-i18n="management_summary">Management Summary :</h2>
                 <div class="summary-grid" id="analyticsSummary"></div>
-                <div class="section-label">Data Accuracy Issues</div>
+                <div class="section-label" data-i18n="data_accuracy_issues">Data Accuracy Issues</div>
                 <div class="accuracy-list" id="dataAccuracyRows"></div>
             </div>
             <div class="box action-card">
-                <h2>Prevention & Handling :</h2>
+                <h2 data-i18n="prevention_handling">Prevention & Handling :</h2>
                 <div class="action-list" id="managementActions"></div>
             </div>
         </section>
@@ -258,29 +258,29 @@
 <div class="modal-backdrop" id="workdayModal" role="dialog" aria-modal="true" aria-labelledby="workdayModalTitle">
     <section class="detail-modal workday-modal">
         <div class="modal-head">
-            <h3 id="workdayModalTitle">Production Calender</h3>
+            <h3 id="workdayModalTitle" data-i18n="production_calendar">Production Calender</h3>
             <button type="button" class="modal-close" id="workdayModalClose" aria-label="Tutup kalender">&times;</button>
         </div>
         <div class="modal-body">
             <div class="calendar-tools">
-                <button type="button" id="calendarPrev">Sebelumnya</button>
+                <button type="button" id="calendarPrev" data-i18n="previous">Sebelumnya</button>
                 <div class="calendar-month-title" id="calendarTitle">-</div>
-                <button type="button" id="calendarNext">Berikutnya</button>
+                <button type="button" id="calendarNext" data-i18n="next">Berikutnya</button>
             </div>
             <div class="calendar-summary" id="calendarSummary"></div>
             <div class="calendar-grid" id="calendarRows"></div>
             <div class="calendar-legend">
-                <span><i class="legend-sunday"></i>Minggu/off</span>
-                <span><i class="legend-work"></i>Kerja</span>
-                <span><i class="legend-half"></i>1/2 hari</span>
-                <span><i class="legend-quarter"></i>1/4 hari</span>
-                <span><i class="legend-off"></i>Libur</span>
+                <span><i class="legend-sunday"></i><span data-i18n="sunday_off">Minggu/off</span></span>
+                <span><i class="legend-work"></i><span data-i18n="workday">Kerja</span></span>
+                <span><i class="legend-half"></i><span data-i18n="half_day">1/2 hari</span></span>
+                <span><i class="legend-quarter"></i><span data-i18n="quarter_day">1/4 hari</span></span>
+                <span><i class="legend-off"></i><span data-i18n="holiday">Libur</span></span>
             </div>
-            <div class="calendar-help">Klik tanggal untuk mengganti status. Minggu bisa dijadikan kerja bila diperlukan.</div>
+            <div class="calendar-help" data-i18n="calendar_help">Klik tanggal untuk mengganti status. Minggu bisa dijadikan kerja bila diperlukan.</div>
             <div class="modal-actions">
                 <span class="workday-message" id="workdayMessage"></span>
-                <button type="button" id="workdayCancel">Batal</button>
-                <button type="button" class="primary" id="workdaySave">Simpan</button>
+                <button type="button" id="workdayCancel" data-i18n="cancel">Batal</button>
+                <button type="button" class="primary" id="workdaySave" data-i18n="save">Simpan</button>
             </div>
         </div>
     </section>
@@ -294,13 +294,13 @@
         </div>
         <div class="modal-body">
             <div class="login-fields">
-                <label>Username<input type="text" id="calendarUsername" autocomplete="username"></label>
-                <label>Password<input type="password" id="calendarPassword" autocomplete="current-password"></label>
+                <label><span data-i18n="username">Username</span><input type="text" id="calendarUsername" autocomplete="username"></label>
+                <label><span data-i18n="password">Password</span><input type="password" id="calendarPassword" autocomplete="current-password"></label>
             </div>
             <div class="modal-actions">
                 <span class="login-message" id="calendarLoginMessage"></span>
-                <button type="button" id="calendarLoginCancel">Batal</button>
-                <button type="button" class="primary" id="calendarLoginSubmit">Login</button>
+                <button type="button" id="calendarLoginCancel" data-i18n="cancel">Batal</button>
+                <button type="button" class="primary" id="calendarLoginSubmit" data-i18n="login">Login</button>
             </div>
         </div>
     </section>
@@ -316,9 +316,9 @@
             <div class="analytics-card-options" id="analyticsCardOptions"></div>
             <div class="modal-actions">
                 <span class="workday-message" id="analyticsMenuMessage"></span>
-                <button type="button" id="analyticsMenuReset">Default</button>
-                <button type="button" id="analyticsMenuCancel">Batal</button>
-                <button type="button" class="primary" id="analyticsMenuSave">Simpan</button>
+                <button type="button" id="analyticsMenuReset" data-i18n="default">Default</button>
+                <button type="button" id="analyticsMenuCancel" data-i18n="cancel">Batal</button>
+                <button type="button" class="primary" id="analyticsMenuSave" data-i18n="save">Simpan</button>
             </div>
         </div>
     </section>
@@ -346,6 +346,75 @@ const defaultAnalyticsCards = [
 ];
 const analyticsText = {
     en: {
+        app_title: 'DASHBOARD HEAT TRANSFER',
+        dashboard: 'Dashboard',
+        analytic: 'Analytic',
+        production_calendar: 'Production Calendar',
+        last_data: 'Latest Data',
+        last_update: 'Last Update',
+        total_output_label: 'Total Output :',
+        balance_qty_label: 'Balance Qty :',
+        qty_short_label: 'Short Qty :',
+        qty_pdk_output_chart: 'QTY PDK vs QTY OUTPUT',
+        ready_to_load_chart: 'READY TO LOAD PRODUCTION',
+        capacity_output_input_chart: 'CAPACITY vs OUTPUT vs INPUT',
+        qty_pdk: 'QTY PDK',
+        qty_out: 'QTY OUT',
+        input: 'Input',
+        top_priority_title: 'Top 10 Priority Orders Ready For Production :',
+        delivery_date: 'Delivery Date',
+        qty_ready: 'Qty Ready',
+        main_condition: 'Main Area Condition :',
+        shortage: 'Shortage',
+        overall_level: 'Overall Level',
+        management_summary: 'Management Summary :',
+        data_accuracy_issues: 'Data Accuracy Issues',
+        prevention_handling: 'Prevention & Handling :',
+        previous: 'Previous',
+        next: 'Next',
+        sunday_off: 'Sunday/off',
+        workday: 'Workday',
+        half_day: '1/2 day',
+        quarter_day: '1/4 day',
+        holiday: 'Holiday',
+        calendar_help: 'Click a date to change status. Sunday can be set as workday when needed.',
+        cancel: 'Cancel',
+        save: 'Save',
+        default: 'Default',
+        username: 'Username',
+        password: 'Password',
+        login_calendar: 'Login Production Calendar',
+        login: 'Login',
+        close_detail: 'Close detail',
+        close_calendar: 'Close calendar',
+        close_login: 'Close login',
+        close_analytics_display: 'Close analytics display',
+        detail: 'Detail',
+        detail_empty: 'Detail data is not available.',
+        no_capacity_data: 'KAPASITAS vs OUTPUT chart data is not available.',
+        no_short_qty: 'No short qty.',
+        dashboard_unavailable: 'Dashboard data is not available.',
+        logging_in: 'Logging in...',
+        login_failed: 'Login failed.',
+        saving: 'Saving...',
+        save_failed: 'Failed to save workdays.',
+        saved: 'Saved.',
+        choose_one_card: 'Choose at least 1 card.',
+        valid_sequence: 'Data sequence valid',
+        valid_sequence_text: 'No period sequence issue detected.',
+        capacity: 'Capacity',
+        input_32a: 'Input 32a',
+        output: 'Output',
+        gap: 'Gap',
+        surplus: 'Surplus',
+        ready_periods: 'Ready periods',
+        required_daily_output_label: 'Required daily output',
+        production_status_label: 'Production Status:',
+        problem: 'Problem',
+        cause: 'Cause',
+        prevention: 'Prevention',
+        handling: 'Handling',
+        result: 'Result',
         analyticsTitle: 'Data-Driven & Management Analytics :',
         insightTitle: 'Management Insight :',
         analyticsDisplay: 'Analytics Display',
@@ -403,7 +472,6 @@ const analyticsText = {
         formula: 'Formula',
         module: 'Module',
         source: 'Source',
-        last_update: 'Last Update',
         status: 'Status',
         validation: 'Validation',
         detail_qty_hidden: 'The percentage shows completion against plan. The table below shows the dashboard rows used by this card.',
@@ -451,6 +519,75 @@ const analyticsText = {
         cap_insight: '{label} is displayed as a follow-up item for the selected analytics card.'
     },
     id: {
+        app_title: 'DASHBOARD HEAT TRANSFER',
+        dashboard: 'Dashboard',
+        analytic: 'Analytic',
+        production_calendar: 'Production Calender',
+        last_data: 'Data Terakhir',
+        last_update: 'Last Update',
+        total_output_label: 'Total Output :',
+        balance_qty_label: 'Balance Qty :',
+        qty_short_label: 'Qty Yang Kurang :',
+        qty_pdk_output_chart: 'QTY PDK vs QTY OUTPUT',
+        ready_to_load_chart: 'READY TO LOAD PRODUCTION',
+        capacity_output_input_chart: 'KAPASITAS vs OUTPUT vs INPUT',
+        qty_pdk: 'QTY PDK',
+        qty_out: 'QTY OUT',
+        input: 'Input',
+        top_priority_title: 'Top 10 Priority Orders Ready For Production :',
+        delivery_date: 'Tgl. Delivery',
+        qty_ready: 'Qty Ready',
+        main_condition: 'Kondisi Utama Area :',
+        shortage: 'Kurang',
+        overall_level: 'Overall Level',
+        management_summary: 'Management Summary :',
+        data_accuracy_issues: 'Data Accuracy Issues',
+        prevention_handling: 'Prevention & Handling :',
+        previous: 'Sebelumnya',
+        next: 'Berikutnya',
+        sunday_off: 'Minggu/off',
+        workday: 'Kerja',
+        half_day: '1/2 hari',
+        quarter_day: '1/4 hari',
+        holiday: 'Libur',
+        calendar_help: 'Klik tanggal untuk mengganti status. Minggu bisa dijadikan kerja bila diperlukan.',
+        cancel: 'Batal',
+        save: 'Simpan',
+        default: 'Default',
+        username: 'Username',
+        password: 'Password',
+        login_calendar: 'Login Production Calender',
+        login: 'Login',
+        close_detail: 'Tutup detail',
+        close_calendar: 'Tutup kalender',
+        close_login: 'Tutup login',
+        close_analytics_display: 'Tutup analytics display',
+        detail: 'Detail',
+        detail_empty: 'Data detail belum tersedia.',
+        no_capacity_data: 'Data grafik KAPASITAS vs OUTPUT belum tersedia.',
+        no_short_qty: 'Tidak ada qty kurang.',
+        dashboard_unavailable: 'Data dashboard belum tersedia.',
+        logging_in: 'Login...',
+        login_failed: 'Login gagal.',
+        saving: 'Menyimpan...',
+        save_failed: 'Gagal menyimpan hari kerja.',
+        saved: 'Tersimpan.',
+        choose_one_card: 'Pilih minimal 1 card.',
+        valid_sequence: 'Urutan data valid',
+        valid_sequence_text: 'Tidak ada masalah urutan periode yang terdeteksi.',
+        capacity: 'Kapasitas',
+        input_32a: 'Input 32a',
+        output: 'Output',
+        gap: 'Gap',
+        surplus: 'Surplus',
+        ready_periods: 'Ready periods',
+        required_daily_output_label: 'Required daily output',
+        production_status_label: 'Production Status:',
+        problem: 'Masalah',
+        cause: 'Penyebab',
+        prevention: 'Pencegahan',
+        handling: 'Penanganan',
+        result: 'Hasil',
         analyticsTitle: 'Analitik Berbasis Data :',
         insightTitle: 'Insight Manajemen :',
         analyticsDisplay: 'Tampilan Analytics',
@@ -590,6 +727,21 @@ const textTemplate = (key, values = {}) => Object.keys(values).reduce(
     (result, name) => result.replaceAll(`{${name}}`, values[name]),
     text(key)
 );
+
+function renderAppLanguage() {
+    document.documentElement.lang = analyticsLanguage === 'en' ? 'en' : 'id';
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        element.textContent = text(element.dataset.i18n);
+    });
+    document.querySelectorAll('[data-analytics-lang]').forEach(button => {
+        button.classList.toggle('active', button.dataset.analyticsLang === analyticsLanguage);
+    });
+    document.getElementById('analyticsMenuTitle').textContent = text('analyticsDisplay');
+    document.getElementById('detailModalClose').setAttribute('aria-label', text('close_detail'));
+    document.getElementById('workdayModalClose').setAttribute('aria-label', text('close_calendar'));
+    document.getElementById('calendarLoginClose').setAttribute('aria-label', text('close_login'));
+    document.getElementById('analyticsMenuClose').setAttribute('aria-label', text('close_analytics_display'));
+}
 let currentDashboard = null;
 let calendarCursor = new Date();
 let selectedHolidays = new Set();
@@ -622,7 +774,8 @@ function shortDelivery(value) {
 }
 
 function renderEmpty(data) {
-    document.querySelector('.dashboard').innerHTML = `<div class="box" style="grid-column:1/-1;padding:24px;text-align:center">${esc(data?.message || 'Data dashboard belum tersedia.')}</div>`;
+    renderAppLanguage();
+    document.querySelector('.dashboard').innerHTML = `<div class="box" style="grid-column:1/-1;padding:24px;text-align:center">${esc(data?.message || text('dashboard_unavailable'))}</div>`;
 }
 
 function compactChartValue(value) {
@@ -796,7 +949,7 @@ function renderDetailTable(title, headers, rows, calcItems = [], formula = '') {
                 <tbody>${rows.join('')}</tbody>
             </table>
         </div>
-    ` : '<div class="detail-empty">Data detail belum tersedia.</div>');
+    ` : `<div class="detail-empty">${esc(text('detail_empty'))}</div>`);
     showDetailModal();
 }
 
@@ -1340,17 +1493,15 @@ function renderAnalytics(analytics) {
     const visibleActions = featureVisibility.internalAnalytics
         ? actions
         : actions.filter(item => selectedCapCards.some(key => actionMatchesCard(item, key)));
+    renderAppLanguage();
     document.getElementById('analyticsTitle').textContent = text('analyticsTitle');
     document.getElementById('analyticsInsightTitle').textContent = text('insightTitle');
-    document.querySelectorAll('[data-analytics-lang]').forEach(button => {
-        button.classList.toggle('active', button.dataset.analyticsLang === analyticsLanguage);
-    });
     document.getElementById('analyticView').classList.toggle('show-actions', visibleActions.length > 0);
 
     const conditionCard = document.getElementById('overallCondition');
     conditionCard.className = `box condition-card simple ${featureVisibility.internalAnalytics ? esc(condition.status || '') : 'good'}`;
-    document.querySelector('#overallCondition h2').textContent = featureVisibility.internalAnalytics ? (condition.title || '-') : 'Production Status:';
-    document.getElementById('conditionLevel').textContent = featureVisibility.internalAnalytics ? (condition.level || '-') : 'On Track';
+    document.querySelector('#overallCondition h2').textContent = featureVisibility.internalAnalytics ? (condition.title || '-') : text('production_status_label');
+    document.getElementById('conditionLevel').textContent = featureVisibility.internalAnalytics ? (condition.level || '-') : text('on_track');
     document.querySelector('#conditionShortage b').textContent = featureVisibility.internalAnalytics ? fmt(Math.round(details.output?.balance_qty || 0)) : '-';
     document.getElementById('conditionSummary').textContent = '';
     document.getElementById('conditionMeta').textContent = '';
@@ -1367,7 +1518,7 @@ function renderAnalytics(analytics) {
         <div class="metric ${esc(item.status || '')}">
             <span>${esc(item.label)}</span>
             <strong>${metricValue(item)} <small>${esc(item.suffix)}</small></strong>
-            <button type="button" class="detail-btn" onclick="openAnalyticsCardDetail('${esc(item.key || '')}')">Detail</button>
+            <button type="button" class="detail-btn" onclick="openAnalyticsCardDetail('${esc(item.key || '')}')">${esc(text('detail'))}</button>
         </div>
     `).join('');
 
@@ -1382,37 +1533,37 @@ function renderAnalytics(analytics) {
     `).join('');
 
     const summaryCards = [
-        ['Total Ready Load', `${fmt(Math.round(summary.total_ready || 0))} Pcs`, [`Ready periods: ${(details.ready?.periods || []).map(row => `${row.label} ${fmt(Math.round(row.ready || 0))} pcs`).join(', ') || '-'}`], 'ready'],
-        ['Avg Daily Output', `${fmt(Math.round(summary.avg_daily_output || 0))} Pcs`, [`Required daily output: ${fmt(Math.round(details.daily_requirement?.required_daily_output || 0))} pcs/day`], 'daily'],
-        ['Avg Daily Capacity', `${fmt(Math.round(summary.avg_daily_capacity || 0))} Pcs`, ['Capacity = total balance delivery aktif / total sisa hari MID + END.'], 'daily'],
-        [capacityGapLabel, `${fmt(Math.round(Math.abs(capacityGap)))} Pcs`, ['Selisih total kapasitas dengan output harian.'], 'daily'],
-        ['Data Accuracy', `${fmt(Math.round(summary.data_accuracy_score || 0))}%`, accuracyIssues.map(item => `${item.title}: ${item.text}`), 'accuracy'],
-        ['Sequence Issues', `${fmt(Math.round(summary.sequence_issues || 0))} Issue`, accuracyIssues.map(item => `${item.title}: ${item.text}`), 'accuracy']
+        [text('total_ready_load'), `${fmt(Math.round(summary.total_ready || 0))} ${text('pcs')}`, [`${text('ready_periods')}: ${(details.ready?.periods || []).map(row => `${row.label} ${fmt(Math.round(row.ready || 0))} ${text('pcs').toLowerCase()}`).join(', ') || '-'}`], 'ready'],
+        [text('avg_daily_output'), `${fmt(Math.round(summary.avg_daily_output || 0))} ${text('pcs')}`, [`${text('required_daily_output_label')}: ${fmt(Math.round(details.daily_requirement?.required_daily_output || 0))} ${text('pcs')}/day`], 'daily'],
+        [text('avg_daily_capacity'), `${fmt(Math.round(summary.avg_daily_capacity || 0))} ${text('pcs')}`, ['Capacity = total balance delivery aktif / total sisa hari MID + END.'], 'daily'],
+        [capacityGap < 0 ? text('capacity_surplus') : text('capacity_gap'), `${fmt(Math.round(Math.abs(capacityGap)))} ${text('pcs')}`, ['Selisih total kapasitas dengan output harian.'], 'daily'],
+        [text('data_accuracy'), `${fmt(Math.round(summary.data_accuracy_score || 0))}%`, accuracyIssues.map(item => `${item.title}: ${item.text}`), 'accuracy'],
+        [text('sequence_issues'), `${fmt(Math.round(summary.sequence_issues || 0))} ${text('issue')}`, accuracyIssues.map(item => `${item.title}: ${item.text}`), 'accuracy']
     ];
 
     if (featureVisibility.criticalOrders && featureVisibility.internalAnalytics) {
-        summaryCards.splice(4, 0, ['Critical Orders', `${fmt(Math.round(summary.critical_orders || 0))} Order`, (details.priority?.orders || []).slice(0, 3).map(row => `${row.order} ${row.delivery}: ${fmt(Math.round(row.qty_ready || 0))} pcs`), 'critical']);
+        summaryCards.splice(4, 0, [text('critical_orders'), `${fmt(Math.round(summary.critical_orders || 0))} ${text('order')}`, (details.priority?.orders || []).slice(0, 3).map(row => `${row.order} ${row.delivery}: ${fmt(Math.round(row.qty_ready || 0))} ${text('pcs').toLowerCase()}`), 'critical']);
     }
 
     document.getElementById('analyticsSummary').innerHTML = summaryCards.map((item, index) => `
         <div class="summary-item">
             <span>${esc(item[0])}</span>
             <strong>${esc(item[1])}</strong>
-            <button type="button" class="detail-btn" onclick="openAnalyticsDetail('${esc(item[3])}')">Detail</button>
+            <button type="button" class="detail-btn" onclick="openAnalyticsDetail('${esc(item[3])}')">${esc(text('detail'))}</button>
         </div>
     `).join('');
 
     document.getElementById('managementActions').innerHTML = visibleActions.map(item => {
         const hasStructured = item.masalah !== undefined || item.penyebab !== undefined;
         const capRows = hasStructured ? [
-            item.masalah    ? `<div class="cap-row"><span class="cap-label masalah">Masalah :</span><span class="cap-val">${esc(item.masalah)}</span></div>` : '',
-            item.penyebab   ? `<div class="cap-row"><span class="cap-label penyebab">Penyebab :</span><span class="cap-val">${esc(item.penyebab)}</span></div>` : '',
-            item.prevention ? `<div class="cap-row"><span class="cap-label pencegahan">Pencegahan :</span><span class="cap-val">${esc(item.prevention)}</span></div>` : '',
-            item.handling   ? `<div class="cap-row"><span class="cap-label penanganan">Penanganan :</span><span class="cap-val">${esc(item.handling)}</span></div>` : '',
+            item.masalah    ? `<div class="cap-row"><span class="cap-label masalah">${esc(text('problem'))} :</span><span class="cap-val">${esc(item.masalah)}</span></div>` : '',
+            item.penyebab   ? `<div class="cap-row"><span class="cap-label penyebab">${esc(text('cause'))} :</span><span class="cap-val">${esc(item.penyebab)}</span></div>` : '',
+            item.prevention ? `<div class="cap-row"><span class="cap-label pencegahan">${esc(text('prevention'))} :</span><span class="cap-val">${esc(item.prevention)}</span></div>` : '',
+            item.handling   ? `<div class="cap-row"><span class="cap-label penanganan">${esc(text('handling'))} :</span><span class="cap-val">${esc(item.handling)}</span></div>` : '',
         ].join('') : [
-            item.result     ? `<p><strong>Hasil:</strong> ${esc(item.result)}</p>` : '',
-            item.prevention ? `<p><strong>Pencegahan:</strong> ${esc(item.prevention)}</p>` : '',
-            item.handling   ? `<p><strong>Penanganan:</strong> ${esc(item.handling)}</p>` : '',
+            item.result     ? `<p><strong>${esc(text('result'))}:</strong> ${esc(item.result)}</p>` : '',
+            item.prevention ? `<p><strong>${esc(text('prevention'))}:</strong> ${esc(item.prevention)}</p>` : '',
+            item.handling   ? `<p><strong>${esc(text('handling'))}:</strong> ${esc(item.handling)}</p>` : '',
         ].join('');
         return `
         <div class="action-row ${esc(item.status || '')}">
@@ -1426,8 +1577,8 @@ function renderAnalytics(analytics) {
 
     document.getElementById('dataAccuracyRows').innerHTML = (accuracyIssues.length ? accuracyIssues : [{
         status: dataAccuracy.status || 'good',
-        title: 'Urutan data valid',
-        text: dataAccuracy.message || 'Tidak ada masalah urutan periode yang terdeteksi.'
+        title: text('valid_sequence'),
+        text: dataAccuracy.message || text('valid_sequence_text')
     }]).map((item, index) => `
         <div class="accuracy-row ${esc(item.status || '')}">
             <i class="badge"></i>
@@ -1474,7 +1625,7 @@ function closeAnalyticsMenuAndLogout() {
 function saveAnalyticsMenu() {
     const selected = Array.from(document.querySelectorAll('#analyticsCardOptions input:checked')).map(input => input.value);
     if (!selected.length) {
-        document.getElementById('analyticsMenuMessage').textContent = 'Pilih minimal 1 card.';
+        document.getElementById('analyticsMenuMessage').textContent = text('choose_one_card');
         return;
     }
     setVisibleAnalyticsCards(selected);
@@ -1510,14 +1661,14 @@ function renderLastUpdateList(dashboard, serverTime) {
                 return `
                 <div class="db-last-item">
                     <b>${esc(row.label || '-')}</b>
-                    <p>Kapasitas: ${fmt(Math.round(capacity))} pcs</p>
-                    <p>Input 32a: ${fmt(Math.round(input))} pcs</p>
-                    <p>Output: ${fmt(Math.round(output))} pcs</p>
-                    <p>${gap >= 0 ? 'Gap' : 'Surplus'}: ${fmt(Math.round(Math.abs(gap)))} pcs</p>
+                    <p>${esc(text('capacity'))}: ${fmt(Math.round(capacity))} ${esc(text('pcs').toLowerCase())}</p>
+                    <p>${esc(text('input_32a'))}: ${fmt(Math.round(input))} ${esc(text('pcs').toLowerCase())}</p>
+                    <p>${esc(text('output'))}: ${fmt(Math.round(output))} ${esc(text('pcs').toLowerCase())}</p>
+                    <p>${gap >= 0 ? esc(text('gap')) : esc(text('surplus'))}: ${fmt(Math.round(Math.abs(gap)))} ${esc(text('pcs').toLowerCase())}</p>
                 </div>
             `}).join('')}
         </div>
-    ` : '<div class="db-last-empty">Data grafik KAPASITAS vs OUTPUT belum tersedia.</div>';
+    ` : `<div class="db-last-empty">${esc(text('no_capacity_data'))}</div>`;
 }
 
 function renderBalanceBreakdown(rows) {
@@ -1534,9 +1685,9 @@ function renderBalanceBreakdown(rows) {
             <span>${esc(row.label)}</span>
             <span>:</span>
             <b>${fmt(Math.round(row.balance))}</b>
-            <small>Pcs</small>
+            <small>${esc(text('pcs'))}</small>
         </div>
-    `).join('') : '<div class="db-last-empty">Tidak ada qty kurang.</div>';
+    `).join('') : `<div class="db-last-empty">${esc(text('no_short_qty'))}</div>`;
 }
 
 function calendarPeriods() {
@@ -1612,9 +1763,11 @@ function renderCalendar() {
     const monthStart = new Date(calendarCursor.getFullYear(), calendarCursor.getMonth(), 1);
     const first = new Date(monthStart);
     first.setDate(first.getDate() - first.getDay());
-    const title = new Intl.DateTimeFormat('id-ID', {month:'long', year:'numeric'}).format(monthStart);
+    const title = new Intl.DateTimeFormat(analyticsLanguage === 'en' ? 'en-US' : 'id-ID', {month:'long', year:'numeric'}).format(monthStart);
     const today = isoDate(new Date());
-    const dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    const dayNames = analyticsLanguage === 'en'
+        ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        : ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
     const cells = [];
 
     for (let i = 0; i < 42; i++) {
@@ -1627,7 +1780,7 @@ function renderCalendar() {
         const isHalf = selectedHalfDays.has(iso);
         const isQuarter = selectedQuarterDays.has(iso);
         const isWork = selectedWorkDays.has(iso);
-        const label = isHoliday ? 'Libur' : (isQuarter ? '1/4 Hari' : (isHalf ? '1/2 Hari' : (isWork ? 'Kerja' : (isSunday ? 'Minggu' : 'Kerja'))));
+        const label = isHoliday ? text('holiday') : (isQuarter ? text('quarter_day') : (isHalf ? text('half_day') : (isWork ? text('workday') : (isSunday ? text('sunday_off') : text('workday')))));
         cells.push(`
             <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isQuarter ? 'quarter' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''}" data-date="${iso}">
                 <b>${date.getDate()}</b>
@@ -1653,7 +1806,7 @@ function renderCalendarSummary() {
     document.getElementById('calendarSummary').innerHTML = items.length ? items.slice(0, 4).map(item => `
         <div class="calendar-summary-item">
             <span>${esc(item.label)}</span>
-            <b>${fmt(calendarWorkdaysForLabel(item.label) ?? item.total_workdays)} Hari</b>
+            <b>${fmt(calendarWorkdaysForLabel(item.label) ?? item.total_workdays)} ${esc(text('days'))}</b>
         </div>
     `).join('') : '';
 }
@@ -1728,7 +1881,7 @@ function openCalendarLoginModal() {
     document.getElementById('calendarLoginMessage').textContent = '';
     document.getElementById('calendarUsername').value = '';
     document.getElementById('calendarPassword').value = '';
-    document.getElementById('calendarLoginTitle').textContent = pendingLoginAction ? 'Login' : 'Login Production Calender';
+    document.getElementById('calendarLoginTitle').textContent = pendingLoginAction ? text('login') : text('login_calendar');
     const modal = document.getElementById('calendarLoginModal');
     modal.classList.add('open');
     modal.style.display = 'flex';
@@ -1748,7 +1901,7 @@ async function loginCalendar() {
     const password = document.getElementById('calendarPassword').value;
 
     button.disabled = true;
-    message.textContent = 'Login...';
+    message.textContent = text('logging_in');
 
     try {
         const response = await fetch(urls.calendarLogin, {
@@ -1758,7 +1911,7 @@ async function loginCalendar() {
         });
         const result = await response.json();
         if (!response.ok || !result.ok) {
-            throw new Error(result.message || 'Login gagal.');
+            throw new Error(result.message || text('login_failed'));
         }
         calendarAuthenticated = true;
         closeCalendarLoginModal();
@@ -1770,7 +1923,7 @@ async function loginCalendar() {
             openWorkdayModal();
         }
     } catch (error) {
-        message.textContent = error.message || 'Login gagal.';
+        message.textContent = error.message || text('login_failed');
     } finally {
         button.disabled = false;
     }
@@ -1791,7 +1944,7 @@ async function saveWorkdays() {
     const workDays = Array.from(selectedWorkDays).sort();
 
     button.disabled = true;
-    message.textContent = 'Menyimpan...';
+    message.textContent = text('saving');
 
     try {
         const response = await fetch(urls.saveWorkdays, {
@@ -1804,14 +1957,14 @@ async function saveWorkdays() {
             if (response.status === 401) {
                 calendarAuthenticated = false;
             }
-            throw new Error(result.message || 'Gagal menyimpan hari kerja.');
+            throw new Error(result.message || text('save_failed'));
         }
-        message.textContent = result.message || 'Tersimpan.';
+        message.textContent = result.message || text('saved');
         await loadStatus();
         await logoutCalendar();
         closeWorkdayModal();
     } catch (error) {
-        message.textContent = error.message || 'Gagal menyimpan hari kerja.';
+        message.textContent = error.message || text('save_failed');
     } finally {
         button.disabled = false;
     }
@@ -1845,6 +1998,7 @@ function render(data) {
     }
 
     currentDashboard = dashboard;
+    renderAppLanguage();
     const analyticsDetails = dashboard.management_analytics?.details || {};
     const balanceQty = numberValue(
         dashboard.kpis?.balance_qty,
@@ -1852,7 +2006,7 @@ function render(data) {
         analyticsDetails.output?.balance_qty
     );
     const latestCapacity = (dashboard.output_vs_capacity || []).slice(-1)[0] || {};
-    document.getElementById('lastUpdate').textContent = `*Last Update : ${latestCapacity.label || '-'}`;
+    document.getElementById('lastUpdate').textContent = `*${text('last_update')} : ${latestCapacity.label || '-'}`;
     renderLastUpdateList(dashboard, data.server_time);
     document.getElementById('totalOutput').textContent = fmt(Math.round(numberValue(dashboard.kpis?.total_output)));
     document.getElementById('balanceQty').textContent = fmt(Math.round(balanceQty));
@@ -1870,7 +2024,36 @@ function render(data) {
             <td class="style">${esc(row.style)}</td>
             <td class="delivery">${esc(shortDelivery(row.delivery))}</td>
             <td class="num">${fmt(Math.round(row.qty_ready))}</td>
-            <td class="unit">Pcs</td>
+            <td class="unit">${esc(text('pcs'))}</td>
+        </tr>
+    `).join('');
+}
+
+function refreshLanguage() {
+    renderAppLanguage();
+    renderDeliveryToggle();
+    if (!currentDashboard) return;
+    const latestCapacity = (currentDashboard.output_vs_capacity || []).slice(-1)[0] || {};
+    document.getElementById('lastUpdate').textContent = `*${text('last_update')} : ${latestCapacity.label || '-'}`;
+    renderLastUpdateList(currentDashboard);
+    renderBalanceBreakdown(currentDashboard.balance_breakdown || currentDashboard.qty_pdk_vs_output);
+    if (document.getElementById('dashboardView').classList.contains('active')) {
+        renderDashboardCharts(currentDashboard);
+    }
+    if (document.getElementById('workdayModal').classList.contains('open')) {
+        renderCalendar();
+    }
+    if (currentDashboard.management_analytics) {
+        renderAnalytics(currentDashboard.management_analytics);
+    }
+    document.getElementById('priorityRows').innerHTML = (currentDashboard.top_priority_orders || []).map((row, index) => `
+        <tr>
+            <td>${index + 1}.</td>
+            <td class="order">${esc(row.order)}</td>
+            <td class="style">${esc(row.style)}</td>
+            <td class="delivery">${esc(shortDelivery(row.delivery))}</td>
+            <td class="num">${fmt(Math.round(row.qty_ready))}</td>
+            <td class="unit">${esc(text('pcs'))}</td>
         </tr>
     `).join('');
 }
@@ -1904,12 +2087,11 @@ document.querySelectorAll('[data-analytics-lang]').forEach(button => {
     button.addEventListener('click', () => {
         analyticsLanguage = button.dataset.analyticsLang === 'en' ? 'en' : 'id';
         localStorage.setItem(analyticsLangStorageKey, analyticsLanguage);
-        if (currentDashboard?.management_analytics) {
-            renderAnalytics(currentDashboard.management_analytics);
-        }
+        refreshLanguage();
     });
 });
 
+renderAppLanguage();
 renderDeliveryToggle();
 
 document.getElementById('lastUpdate').addEventListener('click', event => {

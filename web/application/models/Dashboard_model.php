@@ -5,6 +5,7 @@ class Dashboard_model extends CI_Model
 {
     private $reports = array(
         array('key' => '32_inflow', 'label' => '32 Inflow', 'storage' => '32', 'direction' => '1', 'filename' => '32_inflow.xlsx'),
+        array('key' => '32_outflow', 'label' => '32 Outflow', 'storage' => '32', 'direction' => '2', 'filename' => '32_outflow.xlsx'),
         array('key' => '32a_inflow', 'label' => '32a Inflow', 'storage' => '32a', 'direction' => '1', 'filename' => '32a_inflow.xlsx'),
         array('key' => '32a_outflow', 'label' => '32a Outflow', 'storage' => '32a', 'direction' => '2', 'filename' => '32a_outflow.xlsx'),
     );
@@ -419,7 +420,7 @@ class Dashboard_model extends CI_Model
     {
         $delivery_count = $this->normalize_delivery_count($delivery_count);
         $sources = $this->heat_rpa_sources();
-        $required = array('aps', 'engage_32a_inflow', 'engage_32a_outflow');
+        $required = array('aps', 'engage_32_inflow', 'engage_32_outflow', 'engage_32a_inflow', 'engage_32a_outflow');
         foreach ($required as $key) {
             if (empty($sources[$key]) || !is_file($sources[$key])) {
                 return array('available' => FALSE, 'message' => 'Data RPA belum lengkap untuk dashboard Heat Transfer.');
@@ -427,15 +428,17 @@ class Dashboard_model extends CI_Model
         }
 
         $aps = $this->read_html_report($sources['aps']);
+        $inflow_32 = $this->read_html_report($sources['engage_32_inflow']);
+        $outflow_32 = $this->read_combined_engage_report($sources['engage_32_outflow'], '32_outflow');
         $inflow_32a = $this->read_html_report($sources['engage_32a_inflow']);
-        $outflow_32a = $this->read_combined_engage_outflow_report($sources['engage_32a_outflow']);
+        $outflow_32a = $this->read_combined_engage_report($sources['engage_32a_outflow'], '32a_outflow');
         $accessories = !empty($sources['accessories']) ? $this->read_html_report($sources['accessories']) : array('headers' => array(), 'rows' => array());
 
-        if (!$aps['headers'] || !$inflow_32a['headers'] || !$outflow_32a['headers']) {
+        if (!$aps['headers'] || !$inflow_32['headers'] || !$outflow_32['headers'] || !$inflow_32a['headers'] || !$outflow_32a['headers']) {
             return array('available' => FALSE, 'message' => 'Header data RPA APS atau Engage belum bisa dibaca.');
         }
 
-        $source_data = $this->build_heat_data_from_rpa_sources($aps, $inflow_32a, $outflow_32a, $accessories, $delivery_count);
+        $source_data = $this->build_heat_data_from_rpa_sources($aps, $inflow_32, $outflow_32, $inflow_32a, $outflow_32a, $accessories, $delivery_count);
         if (!$source_data['qty_pdk_vs_output'] && !$source_data['ready_to_load']) {
             return array('available' => FALSE, 'message' => 'Data RPA terbaca, tetapi belum ada order Heat Transfer yang bisa ditampilkan.');
         }
@@ -1089,6 +1092,10 @@ class Dashboard_model extends CI_Model
                 $engage_dir . DIRECTORY_SEPARATOR . '32_inflow.xlsx',
                 $engage_dir . DIRECTORY_SEPARATOR . '32_inflow.xls',
             )),
+            'engage_32_outflow' => $this->latest_existing_file(array(
+                $engage_dir . DIRECTORY_SEPARATOR . '32_outflow.xlsx',
+                $engage_dir . DIRECTORY_SEPARATOR . '32_outflow.xls',
+            )),
             'engage_32a_inflow' => $this->latest_existing_file(array(
                 $engage_dir . DIRECTORY_SEPARATOR . '32a_inflow.xlsx',
                 $engage_dir . DIRECTORY_SEPARATOR . '32a_inflow.xls',
@@ -1161,6 +1168,11 @@ class Dashboard_model extends CI_Model
 
     private function read_combined_engage_outflow_report($current_path)
     {
+        return $this->read_combined_engage_report($current_path, '32a_outflow');
+    }
+
+    private function read_combined_engage_report($current_path, $report_key)
+    {
         $current = $this->read_html_report($current_path);
         if (!$current['headers']) {
             return $current;
@@ -1168,12 +1180,12 @@ class Dashboard_model extends CI_Model
 
         $patterns = array();
         foreach ($this->engage_rpa_history_roots() as $engage_root) {
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '32a_outflow*.xlsx';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '32a_outflow*.xls';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '32a_outflow*.xlsx';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '32a_outflow*.xls';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'periods' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '32a_outflow.xlsx';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'periods' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '32a_outflow.xls';
+            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xlsx';
+            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xls';
+            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xlsx';
+            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xls';
+            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'periods' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '.xlsx';
+            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'periods' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '.xls';
         }
 
         $rows = $current['rows'];
@@ -1202,7 +1214,7 @@ class Dashboard_model extends CI_Model
         return array_values(array_unique(array_filter($roots, 'is_dir')));
     }
 
-    private function build_heat_data_from_rpa_sources($aps, $inflow_32a, $outflow_32a, $accessories, $delivery_count = 4)
+    private function build_heat_data_from_rpa_sources($aps, $inflow_32, $outflow_32, $inflow_32a, $outflow_32a, $accessories, $delivery_count = 4)
     {
         $delivery_count = $this->normalize_delivery_count($delivery_count);
         $aps_index = $this->header_index($aps['headers']);
@@ -1264,8 +1276,14 @@ class Dashboard_model extends CI_Model
             $orders[$order]['qty_out_aps'] += $finished;
         }
 
-        $in_summary = $this->summarize_engage_rows_by_order($inflow_32a);
-        $out_summary = $this->summarize_engage_rows_by_order($outflow_32a);
+        $in_summary = $this->merge_engage_summaries(array(
+            $this->summarize_engage_rows_by_order($inflow_32, $this->engage_filter_rules_32()),
+            $this->summarize_engage_rows_by_order($inflow_32a, $this->engage_filter_rules_32a()),
+        ));
+        $out_summary = $this->merge_engage_summaries(array(
+            $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32()),
+            $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a()),
+        ));
         $accessories_ready = $this->summarize_accessories_completed_orders($accessories);
 
         $ready_by_period = array();
@@ -1403,8 +1421,56 @@ class Dashboard_model extends CI_Model
         return strtotime($value) ?: 0;
     }
 
-    private function summarize_engage_rows_by_order($report)
+    private function merge_engage_summaries($summaries)
     {
+        $merged = array('orders' => array(), 'daily' => array());
+
+        foreach ($summaries as $summary) {
+            foreach ($summary['orders'] as $order => $data) {
+                if (!isset($merged['orders'][$order])) {
+                    $merged['orders'][$order] = array(
+                        'qty' => 0,
+                        'style' => isset($data['style']) ? $data['style'] : '',
+                        'date' => isset($data['date']) ? $data['date'] : '',
+                    );
+                }
+                $merged['orders'][$order]['qty'] += isset($data['qty']) ? $data['qty'] : 0;
+                if ($merged['orders'][$order]['style'] === '' && !empty($data['style'])) {
+                    $merged['orders'][$order]['style'] = $data['style'];
+                }
+                if ($merged['orders'][$order]['date'] === '' && !empty($data['date'])) {
+                    $merged['orders'][$order]['date'] = $data['date'];
+                }
+            }
+
+            foreach ($summary['daily'] as $day => $qty) {
+                $merged['daily'][$day] = isset($merged['daily'][$day]) ? $merged['daily'][$day] + $qty : $qty;
+            }
+        }
+
+        return $merged;
+    }
+
+    private function engage_filter_rules_32()
+    {
+        return array(
+            array('column' => 'Udef 5', 'keywords' => array('rpl')),
+        );
+    }
+
+    private function engage_filter_rules_32a()
+    {
+        return array(
+            array('column' => 'Text', 'keywords' => array('csdb', 'csbd', 'ts')),
+        );
+    }
+
+    private function summarize_engage_rows_by_order($report, $filter_rules = NULL)
+    {
+        if ($filter_rules === NULL) {
+            $filter_rules = $this->engage_filter_rules_32a();
+        }
+
         $index = $this->header_index($report['headers']);
         $orders = array();
         $daily = array();
@@ -1413,7 +1479,7 @@ class Dashboard_model extends CI_Model
         $calendar_days = $this->dashboard_calendar_days();
 
         foreach ($report['rows'] as $row) {
-            if (strpos($this->normalize($this->cell($row, $index, 'Text')), '[CSDB]-Transfer ~bundle_receive') === FALSE) {
+            if (!$this->engage_row_matches_filter_rules($row, $index, $filter_rules)) {
                 continue;
             }
 
@@ -1475,6 +1541,23 @@ class Dashboard_model extends CI_Model
         }
 
         return array('orders' => $orders, 'daily' => $daily);
+    }
+
+    private function engage_row_matches_filter_rules($row, $index, $rules)
+    {
+        foreach ($rules as $rule) {
+            $value = strtolower($this->normalize($this->cell($row, $index, $rule['column'])));
+            if ($value === '') {
+                continue;
+            }
+            foreach ($rule['keywords'] as $keyword) {
+                if ($keyword !== '' && strpos($value, strtolower($keyword)) !== FALSE) {
+                    return TRUE;
+                }
+            }
+        }
+
+        return FALSE;
     }
 
     private function engage_heat_material_key($row, $index, $order)
@@ -1551,16 +1634,23 @@ class Dashboard_model extends CI_Model
     private function build_output_vs_capacity_from_rpa($balance_qty, $prod_days_left, $fallback)
     {
         $sources = $this->heat_rpa_sources();
-        if (empty($sources['engage_32a_outflow']) || !is_file($sources['engage_32a_outflow'])) {
+        if (
+            empty($sources['engage_32_outflow']) || !is_file($sources['engage_32_outflow']) ||
+            empty($sources['engage_32a_outflow']) || !is_file($sources['engage_32a_outflow'])
+        ) {
             return $fallback;
         }
 
-        $outflow = $this->read_combined_engage_outflow_report($sources['engage_32a_outflow']);
-        if (!$outflow['headers']) {
+        $outflow_32 = $this->read_combined_engage_report($sources['engage_32_outflow'], '32_outflow');
+        $outflow_32a = $this->read_combined_engage_report($sources['engage_32a_outflow'], '32a_outflow');
+        if (!$outflow_32['headers'] || !$outflow_32a['headers']) {
             return $fallback;
         }
 
-        $summary = $this->summarize_engage_rows_by_order($outflow);
+        $summary = $this->merge_engage_summaries(array(
+            $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32()),
+            $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a()),
+        ));
         $daily_capacity = $prod_days_left > 0 ? array(
             'capacity' => $balance_qty / $prod_days_left,
             'breakdown' => array(array(
@@ -1574,10 +1664,17 @@ class Dashboard_model extends CI_Model
             )),
         ) : array('capacity' => 0, 'breakdown' => array());
         $input_summary = array('daily' => array());
-        if (!empty($sources['engage_32a_inflow']) && is_file($sources['engage_32a_inflow'])) {
-            $inflow = $this->read_html_report($sources['engage_32a_inflow']);
-            if ($inflow['headers']) {
-                $input_summary = $this->summarize_engage_rows_by_order($inflow);
+        if (
+            !empty($sources['engage_32_inflow']) && is_file($sources['engage_32_inflow']) &&
+            !empty($sources['engage_32a_inflow']) && is_file($sources['engage_32a_inflow'])
+        ) {
+            $inflow_32 = $this->read_html_report($sources['engage_32_inflow']);
+            $inflow_32a = $this->read_html_report($sources['engage_32a_inflow']);
+            if ($inflow_32['headers'] && $inflow_32a['headers']) {
+                $input_summary = $this->merge_engage_summaries(array(
+                    $this->summarize_engage_rows_by_order($inflow_32, $this->engage_filter_rules_32()),
+                    $this->summarize_engage_rows_by_order($inflow_32a, $this->engage_filter_rules_32a()),
+                ));
             }
         }
 

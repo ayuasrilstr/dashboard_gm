@@ -48,6 +48,7 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 conditions = [
     {"storage": "32", "direction": "1", "filename": "32_inflow.xlsx"},
+    {"storage": "32", "direction": "2", "filename": "32_outflow.xlsx"},
     {"storage": "32a", "direction": "1", "filename": "32a_inflow.xlsx"},
     {"storage": "32a", "direction": "2", "filename": "32a_outflow.xlsx"},
 ]

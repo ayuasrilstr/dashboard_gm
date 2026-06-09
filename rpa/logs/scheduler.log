@@ -2335,3 +2335,83 @@
 [2026-06-09 07:27:39] [Master Scheduler] RPA APS RPA gagal dengan exit code 1.
 [2026-06-09 07:27:39] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
 [2026-06-09 07:27:39] [Master Scheduler] Run berikutnya: 2026-06-09 09:00:00
+[2026-06-09 10:54:56] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 2 jam dari 07:00 sampai 23:00.
+[2026-06-09 10:54:56] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-09 10:54:56] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-09 10:54:56] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:04] Step: Buka halaman login CIUROX
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:07] Step: Tunggu form login
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:07] Step: Isi username
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:07] Step: Isi password
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:07] Step: Klik login
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:08] Step: Tunggu halaman setelah login
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:10] Step: Buka Accessories GM
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:10] Step: Tunggu filter Accessories GM
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:10] Step: Isi tanggal awal bulan ini
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:10] Step: Isi tanggal sampai hari ini
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:10] Step: Pilih status COMPLETED
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:10] Step: Export Controlist Accessories
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:11] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-09 10:55:12] [Master Scheduler] [Accessories RPA] [2026-06-09 10:55:12] RPA Accessories selesai.
+[2026-06-09 10:55:12] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-09 10:55:12] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-09 10:55:12] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-09 11:00:00] [Master Scheduler] RPA Engage RPA gagal dengan exit code 1073807364.
+[2026-06-09 11:00:00] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-09 11:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-09 11:00:00] [Master Scheduler] RPA APS RPA gagal dengan exit code 3221226091.
+[2026-06-09 11:00:00] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-09 11:00:00] [Master Scheduler] Run berikutnya: 2026-06-09 13:00:00
+[2026-06-09 11:01:05] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 2 jam dari 07:00 sampai 23:00.
+[2026-06-09 11:01:05] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-09 11:01:05] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-09 11:01:05] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:12] Step: Buka halaman login CIUROX
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:16] Step: Tunggu form login
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:16] Step: Isi username
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:16] Step: Isi password
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:16] Step: Klik login
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:16] Step: Tunggu halaman setelah login
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:18] Step: Buka Accessories GM
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:18] Step: Tunggu filter Accessories GM
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:18] Step: Isi tanggal awal bulan ini
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:18] Step: Isi tanggal sampai hari ini
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:18] Step: Pilih status COMPLETED
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:18] Step: Export Controlist Accessories
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:20] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-09 11:01:20] [Master Scheduler] [Accessories RPA] [2026-06-09 11:01:20] RPA Accessories selesai.
+[2026-06-09 11:01:20] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-09 11:01:20] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-09 11:01:20] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:20] Mulai download report
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:26] Login berhasil
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:29] Halaman report berhasil dibuka
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:29] Proses periode Last 10 Days (31 May - 09 Jun): 2026-05-31 sampai 2026-06-09
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:29] Proses download Storage=32, Direction=1, Periode=Last 10 Days (31 May - 09 Jun)
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:38] Display data diklik
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:38] Jumlah row response: 200
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:01:51] Fetch page 1/28: total row sementara 200
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:03:31] Fetch page 10/28: total row sementara 2000
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:05:35] Fetch page 20/28: total row sementara 4000
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:18] Fetch page 28/28: total row sementara 5506
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:18] Jumlah row export: 5506
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:18] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-09\32_inflow_110718.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:18] Download berhasil: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32_inflow.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:26] Proses download Storage=32a, Direction=1, Periode=Last 10 Days (31 May - 09 Jun)
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:36] Display data diklik
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:36] Jumlah row response: 200
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:07:41] Fetch page 1/38: total row sementara 200
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:08:45] Fetch page 10/38: total row sementara 2000
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:10:26] Fetch page 20/38: total row sementara 4000
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:12:29] Fetch page 30/38: total row sementara 6000
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:13] Fetch page 38/38: total row sementara 7549
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:13] Jumlah row export: 7549
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:13] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-09\32a_inflow_111413.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:15] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-09\32a_inflow_111413.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:17] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-09\32a_inflow_111413.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:19] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-09\32a_inflow_111413.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:21] Arsip tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\archive\2026-06-09\32a_inflow_111413.xlsx
+[2026-06-09 11:14:21] [Master Scheduler] [Engage RPA] [2026-06-09 11:14:21] Download gagal: Tidak bisa menulis C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\downloads\32a_inflow.xlsx. Tutup file Excel tersebut jika sedang dibuka.
+[2026-06-09 11:14:21] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
+[2026-06-09 11:14:21] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-09 11:14:21] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
