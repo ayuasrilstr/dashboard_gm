@@ -27,7 +27,7 @@
         *{box-sizing:border-box}
         body{margin:0;height:100vh;overflow:auto;background:radial-gradient(circle at top left,rgba(100,166,189,.22),transparent 32%),linear-gradient(180deg,#f8fbff 0,var(--bg) 100%);color:var(--ink);font-family:Segoe UI,Arial,Helvetica,sans-serif}
         .page{height:calc(100vh / var(--tv-scale));width:calc(100vw / var(--tv-scale));padding:6px var(--tv-safe-x) var(--tv-safe-bottom);display:grid;grid-template-rows:38px minmax(0,1fr);gap:6px;transform:scale(var(--tv-scale));transform-origin:top left}
-        .top{display:grid;grid-template-columns:minmax(520px,34vw) auto auto auto 1fr;align-items:center;gap:10px}
+        .top{display:grid;grid-template-columns:minmax(520px,34vw) auto 1fr;align-items:center;gap:10px}
         .title{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.92);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:clamp(18px,1.22vw,24px);font-weight:850;letter-spacing:.3px;color:var(--ink);white-space:nowrap;overflow:hidden}
         .menu{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.78);box-shadow:var(--shadow);display:flex;align-items:center;padding:3px;gap:4px}
         .menu button{height:27px;border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:clamp(11px,.8vw,14px);font-weight:800;text-transform:uppercase;padding:0 12px;cursor:pointer}
@@ -142,6 +142,7 @@
         .analytics-lang button.active{background:rgba(23,107,135,.14);color:var(--brand)}
         .analytics-tune{width:22px;height:18px;border:0;border-radius:5px;background:rgba(96,114,135,.12);color:rgba(96,114,135,.62);font-size:12px;font-weight:900;line-height:1;cursor:pointer}
         .analytics-tune:hover{background:rgba(23,107,135,.16);color:var(--brand)}
+        .management-modal{width:min(1020px,94vw)}.management-body{display:grid;gap:12px}.management-note{margin:0;color:var(--muted);font-size:12px;font-weight:750;line-height:1.4}.management-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.management-card{border:1px solid var(--grid);border-radius:10px;background:linear-gradient(180deg,#fff,#f8fbfd);padding:12px;display:grid;gap:10px;box-shadow:0 10px 20px rgba(16,32,51,.04)}.management-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.management-card-head b{color:var(--ink);font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}.management-card-head span{color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase}.management-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.35;font-weight:700}.management-delivery-toggle{display:flex;gap:6px;flex-wrap:wrap}.management-delivery-toggle button{height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--muted);font-size:12px;font-weight:850;padding:0 12px;cursor:pointer}.management-delivery-toggle button.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 8px 18px rgba(124,154,66,.18)}.management-card .primary{height:34px;border:1px solid var(--brand);border-radius:8px;background:var(--brand);color:#fff;font-weight:850;cursor:pointer;padding:0 14px;justify-self:start}
     </style>
 </head>
 <body>
@@ -152,11 +153,6 @@
             <button type="button" class="active" data-view="dashboard" data-i18n="dashboard">Dashboard</button>
             <button type="button" data-view="analytic" data-i18n="analytic">Analytic</button>
         </nav>
-        <div class="delivery-toggle" aria-label="Jumlah delivery">
-            <button type="button" data-delivery-count="2">2 Delivery</button>
-            <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
-        </div>
-        <button type="button" class="workday-open" id="workdayOpen" data-i18n="production_calendar">Production Calender</button>
         <div class="last-update" id="lastUpdateBox">
             <button type="button" id="lastUpdate">*Last Update : -</button>
             <div class="last-update-panel" id="lastUpdatePanel">
@@ -220,7 +216,7 @@
                         <button type="button" data-analytics-lang="id">ID</button>
                         <button type="button" data-analytics-lang="en">EN</button>
                     </span>
-                    <button type="button" class="analytics-tune" id="analyticsTune" aria-label="Analytics display">...</button>
+                    <button type="button" class="analytics-tune" id="analyticsTune" aria-label="More options">...</button>
                 </span>
             </h2>
             <div class="metric-grid" id="analyticsMetrics"></div>
@@ -324,6 +320,86 @@
     </section>
 </div>
 
+<div class="modal-backdrop" id="managementModal" role="dialog" aria-modal="true">
+    <section class="detail-modal management-modal">
+        <div class="modal-head">
+            <div></div>
+            <button type="button" class="modal-close" id="managementModalClose" aria-label="Tutup management">&times;</button>
+        </div>
+        <div class="modal-body management-body">
+            <p class="management-note" data-i18n="management_note">Satu login untuk delivery, production calendar, riwayat QTY, dan analytics display.</p>
+            <div class="management-grid">
+                <section class="management-card">
+                    <div class="management-card-head">
+                        <b data-i18n="delivery_selection">Delivery Selection</b>
+                        <span>2 / 4</span>
+                    </div>
+                    <div class="management-delivery-toggle" id="managementDeliveryToggle" aria-label="Jumlah delivery">
+                        <button type="button" data-delivery-count="2">2 Delivery</button>
+                        <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
+                    </div>
+                    <p data-i18n="delivery_note">Pilih horizon delivery yang sedang aktif.</p>
+                </section>
+                <section class="management-card">
+                    <div class="management-card-head">
+                        <b data-i18n="production_calendar">Production Calender</b>
+                        <span data-i18n="calendar_access">Calendar</span>
+                    </div>
+                    <p data-i18n="calendar_note">Atur hari kerja, libur, dan penyesuaian kalender produksi.</p>
+                    <button type="button" class="primary" id="managementCalendarOpen" data-i18n="open">Buka</button>
+                </section>
+                <section class="management-card">
+                    <div class="management-card-head">
+                        <b data-i18n="qty_history">Riwayat QTY</b>
+                        <span data-i18n="history_access">History</span>
+                    </div>
+                    <p data-i18n="qty_history_note">Lihat histori harian QTY PDK, output, dan balance.</p>
+                    <button type="button" class="primary" id="managementQtyOpen" data-i18n="open">Buka</button>
+                </section>
+                <section class="management-card">
+                    <div class="management-card-head">
+                        <b data-i18n="analyticsDisplay">Analytics Display</b>
+                        <span data-i18n="display_access">Display</span>
+                    </div>
+                    <p data-i18n="analytics_note">Atur kartu analytics yang ingin ditampilkan di dashboard.</p>
+                    <button type="button" class="primary" id="managementAnalyticsOpen" data-i18n="open">Buka</button>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal-backdrop" id="qtyHistoryModal" role="dialog" aria-modal="true" aria-labelledby="qtyHistoryModalTitle">
+    <section class="detail-modal" style="width:min(1080px,94vw)">
+        <div class="modal-head">
+            <h3 id="qtyHistoryModalTitle" data-i18n="qty_history_title">Riwayat QTY Harian</h3>
+            <button type="button" class="modal-close" id="qtyHistoryModalClose" aria-label="Tutup riwayat">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="calendar-tools">
+                <button type="button" id="qtyHistoryRange" style="background:var(--brand);color:#fff;border-color:var(--brand);font-weight:850;cursor:default;padding:0 16px;">7 Hari Terakhir</button>
+                <button type="button" class="primary" id="qtyHistoryRefresh" style="background:var(--brand);color:#fff;">Refresh</button>
+            </div>
+            <div class="summary-grid" id="qtyHistorySummary" style="margin-bottom:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;"></div>
+            <div style="border:1px solid var(--grid);border-radius:8px;overflow:auto;max-height:calc(100vh - 320px);">
+                <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                    <thead>
+                        <tr>
+                            <th style="padding:8px 10px;text-align:center;position:sticky;top:0;background:var(--surface-soft);z-index:2;">Tanggal</th>
+                            <th style="padding:8px 10px;text-align:center;position:sticky;top:0;background:var(--surface-soft);z-index:2;">QTY PDK</th>
+                            <th style="padding:8px 10px;text-align:center;position:sticky;top:0;background:var(--surface-soft);z-index:2;">QTY Output</th>
+                            <th style="padding:8px 10px;text-align:center;position:sticky;top:0;background:var(--surface-soft);z-index:2;">Balance QTY</th>
+                            <th style="padding:8px 10px;text-align:center;position:sticky;top:0;background:var(--surface-soft);z-index:2;">Catatan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="qtyHistoryRows"></tbody>
+                </table>
+            </div>
+            <div id="qtyHistoryEmpty" class="detail-empty" style="display:none;">Data riwayat belum tersedia.</div>
+        </div>
+    </section>
+</div>
+
 <script>
 const urls = {
     status: <?= json_encode($status_url) ?>,
@@ -331,7 +407,8 @@ const urls = {
     calendarLogin: <?= json_encode($calendar_login_url) ?>,
     calendarLogout: <?= json_encode($calendar_logout_url) ?>,
     run: <?= json_encode($run_url) ?>,
-    download: <?= json_encode($download_url) ?>
+    download: <?= json_encode($download_url) ?>,
+    qtyHistory: <?= json_encode($qty_history_url) ?>
 };
 const featureVisibility = {
     criticalOrders: false,
@@ -418,6 +495,19 @@ const analyticsText = {
         analyticsTitle: 'Data-Driven & Management Analytics :',
         insightTitle: 'Management Insight :',
         analyticsDisplay: 'Analytics Display',
+        management_panel: 'Management Access',
+        open_management: 'Management',
+        management_note: 'One login for delivery, production calendar, qty history, and analytics display.',
+        delivery_selection: 'Delivery Selection',
+        delivery_note: 'Choose the active delivery horizon.',
+        calendar_access: 'Calendar',
+        calendar_note: 'Adjust working days, holidays, and production calendar settings.',
+        history_access: 'History',
+        qty_history_note: 'Review daily QTY PDK, output, and balance history.',
+        display_access: 'Display',
+        analytics_note: 'Choose which analytics cards are shown on the dashboard.',
+        login_management: 'Login Management',
+        open: 'Open',
         production_status: 'Production Status',
         output_achievement: 'Output Achievement',
         data_accuracy: 'Data Accuracy',
@@ -591,6 +681,19 @@ const analyticsText = {
         analyticsTitle: 'Analitik Berbasis Data :',
         insightTitle: 'Insight Manajemen :',
         analyticsDisplay: 'Tampilan Analytics',
+        management_panel: 'Akses Manajemen',
+        open_management: 'Manajemen',
+        management_note: 'Satu login untuk delivery, production calendar, riwayat QTY, dan analytics display.',
+        delivery_selection: 'Pemilihan Delivery',
+        delivery_note: 'Pilih horizon delivery yang sedang aktif.',
+        calendar_access: 'Kalender',
+        calendar_note: 'Atur hari kerja, libur, dan pengaturan production calendar.',
+        history_access: 'Riwayat',
+        qty_history_note: 'Lihat histori harian QTY PDK, output, dan balance.',
+        display_access: 'Tampilan',
+        analytics_note: 'Pilih kartu analytics yang ingin ditampilkan di dashboard.',
+        login_management: 'Login Manajemen',
+        open: 'Buka',
         production_status: 'Status Produksi',
         output_achievement: 'Pencapaian Output',
         data_accuracy: 'Akurasi Data',
@@ -750,7 +853,7 @@ let selectedQuarterDays = new Set();
 let selectedWorkDays = new Set();
 let calendarAuthenticated = false;
 let pendingLoginAction = null;
-let selectedDeliveryCount = Number(localStorage.getItem('heatDeliveryCount')) === 2 ? 2 : 4;
+let selectedDeliveryCount = Number(localStorage.getItem('heatDeliveryCount')) === 4 ? 4 : 2;
 
 function floorDecimal(value, decimals) {
     const factor = Math.pow(10, decimals);
@@ -1043,6 +1146,10 @@ function openAnalyticsDetail(key) {
         const daysLeft = Number(daily.period_days_left ?? daily.prod_days_left) || 0;
         const requiredDaily = Number(daily.period_required_daily_output) || (daysLeft > 0 ? balanceQty / daysLeft : 0);
         const avgOutput = Number(daily.avg_daily_output) || 0;
+        const latestDaily = (dashboard.output_vs_capacity || []).slice(-1)[0] || {};
+        const latestBalanceQty = Number(latestDaily.balance_qty ?? latestDaily.total_demand) || balanceQty;
+        const latestSisaHariKerja = Number(latestDaily.sisa_hari_kerja ?? latestDaily.hari_kerja) || daysLeft;
+        const latestCapacity = Number(latestDaily.capacity) || (latestSisaHariKerja > 0 ? Math.round(latestBalanceQty / latestSisaHariKerja) : 0);
         const rows = (dashboard.output_vs_capacity || []).map(row => `
             <tr>
                 ${tableCell(row.label)}
@@ -1051,15 +1158,15 @@ function openAnalyticsDetail(key) {
                 ${tableCell(row.capacity, true)}
                 ${tableCell((Number(row.capacity) || 0) - (Number(row.output) || 0), true)}
                 ${tableCell(row.capacity_captured_at ? dateTime(row.capacity_captured_at) : '-')}
-                ${tableCell((row.capacity_breakdown || []).map(item => `${item.label}: total ${fmt(Math.round(item.total_balance || item.balance || 0))}/${fmt(Number(item.total_days_left || item.days_left || 0).toFixed(1))}=${fmt(Math.round(item.daily_capacity || 0))}`).join(', ') || '-')}
+                ${tableCell((row.capacity_breakdown || []).map(item => `${item.label}: ${fmt(Math.round(item.balance_qty || item.total_demand || item.total_balance || item.balance || 0))} / ${fmt(Number(item.sisa_hari_kerja || item.hari_kerja || item.total_days_left || item.days_left || 0).toFixed(1))} = ${fmt(Math.round(item.daily_capacity || row.capacity || 0))}`).join(', ') || '-')}
             </tr>
         `);
         renderDetailTable('Detail Daily Output', ['Hari', 'Output', 'Input 32a', 'Capacity', 'Gap', 'Snapshot', 'History Kapasitas'], rows, [
-            ['Balance Qty', `${fmt(Math.round(balanceQty))} Pcs`],
-            ['Calendar Days', `${fmt(Number(calendar.remaining_workdays || 0).toFixed(1))} Days`],
-            ['Export Days Left', `${fmt(daysLeft.toFixed(1))} Days`],
+            ['Balance Qty', `${fmt(Math.round(latestBalanceQty))} Pcs`],
+            ['Sisa Hari Kerja', `${fmt(latestSisaHariKerja.toFixed(1))} Days`],
+            ['Kapasitas/Day', `${fmt(Math.round(latestCapacity))} Pcs/Day`],
             ['Req. Daily', `${fmt(Math.round(requiredDaily))} Pcs/Day`]
-        ], `Required Daily Output = total balance delivery aktif / total sisa hari kerja export delivery aktif. Card kalender menampilkan hari produktif sesuai tanda kalender, sedangkan Status Export memakai buffer 4 hari. Avg Daily Output saat ini: ${fmt(Math.round(avgOutput))} pcs/day. Gap per hari = Capacity - Output.`);
+        ], `Kapasitas/Day = Balance Qty / Sisa Hari Kerja (balance dari APS). Bar Output dan Input tetap dari Engage 32/32a. Sisa Hari Kerja = sisa hari kerja ke akhir delivery terakhir - buffer export (4 hari x jumlah delivery aktif). Avg Daily Output saat ini: ${fmt(Math.round(avgOutput))} pcs/day. Gap per hari = Capacity - Output.`);
         return;
     }
 
@@ -1622,6 +1729,31 @@ function closeAnalyticsMenuAndLogout() {
     }
 }
 
+function openManagementModal() {
+    renderDeliveryToggle();
+    const modal = document.getElementById('managementModal');
+    modal.classList.add('open');
+    modal.style.display = 'flex';
+}
+
+function closeManagementModal() {
+    const modal = document.getElementById('managementModal');
+    modal.classList.remove('open');
+    modal.style.display = 'none';
+    if (calendarAuthenticated) {
+        logoutCalendar();
+    }
+}
+
+function ensureManagementAccess(action) {
+    if (calendarAuthenticated) {
+        action();
+        return;
+    }
+    pendingLoginAction = action;
+    openCalendarLoginModal();
+}
+
 function saveAnalyticsMenu() {
     const selected = Array.from(document.querySelectorAll('#analyticsCardOptions input:checked')).map(input => input.value);
     if (!selected.length) {
@@ -1881,7 +2013,7 @@ function openCalendarLoginModal() {
     document.getElementById('calendarLoginMessage').textContent = '';
     document.getElementById('calendarUsername').value = '';
     document.getElementById('calendarPassword').value = '';
-    document.getElementById('calendarLoginTitle').textContent = pendingLoginAction ? text('login') : text('login_calendar');
+    document.getElementById('calendarLoginTitle').textContent = pendingLoginAction ? text('login_management') : text('login_calendar');
     const modal = document.getElementById('calendarLoginModal');
     modal.classList.add('open');
     modal.style.display = 'flex';
@@ -1920,7 +2052,7 @@ async function loginCalendar() {
         if (typeof action === 'function') {
             action();
         } else {
-            openWorkdayModal();
+            openManagementModal();
         }
     } catch (error) {
         message.textContent = error.message || text('login_failed');
@@ -1961,7 +2093,9 @@ async function saveWorkdays() {
         }
         message.textContent = result.message || text('saved');
         await loadStatus();
-        await logoutCalendar();
+        if (calendarAuthenticated) {
+            logoutCalendar();
+        }
         closeWorkdayModal();
     } catch (error) {
         message.textContent = error.message || text('save_failed');
@@ -2065,22 +2199,13 @@ async function loadStatus() {
 }
 
 function renderDeliveryToggle() {
-    document.querySelectorAll('.delivery-toggle button').forEach(button => {
+    document.querySelectorAll('#managementDeliveryToggle button').forEach(button => {
         button.classList.toggle('active', Number(button.dataset.deliveryCount) === selectedDeliveryCount);
     });
 }
 
 document.querySelectorAll('.menu button').forEach(button => {
     button.addEventListener('click', () => setActiveView(button.dataset.view));
-});
-
-document.querySelectorAll('.delivery-toggle button').forEach(button => {
-    button.addEventListener('click', async () => {
-        selectedDeliveryCount = Number(button.dataset.deliveryCount) === 2 ? 2 : 4;
-        localStorage.setItem('heatDeliveryCount', selectedDeliveryCount);
-        renderDeliveryToggle();
-        await loadStatus();
-    });
 });
 
 document.querySelectorAll('[data-analytics-lang]').forEach(button => {
@@ -2115,15 +2240,6 @@ document.getElementById('detailModal').addEventListener('click', event => {
     }
 });
 
-document.getElementById('workdayOpen').addEventListener('click', () => {
-    if (calendarAuthenticated) {
-        openWorkdayModal();
-    } else {
-        pendingLoginAction = openWorkdayModal;
-        openCalendarLoginModal();
-    }
-});
-
 document.getElementById('analyticsSecret').addEventListener('click', () => {
     if (calendarAuthenticated) {
         openAnalyticsMenu();
@@ -2135,9 +2251,9 @@ document.getElementById('analyticsSecret').addEventListener('click', () => {
 
 document.getElementById('analyticsTune').addEventListener('click', () => {
     if (calendarAuthenticated) {
-        openAnalyticsMenu();
+        openManagementModal();
     } else {
-        pendingLoginAction = openAnalyticsMenu;
+        pendingLoginAction = openManagementModal;
         openCalendarLoginModal();
     }
 });
@@ -2192,6 +2308,37 @@ document.getElementById('workdayModal').addEventListener('click', event => {
     }
 });
 
+document.getElementById('managementModalClose').addEventListener('click', () => {
+    closeManagementModal();
+});
+
+document.getElementById('managementCalendarOpen').addEventListener('click', () => {
+    openWorkdayModal();
+});
+
+document.getElementById('managementQtyOpen').addEventListener('click', () => {
+    openQtyHistoryModal();
+});
+
+document.getElementById('managementAnalyticsOpen').addEventListener('click', () => {
+    openAnalyticsMenu();
+});
+
+document.querySelectorAll('#managementDeliveryToggle button').forEach(button => {
+    button.addEventListener('click', async () => {
+        selectedDeliveryCount = Number(button.dataset.deliveryCount) === 2 ? 2 : 4;
+        localStorage.setItem('heatDeliveryCount', selectedDeliveryCount);
+        renderDeliveryToggle();
+        await loadStatus();
+    });
+});
+
+document.getElementById('managementModal').addEventListener('click', event => {
+    if (event.target.id === 'managementModal') {
+        closeManagementModal();
+    }
+});
+
 document.getElementById('calendarLoginClose').addEventListener('click', () => {
     pendingLoginAction = null;
     closeCalendarLoginModal();
@@ -2224,7 +2371,99 @@ document.addEventListener('keydown', event => {
         closeDetailModal();
         closeAnalyticsMenuAndLogout();
         closeWorkdayModalAndLogout();
+        closeManagementModal();
         closeCalendarLoginModal();
+        closeQtyHistoryModal();
+    }
+});
+
+// ---- QTY History ----
+async function loadQtyHistory() {
+    const tableBody = document.getElementById('qtyHistoryRows');
+    const emptyMessage = document.getElementById('qtyHistoryEmpty');
+    const summaryGrid = document.getElementById('qtyHistorySummary');
+    
+    try {
+        const response = await fetch(`${urls.qtyHistory}?delivery_count=${encodeURIComponent(selectedDeliveryCount)}`, {cache:'no-store'});
+        const data = await response.json();
+        
+        if (!data.ok || !Array.isArray(data.data) || !data.data.length) {
+            tableBody.innerHTML = '';
+            summaryGrid.innerHTML = '';
+            emptyMessage.style.display = 'block';
+            return;
+        }
+        
+        emptyMessage.style.display = 'none';
+        
+        // Calculate summary
+        const totalPdk = data.data.reduce((sum, row) => sum + (Number(row.qty_pdk) || 0), 0);
+        const totalOutput = data.data.reduce((sum, row) => sum + (Number(row.qty_output) || 0), 0);
+        const lastRow = data.data[data.data.length - 1];
+        const lastBalance = Number(lastRow?.balance_qty) || 0;
+        
+        summaryGrid.innerHTML = `
+            <div class="calendar-summary-item"><span>Total QTY PDK</span><b>${fmt(Math.round(totalPdk))}</b></div>
+            <div class="calendar-summary-item"><span>Total QTY Output</span><b>${fmt(Math.round(totalOutput))}</b></div>
+            <div class="calendar-summary-item"><span>Balance Terakhir</span><b>${fmt(Math.round(lastBalance))}</b></div>
+            <div class="calendar-summary-item"><span>Total Hari</span><b>${fmt(data.data.length)} Hari</b></div>
+        `;
+        
+        // Render rows (newest first)
+        const rows = [...data.data].reverse().map(row => {
+            const tanggal = row.tanggal || row.date || '-';
+            const qtyPdk = Number(row.qty_pdk) || 0;
+            const qtyOutput = Number(row.qty_output) || 0;
+            const balance = Number(row.balance_qty) || 0;
+            const catatan = row.catatan || row.notes || '';
+            const dateLabel = tanggal.length === 10 ? dateOnly(tanggal) : esc(tanggal);
+            const statusClass = balance < 0 ? 'risk' : (balance === 0 ? 'good' : 'watch');
+            return `
+                <tr>
+                    <td style="padding:8px 10px;text-align:center;font-weight:800;">${dateLabel}</td>
+                    <td style="padding:8px 10px;text-align:right;font-weight:850;">${fmt(Math.round(qtyPdk))}</td>
+                    <td style="padding:8px 10px;text-align:right;font-weight:850;">${fmt(Math.round(qtyOutput))}</td>
+                    <td style="padding:8px 10px;text-align:right;font-weight:850;color:${balance < 0 ? 'var(--risk)' : (balance === 0 ? 'var(--ok)' : 'var(--warn)')};">${fmt(Math.round(balance))}</td>
+                    <td style="padding:8px 10px;text-align:center;color:var(--muted);font-weight:750;">${esc(catatan) || '-'}</td>
+                </tr>
+            `;
+        });
+        
+        tableBody.innerHTML = rows.join('');
+    } catch (error) {
+        tableBody.innerHTML = '';
+        emptyMessage.style.display = 'block';
+        emptyMessage.textContent = 'Gagal memuat data riwayat.';
+    }
+}
+
+function openQtyHistoryModal() {
+    const modal = document.getElementById('qtyHistoryModal');
+    modal.classList.add('open');
+    modal.style.display = 'flex';
+    loadQtyHistory();
+}
+
+function closeQtyHistoryModal() {
+    const modal = document.getElementById('qtyHistoryModal');
+    modal.classList.remove('open');
+    modal.style.display = 'none';
+    if (calendarAuthenticated) {
+        logoutCalendar();
+    }
+}
+
+document.getElementById('qtyHistoryModalClose').addEventListener('click', () => {
+    closeQtyHistoryModal();
+});
+
+document.getElementById('qtyHistoryRefresh').addEventListener('click', () => {
+    loadQtyHistory();
+});
+
+document.getElementById('qtyHistoryModal').addEventListener('click', event => {
+    if (event.target.id === 'qtyHistoryModal') {
+        closeQtyHistoryModal();
     }
 });
 

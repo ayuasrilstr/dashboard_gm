@@ -19,6 +19,7 @@ class Dashboard_heat extends Dashboard_base
         $this->load->view('dashboards/heat/index', array(
             'title' => 'Dashboard Heat Transfer',
             'status_url' => site_url('dashboard_heat/api/status'),
+            'qty_history_url' => site_url('dashboard_heat/api/qty-history'),
             'save_workdays_url' => site_url('dashboard_heat/api/save-workdays'),
             'calendar_login_url' => site_url('dashboard_heat/api/calendar-login'),
             'calendar_logout_url' => site_url('dashboard_heat/api/calendar-logout'),
@@ -31,6 +32,10 @@ class Dashboard_heat extends Dashboard_base
     {
         if ($action === 'status') {
             return $this->api_status();
+        }
+
+        if ($action === 'qty-history') {
+            return $this->api_qty_history();
         }
 
         if ($action === 'run-download') {
@@ -50,6 +55,12 @@ class Dashboard_heat extends Dashboard_base
         }
 
         show_404();
+    }
+
+    public function api_qty_history()
+    {
+        $delivery_count = (int) $this->input->get('delivery_count', TRUE);
+        return $this->json($this->dashboard->get_heat_qty_history($delivery_count));
     }
 
     public function api_status()

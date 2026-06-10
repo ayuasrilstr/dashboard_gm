@@ -11,6 +11,8 @@ class Dashboard_model extends CI_Model
     );
 
     private $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec');
+    private $heat_history_db = NULL;
+    private $heat_history_db_ready = FALSE;
 
     private function root_path()
     {
@@ -110,6 +112,123 @@ class Dashboard_model extends CI_Model
         return is_array($config) ? $config : array();
     }
 
+    private function heat_history_table()
+    {
+        return 'dashboard_heat_history';
+    }
+
+    private function heat_history_connection()
+    {
+        if ($this->heat_history_db_ready) {
+            return $this->heat_history_db;
+        }
+
+        $this->heat_history_db_ready = TRUE;
+        $db = $this->load->database('dashboard_heat_history', TRUE);
+        if (!$db || empty($db->conn_id)) {
+            $this->heat_history_db = NULL;
+            return NULL;
+        }
+
+        $this->heat_history_db = $db;
+        $this->ensure_heat_history_table();
+        return $this->heat_history_db;
+    }
+
+    private function ensure_heat_history_table()
+    {
+        $db = $this->heat_history_db;
+        if (!$db || empty($db->conn_id)) {
+            return FALSE;
+        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS `{$this->heat_history_table()}` (
+            `history_type` varchar(16) NOT NULL,
+            `history_date` date NOT NULL,
+            `delivery_count` tinyint unsigned NOT NULL DEFAULT 4,
+            `qty_pdk` bigint NOT NULL DEFAULT 0,
+            `qty_output` bigint NOT NULL DEFAULT 0,
+            `balance_qty` bigint NOT NULL DEFAULT 0,
+            `total_capacity` bigint NOT NULL DEFAULT 0,
+            `capacity` bigint NOT NULL DEFAULT 0,
+            `input_qty` bigint NOT NULL DEFAULT 0,
+            `output_qty` bigint NOT NULL DEFAULT 0,
+            `snapshot_json` longtext NOT NULL,
+            `captured_at` datetime DEFAULT NULL,
+            `updated_at` datetime NOT NULL,
+            PRIMARY KEY (`history_type`, `history_date`, `delivery_count`),
+            KEY `idx_history_date` (`history_date`),
+            KEY `idx_delivery_count` (`delivery_count`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+        return (bool) $db->query($sql);
+    }
+
+    private function upsert_heat_history_row($history_type, $history_date, $delivery_count, array $row)
+    {
+        $db = $this->heat_history_connection();
+        if (!$db || empty($db->conn_id)) {
+            return FALSE;
+        }
+
+        $payload = array(
+            'history_type' => $history_type,
+            'history_date' => $history_date,
+            'delivery_count' => (int) $delivery_count,
+            'qty_pdk' => isset($row['qty_pdk']) ? (int) $row['qty_pdk'] : 0,
+            'qty_output' => isset($row['qty_output']) ? (int) $row['qty_output'] : 0,
+            'balance_qty' => isset($row['balance_qty']) ? (int) $row['balance_qty'] : 0,
+            'total_capacity' => isset($row['total_capacity']) ? (int) $row['total_capacity'] : (isset($row['balance_qty']) ? (int) $row['balance_qty'] : 0),
+            'capacity' => isset($row['capacity']) ? (int) $row['capacity'] : 0,
+            'input_qty' => isset($row['input_qty']) ? (int) $row['input_qty'] : 0,
+            'output_qty' => isset($row['output_qty']) ? (int) $row['output_qty'] : (isset($row['qty_output']) ? (int) $row['qty_output'] : 0),
+            'snapshot_json' => json_encode($row, JSON_UNESCAPED_UNICODE),
+            'captured_at' => isset($row['captured_at']) ? $row['captured_at'] : NULL,
+            'updated_at' => date('Y-m-d H:i:s'),
+        );
+
+        return $db->replace($this->heat_history_table(), $payload);
+    }
+
+    private function read_heat_history_rows($history_type, $delivery_count = NULL)
+    {
+        $db = $this->heat_history_connection();
+        if (!$db || empty($db->conn_id)) {
+            return array();
+        }
+
+        $query = $db->from($this->heat_history_table())->where('history_type', $history_type);
+        if ($delivery_count !== NULL) {
+            $query->where('delivery_count', (int) $delivery_count);
+        }
+
+        $rows = $query->order_by('history_date', 'ASC')->get()->result_array();
+        $items = array();
+        foreach ($rows as $row) {
+            $snapshot = array();
+            if (!empty($row['snapshot_json'])) {
+                $decoded = json_decode($row['snapshot_json'], TRUE);
+                if (is_array($decoded)) {
+                    $snapshot = $decoded;
+                }
+            }
+            $items[$row['history_date']] = array_merge($snapshot, array(
+                'history_date' => $row['history_date'],
+                'delivery_count' => (int) $row['delivery_count'],
+                'qty_pdk' => (int) $row['qty_pdk'],
+                'qty_output' => (int) $row['qty_output'],
+                'balance_qty' => (int) $row['balance_qty'],
+                'total_capacity' => (int) $row['total_capacity'],
+                'capacity' => (int) $row['capacity'],
+                'input_qty' => (int) $row['input_qty'],
+                'output_qty' => (int) $row['output_qty'],
+                'captured_at' => $row['captured_at'],
+            ));
+        }
+
+        return $items;
+    }
+
     private function log_path()
     {
         return $this->root_path() . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'scheduler.log';
@@ -128,6 +247,11 @@ class Dashboard_model extends CI_Model
     private function heat_holidays_path()
     {
         return APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'dashboard_heat_holidays.json';
+    }
+
+    private function heat_qty_history_path()
+    {
+        return APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'dashboard_heat_qty_history.json';
     }
 
     public function get_heat_holiday_settings()
@@ -257,8 +381,17 @@ class Dashboard_model extends CI_Model
         return md5(json_encode($this->dashboard_calendar_days(), JSON_UNESCAPED_UNICODE));
     }
 
-    private function read_heat_capacity_history()
+    private function read_heat_capacity_history($delivery_count = NULL)
     {
+        if ($delivery_count !== NULL) {
+            $delivery_count = $this->normalize_delivery_count($delivery_count);
+        }
+
+        $db_items = $this->read_heat_history_rows('capacity', $delivery_count);
+        if ($db_items) {
+            return $db_items;
+        }
+
         $path = $this->heat_capacity_history_path();
         if (!is_file($path) || !is_readable($path)) {
             return array();
@@ -292,6 +425,12 @@ class Dashboard_model extends CI_Model
 
     private function write_heat_capacity_history($items)
     {
+        foreach ($items as $date => $item) {
+            if (is_array($item)) {
+                $this->upsert_heat_history_row('capacity', $date, isset($item['delivery_count']) ? (int) $item['delivery_count'] : 4, $item);
+            }
+        }
+
         $path = $this->heat_capacity_history_path();
         $dir = dirname($path);
         if (!is_dir($dir) || !is_writable($dir)) {
@@ -307,35 +446,186 @@ class Dashboard_model extends CI_Model
         file_put_contents($path, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
-    private function capacity_for_output_day($date, $daily_capacity, $capacity_breakdown, &$history, &$history_changed)
+    private function capacity_history_is_valid($entry, $delivery_count)
     {
-        $capacity = max(0, (float) $daily_capacity);
-        $today = date('Y-m-d');
-
-        if (
-            $date < $today &&
-            isset($history[$date]) &&
-            isset($history[$date]['calendar_signature']) &&
-            $history[$date]['calendar_signature'] === $this->dashboard_calendar_signature() &&
-            isset($history[$date]['breakdown']) &&
-            $history[$date]['breakdown'] === $capacity_breakdown
-        ) {
-            return $history[$date];
+        if (!is_array($entry)) {
+            return FALSE;
         }
 
-        $entry = array(
-            'capacity' => $capacity,
-            'captured_at' => date('c'),
-            'calendar_signature' => $this->dashboard_calendar_signature(),
-            'breakdown' => $capacity_breakdown,
+        return isset($entry['calendar_signature'])
+            && $entry['calendar_signature'] === $this->dashboard_calendar_signature()
+            && isset($entry['delivery_count'])
+            && (int) $entry['delivery_count'] === (int) $delivery_count
+            && isset($entry['capacity_formula'])
+            && $entry['capacity_formula'] === 'balance_qty_v2'
+            && isset($entry['balance_qty'])
+            && isset($entry['capacity']);
+    }
+
+    private function read_heat_qty_history($delivery_count = NULL)
+    {
+        $db_items = $this->read_heat_history_rows('qty', $delivery_count);
+        if ($db_items) {
+            return $db_items;
+        }
+
+        $path = $this->heat_qty_history_path();
+        if (!is_file($path) || !is_readable($path)) {
+            return array();
+        }
+
+        $payload = json_decode(file_get_contents($path), TRUE);
+        if (!is_array($payload) || empty($payload['items']) || !is_array($payload['items'])) {
+            return array();
+        }
+
+        $items = array();
+        foreach ($payload['items'] as $date => $item) {
+            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+                continue;
+            }
+            if (!is_array($item)) {
+                continue;
+            }
+            $items[$date] = $item;
+        }
+
+        return $items;
+    }
+
+    private function write_heat_qty_history($items)
+    {
+        foreach ($items as $date => $item) {
+            if (is_array($item)) {
+                $this->upsert_heat_history_row('qty', $date, isset($item['delivery_count']) ? (int) $item['delivery_count'] : 4, $item);
+            }
+        }
+
+        $path = $this->heat_qty_history_path();
+        $dir = dirname($path);
+        if (!is_dir($dir) || !is_writable($dir)) {
+            return;
+        }
+
+        ksort($items);
+        $payload = array(
+            'updated_at' => date('c'),
+            'items' => $items,
         );
 
-        if (!isset($history[$date]) || $history[$date]['capacity'] != $capacity || $history[$date]['breakdown'] !== $capacity_breakdown) {
-            $history[$date] = $entry;
-            $history_changed = TRUE;
+        file_put_contents($path, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+
+    private function save_heat_qty_daily_snapshot($total_pdk, $total_output, $balance_qty, $qty_pdk_vs_output, $selected_qty_pdk_vs_output, $delivery_count = 4)
+    {
+        $today = date('Y-m-d');
+        $items = $this->read_heat_qty_history($delivery_count);
+
+        // Build period breakdown for history
+        $periods = array();
+        foreach ($selected_qty_pdk_vs_output as $row) {
+            $periods[] = array(
+                'label' => $row['label'],
+                'pdk' => isset($row['pdk']) ? $row['pdk'] : 0,
+                'output' => isset($row['output']) ? $row['output'] : 0,
+                'balance' => max(0, (isset($row['pdk']) ? $row['pdk'] : 0) - (isset($row['output']) ? $row['output'] : 0)),
+            );
         }
 
-        return $entry;
+        // Only update if the value actually changed to avoid duplicate identical snapshots
+        $existing = isset($items[$today]) ? $items[$today] : null;
+        if ($existing !== null
+            && isset($existing['total_pdk'])
+            && (int) $existing['total_pdk'] === (int) $total_pdk
+            && isset($existing['total_output'])
+            && (int) $existing['total_output'] === (int) $total_output
+            && isset($existing['balance_qty'])
+            && (int) $existing['balance_qty'] === (int) $balance_qty
+        ) {
+            return;
+        }
+
+        $items[$today] = array(
+            'delivery_count' => (int) $delivery_count,
+            'qty_pdk' => (int) $total_pdk,
+            'qty_output' => (int) $total_output,
+            'total_pdk' => (int) $total_pdk,
+            'total_output' => (int) $total_output,
+            'balance_qty' => (int) $balance_qty,
+            'total_capacity' => max(0, (int) $total_pdk - (int) $total_output),
+            'periods' => $periods,
+            'captured_at' => date('c'),
+        );
+
+        $this->write_heat_qty_history($items);
+    }
+
+    public function get_heat_qty_history($delivery_count = NULL)
+    {
+        if ($delivery_count !== NULL) {
+            $delivery_count = $this->normalize_delivery_count($delivery_count);
+        }
+
+        $items = $this->read_heat_qty_history($delivery_count);
+        if (!$items) {
+            return array(
+                'ok' => FALSE,
+                'message' => 'Riwayat QTY belum tersedia.',
+                'data' => array(),
+            );
+        }
+
+        // Return last 30 days
+        $all_dates = array_keys($items);
+        rsort($all_dates);
+        $recent_dates = array_slice($all_dates, 0, 30);
+
+        $recent_items = array();
+        foreach ($recent_dates as $date) {
+            $recent_items[$date] = $items[$date];
+        }
+
+        ksort($recent_items);
+
+        $data = array();
+        foreach ($recent_items as $date => $item) {
+            $data[] = array(
+                'tanggal' => $date,
+                'date' => $date,
+                'delivery_count' => isset($item['delivery_count']) ? (int) $item['delivery_count'] : (int) $delivery_count,
+                'qty_pdk' => isset($item['qty_pdk']) ? (int) $item['qty_pdk'] : (int) (isset($item['total_pdk']) ? $item['total_pdk'] : 0),
+                'qty_output' => isset($item['qty_output']) ? (int) $item['qty_output'] : (int) (isset($item['total_output']) ? $item['total_output'] : 0),
+                'balance_qty' => isset($item['balance_qty']) ? (int) $item['balance_qty'] : 0,
+                'total_capacity' => isset($item['total_capacity']) ? (int) $item['total_capacity'] : 0,
+                'catatan' => isset($item['periods']) && is_array($item['periods']) ? count($item['periods']) . ' period' : '',
+                'notes' => isset($item['periods']) && is_array($item['periods']) ? count($item['periods']) . ' period' : '',
+            );
+        }
+
+        return array(
+            'ok' => TRUE,
+            'data' => $data,
+            'total_days' => count($items),
+            'delivery_count' => $delivery_count,
+        );
+    }
+
+    private function capacity_snapshot_entry($capacity_detail, $balance_day, $delivery_count)
+    {
+        return array(
+            'capacity' => $capacity_detail['capacity'],
+            'balance_qty' => $capacity_detail['balance_qty'],
+            'capacity_balance_day' => $balance_day,
+            'remaining_days' => $capacity_detail['remaining_days'],
+            'export_prep_days' => $capacity_detail['export_prep_days'],
+            'sisa_hari_kerja' => $capacity_detail['sisa_hari_kerja'],
+            'hari_kerja' => $capacity_detail['sisa_hari_kerja'],
+            'capacity_formula' => 'balance_qty_v2',
+            'delivery_count' => (int) $delivery_count,
+            'captured_at' => date('c'),
+            'calendar_signature' => $this->dashboard_calendar_signature(),
+            'breakdown' => $this->capacity_breakdown_for_history($capacity_detail),
+        );
     }
 
     public function get_report_status()
@@ -453,6 +743,9 @@ class Dashboard_model extends CI_Model
         $selected_ready_to_load = isset($source_data['selected_ready_to_load']) ? $source_data['selected_ready_to_load'] : $ready_to_load;
         $output_vs_capacity = $source_data['output_vs_capacity'];
         $top_priority_orders = $source_data['top_priority_orders'];
+
+        // Save daily history snapshot for QTY PDK, QTY OUTPUT, and Balance QTY
+        $this->save_heat_qty_daily_snapshot($total_pdk, $total_output, $balance_qty, $qty_pdk_vs_output, $selected_qty_pdk_vs_output, $delivery_count);
 
         return array(
             'available' => TRUE,
@@ -1355,8 +1648,18 @@ class Dashboard_model extends CI_Model
         $total_output = array_sum(array_column($selected_qty_pdk_vs_output, 'output'));
         $balance_qty = max(0, $total_pdk - $total_output);
         $prod_days_left = $this->source_prod_days_left($selected_qty_pdk_vs_output);
-        $daily_capacity = $this->source_daily_capacity_detail($selected_qty_pdk_vs_output);
-        $output_vs_capacity = $this->build_output_vs_capacity_from_engage_daily($out_summary['daily'], $daily_capacity, $in_summary['daily']);
+        $selected_order_whitelist = $this->selected_delivery_order_whitelist($orders, $selected_qty_pdk_vs_output);
+        $out_summary_scoped = $this->merge_engage_summaries(array(
+            $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32(), $selected_order_whitelist),
+            $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a(), $selected_order_whitelist),
+        ));
+        // Grafik: output/input dari Engage. Kapasitas dari riwayat harian (snapshot) untuk hari lampau.
+        $output_vs_capacity = $this->build_output_vs_capacity_from_engage_daily(
+            $out_summary['daily'],
+            $selected_qty_pdk_vs_output,
+            $in_summary['daily'],
+            $out_summary_scoped['daily']
+        );
 
         return array(
             'total_pdk' => $total_pdk,
@@ -1465,7 +1768,7 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    private function summarize_engage_rows_by_order($report, $filter_rules = NULL)
+    private function summarize_engage_rows_by_order($report, $filter_rules = NULL, $order_whitelist = NULL)
     {
         if ($filter_rules === NULL) {
             $filter_rules = $this->engage_filter_rules_32a();
@@ -1494,6 +1797,9 @@ class Dashboard_model extends CI_Model
             }
             $qty = abs($this->parse_number($this->cell($row, $index, 'Qty')));
             if ($order === '' || $qty <= 0) {
+                continue;
+            }
+            if ($order_whitelist !== NULL && !isset($order_whitelist[$order])) {
                 continue;
             }
 
@@ -1591,10 +1897,10 @@ class Dashboard_model extends CI_Model
         return $orders;
     }
 
-    private function build_output_vs_capacity_from_engage_daily($daily, $daily_capacity, $daily_input = array())
+    private function build_output_vs_capacity_from_engage_daily($engage_daily_output, $qty_rows, $engage_daily_input = array(), $engage_daily_for_balance = array())
     {
-        ksort($daily);
-        $latest_day = $daily ? max(array_keys($daily)) : date('Y-m-d');
+        ksort($engage_daily_output);
+        $latest_day = $engage_daily_output ? max(array_keys($engage_daily_output)) : date('Y-m-d');
         $calendar_days = $this->dashboard_calendar_days();
         $days = array();
         $cursor = strtotime($latest_day);
@@ -1606,30 +1912,62 @@ class Dashboard_model extends CI_Model
             $cursor = strtotime('-1 day', $cursor);
         }
 
-        $capacity_history = $this->read_heat_capacity_history();
+        $period_end = $this->selected_delivery_period_end($qty_rows);
+        $delivery_count = $this->active_delivery_count($qty_rows);
+        $capacity_history = $this->read_heat_capacity_history($delivery_count);
         $capacity_history_changed = FALSE;
         $items = array();
-        $remaining_balance = $this->starting_balance_for_capacity_days($days, $daily, $daily_capacity);
+        $balance_reference_daily = $engage_daily_for_balance ? $engage_daily_for_balance : $engage_daily_output;
+        $today = date('Y-m-d');
 
         foreach ($days as $day) {
-            $capacity_detail = $this->daily_capacity_detail_for_date($daily_capacity, $day, $remaining_balance);
-            $capacity_entry = $this->capacity_for_output_day(
-                $day,
-                $capacity_detail['capacity'],
-                $capacity_detail['breakdown'],
-                $capacity_history,
-                $capacity_history_changed
-            );
-            $output = isset($daily[$day]) ? $daily[$day] : 0;
+            if ($day < $today && isset($capacity_history[$day])) {
+                $snapshot = $capacity_history[$day];
+            } else {
+                $balance_day = ($day === $today)
+                    // Kapasitas hari berjalan diturunkan dari balance workday sebelumnya.
+                    ? $this->previous_workday_before($day, $calendar_days)
+                    : $day;
+
+                if (
+                    $day === $today &&
+                    isset($capacity_history[$balance_day]) &&
+                    $this->capacity_history_is_valid($capacity_history[$balance_day], $delivery_count)
+                ) {
+                    $balance_qty = $capacity_history[$balance_day]['balance_qty'];
+                } else {
+                    $balance_qty = $this->balance_qty_for_capacity_day($balance_day, $qty_rows, $balance_reference_daily);
+                }
+
+                $capacity_detail = $this->capacity_from_delivery_aggregate($balance_qty, $day, $period_end, $qty_rows);
+                $snapshot = $this->capacity_snapshot_entry($capacity_detail, $balance_day, $delivery_count);
+
+                if ($day < $today) {
+                    if (!isset($capacity_history[$day])) {
+                        $capacity_history[$day] = $snapshot;
+                        $capacity_history_changed = TRUE;
+                    }
+                } else {
+                    $capacity_history[$day] = $snapshot;
+                    $capacity_history_changed = TRUE;
+                }
+            }
+
+            $output = isset($engage_daily_output[$day]) ? $engage_daily_output[$day] : 0;
             $items[] = array(
                 'label' => date('d M Y', strtotime($day)),
                 'output' => $output,
-                'input' => isset($daily_input[$day]) ? $daily_input[$day] : 0,
-                'capacity' => $capacity_entry['capacity'],
-                'capacity_captured_at' => isset($capacity_entry['captured_at']) ? $capacity_entry['captured_at'] : NULL,
-                'capacity_breakdown' => isset($capacity_entry['breakdown']) ? $capacity_entry['breakdown'] : array(),
+                'input' => isset($engage_daily_input[$day]) ? $engage_daily_input[$day] : 0,
+                'capacity' => $snapshot['capacity'],
+                'capacity_captured_at' => isset($snapshot['captured_at']) ? $snapshot['captured_at'] : NULL,
+                'capacity_breakdown' => isset($snapshot['breakdown']) ? $snapshot['breakdown'] : array(),
+                'balance_qty' => $snapshot['balance_qty'],
+                'capacity_balance_day' => $snapshot['capacity_balance_day'],
+                'total_demand' => $snapshot['balance_qty'],
+                'remaining_days' => $snapshot['remaining_days'],
+                'sisa_hari_kerja' => $snapshot['sisa_hari_kerja'],
+                'hari_kerja' => $snapshot['sisa_hari_kerja'],
             );
-            $remaining_balance = max(0, $remaining_balance - $output);
         }
 
         if ($capacity_history_changed) {
@@ -1639,7 +1977,25 @@ class Dashboard_model extends CI_Model
         return $items;
     }
 
-    private function build_output_vs_capacity_from_rpa($balance_qty, $prod_days_left, $fallback)
+    private function previous_workday_before($day, $calendar_days, $max_lookback = 31)
+    {
+        $cursor = strtotime($day);
+        for ($i = 0; $i < $max_lookback; $i++) {
+            $cursor = strtotime('-1 day', $cursor);
+            if (!$cursor) {
+                break;
+            }
+
+            $candidate = date('Y-m-d', $cursor);
+            if ($this->calendar_workday_value($candidate, $calendar_days) > 0) {
+                return $candidate;
+            }
+        }
+
+        return date('Y-m-d', strtotime($day));
+    }
+
+    private function build_output_vs_capacity_from_rpa($total_pdk, $qty_rows, $fallback)
     {
         $sources = $this->heat_rpa_sources();
         if (
@@ -1659,18 +2015,6 @@ class Dashboard_model extends CI_Model
             $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32()),
             $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a()),
         ));
-        $daily_capacity = $prod_days_left > 0 ? array(
-            'capacity' => $balance_qty / $prod_days_left,
-            'breakdown' => array(array(
-                'label' => 'Total',
-                'pdk' => $balance_qty,
-                'output' => 0,
-                'balance' => $balance_qty,
-                'days_left' => $prod_days_left,
-                'calendar_days_left' => $prod_days_left,
-                'daily_capacity' => $balance_qty / $prod_days_left,
-            )),
-        ) : array('capacity' => 0, 'breakdown' => array());
         $input_summary = array('daily' => array());
         if (
             !empty($sources['engage_32_inflow']) && is_file($sources['engage_32_inflow']) &&
@@ -1686,7 +2030,7 @@ class Dashboard_model extends CI_Model
             }
         }
 
-        $items = $this->build_output_vs_capacity_from_engage_daily($summary['daily'], $daily_capacity, $input_summary['daily']);
+        $items = $this->build_output_vs_capacity_from_engage_daily($summary['daily'], $qty_rows, $input_summary['daily'], $summary['daily']);
         return $items ? $items : $fallback;
     }
 
@@ -1915,7 +2259,7 @@ class Dashboard_model extends CI_Model
             'balance_breakdown' => $balance_breakdown,
             'ready_to_load' => $ready_to_load,
             'selected_ready_to_load' => $selected_ready_to_load,
-            'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $this->source_daily_capacity_detail($selected_qty_pdk_vs_output)),
+            'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $selected_qty_pdk_vs_output),
             'top_priority_orders' => $top_priority_orders,
         );
     }
@@ -2087,142 +2431,164 @@ class Dashboard_model extends CI_Model
 
     private function source_prod_days_left($qty_rows)
     {
-        if (!$qty_rows) {
+        $period_end = $this->selected_delivery_period_end($qty_rows);
+        if ($period_end === '') {
             return 0;
         }
 
-        $current = $this->current_running_period(array_map(function ($row) {
-            return array(
-                'label' => $row['label'],
-                'pdk' => $row['pdk'],
-                'output' => $row['output'],
-                'balance' => max(0, $row['pdk'] - $row['output']),
-                'ready' => 0,
-            );
-        }, $qty_rows));
-
-        if ($current) {
-            return $this->auto_remaining_workdays($current['label']);
+        $today = date('Y-m-d');
+        if ($today > $period_end) {
+            return 0;
         }
 
-        return 0;
+        $remaining_days = $this->count_workdays($today, $period_end, $this->dashboard_calendar_days());
+        return $this->export_workdays_from_remaining($remaining_days, $this->active_delivery_count($qty_rows));
     }
 
-    private function source_daily_capacity($qty_rows)
+    private function source_daily_capacity($qty_rows, $daily_output = NULL)
     {
-        $detail = $this->source_daily_capacity_detail($qty_rows);
+        $detail = $this->source_daily_capacity_detail($qty_rows, $daily_output);
         return $detail['capacity'];
     }
 
-    private function source_daily_capacity_detail($qty_rows)
+    private function selected_delivery_period_end($qty_rows)
     {
-        $total_balance = 0;
-        $total_days_left = 0;
-        $breakdown = array();
+        if (!$qty_rows) {
+            return '';
+        }
 
+        $labels = array();
+        foreach ($qty_rows as $row) {
+            if (!empty($row['label'])) {
+                $labels[] = $row['label'];
+            }
+        }
+
+        if (!$labels) {
+            return '';
+        }
+
+        usort($labels, array($this, 'compare_period_labels'));
+        $range = $this->period_date_range(end($labels));
+        return $range ? $range['end'] : '';
+    }
+
+    private function selected_delivery_order_whitelist($orders, $qty_rows)
+    {
+        $period_labels = array();
         foreach ($qty_rows ?: array() as $row) {
-            $balance = max(0, (isset($row['pdk']) ? $row['pdk'] : 0) - (isset($row['output']) ? $row['output'] : 0));
-            if ($balance <= 0 || empty($row['label'])) {
-                continue;
-            }
-
-            $calendar = $this->build_period_calendar($row['label']);
-            $days_left = isset($calendar['export_remaining_workdays'])
-                ? $calendar['export_remaining_workdays']
-                : (isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : 0);
-
-            if ($days_left > 0) {
-                $total_balance += $balance;
-                $total_days_left += $days_left;
-                $breakdown[] = array(
-                    'label' => $row['label'],
-                    'pdk' => isset($row['pdk']) ? $row['pdk'] : 0,
-                    'output' => isset($row['output']) ? $row['output'] : 0,
-                    'balance' => $balance,
-                    'days_left' => $days_left,
-                    'calendar_days_left' => isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : $days_left,
-                    'daily_capacity' => 0,
-                );
+            if (!empty($row['label'])) {
+                $period_labels[$row['label']] = TRUE;
             }
         }
 
-        $capacity = $total_days_left > 0 ? $total_balance / $total_days_left : 0;
-        foreach ($breakdown as $index => $item) {
-            $breakdown[$index]['daily_capacity'] = $capacity;
-            $breakdown[$index]['total_balance'] = $total_balance;
-            $breakdown[$index]['total_days_left'] = $total_days_left;
+        $whitelist = array();
+        foreach ($orders ?: array() as $order => $data) {
+            $period = isset($data['period']) ? $data['period'] : '';
+            if ($period !== '' && isset($period_labels[$period])) {
+                $whitelist[$order] = TRUE;
+            }
         }
 
-        return array('capacity' => $capacity, 'breakdown' => $breakdown);
+        return $whitelist;
     }
 
-    private function total_capacity_balance($daily_capacity)
+    private function aps_balance_qty_for_qty_rows($qty_rows)
     {
-        if (is_array($daily_capacity) && !empty($daily_capacity['breakdown'])) {
-            $first = $daily_capacity['breakdown'][0];
-            if (isset($first['total_balance'])) {
-                return max(0, (float) $first['total_balance']);
-            }
-
-            $total = 0;
-            foreach ($daily_capacity['breakdown'] as $item) {
-                $total += isset($item['balance']) ? max(0, (float) $item['balance']) : 0;
-            }
-            return $total;
-        }
-
-        return 0;
-    }
-
-    private function starting_balance_for_capacity_days($days, $daily_output, $daily_capacity)
-    {
-        $balance = $this->total_capacity_balance($daily_capacity);
-        foreach ($days as $day) {
-            $balance += isset($daily_output[$day]) ? max(0, (float) $daily_output[$day]) : 0;
+        $balance = 0.0;
+        foreach ($qty_rows ?: array() as $row) {
+            $balance += max(0, (isset($row['pdk']) ? (float) $row['pdk'] : 0) - (isset($row['output']) ? (float) $row['output'] : 0));
         }
 
         return $balance;
     }
 
-    private function daily_capacity_detail_for_date($daily_capacity, $date, $remaining_balance)
+    private function balance_qty_for_capacity_day($day, $qty_rows, $scoped_daily, $today = NULL)
     {
-        $base_breakdown = is_array($daily_capacity) && isset($daily_capacity['breakdown']) ? $daily_capacity['breakdown'] : array();
-        $total_days_left = 0;
+        $today = $today ? date('Y-m-d', strtotime($today)) : date('Y-m-d');
+        $day = date('Y-m-d', strtotime($day));
+        $aps_balance = $this->aps_balance_qty_for_qty_rows($qty_rows);
+
+        if ($day >= $today) {
+            return $aps_balance;
+        }
+
+        $output_after = 0.0;
+        foreach ($scoped_daily ?: array() as $output_day => $qty) {
+            if ($output_day > $day) {
+                $output_after += max(0, (float) $qty);
+            }
+        }
+
+        return max(0, $aps_balance + $output_after);
+    }
+
+    private function capacity_from_delivery_aggregate($balance_qty, $as_of_date, $period_end, $qty_rows = array())
+    {
+        $calendar_days = $this->dashboard_calendar_days();
+        $balance_qty = max(0, (float) $balance_qty);
+        $remaining_days = $period_end !== '' && $as_of_date <= $period_end
+            ? $this->count_workdays($as_of_date, $period_end, $calendar_days)
+            : 0;
+        $export_prep = $this->export_prep_workdays_for_qty_rows($qty_rows);
+        $sisa_hari_kerja = max(0, $remaining_days - $export_prep);
+        $capacity = $sisa_hari_kerja > 0 ? round($balance_qty / $sisa_hari_kerja) : 0;
+
         $breakdown = array();
-
-        foreach ($base_breakdown as $item) {
-            if (empty($item['label'])) {
-                continue;
-            }
-
-            $calendar = $this->build_period_calendar($item['label'], $date);
-            $days_left = isset($calendar['export_remaining_workdays'])
-                ? $calendar['export_remaining_workdays']
-                : (isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : 0);
-            if ($days_left <= 0) {
-                continue;
-            }
-
-            $total_days_left += $days_left;
+        foreach ($qty_rows ?: array() as $row) {
             $breakdown[] = array(
-                'label' => $item['label'],
-                'pdk' => isset($item['pdk']) ? $item['pdk'] : 0,
-                'output' => isset($item['output']) ? $item['output'] : 0,
-                'balance' => $remaining_balance,
-                'days_left' => $days_left,
-                'calendar_days_left' => isset($calendar['remaining_workdays']) ? $calendar['remaining_workdays'] : $days_left,
-                'daily_capacity' => 0,
+                'label' => $row['label'],
+                'pdk' => isset($row['pdk']) ? $row['pdk'] : 0,
+                'output' => isset($row['output']) ? $row['output'] : 0,
+                'balance' => max(0, (isset($row['pdk']) ? $row['pdk'] : 0) - (isset($row['output']) ? $row['output'] : 0)),
             );
         }
 
-        $capacity = $total_days_left > 0 ? $remaining_balance / $total_days_left : 0;
-        foreach ($breakdown as $index => $item) {
-            $breakdown[$index]['daily_capacity'] = $capacity;
-            $breakdown[$index]['total_balance'] = $remaining_balance;
-            $breakdown[$index]['total_days_left'] = $total_days_left;
-        }
+        return array(
+            'capacity' => $capacity,
+            'balance_qty' => $balance_qty,
+            'total_demand' => $balance_qty,
+            'remaining_days' => $remaining_days,
+            'export_prep_days' => $export_prep,
+            'sisa_hari_kerja' => $sisa_hari_kerja,
+            'hari_kerja' => $sisa_hari_kerja,
+            'breakdown' => $breakdown,
+        );
+    }
 
-        return array('capacity' => $capacity, 'breakdown' => $breakdown);
+    private function capacity_breakdown_for_history($capacity_detail)
+    {
+        $sisa_hari_kerja = isset($capacity_detail['sisa_hari_kerja'])
+            ? $capacity_detail['sisa_hari_kerja']
+            : (isset($capacity_detail['hari_kerja']) ? $capacity_detail['hari_kerja'] : 0);
+        $balance_qty = isset($capacity_detail['balance_qty'])
+            ? $capacity_detail['balance_qty']
+            : (isset($capacity_detail['total_demand']) ? $capacity_detail['total_demand'] : 0);
+
+        return array(array(
+            'label' => 'Aggregate',
+            'capacity_formula' => 'balance_qty_v2',
+            'balance_qty' => $balance_qty,
+            'total_demand' => $balance_qty,
+            'remaining_days' => $capacity_detail['remaining_days'],
+            'export_prep_days' => $capacity_detail['export_prep_days'],
+            'sisa_hari_kerja' => $sisa_hari_kerja,
+            'hari_kerja' => $sisa_hari_kerja,
+            'daily_capacity' => $capacity_detail['capacity'],
+            'total_balance' => $balance_qty,
+            'total_days_left' => $sisa_hari_kerja,
+            'days_left' => $sisa_hari_kerja,
+            'balance' => $balance_qty,
+        ));
+    }
+
+    private function source_daily_capacity_detail($qty_rows, $scoped_daily = NULL)
+    {
+        $period_end = $this->selected_delivery_period_end($qty_rows);
+        $today = date('Y-m-d');
+        $balance_qty = $this->balance_qty_for_capacity_day($today, $qty_rows, is_array($scoped_daily) ? $scoped_daily : array());
+
+        return $this->capacity_from_delivery_aggregate($balance_qty, $today, $period_end, $qty_rows);
     }
 
     private function auto_remaining_workdays($label)
@@ -2241,65 +2607,26 @@ class Dashboard_model extends CI_Model
         return $this->export_workdays_from_remaining($this->count_workdays($start, $range['end'], $this->dashboard_calendar_days()));
     }
 
-    private function build_output_vs_capacity_from_source($daily_output_keys, $daily_capacity, $daily_input_keys = array())
+    private function build_output_vs_capacity_from_source($daily_output_keys, $qty_rows, $daily_input_keys = array())
     {
-        $daily = array();
         $calendar_days = $this->dashboard_calendar_days();
+        $daily = array();
         foreach ($daily_output_keys as $item) {
-            $day = $item['day'];
-            if ($this->calendar_workday_value($this->excel_serial_to_date($day), $calendar_days) > 0) {
-                $daily[$day] = isset($daily[$day]) ? $daily[$day] + $item['qty'] : $item['qty'];
+            $date = $this->excel_serial_to_date($item['day']);
+            if ($this->calendar_workday_value($date, $calendar_days) > 0) {
+                $daily[$date] = isset($daily[$date]) ? $daily[$date] + $item['qty'] : $item['qty'];
             }
         }
 
         $daily_input = array();
         foreach ($daily_input_keys as $item) {
-            $day = $item['day'];
-            if ($this->calendar_workday_value($this->excel_serial_to_date($day), $calendar_days) > 0) {
-                $daily_input[$day] = isset($daily_input[$day]) ? $daily_input[$day] + $item['qty'] : $item['qty'];
+            $date = $this->excel_serial_to_date($item['day']);
+            if ($this->calendar_workday_value($date, $calendar_days) > 0) {
+                $daily_input[$date] = isset($daily_input[$date]) ? $daily_input[$date] + $item['qty'] : $item['qty'];
             }
         }
 
-        ksort($daily);
-        $daily = array_slice($daily, -6, NULL, TRUE);
-        $capacity_history = $this->read_heat_capacity_history();
-        $capacity_history_changed = FALSE;
-        $items = array();
-        $daily_by_date = array();
-        foreach ($daily as $serial => $output) {
-            $daily_by_date[$this->excel_serial_to_date($serial)] = $output;
-        }
-        $dates = array_values(array_map(function ($serial) {
-            return $this->excel_serial_to_date($serial);
-        }, array_keys($daily)));
-        $remaining_balance = $this->starting_balance_for_capacity_days($dates, $daily_by_date, $daily_capacity);
-
-        foreach ($daily as $serial => $output) {
-            $date = $this->excel_serial_to_date($serial);
-            $capacity_detail = $this->daily_capacity_detail_for_date($daily_capacity, $date, $remaining_balance);
-            $capacity_entry = $this->capacity_for_output_day(
-                $date,
-                $capacity_detail['capacity'],
-                $capacity_detail['breakdown'],
-                $capacity_history,
-                $capacity_history_changed
-            );
-            $items[] = array(
-                'label' => $this->format_output_day_label_from_serial($serial),
-                'output' => $output,
-                'input' => isset($daily_input[$serial]) ? $daily_input[$serial] : 0,
-                'capacity' => $capacity_entry['capacity'],
-                'capacity_captured_at' => isset($capacity_entry['captured_at']) ? $capacity_entry['captured_at'] : NULL,
-                'capacity_breakdown' => isset($capacity_entry['breakdown']) ? $capacity_entry['breakdown'] : array(),
-            );
-            $remaining_balance = max(0, $remaining_balance - $output);
-        }
-
-        if ($capacity_history_changed) {
-            $this->write_heat_capacity_history($capacity_history);
-        }
-
-        return $items;
+        return $this->build_output_vs_capacity_from_engage_daily($daily, $qty_rows, $daily_input, $daily);
     }
 
     private function format_output_day_label_from_serial($serial)
@@ -2493,8 +2820,29 @@ class Dashboard_model extends CI_Model
         $period_calendar = $this->build_current_period_calendar($current_period);
         $current_balance_qty = $current_period ? $current_period['balance'] : $balance_qty;
         $effective_days_left = isset($period_calendar['export_remaining_workdays']) ? $period_calendar['export_remaining_workdays'] : $prod_days_left;
-        $period_required_daily_output = $effective_days_left > 0 ? ceil($current_balance_qty / $effective_days_left) : 0;
-        $required_daily_output = $period_required_daily_output;
+        $latest_capacity = $capacity_rows ? end($capacity_rows) : array();
+        if (!empty($latest_capacity['capacity'])) {
+            $required_daily_output = (int) $latest_capacity['capacity'];
+            $period_required_daily_output = $required_daily_output;
+            $latest_sisa_hari_kerja = isset($latest_capacity['sisa_hari_kerja'])
+                ? $latest_capacity['sisa_hari_kerja']
+                : (isset($latest_capacity['hari_kerja']) ? $latest_capacity['hari_kerja'] : NULL);
+            if ($latest_sisa_hari_kerja !== NULL) {
+                $effective_days_left = $latest_sisa_hari_kerja;
+            }
+            if (isset($latest_capacity['balance_qty'])) {
+                $current_balance_qty = $latest_capacity['balance_qty'];
+            } elseif (isset($latest_capacity['total_demand'])) {
+                $current_balance_qty = $latest_capacity['total_demand'];
+            }
+            if (isset($latest_capacity['remaining_days'])) {
+                $period_calendar['remaining_workdays'] = $latest_capacity['remaining_days'];
+                $period_calendar['export_remaining_workdays'] = $latest_sisa_hari_kerja;
+            }
+        } else {
+            $period_required_daily_output = $effective_days_left > 0 ? ceil($current_balance_qty / $effective_days_left) : 0;
+            $required_daily_output = $period_required_daily_output;
+        }
 
         $critical_orders = 0;
         foreach ($priority_orders as $order) {
@@ -2787,14 +3135,36 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    private function export_prep_workdays()
+    private function export_prep_workdays_per_delivery()
     {
         return 4;
     }
 
-    private function export_workdays_from_remaining($workdays)
+    private function active_delivery_count($qty_rows = NULL)
     {
-        return max(0, $workdays - $this->export_prep_workdays());
+        $count = 0;
+        foreach ($qty_rows ?: array() as $row) {
+            if (!empty($row['label'])) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    private function export_prep_workdays($delivery_count = 1)
+    {
+        return max(0, (int) $delivery_count) * $this->export_prep_workdays_per_delivery();
+    }
+
+    private function export_prep_workdays_for_qty_rows($qty_rows)
+    {
+        return $this->export_prep_workdays($this->active_delivery_count($qty_rows));
+    }
+
+    private function export_workdays_from_remaining($workdays, $delivery_count = 1)
+    {
+        return max(0, $workdays - $this->export_prep_workdays($delivery_count));
     }
 
     private function period_date_range($label)
