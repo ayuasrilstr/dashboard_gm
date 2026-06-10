@@ -4,10 +4,30 @@ import os
 import time
 import subprocess
 import msvcrt
+import shutil
 from datetime import datetime, timedelta
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parent
+if getattr(sys, "frozen", False):
+    exe_dir = Path(sys.executable).resolve().parent
+    root_candidates = [
+        exe_dir / "rpa",
+        exe_dir.parent / "rpa",
+        exe_dir,
+        exe_dir.parent,
+    ]
+
+    ROOT_DIR = exe_dir
+    for candidate in root_candidates:
+        if (
+            (candidate / "accessories-rpa").is_dir()
+            and (candidate / "engage-rpa").is_dir()
+            and (candidate / "aps-rpa").is_dir()
+        ):
+            ROOT_DIR = candidate
+            break
+else:
+    ROOT_DIR = Path(__file__).resolve().parent
 LOG_DIR = ROOT_DIR / "logs"
 LOG_PATH = LOG_DIR / "scheduler.log"
 LOCK_PATH = LOG_DIR / "scheduler.lock"
@@ -54,10 +74,38 @@ def release_process_lock():
         LOCK_FILE.close()
         LOCK_FILE = None
 
+def get_python_executable():
+    if not getattr(sys, "frozen", False):
+        return sys.executable
+
+    for candidate in (shutil.which("python"), shutil.which("python.exe")):
+        if candidate:
+            return candidate
+
+    common_paths = [
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Python" / "Python314" / "python.exe",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Python" / "Python313" / "python.exe",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Python" / "Python312" / "python.exe",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Python" / "Python311" / "python.exe",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Python" / "Python310" / "python.exe",
+    ]
+
+    for candidate in common_paths:
+        if candidate.is_file():
+            return str(candidate)
+
+    return None
+
 def run_rpa_script(name, args, cwd):
     log(f"Menjalankan RPA: {name}...")
     try:
-        cmd = [sys.executable, "main.py"] + args
+        python_exe = get_python_executable()
+        if not python_exe:
+            log("Python executable tidak ditemukan.")
+            return False
+
+        script_path = cwd / "main.py"
+        cmd = [python_exe, str(script_path)] + args
         log(f"Command: {' '.join(cmd)} di {cwd}")
         
         result = subprocess.run(

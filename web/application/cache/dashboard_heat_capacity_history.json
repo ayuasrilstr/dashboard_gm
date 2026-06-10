@@ -1,5 +1,5 @@
 {
-    "updated_at": "2026-06-10T05:38:31+02:00",
+    "updated_at": "2026-06-10T05:44:40+02:00",
     "items": {
         "2026-06-04": {
             "capacity": 5012,
@@ -31,7 +31,7 @@
                 }
             ],
             "history_date": "2026-06-04",
-            "qty_pdk": 0,
+            "qty_pdk": 111242,
             "qty_output": 0,
             "total_capacity": 48443,
             "input_qty": 0,
@@ -191,7 +191,7 @@
             "hari_kerja": 5.75,
             "capacity_formula": "balance_qty_v2",
             "delivery_count": 2,
-            "captured_at": "2026-06-10T05:38:31+02:00",
+            "captured_at": "2026-06-10T05:44:40+02:00",
             "calendar_signature": "9329a0280f0b030afb43dd6f7c14a73b",
             "breakdown": [
                 {

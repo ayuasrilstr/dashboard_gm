@@ -2717,3 +2717,4 @@
 [2026-06-10 09:04:38] [Master Scheduler] RPA APS RPA gagal dengan exit code 1.
 [2026-06-10 09:04:38] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
 [2026-06-10 09:05:38] [Master Scheduler] Run berikutnya: 2026-06-10 11:00:00
+[2026-06-10 10:47:46] [Master Scheduler] Scheduler sudah berjalan di proses lain. Instance ini dihentikan.
