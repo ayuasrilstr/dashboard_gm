@@ -1,25 +1,121 @@
 {
-    "updated_at": "2026-06-10T05:04:30+02:00",
+    "updated_at": "2026-06-17T04:16:28+02:00",
     "items": {
         "2026-06-10": {
-            "total_pdk": 108327,
-            "total_output": 77495,
-            "balance_qty": 30832,
+            "delivery_count": 4,
+            "qty_pdk": 160397,
+            "qty_output": 80266,
+            "total_pdk": 160397,
+            "total_output": 80266,
+            "balance_qty": 80131,
+            "total_capacity": 80131,
             "periods": [
                 {
                     "label": "MID June",
-                    "pdk": 42524,
-                    "output": 42518,
-                    "balance": 6
+                    "pdk": 42248,
+                    "output": 42245,
+                    "balance": 3
                 },
                 {
                     "label": "END June",
-                    "pdk": 65803,
-                    "output": 34977,
-                    "balance": 30826
+                    "pdk": 66079,
+                    "output": 35393,
+                    "balance": 30686
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 38881,
+                    "output": 2628,
+                    "balance": 36253
+                },
+                {
+                    "label": "END July",
+                    "pdk": 13189,
+                    "output": 0,
+                    "balance": 13189
                 }
             ],
-            "captured_at": "2026-06-10T05:04:30+02:00"
+            "captured_at": "2026-06-10 08:35:55",
+            "history_date": "2026-06-10",
+            "capacity": 0,
+            "input_qty": 0,
+            "output_qty": 80266
+        },
+        "2026-06-12": {
+            "delivery_count": 4,
+            "qty_pdk": 157397,
+            "qty_output": 90727,
+            "total_pdk": 157397,
+            "total_output": 90727,
+            "balance_qty": 66670,
+            "total_capacity": 66670,
+            "periods": [
+                {
+                    "label": "MID June",
+                    "pdk": 42420,
+                    "output": 42420,
+                    "balance": 0
+                },
+                {
+                    "label": "END June",
+                    "pdk": 65907,
+                    "output": 45679,
+                    "balance": 20228
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 38881,
+                    "output": 2628,
+                    "balance": 36253
+                },
+                {
+                    "label": "END July",
+                    "pdk": 10189,
+                    "output": 0,
+                    "balance": 10189
+                }
+            ],
+            "captured_at": "2026-06-12 10:35:56",
+            "history_date": "2026-06-12",
+            "capacity": 0,
+            "input_qty": 0,
+            "output_qty": 90727
+        },
+        "2026-06-17": {
+            "delivery_count": 4,
+            "qty_pdk": 157864,
+            "qty_output": 93517,
+            "total_pdk": 157864,
+            "total_output": 93517,
+            "balance_qty": 64347,
+            "total_capacity": 64347,
+            "periods": [
+                {
+                    "label": "MID June",
+                    "pdk": 41820,
+                    "output": 41820,
+                    "balance": 0
+                },
+                {
+                    "label": "END June",
+                    "pdk": 66007,
+                    "output": 48569,
+                    "balance": 17438
+                },
+                {
+                    "label": "MID July",
+                    "pdk": 40245,
+                    "output": 3128,
+                    "balance": 37117
+                },
+                {
+                    "label": "END July",
+                    "pdk": 9792,
+                    "output": 0,
+                    "balance": 9792
+                }
+            ],
+            "captured_at": "2026-06-17T04:16:28+02:00"
         }
     }
 }

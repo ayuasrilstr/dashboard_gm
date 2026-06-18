@@ -108,13 +108,17 @@ def run_rpa_script(name, args, cwd):
         cmd = [python_exe, str(script_path)] + args
         log(f"Command: {' '.join(cmd)} di {cwd}")
         
+        env = os.environ.copy()
+        env["RPA_BYPASS_CHILD_LOCK"] = "1"
+
         result = subprocess.run(
             cmd,
             cwd=str(cwd),
             capture_output=True,
             text=True,
             encoding="utf-8",
-            errors="replace"
+            errors="replace",
+            env=env
         )
         
         if result.stdout:
@@ -142,34 +146,39 @@ def run_all_rpa_once():
     global RUN_IN_PROGRESS
     if RUN_IN_PROGRESS:
         log("Download dilewati karena proses sebelumnya masih berjalan.")
-        return
+        return False
         
     RUN_IN_PROGRESS = True
+    overall_ok = True
     log("=== MEMULAI DOWNLOAD SEMUA RPA ===")
     
     # 1. Accessories RPA
     accessories_dir = ROOT_DIR / "accessories-rpa"
     if accessories_dir.exists():
-        run_rpa_script("Accessories RPA", ["--headless"], accessories_dir)
+        overall_ok = run_rpa_script("Accessories RPA", ["--headless"], accessories_dir) and overall_ok
     else:
         log("Folder accessories-rpa tidak ditemukan.")
+        overall_ok = False
         
     # 2. Engage RPA
     engage_dir = ROOT_DIR / "engage-rpa"
     if engage_dir.exists():
-        run_rpa_script("Engage RPA", ["--once"], engage_dir)
+        overall_ok = run_rpa_script("Engage RPA", ["--once"], engage_dir) and overall_ok
     else:
         log("Folder engage-rpa tidak ditemukan.")
+        overall_ok = False
         
     # 3. APS RPA
     aps_dir = ROOT_DIR / "aps-rpa"
     if aps_dir.exists():
-        run_rpa_script("APS RPA", [], aps_dir)
+        overall_ok = run_rpa_script("APS RPA", [], aps_dir) and overall_ok
     else:
         log("Folder aps-rpa tidak ditemukan.")
+        overall_ok = False
         
     log("=== SELESAI DOWNLOAD SEMUA RPA ===")
     RUN_IN_PROGRESS = False
+    return overall_ok
 
 def get_next_run_time():
     now = datetime.now()
@@ -230,10 +239,10 @@ def main():
             log("Download sekali dilewati karena scheduler/proses lain sedang berjalan.")
             return 1
         try:
-            run_all_rpa_once()
+            success = run_all_rpa_once()
         finally:
             release_process_lock()
-        return 0
+        return 0 if success else 1
 
     run_scheduler()
     return 0

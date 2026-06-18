@@ -119,7 +119,7 @@ class Dashboard_model extends CI_Model
 
     private function heat_history_connection()
     {
-        if ($this->heat_history_db_ready) {
+        if (isset($this->heat_history_db_ready) && $this->heat_history_db_ready) {
             return $this->heat_history_db;
         }
 
@@ -143,7 +143,7 @@ class Dashboard_model extends CI_Model
         }
 
         $sql = "CREATE TABLE IF NOT EXISTS `{$this->heat_history_table()}` (
-            `history_type` varchar(16) NOT NULL,
+            `history_type` varchar(32) NOT NULL,
             `history_date` date NOT NULL,
             `delivery_count` tinyint unsigned NOT NULL DEFAULT 4,
             `qty_pdk` bigint NOT NULL DEFAULT 0,
@@ -172,7 +172,7 @@ class Dashboard_model extends CI_Model
         }
 
         $payload = array(
-            'history_type' => $history_type,
+            'history_type' => (string) $history_type,
             'history_date' => $history_date,
             'delivery_count' => (int) $delivery_count,
             'qty_pdk' => isset($row['qty_pdk']) ? (int) $row['qty_pdk'] : 0,
@@ -197,7 +197,7 @@ class Dashboard_model extends CI_Model
             return array();
         }
 
-        $query = $db->from($this->heat_history_table())->where('history_type', $history_type);
+        $query = $db->from($this->heat_history_table())->where('history_type', (string) $history_type);
         if ($delivery_count !== NULL) {
             $query->where('delivery_count', (int) $delivery_count);
         }
@@ -212,6 +212,7 @@ class Dashboard_model extends CI_Model
                     $snapshot = $decoded;
                 }
             }
+
             $items[$row['history_date']] = array_merge($snapshot, array(
                 'history_date' => $row['history_date'],
                 'delivery_count' => (int) $row['delivery_count'],
@@ -234,24 +235,9 @@ class Dashboard_model extends CI_Model
         return $this->root_path() . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'scheduler.log';
     }
 
-    private function heat_dashboard_cache_path()
-    {
-        return APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'dashboard_heat_data.json';
-    }
-
-    private function heat_capacity_history_path()
-    {
-        return APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'dashboard_heat_capacity_history.json';
-    }
-
     private function heat_holidays_path()
     {
         return APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'dashboard_heat_holidays.json';
-    }
-
-    private function heat_qty_history_path()
-    {
-        return APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'dashboard_heat_qty_history.json';
     }
 
     public function get_heat_holiday_settings()
@@ -308,7 +294,7 @@ class Dashboard_model extends CI_Model
         $path = $this->heat_holidays_path();
         $dir = dirname($path);
         if (!is_dir($dir) || !is_writable($dir)) {
-            return array('ok' => FALSE, 'message' => 'Folder cache tidak bisa ditulis.');
+            return array('ok' => FALSE, 'message' => 'Folder penyimpanan tidak bisa ditulis.');
         }
 
         $payload = array(
@@ -326,56 +312,6 @@ class Dashboard_model extends CI_Model
         return array('ok' => TRUE, 'message' => 'Kalender kerja tersimpan.', 'calendar' => $payload);
     }
 
-    private function read_heat_dashboard_cache($source_path)
-    {
-        $cache_path = $this->heat_dashboard_cache_path();
-        if (!is_file($cache_path) || !is_readable($cache_path)) {
-            return NULL;
-        }
-
-        $payload = json_decode(file_get_contents($cache_path), TRUE);
-        if (!is_array($payload) || !isset($payload['data'])) {
-            return NULL;
-        }
-
-        $source_mtime = is_file($source_path) ? filemtime($source_path) : 0;
-        $source_size = is_file($source_path) ? filesize($source_path) : 0;
-        $calendar_signature = $this->dashboard_calendar_signature();
-        if (
-            !isset($payload['cache_version'], $payload['source_path'], $payload['source_mtime'], $payload['source_size'], $payload['calendar_signature']) ||
-            $payload['cache_version'] !== 38 ||
-            $payload['source_path'] !== $source_path ||
-            (int) $payload['source_mtime'] !== (int) $source_mtime ||
-            (int) $payload['source_size'] !== (int) $source_size ||
-            $payload['calendar_signature'] !== $calendar_signature
-        ) {
-            return NULL;
-        }
-
-        return $payload['data'];
-    }
-
-    private function write_heat_dashboard_cache($source_path, $data)
-    {
-        $cache_path = $this->heat_dashboard_cache_path();
-        $dir = dirname($cache_path);
-        if (!is_dir($dir) || !is_writable($dir)) {
-            return;
-        }
-
-        $payload = array(
-            'cache_version' => 38,
-            'source_path' => $source_path,
-            'source_mtime' => filemtime($source_path),
-            'source_size' => filesize($source_path),
-            'calendar_signature' => $this->dashboard_calendar_signature(),
-            'cached_at' => date('c'),
-            'data' => $data,
-        );
-
-        file_put_contents($cache_path, json_encode($payload, JSON_UNESCAPED_UNICODE));
-    }
-
     private function dashboard_calendar_signature()
     {
         return md5(json_encode($this->dashboard_calendar_days(), JSON_UNESCAPED_UNICODE));
@@ -383,41 +319,14 @@ class Dashboard_model extends CI_Model
 
     private function read_heat_capacity_history($delivery_count = NULL)
     {
-        if ($delivery_count !== NULL) {
-            $delivery_count = $this->normalize_delivery_count($delivery_count);
-        }
-
-        $db_items = $this->read_heat_history_rows('capacity', $delivery_count);
-        if ($db_items) {
-            return $db_items;
-        }
-
-        $path = $this->heat_capacity_history_path();
-        if (!is_file($path) || !is_readable($path)) {
-            return array();
-        }
-
-        $payload = json_decode(file_get_contents($path), TRUE);
-        if (!is_array($payload) || empty($payload['items']) || !is_array($payload['items'])) {
-            return array();
-        }
-
-        $items = array();
-        foreach ($payload['items'] as $date => $item) {
-            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
-                continue;
+        $items = $this->read_heat_history_rows('capacity', $delivery_count);
+        foreach ($items as $date => $item) {
+            if (isset($item['breakdown']) && is_array($item['breakdown'])) {
+                $items[$date]['breakdown'] = $item['breakdown'];
+            } else {
+                $items[$date]['breakdown'] = array();
             }
-
-            if (is_numeric($item)) {
-                $items[$date] = array('capacity' => max(0, (float) $item), 'breakdown' => array());
-                continue;
-            }
-
-            if (is_array($item) && isset($item['capacity']) && is_numeric($item['capacity'])) {
-                $items[$date] = $item;
-                $items[$date]['capacity'] = max(0, (float) $item['capacity']);
-                $items[$date]['breakdown'] = isset($item['breakdown']) && is_array($item['breakdown']) ? $item['breakdown'] : array();
-            }
+            $items[$date]['capacity'] = isset($item['capacity']) ? max(0, (float) $item['capacity']) : 0;
         }
 
         return $items;
@@ -425,25 +334,10 @@ class Dashboard_model extends CI_Model
 
     private function write_heat_capacity_history($items)
     {
-        foreach ($items as $date => $item) {
-            if (is_array($item)) {
-                $this->upsert_heat_history_row('capacity', $date, isset($item['delivery_count']) ? (int) $item['delivery_count'] : 4, $item);
-            }
-        }
-
-        $path = $this->heat_capacity_history_path();
-        $dir = dirname($path);
-        if (!is_dir($dir) || !is_writable($dir)) {
-            return;
-        }
-
         ksort($items);
-        $payload = array(
-            'updated_at' => date('c'),
-            'items' => $items,
-        );
-
-        file_put_contents($path, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        foreach ($items as $date => $item) {
+            $this->upsert_heat_history_row('capacity', $date, isset($item['delivery_count']) ? (int) $item['delivery_count'] : 4, $item);
+        }
     }
 
     private function capacity_history_is_valid($entry, $delivery_count)
@@ -464,56 +358,15 @@ class Dashboard_model extends CI_Model
 
     private function read_heat_qty_history($delivery_count = NULL)
     {
-        $db_items = $this->read_heat_history_rows('qty', $delivery_count);
-        if ($db_items) {
-            return $db_items;
-        }
-
-        $path = $this->heat_qty_history_path();
-        if (!is_file($path) || !is_readable($path)) {
-            return array();
-        }
-
-        $payload = json_decode(file_get_contents($path), TRUE);
-        if (!is_array($payload) || empty($payload['items']) || !is_array($payload['items'])) {
-            return array();
-        }
-
-        $items = array();
-        foreach ($payload['items'] as $date => $item) {
-            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
-                continue;
-            }
-            if (!is_array($item)) {
-                continue;
-            }
-            $items[$date] = $item;
-        }
-
-        return $items;
+        return $this->read_heat_history_rows('qty', $delivery_count);
     }
 
     private function write_heat_qty_history($items)
     {
-        foreach ($items as $date => $item) {
-            if (is_array($item)) {
-                $this->upsert_heat_history_row('qty', $date, isset($item['delivery_count']) ? (int) $item['delivery_count'] : 4, $item);
-            }
-        }
-
-        $path = $this->heat_qty_history_path();
-        $dir = dirname($path);
-        if (!is_dir($dir) || !is_writable($dir)) {
-            return;
-        }
-
         ksort($items);
-        $payload = array(
-            'updated_at' => date('c'),
-            'items' => $items,
-        );
-
-        file_put_contents($path, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        foreach ($items as $date => $item) {
+            $this->upsert_heat_history_row('qty', $date, isset($item['delivery_count']) ? (int) $item['delivery_count'] : 4, $item);
+        }
     }
 
     private function save_heat_qty_daily_snapshot($total_pdk, $total_output, $balance_qty, $qty_pdk_vs_output, $selected_qty_pdk_vs_output, $delivery_count = 4)
@@ -532,7 +385,6 @@ class Dashboard_model extends CI_Model
             );
         }
 
-        // Only update if the value actually changed to avoid duplicate identical snapshots
         $existing = isset($items[$today]) ? $items[$today] : null;
         if ($existing !== null
             && isset($existing['total_pdk'])
@@ -557,7 +409,68 @@ class Dashboard_model extends CI_Model
             'captured_at' => date('c'),
         );
 
-        $this->write_heat_qty_history($items);
+        $this->upsert_heat_history_row('qty', $today, (int) $delivery_count, $items[$today]);
+    }
+
+    private function save_heat_summary_snapshot($delivery_count, array $data)
+    {
+        $analytics = isset($data['management_analytics']) && is_array($data['management_analytics'])
+            ? $data['management_analytics']
+            : array();
+        $summary = isset($analytics['summary']) && is_array($analytics['summary'])
+            ? $analytics['summary']
+            : array();
+        $details = isset($analytics['details']) && is_array($analytics['details'])
+            ? $analytics['details']
+            : array();
+        $daily_requirement = isset($details['daily_requirement']) && is_array($details['daily_requirement'])
+            ? $details['daily_requirement']
+            : array();
+
+        $total_pdk = isset($data['total_pdk']) ? (int) $data['total_pdk'] : 0;
+        $total_output = isset($data['total_output']) ? (int) $data['total_output'] : 0;
+        $balance_qty = isset($data['balance_qty']) ? (int) $data['balance_qty'] : 0;
+        $total_ready = isset($summary['total_ready']) ? (int) round($summary['total_ready']) : 0;
+        $avg_daily_output = isset($summary['avg_daily_output']) ? (float) $summary['avg_daily_output'] : 0;
+        $avg_daily_capacity = isset($summary['avg_daily_capacity']) ? (float) $summary['avg_daily_capacity'] : 0;
+        $capacity_gap = isset($summary['capacity_gap']) ? (float) $summary['capacity_gap'] : 0;
+        $required_daily_output = isset($daily_requirement['required_daily_output']) ? (float) $daily_requirement['required_daily_output'] : 0;
+        $remaining_workdays = isset($daily_requirement['period_days_left']) ? (float) $daily_requirement['period_days_left'] : 0;
+        $prod_days_left = isset($data['prod_days_left']) ? (float) $data['prod_days_left'] : 0;
+        if (!$remaining_workdays && isset($daily_requirement['prod_days_left'])) {
+            $remaining_workdays = (float) $daily_requirement['prod_days_left'];
+        }
+
+        $summary_payload = array(
+            'delivery_count' => (int) $delivery_count,
+            'captured_at' => date('c'),
+            'total_pdk' => $total_pdk,
+            'total_output' => $total_output,
+            'balance_qty' => $balance_qty,
+            'total_ready' => $total_ready,
+            'avg_daily_output' => $avg_daily_output,
+            'avg_daily_capacity' => $avg_daily_capacity,
+            'capacity_gap' => $capacity_gap,
+            'required_daily_output' => $required_daily_output,
+            'remaining_workdays' => $remaining_workdays,
+            'prod_days_left' => $prod_days_left,
+            'qty_pdk_vs_output' => isset($data['qty_pdk_vs_output']) && is_array($data['qty_pdk_vs_output']) ? $data['qty_pdk_vs_output'] : array(),
+            'ready_to_load' => isset($data['ready_to_load']) && is_array($data['ready_to_load']) ? $data['ready_to_load'] : array(),
+            'output_vs_capacity' => isset($data['output_vs_capacity']) && is_array($data['output_vs_capacity']) ? $data['output_vs_capacity'] : array(),
+            'material_to_load' => isset($data['material_to_load']) && is_array($data['material_to_load']) ? $data['material_to_load'] : array(),
+        );
+
+        return $this->upsert_heat_history_row('summary', date('Y-m-d'), $delivery_count, array(
+            'qty_pdk' => $total_pdk,
+            'qty_output' => $total_output,
+            'balance_qty' => $balance_qty,
+            'total_capacity' => (int) round($avg_daily_capacity),
+            'capacity' => (int) round($required_daily_output),
+            'input_qty' => $total_ready,
+            'output_qty' => $total_output,
+            'snapshot_json' => json_encode($summary_payload, JSON_UNESCAPED_UNICODE),
+            'captured_at' => date('Y-m-d H:i:s'),
+        ));
     }
 
     public function get_heat_qty_history($delivery_count = NULL)
@@ -742,10 +655,33 @@ class Dashboard_model extends CI_Model
         $ready_to_load = $source_data['ready_to_load'];
         $selected_ready_to_load = isset($source_data['selected_ready_to_load']) ? $source_data['selected_ready_to_load'] : $ready_to_load;
         $output_vs_capacity = $source_data['output_vs_capacity'];
+        $material_to_load = isset($source_data['material_to_load']) ? $source_data['material_to_load'] : $source_data['top_priority_orders'];
         $top_priority_orders = $source_data['top_priority_orders'];
+        $management_analytics = $this->build_management_analytics(
+            $total_pdk,
+            $total_output,
+            $balance_qty,
+            $prod_days_left,
+            $selected_qty_pdk_vs_output,
+            $selected_ready_to_load,
+            $output_vs_capacity,
+            $top_priority_orders
+        );
 
-        // Save daily history snapshot for QTY PDK, QTY OUTPUT, and Balance QTY
-        $this->save_heat_qty_daily_snapshot($total_pdk, $total_output, $balance_qty, $qty_pdk_vs_output, $selected_qty_pdk_vs_output, $delivery_count);
+        $this->save_heat_summary_snapshot($delivery_count, array(
+            'total_pdk' => $total_pdk,
+            'total_output' => $total_output,
+            'balance_qty' => $balance_qty,
+            'prod_days_left' => $prod_days_left,
+            'qty_pdk_vs_output' => $qty_pdk_vs_output,
+            'selected_qty_pdk_vs_output' => $selected_qty_pdk_vs_output,
+            'ready_to_load' => $ready_to_load,
+            'selected_ready_to_load' => $selected_ready_to_load,
+            'output_vs_capacity' => $output_vs_capacity,
+            'material_to_load' => $material_to_load,
+            'top_priority_orders' => $top_priority_orders,
+            'management_analytics' => $management_analytics,
+        ));
 
         return array(
             'available' => TRUE,
@@ -764,16 +700,7 @@ class Dashboard_model extends CI_Model
             'ready_to_load' => $ready_to_load,
             'output_vs_capacity' => $output_vs_capacity,
             'top_priority_orders' => $top_priority_orders,
-            'management_analytics' => $this->build_management_analytics(
-                $total_pdk,
-                $total_output,
-                $balance_qty,
-                $prod_days_left,
-                $selected_qty_pdk_vs_output,
-                $selected_ready_to_load,
-                $output_vs_capacity,
-                $top_priority_orders
-            ),
+            'management_analytics' => $management_analytics,
         );
     }
 

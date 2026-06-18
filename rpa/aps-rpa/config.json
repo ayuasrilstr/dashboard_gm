@@ -118,24 +118,25 @@
                   {
                       "name":  "Tunggu halaman utama APS terbuka",
                       "action":  "wait",
-                      "seconds":  5
+                      "seconds":  15
                   },
                   {
                       "name":  "Klik menu Analysis",
                       "action":  "click",
-                      "x":  340,
-                      "y":  31
+                    
+                      "x":  339,
+                      "y":  27
                   },
                   {
                       "name":  "Klik sub menu JO Tracking Report",
                       "action":  "click",
-                      "x":  362,
-                      "y":  60
+                      "x":  353,
+                      "y":  55
                   },
                   {
                       "name":  "Tunggu halaman JO Tracking Report terbuka",
                       "action":  "wait",
-                      "seconds":  5
+                      "seconds": 20
                   },
                   {
                       "name":  "Buka dropdown filter",
@@ -333,16 +334,16 @@
                       "x":  879,
                       "y":  56
                   },
-                  {
+                   {
                       "name":  "Tunggu loading data selesai",
                       "action":  "wait",
-                      "seconds":  60
+                      "seconds":  100
                   },
                   {
                       "name":  "Klik export To Excel",
                       "action":  "click",
-                      "x":  1075,
-                      "y":  59
+                      "x":  1678,
+                      "y":  1027
                   },
                   {
                       "name":  "Simpan file Excel ke folder downloads",
@@ -353,7 +354,7 @@
                                          ],
                       "timeout_seconds":  30,
                       "directory":  "downloads",
-                      "filename":  "JO.xlsx",
+                      "filename":  "JO",
                       "save_timeout_seconds":  120,
                       "stable_seconds":  2
                   },
@@ -363,21 +364,35 @@
                       "seconds":  5
                   },
                   {
-                      "name":  "Close APK APS",
-                      "action":  "click",
-                      "x":  1891,
-                      "y":  11
+                      "name":  "Tutup workbook hasil export",
+                      "action":  "hotkey",
+                      "keys":  [
+                                   "alt",
+                                   "f4"
+                               ]
                   },
                   {
-                      "name":  "Tunggu hasil close dialog selesai",
+                      "name":  "Tunggu workbook tertutup",
+                      "action":  "wait",
+                      "seconds":  2
+                  },
+                  {
+                      "name":  "Tutup APS",
+                      "action":  "hotkey",
+                      "keys":  [
+                                   "alt",
+                                   "f4"
+                               ]
+                  },
+                  {
+                      "name":  "Tunggu APS tertutup",
                       "action":  "wait",
                       "seconds":  2
                   },
                   {
                       "name":  "Tutup peringatan aplikasi sudah berjalan (jika muncul)",
-                      "action":  "click",
-                      "x":  971,
-                      "y":  614
+                      "action":  "key",
+                      "key":  "enter"
                   }
               ],
     "copy_downloads":  {

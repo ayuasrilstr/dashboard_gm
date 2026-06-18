@@ -27,7 +27,7 @@
         *{box-sizing:border-box}
         body{margin:0;height:100vh;overflow:auto;background:radial-gradient(circle at top left,rgba(100,166,189,.22),transparent 32%),linear-gradient(180deg,#f8fbff 0,var(--bg) 100%);color:var(--ink);font-family:Segoe UI,Arial,Helvetica,sans-serif}
         .page{height:calc(100vh / var(--tv-scale));width:calc(100vw / var(--tv-scale));padding:6px var(--tv-safe-x) var(--tv-safe-bottom);display:grid;grid-template-rows:38px minmax(0,1fr);gap:6px;transform:scale(var(--tv-scale));transform-origin:top left}
-        .top{display:grid;grid-template-columns:minmax(520px,34vw) auto 1fr;align-items:center;gap:10px}
+        .top{display:grid;grid-template-columns:minmax(520px,34vw) auto auto 1fr;align-items:center;gap:10px}
         .title{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.92);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:clamp(18px,1.22vw,24px);font-weight:850;letter-spacing:.3px;color:var(--ink);white-space:nowrap;overflow:hidden}
         .menu{height:34px;border:1px solid rgba(219,228,238,.9);border-radius:7px;background:rgba(255,255,255,.78);box-shadow:var(--shadow);display:flex;align-items:center;padding:3px;gap:4px}
         .menu button{height:27px;border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:clamp(11px,.8vw,14px);font-weight:800;text-transform:uppercase;padding:0 12px;cursor:pointer}
@@ -93,9 +93,9 @@
         .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 72px 10px 12px;min-width:0;box-shadow:0 8px 20px rgba(16,32,51,.04);position:relative;overflow:visible}.metric span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.metric strong{display:block;margin-top:6px;color:var(--ink);font-size:clamp(17px,1.36vw,26px);line-height:1;font-weight:900}.metric small{font-size:clamp(10px,.7vw,13px);color:var(--muted);font-weight:800}.metric.good{border-color:#bbf7d0;background:#f8fff9}.metric.watch{border-color:#fde68a;background:#fffdf1}.metric.risk{border-color:#fecaca;background:#fff8f8}.detail-btn{position:absolute;right:10px;bottom:9px;height:24px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--brand);font-size:10px;font-weight:850;text-transform:uppercase;padding:0 9px;cursor:pointer}.detail-btn:hover{border-color:var(--brand);background:#eef7fa}.summary-item{padding-right:72px}.summary-item .detail-btn{height:22px;right:9px;bottom:8px;font-size:9px;padding:0 8px}
         .insights{min-height:0;overflow:hidden;display:grid;grid-template-columns:1fr;gap:7px;align-content:start}.insight{display:grid;grid-template-columns:9px 1fr;gap:9px;align-items:start;min-width:0;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px}.badge{width:9px;height:9px;border-radius:999px;margin-top:5px;background:var(--brand)}.insight.good .badge,.accuracy-row.good .badge,.action-row.good .badge{background:var(--ok)}.insight.watch .badge,.accuracy-row.watch .badge,.action-row.watch .badge{background:var(--warn)}.insight.risk .badge,.accuracy-row.risk .badge,.action-row.risk .badge{background:var(--risk)}.insight b{display:block;color:var(--ink);font-size:clamp(12px,.82vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.insight p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.72vw,13px);line-height:1.28}
         .summary{padding:11px 14px;display:grid;grid-template-rows:auto auto auto auto;gap:9px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}.summary-item{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 72px 8px 10px;position:relative;overflow:visible}.summary-item span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.summary-item strong{display:block;margin-top:4px;color:var(--ink);font-size:clamp(15px,1vw,20px);font-weight:900}.accuracy-list{min-height:0;overflow:visible;display:grid;gap:7px;align-content:start}.accuracy-row{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px;display:grid;grid-template-columns:9px 1fr;gap:9px;position:relative;overflow:visible}.accuracy-row b{display:block;color:var(--ink);font-size:clamp(11px,.74vw,13px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.accuracy-row p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.section-label{margin:0;color:var(--muted);font-size:clamp(10px,.68vw,13px);font-weight:850;text-transform:uppercase}.action-card{padding:11px 14px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:9px}.action-card h2{margin:0;color:var(--ink);font-size:clamp(13px,.92vw,17px);font-weight:850;text-transform:uppercase;letter-spacing:.02em}.action-list{min-height:0;overflow:visible;display:grid;gap:8px;align-content:start}.action-row{display:grid;grid-template-columns:9px 1fr;gap:9px;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px;position:relative;overflow:visible}.action-row b{display:block;color:var(--ink);font-size:clamp(11px,.76vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.action-row p{margin:3px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.action-row p strong{color:var(--ink);font-weight:850}.action-row .cap-row{display:grid;grid-template-columns:88px 1fr;gap:4px;margin:2px 0 0;align-items:baseline}.action-row .cap-label{font-size:clamp(9px,.64vw,11px);font-weight:900;text-transform:uppercase;color:var(--brand);white-space:nowrap}.action-row .cap-label.penyebab{color:var(--warn)}.action-row .cap-label.pencegahan{color:var(--ok)}.action-row .cap-label.penanganan{color:var(--risk)}.action-row .cap-label.masalah{color:var(--muted)}.action-row .cap-val{font-size:clamp(10px,.68vw,12px);color:var(--ink);line-height:1.26}.hover-detail{display:none}
-        .priority{padding:11px 13px}.priority h2{margin-bottom:7px}.table-scroll{height:calc(100% - 27px);overflow:hidden;border:1px solid var(--grid);border-radius:7px;background:#fff}table{width:100%;border-collapse:collapse;color:var(--ink);font-size:clamp(14px,.9vw,16px)}th{height:32px;color:var(--muted);font-size:clamp(11px,.76vw,14px);text-align:left;text-transform:uppercase;background:var(--surface-soft);font-weight:850}td{border-bottom:1px solid var(--grid);vertical-align:middle}tbody tr:nth-child(even){background:#fafcff}th:first-child,td:first-child{width:32px;text-align:right;padding-right:8px}.order{width:142px;white-space:nowrap;font-size:clamp(12px,.82vw,15px)}.style{width:150px}.delivery{text-align:center}.num{text-align:right;font-weight:850}.unit{padding-left:5px;font-size:clamp(11px,.76vw,14px);color:var(--muted);font-weight:700}.priority table{height:100%}.priority tbody tr{height:10%}
+        .priority{padding:11px 13px}.priority h2{margin-bottom:7px}.table-scroll{height:calc(100% - 27px);overflow:auto;border:1px solid var(--grid);border-radius:7px;background:#fff}table{width:100%;border-collapse:collapse;color:var(--ink);font-size:clamp(14px,.9vw,16px)}th{height:32px;color:var(--muted);font-size:clamp(11px,.76vw,14px);text-align:left;text-transform:uppercase;background:var(--surface-soft);font-weight:850}td{border-bottom:1px solid var(--grid);vertical-align:middle}tbody tr:nth-child(even){background:#fafcff}th:first-child,td:first-child{width:32px;text-align:right;padding-right:8px}.order{width:142px;white-space:nowrap;font-size:clamp(12px,.82vw,15px)}.style{width:150px;white-space:nowrap}.delivery{text-align:center;white-space:nowrap}.num{text-align:right;font-weight:850;white-space:nowrap}.unit{padding-left:5px;font-size:clamp(11px,.76vw,14px);color:var(--muted);font-weight:700}.priority table{height:100%}.priority tbody tr{height:10%}.priority-detail-row td{padding:0 10px 10px;border-bottom:1px solid var(--grid);background:transparent}.priority-detail{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:clamp(10px,.7vw,12px);color:var(--muted);font-weight:750;line-height:1.25}.priority-detail b{color:var(--ink);font-weight:900}
         .modal-backdrop{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:58px 18px 28px;background:rgba(16,32,51,.42)}.modal-backdrop.open{display:flex}.detail-modal{width:min(1080px,94vw);height:auto;max-height:calc(100vh - 96px);border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 28px 70px rgba(16,32,51,.28);display:grid;grid-template-rows:52px minmax(0,1fr)}.modal-head{height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid var(--grid)}.modal-head h3{margin:0;color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.modal-close{width:32px;height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-size:22px;line-height:1;cursor:pointer}.modal-body{min-height:0;max-height:calc(100vh - 148px);padding:14px;overflow:auto}.calc-note{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.calc-item{border:1px solid var(--grid);border-radius:8px;background:var(--surface-soft);padding:9px 10px;text-align:center}.calc-item span{display:block;color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase}.calc-item strong{display:block;margin-top:4px;color:var(--ink);font-size:15px;font-weight:900}.calc-formula{grid-column:1/-1;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 10px;color:var(--muted);font-size:12px;font-weight:750;text-align:center}.detail-table{border:1px solid var(--grid);border-radius:8px;overflow:auto}.detail-table table{font-size:13px}.detail-table th,.detail-table td{padding:8px 10px;text-align:center}.detail-table th:first-child,.detail-table td:first-child{width:auto;text-align:center;padding-right:10px}.detail-table .num{text-align:center}.detail-empty{padding:18px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-weight:750;text-align:center}
-        .workday-modal{width:min(980px,94vw)}.calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.calendar-tools button{height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 12px;cursor:pointer}.calendar-month-title{color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.calendar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.calendar-summary-item{border:1px solid var(--grid);border-radius:7px;background:var(--surface-soft);padding:7px 8px}.calendar-summary-item span{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase}.calendar-summary-item b{display:block;margin-top:3px;color:var(--ink);font-size:15px;font-weight:900}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calendar-head{padding:6px 4px;color:var(--muted);font-size:11px;font-weight:900;text-align:center;text-transform:uppercase}.calendar-day{min-height:62px;border:1px solid var(--grid);border-radius:7px;background:#fff;color:var(--ink);display:grid;grid-template-rows:auto 1fr;align-items:start;padding:6px;text-align:left;cursor:pointer}.calendar-day b{font-size:13px}.calendar-day span{align-self:end;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase}.calendar-day.out{opacity:.38}.calendar-day.sunday{background:#fff7f7}.calendar-day.work{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.calendar-day.half{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.calendar-day.holiday{border-color:#fecaca;background:#fee2e2;color:#991b1b}.calendar-day.today{box-shadow:inset 0 0 0 2px var(--brand)}.calendar-legend{display:flex;gap:12px;align-items:center;margin-top:10px;color:var(--muted);font-size:12px;font-weight:750}.calendar-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}.legend-work{background:#f0fdf4;border:1px solid #bbf7d0}.legend-half{background:#fff7ed;border:1px solid #fed7aa}.legend-off{background:#fee2e2;border:1px solid #fecaca}.legend-sunday{background:#fff7f7;border:1px solid var(--grid)}.calendar-help{margin-top:8px;color:var(--muted);font-size:12px;font-weight:750}.modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px}.modal-actions button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 14px;cursor:pointer}.modal-actions .primary{border-color:var(--brand);background:var(--brand);color:#fff}.workday-message{margin-right:auto;color:var(--muted);font-size:12px;font-weight:750}
+        .workday-modal{width:min(980px,94vw)}.calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.calendar-tools button{height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 12px;cursor:pointer}.calendar-month-title{color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.calendar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.calendar-summary-item{border:1px solid var(--grid);border-radius:7px;background:var(--surface-soft);padding:7px 8px}.calendar-summary-item span{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase}.calendar-summary-item b{display:block;margin-top:3px;color:var(--ink);font-size:15px;font-weight:900}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calendar-head{padding:6px 4px;color:var(--muted);font-size:11px;font-weight:900;text-align:center;text-transform:uppercase}.calendar-day{min-height:62px;border:1px solid var(--grid);border-radius:7px;background:#fff;color:var(--ink);display:grid;grid-template-rows:auto 1fr;align-items:start;padding:6px;text-align:left;cursor:pointer}.calendar-day b{font-size:13px}.calendar-day span{align-self:end;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase}.calendar-day.out{opacity:.38}.calendar-day.sunday{background:#fff7f7}.calendar-day.work{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.calendar-day.half{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.calendar-day.holiday{border-color:#fecaca;background:#fee2e2;color:#991b1b}.calendar-day.today{box-shadow:inset 0 0 0 2px var(--brand)}.calendar-day:disabled{cursor:not-allowed;opacity:.42;filter:saturate(.75)}.calendar-day.locked{background:#f8fafc;border-color:#e2e8f0;color:#94a3b8}.calendar-legend{display:flex;gap:12px;align-items:center;margin-top:10px;color:var(--muted);font-size:12px;font-weight:750}.calendar-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}.legend-work{background:#f0fdf4;border:1px solid #bbf7d0}.legend-half{background:#fff7ed;border:1px solid #fed7aa}.legend-off{background:#fee2e2;border:1px solid #fecaca}.legend-sunday{background:#fff7f7;border:1px solid var(--grid)}.calendar-help{margin-top:8px;color:var(--muted);font-size:12px;font-weight:750}.modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px}.modal-actions button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 14px;cursor:pointer}.modal-actions .primary{border-color:var(--brand);background:var(--brand);color:#fff}.workday-message{margin-right:auto;color:var(--muted);font-size:12px;font-weight:750}
         @media (max-height: 820px){
             .page{padding:8px var(--tv-safe-x) var(--tv-safe-bottom);grid-template-rows:40px minmax(0,1fr);gap:8px}
             .top{gap:8px}.title,.menu{height:38px}.menu button{height:30px;padding:0 12px}
@@ -136,13 +136,13 @@
         .analytics-card-option input{margin-top:1px}
         .analytics-card-option span{display:block;color:var(--muted);font-size:11px;font-weight:750;line-height:1.25;margin-top:2px}
         .analytics-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
-        .analytics-head-tools{display:flex;align-items:center;gap:6px}
+        .analytics-head-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
         .analytics-lang{height:18px;border:1px solid rgba(96,114,135,.18);border-radius:5px;background:rgba(255,255,255,.75);display:flex;overflow:hidden}
         .analytics-lang button{width:28px;border:0;background:transparent;color:rgba(96,114,135,.68);font-size:10px;font-weight:900;cursor:pointer}
         .analytics-lang button.active{background:rgba(23,107,135,.14);color:var(--brand)}
         .analytics-tune{width:22px;height:18px;border:0;border-radius:5px;background:rgba(96,114,135,.12);color:rgba(96,114,135,.62);font-size:12px;font-weight:900;line-height:1;cursor:pointer}
         .analytics-tune:hover{background:rgba(23,107,135,.16);color:var(--brand)}
-        .management-modal{width:min(1020px,94vw)}.management-body{display:grid;gap:12px}.management-note{margin:0;color:var(--muted);font-size:12px;font-weight:750;line-height:1.4}.management-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.management-card{border:1px solid var(--grid);border-radius:10px;background:linear-gradient(180deg,#fff,#f8fbfd);padding:12px;display:grid;gap:10px;box-shadow:0 10px 20px rgba(16,32,51,.04)}.management-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.management-card-head b{color:var(--ink);font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}.management-card-head span{color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase}.management-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.35;font-weight:700}.management-delivery-toggle{display:flex;gap:6px;flex-wrap:wrap}.management-delivery-toggle button{height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--muted);font-size:12px;font-weight:850;padding:0 12px;cursor:pointer}.management-delivery-toggle button.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 8px 18px rgba(124,154,66,.18)}.management-card .primary{height:34px;border:1px solid var(--brand);border-radius:8px;background:var(--brand);color:#fff;font-weight:850;cursor:pointer;padding:0 14px;justify-self:start}
+        .management-modal{width:min(1020px,94vw)}.management-body{display:grid;gap:12px}.management-note{margin:0;color:var(--muted);font-size:12px;font-weight:750;line-height:1.4}.management-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.management-card{border:1px solid var(--grid);border-radius:10px;background:linear-gradient(180deg,#fff,#f8fbfd);padding:12px;display:grid;gap:10px;box-shadow:0 10px 20px rgba(16,32,51,.04)}.management-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.management-card-head b{color:var(--ink);font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}.management-card-head span{color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase}.management-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.35;font-weight:700}.management-card .primary{height:34px;border:1px solid var(--brand);border-radius:8px;background:var(--brand);color:#fff;font-weight:850;cursor:pointer;padding:0 14px;justify-self:start}
     </style>
 </head>
 <body>
@@ -153,6 +153,10 @@
             <button type="button" class="active" data-view="dashboard" data-i18n="dashboard">Dashboard</button>
             <button type="button" data-view="analytic" data-i18n="analytic">Analytic</button>
         </nav>
+        <div class="delivery-toggle" id="analyticsDeliveryToggle" aria-label="Jumlah delivery">
+            <button type="button" data-delivery-count="2">2 Delivery</button>
+            <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
+        </div>
         <div class="last-update" id="lastUpdateBox">
             <button type="button" id="lastUpdate">*Last Update : -</button>
             <div class="last-update-panel" id="lastUpdatePanel">
@@ -189,10 +193,10 @@
                 <article class="kpi balance-detail"><span data-i18n="qty_short_label">Qty Yang Kurang :</span><div class="kpi-balance-list" id="balanceBreakdown"></div></article>
             </div>
             <div class="box priority">
-                <h2 data-i18n="top_priority_title">Top 10 Priority Orders Ready For Production :</h2>
+                <h2 data-i18n="top_priority_title">Material To Load :</h2>
                 <div class="table-scroll">
                     <table>
-                        <thead><tr><th>No.</th><th></th><th>Style</th><th data-i18n="delivery_date">Tgl. Delivery</th><th data-i18n="qty_ready">Qty Ready</th><th></th></tr></thead>
+                        <thead><tr><th>No.</th><th>Order</th><th>Style</th><th data-i18n="delivery_date">Tgl. Delivery</th><th data-i18n="qty_ready">Qty Ready</th></tr></thead>
                         <tbody id="priorityRows"></tbody>
                     </table>
                 </div>
@@ -285,7 +289,7 @@
 <div class="modal-backdrop" id="calendarLoginModal" role="dialog" aria-modal="true" aria-labelledby="calendarLoginTitle">
     <section class="detail-modal login-modal">
         <div class="modal-head">
-            <h3 id="calendarLoginTitle">Login Production Calender</h3>
+            <h3 id="calendarLoginTitle">Login Management</h3>
             <button type="button" class="modal-close" id="calendarLoginClose" aria-label="Tutup login">&times;</button>
         </div>
         <div class="modal-body">
@@ -327,19 +331,8 @@
             <button type="button" class="modal-close" id="managementModalClose" aria-label="Tutup management">&times;</button>
         </div>
         <div class="modal-body management-body">
-            <p class="management-note" data-i18n="management_note">Satu login untuk delivery, production calendar, riwayat QTY, dan analytics display.</p>
+            <p class="management-note" data-i18n="management_note">Satu login untuk production calendar, riwayat QTY, dan analytics display. Delivery selection tersedia langsung di header analytics.</p>
             <div class="management-grid">
-                <section class="management-card">
-                    <div class="management-card-head">
-                        <b data-i18n="delivery_selection">Delivery Selection</b>
-                        <span>2 / 4</span>
-                    </div>
-                    <div class="management-delivery-toggle" id="managementDeliveryToggle" aria-label="Jumlah delivery">
-                        <button type="button" data-delivery-count="2">2 Delivery</button>
-                        <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
-                    </div>
-                    <p data-i18n="delivery_note">Pilih horizon delivery yang sedang aktif.</p>
-                </section>
                 <section class="management-card">
                     <div class="management-card-head">
                         <b data-i18n="production_calendar">Production Calender</b>
@@ -410,6 +403,8 @@ const urls = {
     download: <?= json_encode($download_url) ?>,
     qtyHistory: <?= json_encode($qty_history_url) ?>
 };
+const initialDashboardPayload = <?= json_encode($initial_dashboard_payload ?? array(), JSON_UNESCAPED_UNICODE) ?>;
+const initialDeliveryCount = Number(<?= json_encode($initial_delivery_count ?? 4) ?>) === 2 ? 2 : 4;
 const featureVisibility = {
     criticalOrders: false,
     internalAnalytics: false
@@ -438,7 +433,7 @@ const analyticsText = {
         qty_pdk: 'QTY PDK',
         qty_out: 'QTY OUT',
         input: 'Input',
-        top_priority_title: 'Top 10 Priority Orders Ready For Production :',
+        top_priority_title: 'Material To Load :',
         delivery_date: 'Delivery Date',
         qty_ready: 'Qty Ready',
         main_condition: 'Main Area Condition :',
@@ -460,7 +455,6 @@ const analyticsText = {
         default: 'Default',
         username: 'Username',
         password: 'Password',
-        login_calendar: 'Login Production Calendar',
         login: 'Login',
         close_detail: 'Close detail',
         close_calendar: 'Close calendar',
@@ -624,7 +618,7 @@ const analyticsText = {
         qty_pdk: 'QTY PDK',
         qty_out: 'QTY OUT',
         input: 'Input',
-        top_priority_title: 'Top 10 Priority Orders Ready For Production :',
+        top_priority_title: 'Material To Load :',
         delivery_date: 'Tgl. Delivery',
         qty_ready: 'Qty Ready',
         main_condition: 'Kondisi Utama Area :',
@@ -646,7 +640,6 @@ const analyticsText = {
         default: 'Default',
         username: 'Username',
         password: 'Password',
-        login_calendar: 'Login Production Calender',
         login: 'Login',
         close_detail: 'Tutup detail',
         close_calendar: 'Tutup kalender',
@@ -824,6 +817,25 @@ const fmt = (value) => value === null || value === undefined || isNaN(Number(val
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
 const dateOnly = (value) => value ? new Intl.DateTimeFormat('id-ID', {day:'2-digit', month:'long', year:'numeric'}).format(new Date(value)) : '-';
 const dateTime = (value) => value ? new Intl.DateTimeFormat('id-ID', {day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'}).format(new Date(value)) : '-';
+const excelSerialDate = (value) => {
+    const num = Number(value);
+    if (!Number.isFinite(num) || num <= 0) return '';
+    const ms = Math.round((num - 25569) * 86400 * 1000);
+    const date = new Date(ms);
+    return isNaN(date.getTime()) ? '' : dateOnly(date.toISOString());
+};
+const displayDate = (value) => {
+    if (value === null || value === undefined || value === '') return '-';
+    const text = String(value).trim();
+    if (/^\d+(\.\d+)?$/.test(text)) {
+        return excelSerialDate(text) || text;
+    }
+    const parsed = new Date(text);
+    if (!isNaN(parsed.getTime())) {
+        return dateOnly(parsed.toISOString());
+    }
+    return text;
+};
 let analyticsLanguage = localStorage.getItem(analyticsLangStorageKey) === 'en' ? 'en' : 'id';
 const text = (key) => analyticsText[analyticsLanguage]?.[key] || analyticsText.en[key] || key;
 const textTemplate = (key, values = {}) => Object.keys(values).reduce(
@@ -854,6 +866,9 @@ let selectedWorkDays = new Set();
 let calendarAuthenticated = false;
 let pendingLoginAction = null;
 let selectedDeliveryCount = Number(localStorage.getItem('heatDeliveryCount')) === 4 ? 4 : 2;
+if (localStorage.getItem('heatDeliveryCount') === null) {
+    selectedDeliveryCount = initialDeliveryCount;
+}
 
 function floorDecimal(value, decimals) {
     const factor = Math.pow(10, decimals);
@@ -874,6 +889,24 @@ function numberValue(...values) {
 function shortDelivery(value) {
     if (!value) return '';
     return String(value).replace(/\s+202\d$/, '').replace(/\s+/g, '-');
+}
+
+function renderPriorityRows(rows) {
+    const body = (rows || []).map((row, index) => `
+        <tr>
+            <td>${index + 1}.</td>
+            <td class="order">${esc(row.order)}</td>
+            <td class="style">${esc(row.style)}</td>
+            <td class="delivery">${esc(shortDelivery(row.delivery))}</td>
+            <td class="num">${fmt(Math.round(row.qty_ready))}</td>
+        </tr>
+    `).join('');
+
+    document.getElementById('priorityRows').innerHTML = body || `
+        <tr>
+            <td colspan="5" style="padding:16px 10px;text-align:center;color:var(--muted);font-weight:750;">Tidak ada data CSDB.</td>
+        </tr>
+    `;
 }
 
 function renderEmpty(data) {
@@ -1104,16 +1137,36 @@ function openAnalyticsDetail(key) {
         const totalReady = Number(details.ready?.total_ready) || 0;
         const avgCapacity = Number(details.ready?.avg_daily_capacity) || 0;
         const coverage = avgCapacity > 0 ? totalReady / avgCapacity : 0;
-        const rows = (details.ready?.periods || dashboard.ready_to_load || []).map(row => `
+        const currentLabel = dataAccuracy.current_period?.label || (dashboard.ready_to_load?.[0]?.label || '');
+        const periodDetailMap = dashboard.ready_period_details || {};
+        const detailRowsSource = currentLabel && Array.isArray(periodDetailMap[currentLabel]) && periodDetailMap[currentLabel].length
+            ? periodDetailMap[currentLabel]
+            : [];
+        const rows = detailRowsSource.length
+            ? detailRowsSource.map(row => `
+            <tr>
+                ${tableCell(row.order)}
+                ${tableCell(row.style)}
+                ${tableCell(displayDate(row.delivery))}
+                ${tableCell(row.qty, true)}
+                ${tableCell(row.accessories_completed, true)}
+            </tr>
+        `)
+            : (details.ready?.periods || dashboard.ready_to_load || []).map(row => `
             <tr>
                 ${tableCell(row.label)}
                 ${tableCell(row.ready, true)}
             </tr>
         `);
-        renderDetailTable('Detail Ready Coverage', ['Period', 'Ready Load'], rows, [
+        renderDetailTable(
+            'Detail Ready Coverage',
+            detailRowsSource.length ? ['Order', 'Style', 'Delivery', 'Qty Ready', 'Accessories'] : ['Period', 'Ready Load'],
+            rows,
+            [
             ['Total Ready', `${fmt(Math.round(totalReady))} Pcs`],
             ['Avg Capacity', `${fmt(Math.round(avgCapacity))} Pcs/Day`],
-            ['Coverage', `${fmt(coverage.toFixed(1))} Days`]
+            ['Coverage', `${fmt(coverage.toFixed(1))} Days`],
+            ['Period Detail', currentLabel || '-']
         ], 'Ready Coverage = Total Ready Load / Avg Daily Capacity. Target aman minimal 10 hari coverage.');
         return;
     }
@@ -1192,7 +1245,7 @@ function openAnalyticsDetail(key) {
 
     if (key === 'critical') {
         const criticalOrders = Number(details.priority?.critical_orders) || 0;
-        const rows = (details.priority?.orders || dashboard.top_priority_orders || []).map(row => `
+        const rows = (details.priority?.orders || dashboard.material_to_load || dashboard.top_priority_orders || []).map(row => `
             <tr>
                 ${tableCell(row.order)}
                 ${tableCell(row.style)}
@@ -1433,7 +1486,7 @@ function openAnalyticsCardDetail(key) {
             ${tableCell((Number(row.capacity) || 0) - (Number(row.output) || 0), true)}
         </tr>
     `);
-    const orderRows = (dashboard.top_priority_orders || []).map(row => `
+    const orderRows = (dashboard.material_to_load || dashboard.top_priority_orders || []).map(row => `
         <tr>
             ${tableCell(row.order)}
             ${tableCell(row.style)}
@@ -1709,6 +1762,7 @@ function renderAnalyticsCardOptions() {
 }
 
 function openAnalyticsMenu() {
+    closeManagementModal(true);
     renderAnalyticsCardOptions();
     document.getElementById('analyticsMenuMessage').textContent = '';
     const modal = document.getElementById('analyticsMenuModal');
@@ -1736,11 +1790,11 @@ function openManagementModal() {
     modal.style.display = 'flex';
 }
 
-function closeManagementModal() {
+function closeManagementModal(skipLogout = false) {
     const modal = document.getElementById('managementModal');
     modal.classList.remove('open');
     modal.style.display = 'none';
-    if (calendarAuthenticated) {
+    if (!skipLogout && calendarAuthenticated) {
         logoutCalendar();
     }
 }
@@ -1906,6 +1960,7 @@ function renderCalendar() {
         const date = new Date(first);
         date.setDate(first.getDate() + i);
         const iso = isoDate(date);
+        const isPast = iso < today;
         const isCurrentMonth = date.getMonth() === monthStart.getMonth();
         const isSunday = date.getDay() === 0;
         const isHoliday = selectedHolidays.has(iso);
@@ -1914,7 +1969,7 @@ function renderCalendar() {
         const isWork = selectedWorkDays.has(iso);
         const label = isHoliday ? text('holiday') : (isQuarter ? text('quarter_day') : (isHalf ? text('half_day') : (isWork ? text('workday') : (isSunday ? text('sunday_off') : text('workday')))));
         cells.push(`
-            <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isQuarter ? 'quarter' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''}" data-date="${iso}">
+            <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isQuarter ? 'quarter' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''} ${isPast ? 'locked' : ''}" data-date="${iso}" ${isPast ? 'disabled aria-disabled="true"' : ''}>
                 <b>${date.getDate()}</b>
                 <span>${label}</span>
             </button>
@@ -1926,6 +1981,7 @@ function renderCalendar() {
     document.getElementById('calendarRows').innerHTML = dayNames.map(day => `<div class="calendar-head">${day}</div>`).join('') + cells.join('');
     document.querySelectorAll('#calendarRows .calendar-day').forEach(button => {
         button.addEventListener('click', () => {
+            if (button.disabled) return;
             const date = button.dataset.date;
             cycleCalendarDay(date);
             renderCalendar();
@@ -1944,6 +2000,9 @@ function renderCalendarSummary() {
 }
 
 function cycleCalendarDay(date) {
+    if (date < isoDate(new Date())) {
+        return;
+    }
     const day = new Date(`${date}T00:00:00`).getDay();
     const isSunday = day === 0;
     const isHoliday = selectedHolidays.has(date);
@@ -1979,6 +2038,7 @@ function cycleCalendarDay(date) {
 }
 
 function openWorkdayModal() {
+    closeManagementModal(true);
     const periods = calendarPeriods();
     if (periods.length) {
         calendarCursor = new Date(periods[0].getFullYear(), periods[0].getMonth(), 1);
@@ -2013,7 +2073,7 @@ function openCalendarLoginModal() {
     document.getElementById('calendarLoginMessage').textContent = '';
     document.getElementById('calendarUsername').value = '';
     document.getElementById('calendarPassword').value = '';
-    document.getElementById('calendarLoginTitle').textContent = pendingLoginAction ? text('login_management') : text('login_calendar');
+    document.getElementById('calendarLoginTitle').textContent = text('login_management');
     const modal = document.getElementById('calendarLoginModal');
     modal.classList.add('open');
     modal.style.display = 'flex';
@@ -2070,6 +2130,7 @@ async function saveWorkdays() {
 
     const button = document.getElementById('workdaySave');
     const message = document.getElementById('workdayMessage');
+    const modal = document.getElementById('workdayModal');
     const holidays = Array.from(selectedHolidays).sort();
     const halfDays = Array.from(selectedHalfDays).sort();
     const quarterDays = Array.from(selectedQuarterDays).sort();
@@ -2077,6 +2138,7 @@ async function saveWorkdays() {
 
     button.disabled = true;
     message.textContent = text('saving');
+    closeWorkdayModal();
 
     try {
         const response = await fetch(urls.saveWorkdays, {
@@ -2091,13 +2153,11 @@ async function saveWorkdays() {
             }
             throw new Error(result.message || text('save_failed'));
         }
-        message.textContent = result.message || text('saved');
         await loadStatus();
-        if (calendarAuthenticated) {
-            logoutCalendar();
-        }
-        closeWorkdayModal();
     } catch (error) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+        renderCalendar();
         message.textContent = error.message || text('save_failed');
     } finally {
         button.disabled = false;
@@ -2151,16 +2211,7 @@ function render(data) {
     }
     renderAnalytics(dashboard.management_analytics);
 
-    document.getElementById('priorityRows').innerHTML = (dashboard.top_priority_orders || []).map((row, index) => `
-        <tr>
-            <td>${index + 1}.</td>
-            <td class="order">${esc(row.order)}</td>
-            <td class="style">${esc(row.style)}</td>
-            <td class="delivery">${esc(shortDelivery(row.delivery))}</td>
-            <td class="num">${fmt(Math.round(row.qty_ready))}</td>
-            <td class="unit">${esc(text('pcs'))}</td>
-        </tr>
-    `).join('');
+    renderPriorityRows(dashboard.material_to_load || dashboard.top_priority_orders || []);
 }
 
 function refreshLanguage() {
@@ -2180,16 +2231,7 @@ function refreshLanguage() {
     if (currentDashboard.management_analytics) {
         renderAnalytics(currentDashboard.management_analytics);
     }
-    document.getElementById('priorityRows').innerHTML = (currentDashboard.top_priority_orders || []).map((row, index) => `
-        <tr>
-            <td>${index + 1}.</td>
-            <td class="order">${esc(row.order)}</td>
-            <td class="style">${esc(row.style)}</td>
-            <td class="delivery">${esc(shortDelivery(row.delivery))}</td>
-            <td class="num">${fmt(Math.round(row.qty_ready))}</td>
-            <td class="unit">${esc(text('pcs'))}</td>
-        </tr>
-    `).join('');
+    renderPriorityRows(currentDashboard.material_to_load || currentDashboard.top_priority_orders || []);
 }
 
 async function loadStatus() {
@@ -2199,7 +2241,7 @@ async function loadStatus() {
 }
 
 function renderDeliveryToggle() {
-    document.querySelectorAll('#managementDeliveryToggle button').forEach(button => {
+    document.querySelectorAll('#analyticsDeliveryToggle button').forEach(button => {
         button.classList.toggle('active', Number(button.dataset.deliveryCount) === selectedDeliveryCount);
     });
 }
@@ -2216,8 +2258,27 @@ document.querySelectorAll('[data-analytics-lang]').forEach(button => {
     });
 });
 
+document.querySelectorAll('#analyticsDeliveryToggle button').forEach(button => {
+    button.addEventListener('click', async () => {
+        selectedDeliveryCount = Number(button.dataset.deliveryCount) === 2 ? 2 : 4;
+        localStorage.setItem('heatDeliveryCount', selectedDeliveryCount);
+        document.cookie = `heatDeliveryCount=${selectedDeliveryCount}; path=/; max-age=31536000`;
+        renderDeliveryToggle();
+        if (selectedDeliveryCount === initialDeliveryCount && initialDashboardPayload?.dashboard_data) {
+            render(initialDashboardPayload);
+        } else {
+            await loadStatus();
+        }
+    });
+});
+
 renderAppLanguage();
 renderDeliveryToggle();
+if (initialDashboardPayload?.dashboard_data && selectedDeliveryCount === initialDeliveryCount) {
+    render(initialDashboardPayload);
+} else {
+    loadStatus();
+}
 
 document.getElementById('lastUpdate').addEventListener('click', event => {
     event.stopPropagation();
@@ -2324,14 +2385,13 @@ document.getElementById('managementAnalyticsOpen').addEventListener('click', () 
     openAnalyticsMenu();
 });
 
-document.querySelectorAll('#managementDeliveryToggle button').forEach(button => {
-    button.addEventListener('click', async () => {
-        selectedDeliveryCount = Number(button.dataset.deliveryCount) === 2 ? 2 : 4;
-        localStorage.setItem('heatDeliveryCount', selectedDeliveryCount);
-        renderDeliveryToggle();
-        await loadStatus();
-    });
-});
+renderAppLanguage();
+renderDeliveryToggle();
+if (initialDashboardPayload?.dashboard_data && selectedDeliveryCount === initialDeliveryCount) {
+    render(initialDashboardPayload);
+} else {
+    loadStatus();
+}
 
 document.getElementById('managementModal').addEventListener('click', event => {
     if (event.target.id === 'managementModal') {
@@ -2438,6 +2498,7 @@ async function loadQtyHistory() {
 }
 
 function openQtyHistoryModal() {
+    closeManagementModal(true);
     const modal = document.getElementById('qtyHistoryModal');
     modal.classList.add('open');
     modal.style.display = 'flex';
@@ -2467,7 +2528,6 @@ document.getElementById('qtyHistoryModal').addEventListener('click', event => {
     }
 });
 
-loadStatus();
 setInterval(loadStatus, 60 * 60 * 1000);
 </script>
 </body>

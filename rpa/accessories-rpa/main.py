@@ -43,6 +43,28 @@ def format_filename(template):
     return datetime.now().strftime(template)
 
 
+async def persist_download(download, target):
+    temp_target = target.with_name(f".{target.stem}.{datetime.now():%Y%m%d%H%M%S%f}.tmp{target.suffix}")
+    if temp_target.exists():
+        temp_target.unlink()
+    if target.exists():
+        try:
+            target.unlink()
+        except PermissionError:
+            pass
+
+    await download.save_as(temp_target)
+
+    for attempt in range(1, 6):
+        try:
+            os.replace(temp_target, target)
+            return target
+        except PermissionError:
+            if attempt == 5:
+                raise PermissionError(f"Tidak bisa menulis {target}. Tutup file Excel tersebut jika sedang dibuka.")
+            await asyncio.sleep(2)
+
+
 def env_value(name):
     value = os.getenv(name)
     if value is None:
@@ -124,9 +146,6 @@ async def run_step(page, step):
         directory.mkdir(parents=True, exist_ok=True)
         filename = format_filename(step.get("filename", "CONTROLIST_%Y%m%d_%H%M%S.xlsx"))
         target = directory / filename
-        temp_target = target.with_name(f".{target.stem}.tmp{target.suffix}")
-        if temp_target.exists():
-            temp_target.unlink()
 
         async with page.expect_download(timeout=int(step.get("timeout_ms", 120000))) as download_info:
             await page.click(
@@ -136,8 +155,7 @@ async def run_step(page, step):
             )
 
         download = await download_info.value
-        await download.save_as(temp_target)
-        os.replace(temp_target, target)
+        await persist_download(download, target)
         log(f"Download tersimpan: {target}")
         return
 

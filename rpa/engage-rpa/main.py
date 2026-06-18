@@ -33,7 +33,7 @@ LOG_PATH = LOG_DIR / "scheduler.log"
 LOCK_PATH = LOG_DIR / "scheduler.lock"
 SCHEDULE_START_HOUR = 7
 SCHEDULE_END_HOUR = 23
-SCHEDULE_INTERVAL_HOURS = 2
+SCHEDULE_INTERVAL_HOURS = 1
 ARCHIVE_ENABLED = os.getenv("ENGAGE_KEEP_ARCHIVE", "").strip().lower() in {"1", "true", "yes", "on"}
 RUN_IN_PROGRESS = False
 LOCK_FILE = None
@@ -98,6 +98,11 @@ MONTH_ABBR = [
     "Nov",
     "Dec",
 ]
+
+FETCH_PAGE_RETRY_COUNT = 3
+FETCH_PAGE_RETRY_DELAY_MS = 3000
+REPORT_RECOVERY_RETRY_COUNT = 2
+PAGE_FETCH_PAUSE_MS = 750
 
 
 async def has_csrf_error(page):
@@ -210,6 +215,42 @@ async def click_display_and_get_row_count(page):
     return row_count
 
 
+async def prepare_report_context(page, storage, date_from, date_to, direction):
+    await open_report(page)
+
+    await page.fill("#warein_lagnrvon", storage)
+    await set_date_filter(page, date_from, date_to)
+    await page.select_option("#warein_direction", direction)
+
+    row_count = await click_display_and_get_row_count(page)
+
+    log("Display data diklik")
+
+    dialog_message = await close_visible_message_dialog(page)
+    if is_date_filter_error(dialog_message):
+        raise RuntimeError(f"Filter tanggal gagal: {dialog_message}")
+
+    log(f"Jumlah row response: {row_count}")
+
+    if await has_csrf_error(page):
+        log("CSRF error setelah klik Display, ulang proses filter")
+        await open_report(page)
+        await page.fill("#warein_lagnrvon", storage)
+        await set_date_filter(page, date_from, date_to)
+        await page.select_option("#warein_direction", direction)
+        row_count = await click_display_and_get_row_count(page)
+
+        log("Display data diklik")
+
+        dialog_message = await close_visible_message_dialog(page)
+        if is_date_filter_error(dialog_message):
+            raise RuntimeError(f"Filter tanggal gagal: {dialog_message}")
+
+        log(f"Jumlah row response setelah retry: {row_count}")
+
+    return row_count
+
+
 def count_response_rows(body):
     try:
         payload = json.loads(body)
@@ -285,13 +326,13 @@ def format_report_date(value):
 
 def get_month_periods(reference_date=None):
     if reference_date is None:
-        # Default to last 10 days (including today)
+        # Default to current day + previous day so the active download stays small
         date_to = datetime.now()
-        date_from = date_to - timedelta(days=9)
+        date_from = date_to - timedelta(days=1)
         return [
             {
-                "key": "last-10-days",
-                "label": f"Last 10 Days ({date_from:%d %b} - {date_to:%d %b})",
+                "key": "last-2-days",
+                "label": f"Last 2 Days ({date_from:%d %b} - {date_to:%d %b})",
                 "date_from": date_from,
                 "date_to": date_to,
             }
@@ -316,14 +357,10 @@ def get_archive_path(download_path):
     if not ARCHIVE_ENABLED:
         return None
 
-    timestamp = datetime.now()
-    archive_dir = ARCHIVE_DIR / timestamp.strftime("%Y-%m-%d")
-
-    if download_path.parent != DOWNLOAD_DIR:
-        archive_dir = archive_dir / download_path.parent.name
-
+    # Store archives per month so files from the 1st through month-end stay grouped together.
+    archive_dir = ARCHIVE_DIR / datetime.now().strftime("%Y-%m")
     archive_dir.mkdir(parents=True, exist_ok=True)
-    return archive_dir / f"{download_path.stem}_{timestamp:%H%M%S}{download_path.suffix}"
+    return archive_dir / download_path.name
 
 
 async def save_download(download, download_path):
@@ -490,20 +527,63 @@ async def fetch_report_page(page, page_number, timeout_ms=600000):
     )
 
 
-async def fetch_report_rows(page):
-    first_page = await fetch_report_page(page, 1)
-    total_pages = int(first_page.get("total_page") or 1)
-    rows = first_page.get("data") if isinstance(first_page.get("data"), list) else []
-    log(f"Fetch page 1/{total_pages}: total row sementara {len(rows)}")
+async def fetch_report_page_with_retry(page, page_number):
+    last_error = None
 
-    for page_number in range(2, total_pages + 1):
-        page_data = await fetch_report_page(page, page_number)
-        data = page_data.get("data") if isinstance(page_data.get("data"), list) else []
-        rows.extend(data)
-        if page_number % 10 == 0 or page_number == total_pages:
-            log(f"Fetch page {page_number}/{total_pages}: total row sementara {len(rows)}")
+    for attempt in range(1, FETCH_PAGE_RETRY_COUNT + 1):
+        try:
+            return await fetch_report_page(page, page_number)
+        except Exception as error:
+            last_error = error
+            if attempt == FETCH_PAGE_RETRY_COUNT:
+                break
 
-    return rows
+            log(
+                f"Fetch page {page_number} gagal ({attempt}/{FETCH_PAGE_RETRY_COUNT}): {error}. "
+                f"Coba ulang setelah jeda singkat."
+            )
+            await page.wait_for_timeout(FETCH_PAGE_RETRY_DELAY_MS)
+
+    raise last_error
+
+
+async def fetch_report_rows(page, storage, date_from, date_to, direction):
+    rows = []
+    total_pages = None
+    page_number = 1
+    recovery_attempt = 0
+
+    while True:
+        try:
+            page_data = await fetch_report_page_with_retry(page, page_number)
+
+            if page_number == 1:
+                total_pages = int(page_data.get("total_page") or 1)
+                rows = page_data.get("data") if isinstance(page_data.get("data"), list) else []
+                log(f"Fetch page 1/{total_pages}: total row sementara {len(rows)}")
+            else:
+                data = page_data.get("data") if isinstance(page_data.get("data"), list) else []
+                rows.extend(data)
+                if page_number % 10 == 0 or page_number == total_pages:
+                    log(f"Fetch page {page_number}/{total_pages}: total row sementara {len(rows)}")
+
+            if page_number >= total_pages:
+                return rows
+
+            recovery_attempt = 0
+            page_number += 1
+            await page.wait_for_timeout(PAGE_FETCH_PAUSE_MS)
+        except Exception as error:
+            if recovery_attempt >= REPORT_RECOVERY_RETRY_COUNT:
+                raise
+
+            recovery_attempt += 1
+            log(
+                f"Fetch page {page_number} gagal: {error}. "
+                f"Buka ulang report lalu coba lagi ({recovery_attempt}/{REPORT_RECOVERY_RETRY_COUNT})."
+            )
+            await prepare_report_context(page, storage, date_from, date_to, direction)
+            await page.wait_for_timeout(PAGE_FETCH_PAUSE_MS)
 
 
 async def download_reports(reference_date=None, storage_filter=None, direction_filter=None):
@@ -558,38 +638,7 @@ async def download_reports(reference_date=None, storage_filter=None, direction_f
 
                 log(f"Proses download Storage={storage}, Direction={direction}, Periode={period['label']}")
 
-                # reload halaman report setiap loop
-                await open_report(page)
-
-                # isi filter
-                await page.fill("#warein_lagnrvon", storage)
-                await set_date_filter(page, date_from, date_to)
-
-                # pilih direction
-                await page.select_option("#warein_direction", direction)
-
-                # klik display
-                row_count = await click_display_and_get_row_count(page)
-
-                log("Display data diklik")
-
-                dialog_message = await close_visible_message_dialog(page)
-                if is_date_filter_error(dialog_message):
-                    raise RuntimeError(f"Filter tanggal gagal: {dialog_message}")
-
-                log(f"Jumlah row response: {row_count}")
-
-                if await has_csrf_error(page):
-                    log("CSRF error setelah klik Display, ulang proses filter")
-                    await open_report(page)
-                    await page.fill("#warein_lagnrvon", storage)
-                    await set_date_filter(page, date_from, date_to)
-                    await page.select_option("#warein_direction", direction)
-                    row_count = await click_display_and_get_row_count(page)
-                    dialog_message = await close_visible_message_dialog(page)
-                    if is_date_filter_error(dialog_message):
-                        raise RuntimeError(f"Filter tanggal gagal: {dialog_message}")
-                    log(f"Jumlah row response setelah retry: {row_count}")
+                row_count = await prepare_report_context(page, storage, date_from, date_to, direction)
 
                 if row_count == 0:
                     log(f"Download dilewati karena data kosong: Storage={storage}, Direction={direction}, Periode={period['label']}")
@@ -599,7 +648,7 @@ async def download_reports(reference_date=None, storage_filter=None, direction_f
 
                 download_path = DOWNLOAD_DIR / filename
 
-                rows = await fetch_report_rows(page)
+                rows = await fetch_report_rows(page, storage, date_from, date_to, direction)
                 log(f"Jumlah row export: {len(rows)}")
                 save_report_rows(rows, download_path)
 
@@ -641,15 +690,17 @@ def run_download_once(reference_date=None, storage_filter=None, direction_filter
 
     if RUN_IN_PROGRESS:
         log("Download dilewati karena proses sebelumnya masih berjalan")
-        return
+        return False
 
     RUN_IN_PROGRESS = True
     try:
         log("Mulai download report")
         run_async_job(download_reports(reference_date, storage_filter, direction_filter))
         log("Selesai download report")
+        return True
     except Exception as error:
         log(f"Download gagal: {error}")
+        return False
     finally:
         RUN_IN_PROGRESS = False
 
@@ -725,17 +776,18 @@ def main():
     args = parser.parse_args()
 
     if args.once:
-        if not acquire_process_lock():
+        if os.getenv("RPA_BYPASS_CHILD_LOCK") != "1" and not acquire_process_lock():
             log("Download sekali dilewati karena scheduler/proses lain masih berjalan.")
-            return
+            return 1
 
         try:
-            run_download_once(args.reference_month, args.storage, args.direction)
+            success = run_download_once(args.reference_month, args.storage, args.direction)
         finally:
             release_process_lock()
-        return
+        return 0 if success else 1
 
     run_scheduler()
+    return 0
 
 
 if __name__ == "__main__":

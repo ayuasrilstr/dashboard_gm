@@ -16,6 +16,8 @@ class Dashboard_heat extends Dashboard_base
 
     public function index()
     {
+        $calendar_authenticated = $this->calendar_authenticated();
+        $selected_delivery_count = isset($_COOKIE['heatDeliveryCount']) && (int) $_COOKIE['heatDeliveryCount'] === 2 ? 2 : 4;
         $this->load->view('dashboards/heat/index', array(
             'title' => 'Dashboard Heat Transfer',
             'status_url' => site_url('dashboard_heat/api/status'),
@@ -25,6 +27,12 @@ class Dashboard_heat extends Dashboard_base
             'calendar_logout_url' => site_url('dashboard_heat/api/calendar-logout'),
             'run_url' => site_url('dashboard_heat/api/run-download'),
             'download_url' => site_url('dashboard_heat/download'),
+            'initial_delivery_count' => $selected_delivery_count,
+            'initial_dashboard_payload' => array(
+                'calendar_authenticated' => $calendar_authenticated,
+                'dashboard_data' => $this->dashboard->get_heat_dashboard_data($selected_delivery_count),
+                'server_time' => date('c'),
+            ),
         ));
     }
 

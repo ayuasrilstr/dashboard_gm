@@ -11,9 +11,11 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 try:
-    from PIL import ImageGrab
+    from PIL import ImageChops, ImageGrab, ImageStat
 except ImportError:
     ImageGrab = None
+    ImageChops = None
+    ImageStat = None
 
 
 ROOT = Path(__file__).resolve().parent
@@ -42,6 +44,7 @@ user32.SetCursorPos.argtypes = [ctypes.c_int, ctypes.c_int]
 user32.SetCursorPos.restype = wintypes.BOOL
 user32.GetSystemMetrics.argtypes = [ctypes.c_int]
 user32.GetSystemMetrics.restype = ctypes.c_int
+user32.GetForegroundWindow.restype = wintypes.HWND
 user32.OpenClipboard.argtypes = [wintypes.HWND]
 user32.OpenClipboard.restype = wintypes.BOOL
 user32.EmptyClipboard.restype = wintypes.BOOL
@@ -57,7 +60,6 @@ kernel32.GlobalLock.restype = wintypes.LPVOID
 kernel32.GlobalUnlock.argtypes = [wintypes.HGLOBAL]
 kernel32.GlobalUnlock.restype = wintypes.BOOL
 
-SW_RESTORE = 9
 KEYEVENTF_KEYUP = 0x0002
 MOUSEEVENTF_LEFTDOWN = 0x0002
 MOUSEEVENTF_LEFTUP = 0x0004
@@ -65,6 +67,20 @@ SM_CXSCREEN = 0
 SM_CYSCREEN = 1
 GMEM_MOVEABLE = 0x0002
 CF_UNICODETEXT = 13
+
+
+class RECT(ctypes.Structure):
+    _fields_ = [
+        ("left", wintypes.LONG),
+        ("top", wintypes.LONG),
+        ("right", wintypes.LONG),
+        ("bottom", wintypes.LONG),
+    ]
+
+
+wintypes.RECT = RECT
+user32.GetWindowRect.argtypes = [wintypes.HWND, ctypes.POINTER(RECT)]
+user32.GetWindowRect.restype = wintypes.BOOL
 
 VK = {
     "alt": 0x12,
@@ -207,7 +223,6 @@ def wait_for_any_window(title_options: list[str], timeout_seconds: int) -> tuple
 
 
 def focus_window(hwnd: int) -> None:
-    user32.ShowWindow(hwnd, SW_RESTORE)
     user32.SetForegroundWindow(hwnd)
     time.sleep(0.5)
 
@@ -350,28 +365,78 @@ def save_as_file(step: dict) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     filename = format_filename(str(step.get("filename", "jo-export-%Y%m%d-%H%M%S.xlsx")))
     full_path = directory / filename
-    if full_path.exists():
-        full_path.unlink()
+    fallback_downloads = project_path(step.get("directory", ROOT / "downloads" / "dashboard"))
 
     if not step.get("assume_open", False):
-        title_contains = step.get("title_contains", ["Save As", "Save"])
-        found = wait_for_any_window(title_contains if isinstance(title_contains, list) else [title_contains], int(step.get("timeout_seconds", 30)))
+        configured_titles = step.get("title_contains", [])
+        if not isinstance(configured_titles, list):
+            configured_titles = [configured_titles]
+        title_contains = configured_titles + ["Save As", "Save"]
+        title_contains = list(dict.fromkeys([title for title in title_contains if title]))
+        found = wait_for_any_window(title_contains, int(step.get("timeout_seconds", 30)))
         if not found:
-            visible = ", ".join(title for _, title in visible_windows()[:10])
-            raise TimeoutError(f"Popup Save As tidak ditemukan. Window terlihat: {visible}")
+            logging.warning("Popup Save As tidak ditemukan. Kirim Ctrl+S untuk memunculkan dialog simpan.")
+            press_hotkey(["ctrl", "s"])
+            time.sleep(1)
+            found = wait_for_any_window(title_contains, int(step.get("timeout_seconds", 30)))
+        if not found:
+            logging.warning("Popup Save As tetap tidak muncul. Coba lanjutkan dengan fallback download folder.")
+        else:
+            hwnd, title = found
+            logging.info("Popup Save As ditemukan: %s", title)
+            focus_window(hwnd)
+            press_hotkey(["alt", "n"])
+            time.sleep(0.3)
 
-        hwnd, title = found
-        logging.info("Popup Save As ditemukan: %s", title)
-        focus_window(hwnd)
+    if full_path.exists():
+        try:
+            full_path.unlink()
+        except PermissionError:
+            pass
 
-    paste_text(str(full_path))
+    type_text(full_path.name)
     time.sleep(0.5)
+    press_hotkey(["alt", "s"])
+    time.sleep(0.3)
     press_key("enter")
-    wait_for_file_stable(
-        full_path,
-        int(step.get("save_timeout_seconds", 120)),
-        float(step.get("stable_seconds", 2)),
-    )
+    try:
+        wait_for_file_stable(
+            full_path,
+            int(step.get("save_timeout_seconds", 120)),
+            float(step.get("stable_seconds", 2)),
+        )
+        logging.info("File tersimpan: %s", full_path)
+        return full_path
+    except TimeoutError:
+        logging.warning("Save dialog tidak menghasilkan file temp. Cek file baru di folder downloads.")
+
+    latest_existing = {path.resolve() for path in fallback_downloads.glob("*.xlsx")}
+
+    newest_candidate = None
+    newest_mtime = 0.0
+    for candidate in fallback_downloads.glob("*.xlsx"):
+        try:
+            resolved = candidate.resolve()
+            stat = candidate.stat()
+        except OSError:
+            continue
+        if resolved in latest_existing:
+            continue
+        if stat.st_mtime > newest_mtime:
+            newest_candidate = candidate
+            newest_mtime = stat.st_mtime
+
+    if newest_candidate and newest_candidate.exists():
+        if full_path.exists():
+            try:
+                full_path.unlink()
+            except PermissionError:
+                pass
+        shutil.copy2(newest_candidate, full_path)
+        logging.info("File tersimpan dari fallback download: %s", full_path)
+        return full_path
+
+    raise TimeoutError(f"File hasil export tidak ditemukan di folder downloads: {directory}")
     return full_path
 
 
@@ -382,9 +447,77 @@ def screenshot(name: str) -> Path | None:
     screenshot_dir = ROOT / "screenshots"
     screenshot_dir.mkdir(exist_ok=True)
     path = screenshot_dir / f"{datetime.now():%Y%m%d-%H%M%S}-{name}.png"
-    ImageGrab.grab().save(path)
-    logging.info("Screenshot: %s", path)
+    try:
+        ImageGrab.grab().save(path)
+        logging.info("Screenshot: %s", path)
+    except OSError as error:
+        logging.warning("Screenshot dilewati: %s", error)
+        return None
     return path
+
+
+def window_bbox(hwnd: int) -> tuple[int, int, int, int] | None:
+    if not hwnd:
+        return None
+
+    rect = RECT()
+    if not user32.GetWindowRect(hwnd, ctypes.byref(rect)):
+        return None
+
+    if rect.right <= rect.left or rect.bottom <= rect.top:
+        return None
+
+    return rect.left, rect.top, rect.right, rect.bottom
+
+
+def wait_for_screen_stable(timeout_seconds: int, stable_seconds: float = 8.0, sample_interval: float = 2.0, diff_threshold: float = 3.0, title_contains=None) -> bool:
+    if ImageGrab is None or ImageChops is None or ImageStat is None:
+        logging.warning("Pillow tidak tersedia, fallback ke wait biasa.")
+        time.sleep(timeout_seconds)
+        return False
+
+    target_hwnd = None
+    if title_contains:
+        try:
+            target_hwnd, title = wait_for_window(title_contains, min(10, timeout_seconds))
+            logging.info("Stabilisasi dipantau pada window: %s", title)
+        except TimeoutError:
+            logging.warning("Window target stabilisasi tidak ditemukan, fallback ke foreground window.")
+
+    deadline = time.time() + timeout_seconds
+    stable_since = None
+    previous = None
+
+    while time.time() < deadline:
+        bbox = window_bbox(target_hwnd) if target_hwnd else window_bbox(user32.GetForegroundWindow())
+        if not bbox:
+            time.sleep(sample_interval)
+            continue
+
+        try:
+            current = ImageGrab.grab(bbox=bbox).convert("L")
+        except OSError as error:
+            logging.warning("Gagal ambil screenshot untuk cek stabilitas: %s", error)
+            time.sleep(sample_interval)
+            continue
+
+        if previous is not None:
+            diff = ImageChops.difference(previous, current)
+            stat = ImageStat.Stat(diff)
+            mean_diff = stat.mean[0] if stat.mean else 0.0
+            if mean_diff <= diff_threshold:
+                if stable_since is None:
+                    stable_since = time.time()
+                if time.time() - stable_since >= stable_seconds:
+                    logging.info("Layar APS sudah stabil.")
+                    return True
+            else:
+                stable_since = None
+        previous = current
+        time.sleep(sample_interval)
+
+    logging.warning("Layar APS belum stabil dalam %s detik.", timeout_seconds)
+    return False
 
 
 def project_path(value) -> Path:
@@ -441,6 +574,14 @@ def run_step(step: dict) -> None:
     logging.info("Step: %s", log_step)
     if action == "wait":
         time.sleep(float(step.get("seconds", 1)))
+    elif action == "wait_for_screen_stable":
+        wait_for_screen_stable(
+            int(step.get("timeout_seconds", 120)),
+            float(step.get("stable_seconds", 8)),
+            float(step.get("sample_interval", 2)),
+            float(step.get("diff_threshold", 3)),
+            step.get("window_title_contains"),
+        )
     elif action == "key":
         for _ in range(int(step.get("count", 1))):
             press_key(step["key"])
@@ -493,6 +634,12 @@ def focus_step_window(step: dict, default_hwnd: int) -> None:
         focus_window(hwnd)
         return
     if not step.get("keep_current_window", False):
+        main_window = find_window("IOS-APS")
+        if main_window:
+            hwnd, title = main_window
+            logging.info("Window APS utama diprioritaskan: %s", title)
+            focus_window(hwnd)
+            return
         focus_window(default_hwnd)
 
 
@@ -592,7 +739,6 @@ def main() -> int:
     screenshot("opened")
 
     for step in config.get("steps", []):
-        focus_step_window(step, hwnd)
         run_step(step)
 
     download_cfg = config.get("copy_downloads")
