@@ -525,20 +525,49 @@ def project_path(value) -> Path:
     return path if path.is_absolute() else ROOT / path
 
 
-def copy_downloads(source_dir: Path, archive_dir: Path, patterns: list[str], since: float | None = None) -> list[Path]:
+def archive_stale_download(download_path: Path) -> bool:
+    if not download_path.is_file():
+        return False
+
+    file_date = datetime.fromtimestamp(download_path.stat().st_mtime).date()
+    today = datetime.now().date()
+    if file_date >= today:
+        return False
+
+    for attempt in range(1, 6):
+        try:
+            archive_dir = ARCHIVE_DIR / file_date.strftime("%Y-%m")
+            archive_dir.mkdir(parents=True, exist_ok=True)
+            archive_path = archive_dir / f"{file_date:%Y-%m-%d}_{download_path.name}"
+            if archive_path.exists():
+                archive_path.unlink()
+            shutil.move(str(download_path), str(archive_path))
+            logging.info("File diarsipkan: %s", archive_path)
+            return True
+        except PermissionError:
+            if attempt == 5:
+                logging.warning("Gagal memindah file lama ke archive karena masih dipakai: %s", download_path)
+                return False
+            time.sleep(2)
+
+    return False
+
+
+def archive_download_folder(source_dir: Path, patterns: list[str]) -> list[Path]:
     if not source_dir.exists():
         logging.warning("Folder download browser tidak ditemukan: %s", source_dir)
         return []
-    archive_dir.mkdir(exist_ok=True)
-    copied = []
+
+    archived: list[Path] = []
     for pattern in patterns:
-        for source in source_dir.glob(pattern):
-            if source.is_file() and (since is None or source.stat().st_mtime >= since):
-                target = archive_dir / source.name
-                shutil.copy2(source, target)
-                copied.append(target)
-                logging.info("File disalin ke archive: %s", target)
-    return copied
+        for path in source_dir.glob(pattern):
+            if not path.is_file():
+                continue
+            if path.suffix.lower() not in {".xlsx", ".xls", ".html"}:
+                continue
+            if archive_stale_download(path):
+                archived.append(path)
+    return archived
 
 
 def wait_for_downloads(source_dir: Path, patterns: list[str], since: float, timeout_seconds: int) -> list[Path]:
@@ -748,9 +777,9 @@ def main() -> int:
         patterns = download_cfg.get("patterns", ["*"])
         timeout_seconds = int(download_cfg.get("timeout_seconds", 120))
         wait_for_downloads(source_dir, patterns, download_started_at, timeout_seconds)
-        copied = copy_downloads(source_dir, archive_dir, patterns, since=download_started_at)
-        if not copied:
-            logging.warning("Tidak ada file baru yang disalin ke archive.")
+        archived = archive_download_folder(source_dir, patterns)
+        if not archived:
+            logging.warning("Tidak ada file lama yang diarsipkan.")
 
     screenshot("finished")
     logging.info("Selesai.")

@@ -27,6 +27,7 @@ class Dashboard_heat extends Dashboard_base
             'calendar_logout_url' => site_url('dashboard_heat/api/calendar-logout'),
             'run_url' => site_url('dashboard_heat/api/run-download'),
             'download_url' => site_url('dashboard_heat/download'),
+            'material_to_load_download_url' => site_url('dashboard_heat/download_material_to_load'),
             'initial_delivery_count' => $selected_delivery_count,
             'initial_dashboard_payload' => array(
                 'calendar_authenticated' => $calendar_authenticated,
@@ -176,4 +177,88 @@ class Dashboard_heat extends Dashboard_base
         $this->load->helper('download');
         force_download(basename($path), file_get_contents($path));
     }
+    public function download_material_to_load()
+    {
+        $delivery_count = (int) $this->input->get('delivery_count', TRUE);
+        $delivery_count = ($delivery_count === 2) ? 2 : 4;
+        $dashboard = $this->dashboard->get_heat_dashboard_data($delivery_count);
+
+        if (empty($dashboard['available'])) {
+            show_404();
+            return;
+        }
+
+        $rows = isset($dashboard['material_to_load']) && is_array($dashboard['material_to_load'])
+            ? $dashboard['material_to_load']
+            : array();
+
+        if (!$rows) {
+            show_404();
+            return;
+        }
+
+        $filename = 'material_to_load_' . date('Ymd_His') . '.xls';
+        $html = $this->build_material_to_load_export($rows, $delivery_count);
+
+        $this->output
+            ->set_content_type('application/vnd.ms-excel', 'UTF-8')
+            ->set_header('Content-Disposition: attachment; filename="' . $filename . '"')
+            ->set_header('Cache-Control: max-age=0, no-cache, no-store, must-revalidate')
+            ->set_header('Pragma: no-cache')
+            ->set_header('Expires: 0')
+            ->set_output($html);
+    }
+
+    private function build_material_to_load_export(array $rows, $delivery_count)
+    {
+        $title = 'Material To Load - ' . ($delivery_count === 2 ? '2 Delivery' : '4 Delivery');
+        $generated_at = date('Y-m-d H:i:s');
+
+        $html = array();
+        $html[] = '<!doctype html>';
+        $html[] = '<html>';
+        $html[] = '<head>';
+        $html[] = '<meta charset="utf-8">';
+        $html[] = '<style>';
+        $html[] = 'body{font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#102033;}';
+        $html[] = 'table{border-collapse:collapse;width:100%;}';
+        $html[] = 'th,td{border:1px solid #dbe4ee;padding:6px 8px;}';
+        $html[] = 'th{background:#176b87;color:#fff;text-align:left;}';
+        $html[] = '.num{text-align:right;}';
+        $html[] = '</style>';
+        $html[] = '</head>';
+        $html[] = '<body>';
+        $html[] = '<h2>' . html_escape($title) . '</h2>';
+        $html[] = '<div>Generated at: ' . html_escape($generated_at) . '</div>';
+        $html[] = '<div>Source: dashboard Heat Transfer</div>';
+        $html[] = '<br>';
+        $html[] = '<table>';
+        $html[] = '<thead><tr><th>No.</th><th>Order</th><th>Style</th><th>Item Nr</th><th>Tgl. Delivery</th><th class="num">Qty Ready</th><th>Source</th><th class="num">Qty PDK</th><th class="num">Qty Out APS</th><th class="num">Qty Out Engage</th></tr></thead>';
+        $html[] = '<tbody>';
+
+        for ($i = 0; $i < count($rows); $i++) {
+            $row = $rows[$i];
+            $html[] = '<tr>';
+            $html[] = '<td class="num">' . ($i + 1) . '.</td>';
+            $html[] = '<td>' . html_escape(isset($row['order']) ? $row['order'] : '') . '</td>';
+            $html[] = '<td>' . html_escape(isset($row['style']) ? $row['style'] : '') . '</td>';
+            $html[] = '<td>' . html_escape(isset($row['item']) ? $row['item'] : '') . '</td>';
+            $html[] = '<td>' . html_escape(isset($row['delivery']) ? $row['delivery'] : '') . '</td>';
+            $html[] = '<td class="num">' . number_format((float) (isset($row['qty_ready']) ? $row['qty_ready'] : 0), 0, ',', '.') . '</td>';
+            $html[] = '<td>' . html_escape(isset($row['source']) ? $row['source'] : '-') . '</td>';
+            $html[] = '<td class="num">' . number_format((float) (isset($row['qty_pdk']) ? $row['qty_pdk'] : 0), 0, ',', '.') . '</td>';
+            $html[] = '<td class="num">' . number_format((float) (isset($row['qty_out_aps']) ? $row['qty_out_aps'] : 0), 0, ',', '.') . '</td>';
+            $html[] = '<td class="num">' . number_format((float) (isset($row['qty_out_engage']) ? $row['qty_out_engage'] : 0), 0, ',', '.') . '</td>';
+            $html[] = '</tr>';
+        }
+
+        $html[] = '</tbody>';
+        $html[] = '</table>';
+        $html[] = '</body>';
+        $html[] = '</html>';
+
+        return implode("
+", $html);
+    }
+
 }

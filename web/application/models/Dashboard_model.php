@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard_model extends CI_Model
@@ -93,11 +93,97 @@ class Dashboard_model extends CI_Model
             $paths[] = rtrim($dashboard_config['dashboard_heat_unc_dir'], "\\/");
         }
 
+        $paths = array_merge($paths, $this->rpa_data_dirs());
+
         if (getenv('DASHBOARD_HEAT_LOCAL_FALLBACK')) {
             $paths[] = $this->root_path() . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . 'engage-rpa' . DIRECTORY_SEPARATOR . 'downloads';
         }
 
         return array_values(array_unique($paths));
+    }
+    private function rpa_data_dirs()
+    {
+        $dirs = array();
+        foreach ($this->rpa_module_names() as $module) {
+            $dirs[] = $this->rpa_module_dir($module, 'downloads');
+            $dirs[] = $this->rpa_module_dir($module, 'archive');
+        }
+
+        return array_values(array_filter(array_unique($dirs), 'is_dir'));
+    }
+
+    private function rpa_module_names()
+    {
+        return array('aps-rpa', 'accessories-rpa', 'engage-rpa');
+    }
+
+    private function rpa_module_dir($module, $subdir = NULL)
+    {
+        $path = $this->root_path() . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . $module;
+        if ($subdir !== NULL && $subdir !== '') {
+            $path .= DIRECTORY_SEPARATOR . $subdir;
+        }
+
+        return $path;
+    }
+
+    private function all_data_dirs()
+    {
+        return array_values(array_filter($this->data_dir_candidates(), 'is_dir'));
+    }
+
+    private function matching_files_in_trees(array $base_dirs, array $name_patterns)
+    {
+        $regexes = array();
+        foreach ($name_patterns as $pattern) {
+            $quoted = preg_quote($pattern, '#');
+            $regexes[] = '#^' . str_replace('\\*', '.*', $quoted) . '$#i';
+        }
+
+        $files = array();
+        foreach ($base_dirs as $base_dir) {
+            if (!is_dir($base_dir)) {
+                continue;
+            }
+
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($base_dir, FilesystemIterator::SKIP_DOTS)
+            );
+            foreach ($iterator as $fileinfo) {
+                if (!$fileinfo->isFile()) {
+                    continue;
+                }
+
+                $filename = $fileinfo->getFilename();
+                if (preg_match('/^~\\$/', $filename)) {
+                    continue;
+                }
+
+                foreach ($regexes as $regex) {
+                    if (preg_match($regex, $filename)) {
+                        $files[] = $fileinfo->getPathname();
+                        break;
+                    }
+                }
+            }
+        }
+
+        $files = array_values(array_unique($files));
+        if (!$files) {
+            return array();
+        }
+
+        usort($files, function ($a, $b) {
+            return filemtime($b) <=> filemtime($a);
+        });
+
+        return $files;
+    }
+
+    private function latest_matching_file_in_trees(array $base_dirs, array $name_patterns)
+    {
+        $files = $this->matching_files_in_trees($base_dirs, $name_patterns);
+        return $files ? $files[0] : NULL;
     }
 
     private function dashboard_config()
@@ -115,6 +201,11 @@ class Dashboard_model extends CI_Model
     private function heat_history_table()
     {
         return 'dashboard_heat_history';
+    }
+
+    private function engage_daily_history_table()
+    {
+        return 'engage_daily_history';
     }
 
     private function heat_history_connection()
@@ -225,6 +316,36 @@ class Dashboard_model extends CI_Model
                 'output_qty' => (int) $row['output_qty'],
                 'captured_at' => $row['captured_at'],
             ));
+        }
+
+        return $items;
+    }
+
+    private function read_engage_daily_history_rows()
+    {
+        $db = $this->heat_history_connection();
+        if (!$db || empty($db->conn_id)) {
+            return array();
+        }
+
+        $query = $db->from('engage_daily_history')->order_by('date', 'ASC')->get();
+        if (!$query) {
+            return array();
+        }
+
+        $items = array();
+        foreach ($query->result_array() as $row) {
+            if (empty($row['date'])) {
+                continue;
+            }
+
+            $day = substr((string) $row['date'], 0, 10);
+            $items[$day] = array(
+                'date' => $day,
+                'input_qty' => isset($row['input_qty']) ? (int) $row['input_qty'] : 0,
+                'output_qty' => isset($row['output_qty']) ? (int) $row['output_qty'] : 0,
+                'ready_qty' => isset($row['ready_qty']) ? (int) $row['ready_qty'] : 0,
+            );
         }
 
         return $items;
@@ -631,9 +752,9 @@ class Dashboard_model extends CI_Model
         }
 
         $aps = $this->read_html_report($sources['aps']);
-        $inflow_32 = $this->read_html_report($sources['engage_32_inflow']);
+        $inflow_32 = $this->read_combined_engage_report($sources['engage_32_inflow'], '32_inflow');
         $outflow_32 = $this->read_combined_engage_report($sources['engage_32_outflow'], '32_outflow');
-        $inflow_32a = $this->read_html_report($sources['engage_32a_inflow']);
+        $inflow_32a = $this->read_combined_engage_report($sources['engage_32a_inflow'], '32a_inflow');
         $outflow_32a = $this->read_combined_engage_report($sources['engage_32a_outflow'], '32a_outflow');
         $accessories = !empty($sources['accessories']) ? $this->read_html_report($sources['accessories']) : array('headers' => array(), 'rows' => array());
 
@@ -655,6 +776,7 @@ class Dashboard_model extends CI_Model
         $ready_to_load = $source_data['ready_to_load'];
         $selected_ready_to_load = isset($source_data['selected_ready_to_load']) ? $source_data['selected_ready_to_load'] : $ready_to_load;
         $output_vs_capacity = $source_data['output_vs_capacity'];
+        $list_orders = isset($source_data['list_orders']) && is_array($source_data['list_orders']) ? $source_data['list_orders'] : array();
         $material_to_load = isset($source_data['material_to_load']) ? $source_data['material_to_load'] : $source_data['top_priority_orders'];
         $top_priority_orders = $source_data['top_priority_orders'];
         $management_analytics = $this->build_management_analytics(
@@ -678,6 +800,7 @@ class Dashboard_model extends CI_Model
             'ready_to_load' => $ready_to_load,
             'selected_ready_to_load' => $selected_ready_to_load,
             'output_vs_capacity' => $output_vs_capacity,
+            'list_orders' => $list_orders,
             'material_to_load' => $material_to_load,
             'top_priority_orders' => $top_priority_orders,
             'management_analytics' => $management_analytics,
@@ -699,6 +822,7 @@ class Dashboard_model extends CI_Model
             'qty_pdk_vs_output' => $qty_pdk_vs_output,
             'ready_to_load' => $ready_to_load,
             'output_vs_capacity' => $output_vs_capacity,
+            'list_orders' => $list_orders,
             'top_priority_orders' => $top_priority_orders,
             'management_analytics' => $management_analytics,
         );
@@ -829,25 +953,12 @@ class Dashboard_model extends CI_Model
             return $data_file . '#' . $filename;
         }
 
-        $paths = array();
-        $root_file = $this->data_dir() . DIRECTORY_SEPARATOR . $filename;
-
-        foreach ($this->report_filename_candidates($filename) as $candidate) {
-            $path = $this->data_dir() . DIRECTORY_SEPARATOR . $candidate;
-            if (is_file($path)) {
-                $paths[] = $path;
-            }
+        $path = $this->latest_matching_file_in_trees($this->all_data_dirs(), $this->report_filename_candidates($filename));
+        if ($path) {
+            return $path;
         }
 
-        if (!$paths) {
-            return $root_file;
-        }
-
-        usort($paths, function ($a, $b) {
-            return filemtime($b) <=> filemtime($a);
-        });
-
-        return $paths[0];
+        return $this->data_dir() . DIRECTORY_SEPARATOR . $filename;
     }
 
     private function report_filename_candidates($filename)
@@ -1018,6 +1129,12 @@ class Dashboard_model extends CI_Model
             'process route',
             'process route name',
             'factory style',
+            'date',
+            'storage nr',
+            'item nr',
+            'qty',
+            'cost center',
+            'udef 1',
         );
         $values = array();
         foreach ($row as $value) {
@@ -1290,43 +1407,36 @@ class Dashboard_model extends CI_Model
 
     private function heat_rpa_sources()
     {
-        $root = $this->root_path();
-        $aps_dir = $root . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . 'aps-rpa' . DIRECTORY_SEPARATOR . 'downloads';
-        $accessories_dir = $root . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . 'accessories-rpa' . DIRECTORY_SEPARATOR . 'downloads';
-        $engage_dir = $root . DIRECTORY_SEPARATOR . 'rpa' . DIRECTORY_SEPARATOR . 'engage-rpa' . DIRECTORY_SEPARATOR . 'downloads';
+        $aps_dirs = array_filter(array_unique(array(
+            $this->rpa_module_dir('aps-rpa', 'downloads'),
+            $this->rpa_module_dir('aps-rpa', 'archive'),
+        )), 'is_dir');
+        $accessories_dirs = array_filter(array_unique(array(
+            $this->rpa_module_dir('accessories-rpa', 'downloads'),
+            $this->rpa_module_dir('accessories-rpa', 'archive'),
+        )), 'is_dir');
+        $engage_dir = $this->rpa_module_dir('engage-rpa', 'downloads');
+        $engage_archive = $this->rpa_module_dir('engage-rpa', 'archive');
 
         return array(
-            'aps' => $this->latest_matching_file(array(
-                $aps_dir . DIRECTORY_SEPARATOR . 'JO.xlsx',
-                $aps_dir . DIRECTORY_SEPARATOR . 'JO.xls',
-                $aps_dir . DIRECTORY_SEPARATOR . 'JO_*.xlsx',
-                $aps_dir . DIRECTORY_SEPARATOR . 'JO_*.xls',
+            'aps' => $this->latest_matching_file_in_trees($aps_dirs, array(
+                'JO.xlsx',
+                'JO.xls',
+                'JO_*.xlsx',
+                'JO_*.xls',
             )),
-            'accessories' => $this->latest_matching_file(array(
-                $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST.xlsx',
-                $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST.xls',
-                $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST_*.xlsx',
-                $accessories_dir . DIRECTORY_SEPARATOR . 'CONTROLIST_*.xls',
+            'accessories' => $this->latest_matching_file_in_trees($accessories_dirs, array(
+                'CONTROLIST.xlsx',
+                'CONTROLIST.xls',
+                'CONTROLIST_*.xlsx',
+                'CONTROLIST_*.xls',
             )),
-            'engage_32_inflow' => $this->latest_existing_file(array(
-                $engage_dir . DIRECTORY_SEPARATOR . '32_inflow.xlsx',
-                $engage_dir . DIRECTORY_SEPARATOR . '32_inflow.xls',
-            )),
-            'engage_32_outflow' => $this->latest_existing_file(array(
-                $engage_dir . DIRECTORY_SEPARATOR . '32_outflow.xlsx',
-                $engage_dir . DIRECTORY_SEPARATOR . '32_outflow.xls',
-            )),
-            'engage_32a_inflow' => $this->latest_existing_file(array(
-                $engage_dir . DIRECTORY_SEPARATOR . '32a_inflow.xlsx',
-                $engage_dir . DIRECTORY_SEPARATOR . '32a_inflow.xls',
-            )),
-            'engage_32a_outflow' => $this->latest_existing_file(array(
-                $engage_dir . DIRECTORY_SEPARATOR . '32a_outflow.xlsx',
-                $engage_dir . DIRECTORY_SEPARATOR . '32a_outflow.xls',
-            )),
+            'engage_32_inflow' => $this->resolve_engage_source($engage_dir, $engage_archive, '32_inflow'),
+            'engage_32_outflow' => $this->resolve_engage_source($engage_dir, $engage_archive, '32_outflow'),
+            'engage_32a_inflow' => $this->resolve_engage_source($engage_dir, $engage_archive, '32a_inflow'),
+            'engage_32a_outflow' => $this->resolve_engage_source($engage_dir, $engage_archive, '32a_outflow'),
         );
     }
-
     private function latest_matching_file($pattern)
     {
         $patterns = is_array($pattern) ? $pattern : array($pattern);
@@ -1335,6 +1445,9 @@ class Dashboard_model extends CI_Model
             $files = array_merge($files, glob($item) ?: array());
         }
         $files = array_filter($files, 'is_file');
+        $files = array_values(array_filter($files, function ($file) {
+            return preg_match('/(^|\\\\|\\/)~\\$/', $file) !== 1;
+        }));
         if (!$files) {
             return NULL;
         }
@@ -1348,9 +1461,72 @@ class Dashboard_model extends CI_Model
 
     private function latest_existing_file($paths)
     {
-        $files = array_filter($paths, 'is_file');
+        $files = array_values(array_filter($paths, function ($path) {
+            return is_file($path) && preg_match('/(^|\\\\|\\/)~\\$/', $path) !== 1;
+        }));
         if (!$files) {
             return isset($paths[0]) ? $paths[0] : NULL;
+        }
+
+        usort($files, function ($a, $b) {
+            return filemtime($b) <=> filemtime($a);
+        });
+
+        return $files[0];
+    }
+
+    private function resolve_engage_source($engage_dir, $engage_archive, $report_key)
+    {
+        $dirs = array_filter(array_unique(array(
+            $engage_dir,
+            $engage_archive,
+            $this->rpa_module_dir('engage-rpa', 'downloads'),
+            $this->rpa_module_dir('engage-rpa', 'archive'),
+        )), 'is_dir');
+
+        return $this->latest_matching_file_in_trees($dirs, array(
+            '*' . $report_key . '.xlsx',
+            '*' . $report_key . '.xls',
+            '*' . $report_key . '*.xlsx',
+            '*' . $report_key . '*.xls',
+        ));
+    }
+
+    private function latest_matching_file_in_tree($base_dir, array $name_patterns)
+    {
+        if (!is_dir($base_dir)) {
+            return NULL;
+        }
+
+        $regexes = array();
+        foreach ($name_patterns as $pattern) {
+            $quoted = preg_quote($pattern, '#');
+            $regexes[] = '#^' . str_replace('\\*', '.*', $quoted) . '$#i';
+        }
+
+        $files = array();
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($base_dir, FilesystemIterator::SKIP_DOTS)
+        );
+        foreach ($iterator as $fileinfo) {
+            if (!$fileinfo->isFile()) {
+                continue;
+            }
+
+            $filename = $fileinfo->getFilename();
+            if (preg_match('/^~\\$/', $filename)) {
+                continue;
+            }
+            foreach ($regexes as $regex) {
+                if (preg_match($regex, $filename)) {
+                    $files[] = $fileinfo->getPathname();
+                    break;
+                }
+            }
+        }
+
+        if (!$files) {
+            return NULL;
         }
 
         usort($files, function ($a, $b) {
@@ -1388,41 +1564,43 @@ class Dashboard_model extends CI_Model
 
     private function read_combined_engage_outflow_report($current_path)
     {
-        return $this->read_combined_engage_report($current_path, '32a_outflow');
+        return $this->read_all_engage_reports('32a_outflow');
+    }
+
+    private function read_all_engage_reports($report_key)
+    {
+        $dirs = array_filter(array_unique(array(
+            $this->rpa_module_dir('engage-rpa', 'downloads'),
+            $this->rpa_module_dir('engage-rpa', 'archive'),
+        )), 'is_dir');
+        $files = $this->matching_files_in_trees($dirs, array(
+            '*' . $report_key . '.xlsx',
+            '*' . $report_key . '.xls',
+            '*' . $report_key . '*.xlsx',
+            '*' . $report_key . '*.xls',
+        ));
+
+        $rows = array();
+        $headers = array();
+        foreach ($files as $path) {
+            $report = $this->read_html_report($path);
+            if (!$report['headers']) {
+                continue;
+            }
+            if (!$headers) {
+                $headers = $report['headers'];
+            }
+            $rows = array_merge($rows, $report['rows']);
+        }
+
+        return array('headers' => $headers, 'rows' => $rows);
     }
 
     private function read_combined_engage_report($current_path, $report_key)
     {
-        $current = $this->read_html_report($current_path);
-        if (!$current['headers']) {
-            return $current;
-        }
-
-        $patterns = array();
-        foreach ($this->engage_rpa_history_roots() as $engage_root) {
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xlsx';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xls';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xlsx';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'archive' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '*.xls';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'periods' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '.xlsx';
-            $patterns[] = $engage_root . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'periods' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . $report_key . '.xls';
-        }
-
-        $rows = $current['rows'];
-        foreach ($patterns as $pattern) {
-            foreach (glob($pattern) ?: array() as $path) {
-                if (!is_file($path)) {
-                    continue;
-                }
-                $report = $this->read_html_report($path);
-                if ($report['headers']) {
-                    $rows = array_merge($rows, $report['rows']);
-                }
-            }
-        }
-
-        return array('headers' => $current['headers'], 'rows' => $rows);
+        return $this->read_all_engage_reports($report_key);
     }
+
 
     private function engage_rpa_history_roots()
     {
@@ -1496,13 +1674,17 @@ class Dashboard_model extends CI_Model
             $orders[$order]['qty_out_aps'] += $finished;
         }
 
+        $in_summary_32 = $this->summarize_engage_rows_by_order($inflow_32, $this->engage_filter_rules_32());
+        $in_summary_32a = $this->summarize_engage_rows_by_order($inflow_32a, $this->engage_filter_rules_32a());
         $in_summary = $this->merge_engage_summaries(array(
-            $this->summarize_engage_rows_by_order($inflow_32, $this->engage_filter_rules_32()),
-            $this->summarize_engage_rows_by_order($inflow_32a, $this->engage_filter_rules_32a()),
+            $in_summary_32,
+            $in_summary_32a,
         ));
+        $out_summary_32 = $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32());
+        $out_summary_32a = $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a());
         $out_summary = $this->merge_engage_summaries(array(
-            $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32()),
-            $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a()),
+            $out_summary_32,
+            $out_summary_32a,
         ));
         $accessories_ready = $this->summarize_accessories_completed_orders($accessories);
 
@@ -1520,14 +1702,25 @@ class Dashboard_model extends CI_Model
                 continue;
             }
 
+            $sources = array();
+            if (isset($in_summary_32['orders'][$order])) {
+                $sources[] = '32';
+            }
+            if (isset($in_summary_32a['orders'][$order])) {
+                $sources[] = '32a';
+            }
+            $source_label = $sources ? implode(' + ', array_values(array_unique($sources))) : '32/32a';
+
             $this->ensure_period_bucket($periods, $period);
             $ready_by_period[$period] = isset($ready_by_period[$period]) ? $ready_by_period[$period] + $ready_qty : $ready_qty;
             $ready_by_order[$order] = array(
                 'order' => $order,
                 'style' => isset($orders[$order]) && $orders[$order]['style'] !== '' ? $orders[$order]['style'] : $in['style'],
                 'delivery' => isset($orders[$order]) ? $orders[$order]['delivery'] : $in['date'],
+                'item' => isset($orders[$order]) && isset($orders[$order]['item']) && $orders[$order]['item'] !== '' ? $orders[$order]['item'] : $in['item'],
                 'period' => $period,
                 'qty' => $ready_qty,
+                'source' => $source_label,
                 'accessories_completed' => isset($accessories_ready[$order]) ? $accessories_ready[$order] : 0,
             );
         }
@@ -1545,14 +1738,7 @@ class Dashboard_model extends CI_Model
             $all_qty_rows[] = array('label' => $period, 'pdk' => $pdk, 'output' => $output);
         }
 
-        $current_index = 0;
-        foreach ($all_qty_rows as $index => $row) {
-            $ready = isset($ready_by_period[$row['label']]) ? $ready_by_period[$row['label']] : 0;
-            if (($row['pdk'] - $row['output']) > 0 || $ready > 0) {
-                $current_index = $index;
-                break;
-            }
-        }
+        $current_index = $this->current_delivery_index($all_qty_rows, $ready_by_period);
         $selected_qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, $delivery_count);
         $qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, 4);
         $balance_breakdown = $qty_pdk_vs_output;
@@ -1580,6 +1766,7 @@ class Dashboard_model extends CI_Model
             $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32(), $selected_order_whitelist),
             $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a(), $selected_order_whitelist),
         ));
+        $list_orders = $this->build_list_orders_from_rpa($ready_by_order, $orders, $out_summary['orders'], $selected_qty_pdk_vs_output);
         // Grafik: output/input dari Engage. Kapasitas dari riwayat harian (snapshot) untuk hari lampau.
         $output_vs_capacity = $this->build_output_vs_capacity_from_engage_daily(
             $out_summary['daily'],
@@ -1599,6 +1786,7 @@ class Dashboard_model extends CI_Model
             'ready_to_load' => $ready_to_load,
             'selected_ready_to_load' => $selected_ready_to_load,
             'output_vs_capacity' => $output_vs_capacity,
+            'list_orders' => $list_orders,
             'top_priority_orders' => $this->build_priority_orders_from_rpa($ready_by_order, $orders, $out_summary['orders']),
         );
     }
@@ -1642,10 +1830,13 @@ class Dashboard_model extends CI_Model
         if (is_numeric($value)) {
             return ((float) $value - 25569) * 86400;
         }
-        if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $value, $match)) {
+        if (preg_match('/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})(?:\\s+\\d{1,2}:\\d{2}(?::\\d{2})?)?$/' , $value, $match)) {
             return strtotime($match[3] . '-' . $match[2] . '-' . $match[1]);
         }
-        if (preg_match('/^(\d{4})-(\d{1,2})-(\d{1,2})/', $value, $match)) {
+        if (preg_match('/^(\\d{1,2})-(\\d{1,2})-(\\d{4})(?:\\s+\\d{1,2}:\\d{2}(?::\\d{2})?)?$/' , $value, $match)) {
+            return strtotime($match[3] . '-' . $match[2] . '-' . $match[1]);
+        }
+        if (preg_match('/^(\\d{4})-(\\d{1,2})-(\\d{1,2})(?:\\s+\\d{1,2}:\\d{2}(?::\\d{2})?)?/', $value, $match)) {
             return strtotime($match[1] . '-' . $match[2] . '-' . $match[3]);
         }
         return strtotime($value) ?: 0;
@@ -1662,6 +1853,7 @@ class Dashboard_model extends CI_Model
                         'qty' => 0,
                         'style' => isset($data['style']) ? $data['style'] : '',
                         'date' => isset($data['date']) ? $data['date'] : '',
+                        'item' => isset($data['item']) ? $data['item'] : '',
                     );
                 }
                 $merged['orders'][$order]['qty'] += isset($data['qty']) ? $data['qty'] : 0;
@@ -1685,15 +1877,26 @@ class Dashboard_model extends CI_Model
     {
         return array(
             array('column' => 'Udef 5', 'keywords' => array('rpl')),
+            array('column' => 'Udef 4', 'keywords' => array('rpl')),
+            array('column' => 'Udef 6', 'keywords' => array('sk')),
+            array(
+                'column' => 'Text',
+                'keywords' => array('rpl', 'ts', 'return', 'retutn', 'koreksi', 'sk'),
+                'exclude_keywords' => array('csdb', 'csbd'),
+            ),
         );
     }
 
     private function engage_filter_rules_32a()
     {
         return array(
+            array('column' => 'Udef 5', 'keywords' => array('rpl')),
+            array('column' => 'Udef 4', 'keywords' => array('rpl')),
+            array('column' => 'Udef 6', 'keywords' => array('sk')),
             array('column' => 'Text', 'keywords' => array('csdb', 'csbd', 'ts')),
         );
     }
+
 
     private function summarize_engage_rows_by_order($report, $filter_rules = NULL, $order_whitelist = NULL)
     {
@@ -1743,8 +1946,11 @@ class Dashboard_model extends CI_Model
                     'qty' => 0,
                     'style' => $this->cell($row, $index, 'Udef 1'),
                     'date' => $date,
+                    'item' => $item,
                     'materials' => array(),
                 );
+            } elseif ($orders[$order]['item'] === '' && $item !== '') {
+                $orders[$order]['item'] = $item;
             }
             $orders[$order]['materials'][$material_key] = max(isset($orders[$order]['materials'][$material_key]) ? $orders[$order]['materials'][$material_key] : 0, $qty);
 
@@ -1778,6 +1984,23 @@ class Dashboard_model extends CI_Model
 
     private function engage_row_matches_filter_rules($row, $index, $rules)
     {
+        foreach ($rules as $rule) {
+            if (empty($rule['exclude_keywords'])) {
+                continue;
+            }
+
+            $value = strtolower($this->normalize($this->cell($row, $index, $rule['column'])));
+            if ($value === '') {
+                continue;
+            }
+
+            foreach ($rule['exclude_keywords'] as $keyword) {
+                if ($keyword !== '' && strpos($value, strtolower($keyword)) !== FALSE) {
+                    return FALSE;
+                }
+            }
+        }
+
         foreach ($rules as $rule) {
             $value = strtolower($this->normalize($this->cell($row, $index, $rule['column'])));
             if ($value === '') {
@@ -1827,7 +2050,8 @@ class Dashboard_model extends CI_Model
     private function build_output_vs_capacity_from_engage_daily($engage_daily_output, $qty_rows, $engage_daily_input = array(), $engage_daily_for_balance = array())
     {
         ksort($engage_daily_output);
-        $latest_day = $engage_daily_output ? max(array_keys($engage_daily_output)) : date('Y-m-d');
+        $latest_output_day = $engage_daily_output ? max(array_keys($engage_daily_output)) : date('Y-m-d');
+        $latest_day = max($latest_output_day, date('Y-m-d'));
         $calendar_days = $this->dashboard_calendar_days();
         $days = array();
         $cursor = strtotime($latest_day);
@@ -1851,20 +2075,8 @@ class Dashboard_model extends CI_Model
             if ($day < $today && isset($capacity_history[$day])) {
                 $snapshot = $capacity_history[$day];
             } else {
-                $balance_day = ($day === $today)
-                    // Kapasitas hari berjalan diturunkan dari balance workday sebelumnya.
-                    ? $this->previous_workday_before($day, $calendar_days)
-                    : $day;
-
-                if (
-                    $day === $today &&
-                    isset($capacity_history[$balance_day]) &&
-                    $this->capacity_history_is_valid($capacity_history[$balance_day], $delivery_count)
-                ) {
-                    $balance_qty = $capacity_history[$balance_day]['balance_qty'];
-                } else {
-                    $balance_qty = $this->balance_qty_for_capacity_day($balance_day, $qty_rows, $balance_reference_daily);
-                }
+                $balance_day = $day;
+                $balance_qty = $this->balance_qty_for_capacity_day($balance_day, $qty_rows, $balance_reference_daily);
 
                 $capacity_detail = $this->capacity_from_delivery_aggregate($balance_qty, $day, $period_end, $qty_rows);
                 $snapshot = $this->capacity_snapshot_entry($capacity_detail, $balance_day, $delivery_count);
@@ -1942,13 +2154,14 @@ class Dashboard_model extends CI_Model
             $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32()),
             $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a()),
         ));
+
         $input_summary = array('daily' => array());
         if (
             !empty($sources['engage_32_inflow']) && is_file($sources['engage_32_inflow']) &&
             !empty($sources['engage_32a_inflow']) && is_file($sources['engage_32a_inflow'])
         ) {
-            $inflow_32 = $this->read_html_report($sources['engage_32_inflow']);
-            $inflow_32a = $this->read_html_report($sources['engage_32a_inflow']);
+            $inflow_32 = $this->read_combined_engage_report($sources['engage_32_inflow'], '32_inflow');
+            $inflow_32a = $this->read_combined_engage_report($sources['engage_32a_inflow'], '32a_inflow');
             if ($inflow_32['headers'] && $inflow_32a['headers']) {
                 $input_summary = $this->merge_engage_summaries(array(
                     $this->summarize_engage_rows_by_order($inflow_32, $this->engage_filter_rules_32()),
@@ -1956,6 +2169,7 @@ class Dashboard_model extends CI_Model
                 ));
             }
         }
+
 
         $items = $this->build_output_vs_capacity_from_engage_daily($summary['daily'], $qty_rows, $input_summary['daily'], $summary['daily']);
         return $items ? $items : $fallback;
@@ -1966,14 +2180,23 @@ class Dashboard_model extends CI_Model
         $items = array();
         foreach ($ready_by_order as $order => $ready) {
             $order_data = isset($orders[$order]) ? $orders[$order] : array();
+            $qty_pdk = isset($order_data['qty_pdk']) ? $order_data['qty_pdk'] : 0;
+            $qty_out_aps = isset($order_data['qty_out_aps']) ? $order_data['qty_out_aps'] : 0;
+            $qty_out_engage = isset($out_orders[$order]) ? $out_orders[$order]['qty'] : 0;
+
             $items[] = array(
                 'order' => $order,
+                'item' => isset($ready['item']) && $ready['item'] !== '' ? $ready['item'] : (isset($order_data['item']) ? $order_data['item'] : ''),
                 'style' => isset($order_data['style']) && $order_data['style'] !== '' ? $order_data['style'] : $ready['style'],
                 'delivery' => $this->format_display_date(isset($order_data['delivery']) ? $order_data['delivery'] : $ready['delivery']),
-                'qty_pdk' => isset($order_data['qty_pdk']) ? $order_data['qty_pdk'] : 0,
+                'period' => isset($ready['period']) ? $ready['period'] : (isset($order_data['period']) ? $order_data['period'] : ''),
+                'qty_pdk' => $qty_pdk,
                 'qty_ready' => $ready['qty'],
-                'qty_out_aps' => isset($order_data['qty_out_aps']) ? $order_data['qty_out_aps'] : 0,
-                'qty_out_engage' => isset($out_orders[$order]) ? $out_orders[$order]['qty'] : 0,
+                'qty_in' => $ready['qty'],
+                'qty_out_aps' => $qty_out_aps,
+                'qty_out_engage' => $qty_out_engage,
+                'qty_balance' => max(0, (int) $qty_pdk - (int) $qty_out_aps),
+                'source' => isset($ready['source']) ? $ready['source'] : '',
                 'accessories_completed' => isset($ready['accessories_completed']) ? $ready['accessories_completed'] : 0,
                 '_sort_delivery' => $this->parse_date_timestamp(isset($order_data['delivery']) ? $order_data['delivery'] : $ready['delivery']),
             );
@@ -2144,14 +2367,7 @@ class Dashboard_model extends CI_Model
             $all_qty_rows[] = array('label' => $period, 'pdk' => $pdk, 'output' => $output);
         }
 
-        $current_index = 0;
-        foreach ($all_qty_rows as $index => $row) {
-            $ready = isset($ready_by_period[$row['label']]) ? $ready_by_period[$row['label']] : 0;
-            if (($row['pdk'] - $row['output']) > 0 || $ready > 0) {
-                $current_index = $index;
-                break;
-            }
-        }
+        $current_index = $this->current_delivery_index($all_qty_rows, $ready_by_period);
         $selected_qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, $delivery_count);
         $qty_pdk_vs_output = array_slice($all_qty_rows, $current_index, 4);
         $balance_breakdown = $qty_pdk_vs_output;
@@ -2171,6 +2387,7 @@ class Dashboard_model extends CI_Model
         }
 
         $top_priority_orders = $this->build_priority_orders_from_source($ready_by_order, $delivery_by_order, $output_keys);
+        $list_orders = $this->build_list_orders_from_source($ready_by_order, $delivery_by_order, $output_keys, $selected_qty_pdk_vs_output);
         $total_pdk = array_sum(array_column($selected_qty_pdk_vs_output, 'pdk'));
         $total_output = array_sum(array_column($selected_qty_pdk_vs_output, 'output'));
         $balance_qty = max(0, $total_pdk - $total_output);
@@ -2187,6 +2404,7 @@ class Dashboard_model extends CI_Model
             'ready_to_load' => $ready_to_load,
             'selected_ready_to_load' => $selected_ready_to_load,
             'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $selected_qty_pdk_vs_output),
+            'list_orders' => $list_orders,
             'top_priority_orders' => $top_priority_orders,
         );
     }
@@ -2355,21 +2573,57 @@ class Dashboard_model extends CI_Model
 
         return FALSE;
     }
+    private function current_delivery_index($qty_rows, $ready_by_period = array())
+    {
+        $today = date('Y-m-d');
+        $fallback = 0;
+
+        foreach ($qty_rows ?: array() as $index => $row) {
+            $label = isset($row['label']) ? $row['label'] : '';
+            $range = $this->period_date_range($label);
+            if ($range && $range['end'] >= $today) {
+                return $index;
+            }
+
+            $ready = isset($ready_by_period[$label]) ? $ready_by_period[$label] : 0;
+            if (($row['pdk'] - $row['output']) > 0 || $ready > 0) {
+                $fallback = $index;
+            }
+        }
+
+        return $fallback;
+    }
+
+    private function remaining_delivery_workdays($qty_rows, $as_of_date)
+    {
+        $calendar_days = $this->dashboard_calendar_days();
+        $remaining_days = 0.0;
+        $export_prep_days = 0.0;
+
+        foreach ($qty_rows ?: array() as $row) {
+            $range = !empty($row['label']) ? $this->period_date_range($row['label']) : NULL;
+            if (!$range || $as_of_date > $range['end']) {
+                continue;
+            }
+
+            $start = max($as_of_date, $range['start']);
+            $period_remaining = $this->count_workdays($start, $range['end'], $calendar_days);
+            $period_export_prep = min($period_remaining, $this->export_prep_workdays_per_delivery());
+            $remaining_days += $period_remaining;
+            $export_prep_days += $period_export_prep;
+        }
+
+        return array(
+            'remaining_days' => $remaining_days,
+            'export_prep_days' => $export_prep_days,
+            'sisa_hari_kerja' => max(0, $remaining_days - $export_prep_days),
+        );
+    }
 
     private function source_prod_days_left($qty_rows)
     {
-        $period_end = $this->selected_delivery_period_end($qty_rows);
-        if ($period_end === '') {
-            return 0;
-        }
-
-        $today = date('Y-m-d');
-        if ($today > $period_end) {
-            return 0;
-        }
-
-        $remaining_days = $this->count_workdays($today, $period_end, $this->dashboard_calendar_days());
-        return $this->export_workdays_from_remaining($remaining_days, $this->active_delivery_count($qty_rows));
+        $detail = $this->remaining_delivery_workdays($qty_rows, date('Y-m-d'));
+        return $detail['sisa_hari_kerja'];
     }
 
     private function source_daily_capacity($qty_rows, $daily_output = NULL)
@@ -2452,13 +2706,11 @@ class Dashboard_model extends CI_Model
 
     private function capacity_from_delivery_aggregate($balance_qty, $as_of_date, $period_end, $qty_rows = array())
     {
-        $calendar_days = $this->dashboard_calendar_days();
         $balance_qty = max(0, (float) $balance_qty);
-        $remaining_days = $period_end !== '' && $as_of_date <= $period_end
-            ? $this->count_workdays($as_of_date, $period_end, $calendar_days)
-            : 0;
-        $export_prep = $this->export_prep_workdays_for_qty_rows($qty_rows);
-        $sisa_hari_kerja = max(0, $remaining_days - $export_prep);
+        $workday_detail = $this->remaining_delivery_workdays($qty_rows, $as_of_date);
+        $remaining_days = $workday_detail['remaining_days'];
+        $export_prep = $workday_detail['export_prep_days'];
+        $sisa_hari_kerja = $workday_detail['sisa_hari_kerja'];
         $capacity = $sisa_hari_kerja > 0 ? round($balance_qty / $sisa_hari_kerja) : 0;
 
         $breakdown = array();
@@ -2575,6 +2827,163 @@ class Dashboard_model extends CI_Model
         return ((int) $serial - 25569) * 86400;
     }
 
+    private function heat_active_period_label($selected_qty_pdk_vs_output)
+    {
+        if (!is_array($selected_qty_pdk_vs_output) || !$selected_qty_pdk_vs_output) {
+            return '';
+        }
+
+        $first = reset($selected_qty_pdk_vs_output);
+        if (is_array($first) && !empty($first['label'])) {
+            return trim((string) $first['label']);
+        }
+
+        return '';
+    }
+
+    private function selected_period_whitelist($selected_qty_pdk_vs_output)
+    {
+        $periods = array();
+        foreach ($selected_qty_pdk_vs_output ?: array() as $row) {
+            if (empty($row['label'])) {
+                continue;
+            }
+            $periods[$this->normalize_period_label($row['label'])] = TRUE;
+        }
+        return $periods;
+    }
+
+    private function build_list_orders_from_rpa($ready_by_order, $orders, $out_orders, $selected_qty_pdk_vs_output)
+    {
+        $active_periods = $this->selected_period_whitelist($selected_qty_pdk_vs_output);
+        $active_label = $this->heat_active_period_label($selected_qty_pdk_vs_output);
+        $today_start = strtotime(date('Y-m-d'));
+        $items = array();
+
+        foreach ($orders as $order => $order_data) {
+            $period = isset($order_data['period']) ? $order_data['period'] : '';
+            $normalized_period = $this->normalize_period_label($period);
+            if ($active_periods && !isset($active_periods[$normalized_period])) {
+                continue;
+            }
+
+            $ready = isset($ready_by_order[$order]) ? $ready_by_order[$order] : array();
+            $qty_pdk = isset($order_data['qty_pdk']) ? (int) $order_data['qty_pdk'] : 0;
+            $qty_out_aps = isset($order_data['qty_out_aps']) ? (int) $order_data['qty_out_aps'] : 0;
+            $qty_out_engage = isset($out_orders[$order]) && isset($out_orders[$order]['qty']) ? (int) $out_orders[$order]['qty'] : 0;
+            $qty_in = isset($ready['qty']) ? (int) $ready['qty'] : 0;
+            $delivery = isset($order_data['delivery']) ? $order_data['delivery'] : (isset($ready['delivery']) ? $ready['delivery'] : '');
+
+            $items[] = array(
+                'order' => $order,
+                'cost_center' => $order,
+                'cost_centre' => $order,
+                'style' => isset($order_data['style']) && $order_data['style'] !== '' ? $order_data['style'] : (isset($ready['style']) ? $ready['style'] : ''),
+                'delivery' => $this->format_display_date($delivery),
+                'period' => $active_label !== '' ? $active_label : $period,
+                'qty_pdk' => $qty_pdk,
+                'qty_ready' => $qty_in,
+                'qty_in' => $qty_in,
+                'qty_out' => $qty_out_aps,
+                'qty_out_aps' => $qty_out_aps,
+                'qty_out_engage' => $qty_out_engage,
+                'qty_balance' => max(0, $qty_pdk - $qty_out_aps),
+                'source' => 'rpa',
+                '_sort_delivery' => $this->parse_date_timestamp($delivery),
+                '_sort_balance' => max(0, $qty_pdk - $qty_out_aps),
+                '_sort_priority' => (($this->parse_date_timestamp($delivery) > 0 && $this->parse_date_timestamp($delivery) < $today_start && max(0, $qty_pdk - $qty_out_aps) <= 0) ? 1 : 0),
+            );
+        }
+
+        usort($items, function ($a, $b) {
+            if ($a['_sort_priority'] !== $b['_sort_priority']) {
+                return $a['_sort_priority'] <=> $b['_sort_priority'];
+            }
+            if ($a['_sort_delivery'] === $b['_sort_delivery']) {
+                if ($a['_sort_balance'] === $b['_sort_balance']) {
+                    return strnatcasecmp((string) $a['order'], (string) $b['order']);
+                }
+                return $b['_sort_balance'] <=> $a['_sort_balance'];
+            }
+            return $a['_sort_delivery'] <=> $b['_sort_delivery'];
+        });
+
+        foreach ($items as &$item) {
+            unset($item['_sort_delivery'], $item['_sort_balance'], $item['_sort_priority']);
+        }
+        unset($item);
+
+        return $items;
+    }
+
+    private function build_list_orders_from_source($ready_by_order, $delivery_by_order, $output_keys, $selected_qty_pdk_vs_output)
+    {
+        $active_periods = $this->selected_period_whitelist($selected_qty_pdk_vs_output);
+        $active_label = $this->heat_active_period_label($selected_qty_pdk_vs_output);
+        $today_start = strtotime(date('Y-m-d'));
+        $engage_output = array();
+        foreach ($output_keys as $item) {
+            $order = $item['order'];
+            $engage_output[$order] = isset($engage_output[$order]) ? $engage_output[$order] + $item['qty'] : $item['qty'];
+        }
+
+        $items = array();
+        foreach ($delivery_by_order as $order => $delivery) {
+            $ready = isset($ready_by_order[$order]) ? $ready_by_order[$order] : array();
+            $period = isset($delivery['period']) && $delivery['period'] !== '' ? $delivery['period'] : (isset($ready['period']) ? $ready['period'] : $active_label);
+            $normalized_period = $this->normalize_period_label($period);
+            if ($active_periods && !isset($active_periods[$normalized_period])) {
+                continue;
+            }
+
+            $qty_pdk = isset($delivery['qty_pdk']) ? (int) $delivery['qty_pdk'] : 0;
+            $qty_out_aps = isset($delivery['qty_out_aps']) ? (int) $delivery['qty_out_aps'] : 0;
+            $qty_in = isset($ready['qty']) ? (int) $ready['qty'] : 0;
+            $delivery_value = isset($delivery['delivery']) ? $delivery['delivery'] : (isset($ready['delivery']) ? $ready['delivery'] : '');
+            $sort_delivery = $this->parse_date_timestamp($delivery_value);
+            $sort_balance = max(0, $qty_pdk - $qty_out_aps);
+
+            $items[] = array(
+                'order' => $order,
+                'cost_center' => $order,
+                'cost_centre' => $order,
+                'style' => isset($delivery['style']) && $delivery['style'] !== '' ? $delivery['style'] : (isset($ready['style']) ? $ready['style'] : ''),
+                'delivery' => $this->format_excel_date($delivery_value),
+                'period' => $active_label !== '' ? $active_label : $period,
+                'qty_pdk' => $qty_pdk,
+                'qty_ready' => $qty_in,
+                'qty_in' => $qty_in,
+                'qty_out' => $qty_out_aps,
+                'qty_out_aps' => $qty_out_aps,
+                'qty_out_engage' => isset($engage_output[$order]) ? (int) $engage_output[$order] : 0,
+                'qty_balance' => $sort_balance,
+                'source' => 'source',
+                '_sort_delivery' => $sort_delivery,
+                '_sort_balance' => $sort_balance,
+                '_sort_priority' => (($sort_delivery > 0 && $sort_delivery < $today_start && $sort_balance <= 0) ? 1 : 0),
+            );
+        }
+
+        usort($items, function ($a, $b) {
+            if ($a['_sort_priority'] !== $b['_sort_priority']) {
+                return $a['_sort_priority'] <=> $b['_sort_priority'];
+            }
+            if ($a['_sort_delivery'] === $b['_sort_delivery']) {
+                if ($a['_sort_balance'] === $b['_sort_balance']) {
+                    return strnatcasecmp((string) $a['order'], (string) $b['order']);
+                }
+                return $b['_sort_balance'] <=> $a['_sort_balance'];
+            }
+            return $a['_sort_delivery'] <=> $b['_sort_delivery'];
+        });
+
+        foreach ($items as &$item) {
+            unset($item['_sort_delivery'], $item['_sort_balance'], $item['_sort_priority']);
+        }
+        unset($item);
+
+        return $items;
+    }
     private function build_priority_orders_from_source($ready_by_order, $delivery_by_order, $output_keys)
     {
         $engage_output = array();
@@ -2586,14 +2995,23 @@ class Dashboard_model extends CI_Model
         $items = array();
         foreach ($ready_by_order as $order => $ready) {
             $delivery = isset($delivery_by_order[$order]) ? $delivery_by_order[$order] : array();
+            $qty_pdk = isset($delivery['qty_pdk']) ? $delivery['qty_pdk'] : 0;
+            $qty_out_aps = isset($delivery['qty_out_aps']) ? $delivery['qty_out_aps'] : 0;
+            $qty_out_engage = isset($engage_output[$order]) ? $engage_output[$order] : 0;
+
             $items[] = array(
                 'order' => $order,
+                'item' => isset($ready['item']) && $ready['item'] !== '' ? $ready['item'] : (isset($delivery['item']) ? $delivery['item'] : ''),
                 'style' => isset($delivery['style']) && $delivery['style'] !== '' ? $delivery['style'] : $ready['style'],
                 'delivery' => $this->format_excel_date(isset($delivery['delivery']) ? $delivery['delivery'] : $ready['delivery']),
-                'qty_pdk' => isset($delivery['qty_pdk']) ? $delivery['qty_pdk'] : 0,
+                'period' => isset($delivery['period']) ? $delivery['period'] : (isset($ready['period']) ? $ready['period'] : ''),
+                'qty_pdk' => $qty_pdk,
                 'qty_ready' => $ready['qty'],
-                'qty_out_aps' => isset($delivery['qty_out_aps']) ? $delivery['qty_out_aps'] : 0,
-                'qty_out_engage' => isset($engage_output[$order]) ? $engage_output[$order] : 0,
+                'qty_in' => $ready['qty'],
+                'qty_out_aps' => $qty_out_aps,
+                'qty_out_engage' => $qty_out_engage,
+                'qty_balance' => max(0, (int) $qty_pdk - (int) $qty_out_aps),
+                'source' => isset($ready['source']) ? $ready['source'] : '',
                 '_sort_delivery' => $this->parse_number(isset($delivery['delivery']) ? $delivery['delivery'] : $ready['delivery']),
             );
         }
@@ -3083,7 +3501,6 @@ class Dashboard_model extends CI_Model
     {
         return max(0, (int) $delivery_count) * $this->export_prep_workdays_per_delivery();
     }
-
     private function export_prep_workdays_for_qty_rows($qty_rows)
     {
         return $this->export_prep_workdays($this->active_delivery_count($qty_rows));
@@ -3384,12 +3801,31 @@ class Dashboard_model extends CI_Model
         );
     }
 
-    private function current_running_period($periods)
+        private function current_running_period($periods)
     {
+        if (!$periods) {
+            return NULL;
+        }
+
+        $today = date('Y-m-d');
+        $fallback = NULL;
         foreach ($periods as $period) {
-            if ($period['balance'] > 0 || $period['ready'] > 0) {
+            if ($fallback === NULL && ((isset($period['balance']) && $period['balance'] > 0) || (isset($period['ready']) && $period['ready'] > 0) || (isset($period['pdk']) && $period['pdk'] > 0) || (isset($period['output']) && $period['output'] > 0))) {
+                $fallback = $period;
+            }
+
+            $range = isset($period['label']) ? $this->period_date_range($period['label']) : NULL;
+            if (!$range) {
+                continue;
+            }
+
+            if ($range['end'] >= $today) {
                 return $period;
             }
+        }
+
+        if ($fallback !== NULL) {
+            return $fallback;
         }
 
         return isset($periods[0]) ? $periods[0] : NULL;
@@ -3713,45 +4149,61 @@ class Dashboard_model extends CI_Model
     private function summarize_32a_inflow_periods()
     {
         $periods = array();
-        $paths = array_merge(
-            glob($this->data_dir() . DIRECTORY_SEPARATOR . '????-??' . DIRECTORY_SEPARATOR . '32a_inflow.xlsx') ?: array(),
-            glob($this->data_dir() . DIRECTORY_SEPARATOR . '????-??' . DIRECTORY_SEPARATOR . '32a_inflow.xls') ?: array()
-        );
+        $paths = $this->matching_files_in_trees($this->all_data_dirs(), array(
+            '32a_inflow.xlsx',
+            '32a_inflow.xls',
+            '32a_inflow_*.xlsx',
+            '32a_inflow_*.xls',
+        ));
         foreach ($paths as $path) {
+            $month_key = basename(dirname($path));
+            if (!preg_match('/^\\d{4}-\\d{2}$/', $month_key) || isset($periods[$month_key])) {
+                continue;
+            }
+
             $report = $this->read_html_report($path);
             $index = $this->header_index($report['headers']);
-            $periods[] = array(
-                'key' => basename(dirname($path)),
-                'label' => $this->format_period_label(basename(dirname($path))),
+            $periods[$month_key] = array(
+                'key' => $month_key,
+                'label' => $this->format_period_label($month_key),
                 'qty' => $this->sum_qty($report['rows'], $index),
                 'rows' => count($report['rows']),
             );
         }
 
-        return $periods;
+        return array_values($periods);
     }
 
     private function summarize_monthly_periods()
     {
-        $month_dirs = glob($this->data_dir() . DIRECTORY_SEPARATOR . '????-??', GLOB_ONLYDIR) ?: array();
         $month_keys = array();
+        $candidate_paths = $this->matching_files_in_trees($this->all_data_dirs(), array(
+            '32a_inflow.xlsx',
+            '32a_inflow.xls',
+            '32a_inflow_*.xlsx',
+            '32a_inflow_*.xls',
+            '32a_outflow.xlsx',
+            '32a_outflow.xls',
+            '32a_outflow_*.xlsx',
+            '32a_outflow_*.xls',
+        ));
 
-        foreach ($month_dirs as $dir) {
-            $key = basename($dir);
+        foreach ($candidate_paths as $path) {
+            $key = basename(dirname($path));
             if (preg_match('/^\d{4}-\d{2}$/', $key)) {
-                $month_keys[] = $key;
+                $month_keys[$key] = TRUE;
             }
         }
+
+        $month_keys = array_keys($month_keys);
+        sort($month_keys);
 
         if (!$month_keys) {
             $month_keys[] = date('Y-m', strtotime('-1 month'));
             $month_keys[] = date('Y-m');
         }
 
-        $month_keys = array_values(array_unique($month_keys));
-        sort($month_keys);
-        $month_keys = array_slice($month_keys, -2);
-
+        $month_keys = array_slice(array_values(array_unique($month_keys)), -2);
         while (count($month_keys) < 2) {
             array_unshift($month_keys, date('Y-m', strtotime($month_keys[0] . '-01 -1 month')));
             $month_keys = array_values(array_unique($month_keys));
@@ -3760,22 +4212,29 @@ class Dashboard_model extends CI_Model
         $periods = array();
 
         foreach ($month_keys as $month_key) {
-            $data_file = $this->data_file();
-            if ($data_file) {
-                $inflow = $this->read_html_report($data_file . '#' . $month_key . '_32a_inflow');
-                $outflow = $this->read_html_report($data_file . '#' . $month_key . '_32a_outflow');
-            } else {
-                $dir = $this->data_dir() . DIRECTORY_SEPARATOR . $month_key;
-                $inflow = $this->read_html_report($this->latest_existing_file(array(
-                    $dir . DIRECTORY_SEPARATOR . '32a_inflow.xlsx',
-                    $dir . DIRECTORY_SEPARATOR . '32a_inflow.xls',
-                )));
-                $outflow = $this->read_html_report($this->latest_existing_file(array(
-                    $dir . DIRECTORY_SEPARATOR . '32a_outflow.xlsx',
-                    $dir . DIRECTORY_SEPARATOR . '32a_outflow.xls',
-                )));
+            $inflow = NULL;
+            $outflow = NULL;
+            foreach ($candidate_paths as $path) {
+                if (basename(dirname($path)) !== $month_key) {
+                    continue;
+                }
+
+                $basename = basename($path);
+                if ($inflow === NULL && preg_match('/32a_inflow/i', $basename)) {
+                    $inflow = $path;
+                }
+                if ($outflow === NULL && preg_match('/32a_outflow/i', $basename)) {
+                    $outflow = $path;
+                }
+                if ($inflow !== NULL && $outflow !== NULL) {
+                    break;
+                }
             }
-            $summary = $this->summarize_rows_ready($inflow, $outflow);
+
+            $summary = $this->summarize_rows_ready(
+                $this->read_html_report($inflow),
+                $this->read_html_report($outflow)
+            );
 
             $periods[] = array(
                 'key' => $month_key,
@@ -3930,3 +4389,15 @@ class Dashboard_model extends CI_Model
         return number_format($value, 1) . ' GB';
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

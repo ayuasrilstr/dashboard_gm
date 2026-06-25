@@ -13,6 +13,7 @@ Alur saat ini:
 3. Filter tanggal dari awal bulan berjalan sampai hari ini.
 4. Pilih status `COMPLETED`.
 5. Export Excel ke folder `downloads`.
+6. File yang sudah lewat hari ini akan dipindahkan otomatis ke folder `archive` saat run berikutnya.
 
 ## Cara pakai
 
@@ -38,4 +39,5 @@ Output export:
 
 ```text
 downloads/CONTROLIST_YYYYMMDD_HHMMSS.xlsx
+archive/YYYY-MM/YYYY-MM-DD_CONTROLIST_YYYYMMDD_HHMMSS.xlsx
 ```

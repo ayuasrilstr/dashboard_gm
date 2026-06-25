@@ -4244,3 +4244,190 @@
 [2026-06-18 07:02:01] [Master Scheduler] RPA Engage RPA selesai dengan sukses.
 [2026-06-18 07:02:01] [Master Scheduler] Menjalankan RPA: APS RPA...
 [2026-06-18 07:02:01] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-19 07:35:13] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-19 07:35:13] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-19 07:35:13] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-19 07:35:13] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:19] Step: Buka halaman login CIUROX
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:22] Step: Tunggu form login
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:22] Step: Isi username
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:22] Step: Isi password
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:22] Step: Klik login
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:23] Step: Tunggu halaman setelah login
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:25] Step: Buka Accessories GM
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:25] Step: Tunggu filter Accessories GM
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:25] Step: Isi tanggal awal bulan ini
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:25] Step: Isi tanggal sampai hari ini
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:25] Step: Pilih status COMPLETED
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:25] Step: Export Controlist Accessories
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:33] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-19 07:35:33] [Master Scheduler] [Accessories RPA] [2026-06-19 07:35:33] RPA Accessories selesai.
+[2026-06-19 07:35:33] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-19 07:35:33] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-19 07:35:33] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-19 09:28:08] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-19 09:28:08] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-19 09:28:08] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-19 09:28:08] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:13] Step: Buka halaman login CIUROX
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:16] Step: Tunggu form login
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:16] Step: Isi username
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:16] Step: Isi password
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:16] Step: Klik login
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:17] Step: Tunggu halaman setelah login
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:19] Step: Buka Accessories GM
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:19] Step: Tunggu filter Accessories GM
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:19] Step: Isi tanggal awal bulan ini
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:19] Step: Isi tanggal sampai hari ini
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:19] Step: Pilih status COMPLETED
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:19] Step: Export Controlist Accessories
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:24] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-19 09:28:24] [Master Scheduler] [Accessories RPA] [2026-06-19 09:28:24] RPA Accessories selesai.
+[2026-06-19 09:28:24] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-19 09:28:24] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-19 09:28:24] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-19 12:46:41] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-19 12:46:41] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-19 12:46:41] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-19 12:46:41] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:42] Step: Buka halaman login CIUROX
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:42] Step: Tunggu form login
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:42] Step: Isi username
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:43] Step: Isi password
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:43] Step: Klik login
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:43] Step: Tunggu halaman setelah login
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:45] Step: Buka Accessories GM
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:45] Step: Tunggu filter Accessories GM
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:45] Step: Isi tanggal awal bulan ini
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:45] Step: Isi tanggal sampai hari ini
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:45] Step: Pilih status COMPLETED
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:45] Step: Export Controlist Accessories
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:50] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-19 12:46:51] [Master Scheduler] [Accessories RPA] [2026-06-19 12:46:50] RPA Accessories selesai.
+[2026-06-19 12:46:51] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-19 12:46:51] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-19 12:46:51] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-19 16:06:55] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-19 16:06:55] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-19 16:06:55] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-19 16:06:55] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:06:58] Step: Buka halaman login CIUROX
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:01] Step: Tunggu form login
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:01] Step: Isi username
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:01] Step: Isi password
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:01] Step: Klik login
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:02] Step: Tunggu halaman setelah login
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:04] Step: Buka Accessories GM
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:04] Step: Tunggu filter Accessories GM
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:04] Step: Isi tanggal awal bulan ini
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:04] Step: Isi tanggal sampai hari ini
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:04] Step: Pilih status COMPLETED
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:04] Step: Export Controlist Accessories
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:10] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-19 16:07:10] [Master Scheduler] [Accessories RPA] [2026-06-19 16:07:10] RPA Accessories selesai.
+[2026-06-19 16:07:10] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-19 16:07:10] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-19 16:07:10] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-19 17:13:25] [Master Scheduler] RPA Engage RPA gagal dengan exit code 1073807364.
+[2026-06-19 17:13:25] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-19 17:13:25] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-19 17:13:25] [Master Scheduler] RPA APS RPA gagal dengan exit code 3221226091.
+[2026-06-19 17:13:25] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-19 17:13:25] [Master Scheduler] Run berikutnya: 2026-06-19 18:00:00
+[2026-06-22 07:22:06] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-22 07:22:06] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-22 07:22:06] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-22 07:22:07] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:07] Step: Buka halaman login CIUROX
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:08] Step: Tunggu form login
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:08] Step: Isi username
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:08] Step: Isi password
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:08] Step: Klik login
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:08] Step: Tunggu halaman setelah login
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:10] Step: Buka Accessories GM
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:10] Step: Tunggu filter Accessories GM
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:10] Step: Isi tanggal awal bulan ini
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:10] Step: Isi tanggal sampai hari ini
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:10] Step: Pilih status COMPLETED
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:10] Step: Export Controlist Accessories
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:17] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-22 07:22:17] [Master Scheduler] [Accessories RPA] [2026-06-22 07:22:17] RPA Accessories selesai.
+[2026-06-22 07:22:17] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-22 07:22:17] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-22 07:22:17] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-22 15:58:32] [Master Scheduler] RPA Engage RPA gagal dengan exit code 1073807364.
+[2026-06-22 15:58:32] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-22 15:58:32] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-22 15:58:33] [Master Scheduler] RPA APS RPA gagal dengan exit code 3221226091.
+[2026-06-22 15:58:33] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-22 15:58:33] [Master Scheduler] Run berikutnya: 2026-06-22 16:00:00
+[2026-06-23 06:48:00] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-23 06:48:00] [Master Scheduler] Run berikutnya: 2026-06-23 07:00:00
+[2026-06-23 07:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-23 07:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-23 07:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:07] Step: Buka halaman login CIUROX
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:10] Step: Tunggu form login
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:10] Step: Isi username
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:10] Step: Isi password
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:10] Step: Klik login
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:10] Step: Tunggu halaman setelah login
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:12] Step: Buka Accessories GM
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:13] Step: Tunggu filter Accessories GM
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:13] Step: Isi tanggal awal bulan ini
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:13] Step: Isi tanggal sampai hari ini
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:13] Step: Pilih status COMPLETED
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:13] Step: Export Controlist Accessories
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:17] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-23 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-23 07:00:17] RPA Accessories selesai.
+[2026-06-23 07:00:18] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-23 07:00:18] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-23 07:00:18] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-23 15:59:12] [Master Scheduler] RPA Engage RPA gagal dengan exit code 1073807364.
+[2026-06-23 15:59:12] [Master Scheduler] Menjalankan RPA: APS RPA...
+[2026-06-23 15:59:12] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa\main.py di C:\xampp\htdocs\dashboard_gm\rpa\aps-rpa
+[2026-06-23 15:59:12] [Master Scheduler] RPA APS RPA gagal dengan exit code 3221226091.
+[2026-06-23 15:59:12] [Master Scheduler] === SELESAI DOWNLOAD SEMUA RPA ===
+[2026-06-24 06:48:36] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-24 06:48:36] [Master Scheduler] Run berikutnya: 2026-06-24 07:00:00
+[2026-06-24 07:00:00] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-24 07:00:00] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-24 07:00:00] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:07] Step: Buka halaman login CIUROX
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:10] Step: Tunggu form login
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:10] Step: Isi username
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:10] Step: Isi password
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:10] Step: Klik login
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:10] Step: Tunggu halaman setelah login
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:12] Step: Buka Accessories GM
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:12] Step: Tunggu filter Accessories GM
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:12] Step: Isi tanggal awal bulan ini
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:12] Step: Isi tanggal sampai hari ini
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:12] Step: Pilih status COMPLETED
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:12] Step: Export Controlist Accessories
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:18] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-24 07:00:18] [Master Scheduler] [Accessories RPA] [2026-06-24 07:00:18] RPA Accessories selesai.
+[2026-06-24 07:00:18] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-24 07:00:18] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-24 07:00:18] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa
+[2026-06-25 07:03:57] [Master Scheduler] Scheduler aktif. Download semua RPA setiap 1 jam dari 07:00 sampai 23:00.
+[2026-06-25 07:03:57] [Master Scheduler] === MEMULAI DOWNLOAD SEMUA RPA ===
+[2026-06-25 07:03:57] [Master Scheduler] Menjalankan RPA: Accessories RPA...
+[2026-06-25 07:03:57] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\main.py --headless di C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:03] Step: Buka halaman login CIUROX
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:06] Step: Tunggu form login
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:06] Step: Isi username
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:06] Step: Isi password
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:06] Step: Klik login
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:07] Step: Tunggu halaman setelah login
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:09] Step: Buka Accessories GM
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:09] Step: Tunggu filter Accessories GM
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:09] Step: Isi tanggal awal bulan ini
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:09] Step: Isi tanggal sampai hari ini
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:09] Step: Pilih status COMPLETED
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:09] Step: Export Controlist Accessories
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:14] Download tersimpan: C:\xampp\htdocs\dashboard_gm\rpa\accessories-rpa\downloads\CONTROLIST.xlsx
+[2026-06-25 07:04:14] [Master Scheduler] [Accessories RPA] [2026-06-25 07:04:14] RPA Accessories selesai.
+[2026-06-25 07:04:14] [Master Scheduler] RPA Accessories RPA selesai dengan sukses.
+[2026-06-25 07:04:14] [Master Scheduler] Menjalankan RPA: Engage RPA...
+[2026-06-25 07:04:14] [Master Scheduler] Command: C:\Users\iso\AppData\Local\Programs\Python\Python314\python.exe C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa\main.py --once di C:\xampp\htdocs\dashboard_gm\rpa\engage-rpa

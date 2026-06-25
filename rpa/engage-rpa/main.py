@@ -7,8 +7,10 @@ import json
 import msvcrt
 import os
 import shutil
+import subprocess
 import threading
 import time
+import tempfile
 from calendar import monthrange
 from datetime import datetime, timedelta
 from html import escape
@@ -324,48 +326,112 @@ def format_report_date(value):
     return f"{value:%Y-%m-%d}"
 
 
-def get_month_periods(reference_date=None):
-    if reference_date is None:
-        # Default to current day + previous day so the active download stays small
-        date_to = datetime.now()
-        date_from = date_to - timedelta(days=1)
+def get_month_periods(reference_date=None, months_back=3):
+    if reference_date is not None:
+        year = reference_date.year
+        month = reference_date.month
+        last_day = monthrange(year, month)[1]
+        month_label = MONTH_ABBR[month - 1]
+
         return [
             {
-                "key": "last-2-days",
-                "label": f"Last 2 Days ({date_from:%d %b} - {date_to:%d %b})",
-                "date_from": date_from,
-                "date_to": date_to,
+                "key": f"{year}-{month:02d}",
+                "label": f"{month_label} {year}",
+                "date_from": datetime(year, month, 1),
+                "date_to": datetime(year, month, last_day),
             }
         ]
 
-    year = reference_date.year
-    month = reference_date.month
-    last_day = monthrange(year, month)[1]
-    month_label = MONTH_ABBR[month - 1]
+    periods = []
+    now = datetime.now()
+    months_back = max(1, int(months_back))
 
-    return [
-        {
-            "key": f"{year}-{month:02d}",
-            "label": f"{month_label} {year}",
-            "date_from": datetime(year, month, 1),
-            "date_to": datetime(year, month, last_day),
-        }
-    ]
+    for offset in range(months_back - 1, -1, -1):
+        target = add_months(now.replace(day=1), -offset)
+        year = target.year
+        month = target.month
+        last_day = monthrange(year, month)[1]
+        month_label = MONTH_ABBR[month - 1]
+        periods.append(
+            {
+                "key": f"{year}-{month:02d}",
+                "label": f"{month_label} {year}",
+                "date_from": datetime(year, month, 1),
+                "date_to": datetime(year, month, last_day),
+            }
+        )
+
+    return periods
 
 
-def get_archive_path(download_path):
-    if not ARCHIVE_ENABLED:
-        return None
+def archive_stale_download(download_path):
+    if not download_path.is_file():
+        return False
 
-    # Store archives per month so files from the 1st through month-end stay grouped together.
-    archive_dir = ARCHIVE_DIR / datetime.now().strftime("%Y-%m")
-    archive_dir.mkdir(parents=True, exist_ok=True)
-    return archive_dir / download_path.name
+    file_date = datetime.fromtimestamp(download_path.stat().st_mtime).date()
+    today = datetime.now().date()
+    if file_date >= today:
+        return False
+
+    for attempt in range(1, 6):
+        try:
+            if ARCHIVE_ENABLED:
+                archive_dir = ARCHIVE_DIR / file_date.strftime("%Y-%m")
+                archive_dir.mkdir(parents=True, exist_ok=True)
+                archive_path = archive_dir / f"{file_date:%Y-%m-%d}_{download_path.name}"
+                if archive_path.exists():
+                    archive_path.unlink()
+                shutil.move(str(download_path), str(archive_path))
+                log(f"Arsip dipindah: {archive_path}")
+            else:
+                download_path.unlink()
+                log(f"File lama dihapus: {download_path}")
+            return True
+        except PermissionError:
+            if attempt == 5:
+                log(f"Gagal memindah/menghapus file lama karena masih dipakai: {download_path}")
+                return False
+            time.sleep(2)
+
+    return False
+
+
+def clean_download_folder():
+    if not DOWNLOAD_DIR.exists():
+        return
+
+    for path in DOWNLOAD_DIR.iterdir():
+        if not path.is_file():
+            continue
+
+        name_lower = path.name.lower()
+        if name_lower.startswith(".") and ".tmp" in name_lower:
+            try:
+                path.unlink()
+                log(f"Temp file dibuang: {path}")
+            except FileNotFoundError:
+                pass
+            continue
+
+        if path.suffix.lower() in {".xlsx", ".xls", ".html"}:
+            # File lama jangan dipindah dulu sebelum ada download baru yang berhasil.
+            continue
+
+
+def archive_download_folder():
+    if not DOWNLOAD_DIR.exists():
+        return
+
+    for path in DOWNLOAD_DIR.iterdir():
+        if not path.is_file():
+            continue
+
+        if path.suffix.lower() in {".xlsx", ".xls", ".html"}:
+            archive_stale_download(path)
 
 
 async def save_download(download, download_path):
     temp_path = download_path.with_name(f".{download_path.stem}.tmp{download_path.suffix}")
-    archive_path = get_archive_path(download_path)
 
     download_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -376,9 +442,6 @@ async def save_download(download, download_path):
 
     for attempt in range(1, 6):
         try:
-            if archive_path:
-                shutil.copy2(temp_path, archive_path)
-                log(f"Arsip tersimpan: {archive_path}")
             os.replace(temp_path, download_path)
             return
         except PermissionError:
@@ -425,7 +488,6 @@ def parse_float(value):
 
 def save_report_rows(rows, download_path):
     temp_path = download_path.with_name(f".{download_path.stem}.tmp{download_path.suffix}")
-    archive_path = get_archive_path(download_path)
 
     download_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -436,9 +498,6 @@ def save_report_rows(rows, download_path):
 
     for attempt in range(1, 6):
         try:
-            if archive_path:
-                shutil.copy2(temp_path, archive_path)
-                log(f"Arsip tersimpan: {archive_path}")
             os.replace(temp_path, download_path)
             return
         except PermissionError:
@@ -447,6 +506,121 @@ def save_report_rows(rows, download_path):
                     f"Tidak bisa menulis {download_path}. Tutup file Excel tersebut jika sedang dibuka."
                 )
             time.sleep(2)
+
+
+def parse_report_date(value):
+    if value is None:
+        return None
+
+    text = str(value).strip()
+    if not text:
+        return None
+
+    candidates = (
+        "%d/%m/%Y",
+        "%d/%m/%Y %H:%M",
+        "%d/%m/%Y %H:%M:%S",
+        "%Y-%m-%d",
+        "%Y-%m-%d %H:%M",
+        "%Y-%m-%d %H:%M:%S",
+        "%d-%m-%Y",
+        "%d-%m-%Y %H:%M",
+        "%d-%m-%Y %H:%M:%S",
+        "%d.%m.%Y",
+        "%d.%m.%Y %H:%M",
+        "%d.%m.%Y %H:%M:%S",
+        "%Y/%m/%d",
+        "%Y/%m/%d %H:%M",
+        "%Y/%m/%d %H:%M:%S",
+    )
+
+    for pattern in candidates:
+        try:
+            return datetime.strptime(text, pattern).date()
+        except ValueError:
+            continue
+    return None
+
+
+def normalize_daily_qty(value):
+    return int(round(abs(parse_float(value))))
+
+
+def build_engage_daily_history(inflow_rows, outflow_rows):
+    daily = {}
+
+    def add_rows(rows, field_name):
+        for row in rows or []:
+            date_value = row.get("Date") or row.get("We_datum") or row.get("date")
+            report_date = parse_report_date(date_value)
+            if report_date is None:
+                continue
+
+            qty = normalize_daily_qty(row.get("Qty") or row.get("We_stck") or row.get("qty"))
+            key = report_date.isoformat()
+            bucket = daily.setdefault(
+                key,
+                {
+                    "date": key,
+                    "input_qty": 0,
+                    "output_qty": 0,
+                    "ready_qty": 0,
+                },
+            )
+            bucket[field_name] += qty
+
+    add_rows(inflow_rows, "input_qty")
+    add_rows(outflow_rows, "output_qty")
+
+    for bucket in daily.values():
+        bucket["ready_qty"] = int(bucket["input_qty"]) - int(bucket["output_qty"])
+
+    return [daily[key] for key in sorted(daily.keys())]
+
+
+def sync_engage_daily_history_to_mysql(history_rows):
+    if not history_rows:
+        log("History harian Engage kosong, skip sinkron ke MySQL.")
+        return True
+
+    helper_path = ROOT_DIR / "sync_engage_daily_history.php"
+    if not helper_path.is_file():
+        raise FileNotFoundError(f"Helper MySQL tidak ditemukan: {helper_path}")
+
+    payload = json.dumps(history_rows, ensure_ascii=False)
+    with tempfile.NamedTemporaryFile("w", delete=False, suffix=".json", encoding="utf-8") as temp_file:
+        temp_file.write(payload)
+        temp_path = temp_file.name
+
+    try:
+        result = subprocess.run(
+            ["php", str(helper_path), temp_path],
+            cwd=str(ROOT_DIR),
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+
+        if result.stdout:
+            for line in result.stdout.splitlines():
+                if line.strip():
+                    log(f"[MySQL] {line}")
+
+        if result.stderr:
+            for line in result.stderr.splitlines():
+                if line.strip():
+                    log(f"[MySQL ERR] {line}")
+
+        if result.returncode != 0:
+            raise RuntimeError(f"Sinkron MySQL gagal dengan exit code {result.returncode}")
+
+        return True
+    finally:
+        try:
+            os.remove(temp_path)
+        except OSError:
+            pass
 
 
 async def fetch_report_page(page, page_number, timeout_ms=600000):
@@ -588,6 +762,8 @@ async def fetch_report_rows(page, storage, date_from, date_to, direction):
 
 async def download_reports(reference_date=None, storage_filter=None, direction_filter=None):
     async with async_playwright() as p:
+        clean_download_folder()
+        downloaded_any = False
 
         browser = await p.chromium.launch(
             headless=True
@@ -621,11 +797,13 @@ async def download_reports(reference_date=None, storage_filter=None, direction_f
 
         log("Halaman report berhasil dibuka")
 
-        for period in get_month_periods(reference_date):
+        for period in get_month_periods(reference_date, months_back=3):
             date_from = format_report_date(period["date_from"])
             date_to = format_report_date(period["date_to"])
 
             log(f"Proses periode {period['label']}: {date_from} sampai {date_to}")
+            period_inflow_rows = []
+            period_outflow_rows = []
 
             for condition in conditions:
 
@@ -651,6 +829,12 @@ async def download_reports(reference_date=None, storage_filter=None, direction_f
                 rows = await fetch_report_rows(page, storage, date_from, date_to, direction)
                 log(f"Jumlah row export: {len(rows)}")
                 save_report_rows(rows, download_path)
+                downloaded_any = True
+
+                if filename in {"32_inflow.xlsx", "32a_inflow.xlsx"}:
+                    period_inflow_rows.extend(rows)
+                elif filename in {"32_outflow.xlsx", "32a_outflow.xlsx"}:
+                    period_outflow_rows.extend(rows)
 
                 log(f"Download berhasil: {download_path}")
 
@@ -658,7 +842,14 @@ async def download_reports(reference_date=None, storage_filter=None, direction_f
 
                 await asyncio.sleep(5)
 
+            daily_history = build_engage_daily_history(period_inflow_rows, period_outflow_rows)
+            log(f"Sinkron history harian {period['key']} -> {len(daily_history)} hari")
+            sync_engage_daily_history_to_mysql(daily_history)
+
         await browser.close()
+
+        if downloaded_any:
+            archive_download_folder()
 
 
 def run_async_job(coro):

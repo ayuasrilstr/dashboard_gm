@@ -86,6 +86,8 @@
         .sidebar-value{font-size:clamp(16px,1.2vw,22px);font-weight:900;color:var(--ink);padding-left:14px}
         .kpi{background:linear-gradient(180deg,#fff,#f6fafc);border:1px solid rgba(219,228,238,.95);border-radius:7px;padding:12px;color:var(--ink);box-shadow:var(--shadow)}
         .kpi span{display:block;font-size:clamp(12px,.82vw,15px);font-weight:850;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi strong{display:block;margin-top:7px;font-size:clamp(26px,1.92vw,36px);line-height:1;font-weight:900;color:var(--ink)}.kpi small{font-size:clamp(14px,1vw,19px);font-weight:850;color:var(--muted)}
+        .kpi-remaining-days{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(128,144,163,.35);display:grid;gap:2px}.kpi-remaining-days span{font-size:clamp(10px,.72vw,13px);font-weight:850;color:var(--muted);text-transform:none;white-space:normal;overflow:visible;text-overflow:clip}.kpi-remaining-days #remainingDays{display:inline-block;margin-top:0;font-size:clamp(16px,1.18vw,22px);font-weight:950;color:var(--brand)}
+
         .kpi.balance-detail{display:grid;grid-template-rows:auto minmax(0,1fr);gap:5px}.kpi-balance-list{min-height:0;display:grid;gap:2px;align-content:start}.kpi-balance-row{display:grid;grid-template-columns:minmax(70px,1fr) 8px minmax(54px,.8fr) 26px;gap:5px;align-items:center;color:var(--ink);font-size:clamp(12px,.84vw,16px);font-weight:750;line-height:1.08}.kpi-balance-row b{text-align:right;font-size:inherit}.kpi-balance-row small{color:var(--muted);font-size:clamp(10px,.7vw,13px);font-weight:750}
         .condition-card{padding:11px 16px;display:grid;grid-template-columns:182px 132px minmax(0,1fr) 110px;align-items:center;gap:14px;border-left:6px solid var(--brand)}.condition-card h2{margin:0;color:var(--muted);font-size:clamp(11px,.76vw,13px);font-weight:850;text-transform:uppercase;letter-spacing:.04em}.condition-level{display:inline-flex;align-items:center;justify-content:center;height:38px;border-radius:999px;font-size:clamp(17px,1.18vw,23px);font-weight:950;text-transform:uppercase}.condition-text{min-width:0;color:var(--ink);font-size:clamp(13px,.92vw,17px);font-weight:800;line-height:1.25}.condition-meta{justify-self:end;color:var(--muted);font-size:clamp(10px,.7vw,13px);font-weight:850;text-transform:uppercase;text-align:right}.condition-shortage{grid-column:4;justify-self:end;color:var(--muted);font-size:clamp(10px,.72vw,13px);font-weight:850;text-transform:uppercase;white-space:nowrap;text-align:right}.condition-shortage b{color:var(--ink);font-size:clamp(13px,.92vw,18px);font-weight:950}.condition-card.good{border-color:#bbf7d0;border-left-color:var(--ok);background:linear-gradient(90deg,#f4fff7 0,#fff 62%)}.condition-card.good .condition-level{background:#dcfce7;color:#166534}.condition-card.watch{border-color:#fde68a;border-left-color:var(--warn);background:linear-gradient(90deg,#fffbea 0,#fff 62%)}.condition-card.watch .condition-level{background:#fef3c7;color:#92400e}.condition-card.risk{border-color:#fecaca;border-left-color:var(--risk);background:linear-gradient(90deg,#fff5f5 0,#fff 62%)}.condition-card.risk .condition-level{background:#fee2e2;color:#991b1b}
         .condition-card.simple{grid-template-columns:220px 150px minmax(0,1fr) 130px}.condition-card.simple .condition-text{display:none}.condition-card.simple .condition-meta{display:none}
@@ -93,9 +95,9 @@
         .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 72px 10px 12px;min-width:0;box-shadow:0 8px 20px rgba(16,32,51,.04);position:relative;overflow:visible}.metric span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.metric strong{display:block;margin-top:6px;color:var(--ink);font-size:clamp(17px,1.36vw,26px);line-height:1;font-weight:900}.metric small{font-size:clamp(10px,.7vw,13px);color:var(--muted);font-weight:800}.metric.good{border-color:#bbf7d0;background:#f8fff9}.metric.watch{border-color:#fde68a;background:#fffdf1}.metric.risk{border-color:#fecaca;background:#fff8f8}.detail-btn{position:absolute;right:10px;bottom:9px;height:24px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--brand);font-size:10px;font-weight:850;text-transform:uppercase;padding:0 9px;cursor:pointer}.detail-btn:hover{border-color:var(--brand);background:#eef7fa}.summary-item{padding-right:72px}.summary-item .detail-btn{height:22px;right:9px;bottom:8px;font-size:9px;padding:0 8px}
         .insights{min-height:0;overflow:hidden;display:grid;grid-template-columns:1fr;gap:7px;align-content:start}.insight{display:grid;grid-template-columns:9px 1fr;gap:9px;align-items:start;min-width:0;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px}.badge{width:9px;height:9px;border-radius:999px;margin-top:5px;background:var(--brand)}.insight.good .badge,.accuracy-row.good .badge,.action-row.good .badge{background:var(--ok)}.insight.watch .badge,.accuracy-row.watch .badge,.action-row.watch .badge{background:var(--warn)}.insight.risk .badge,.accuracy-row.risk .badge,.action-row.risk .badge{background:var(--risk)}.insight b{display:block;color:var(--ink);font-size:clamp(12px,.82vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.insight p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.72vw,13px);line-height:1.28}
         .summary{padding:11px 14px;display:grid;grid-template-rows:auto auto auto auto;gap:9px}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}.summary-item{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 72px 8px 10px;position:relative;overflow:visible}.summary-item span{display:block;color:var(--muted);font-size:clamp(9px,.64vw,12px);font-weight:850;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.summary-item strong{display:block;margin-top:4px;color:var(--ink);font-size:clamp(15px,1vw,20px);font-weight:900}.accuracy-list{min-height:0;overflow:visible;display:grid;gap:7px;align-content:start}.accuracy-row{border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px;display:grid;grid-template-columns:9px 1fr;gap:9px;position:relative;overflow:visible}.accuracy-row b{display:block;color:var(--ink);font-size:clamp(11px,.74vw,13px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.accuracy-row p{margin:2px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.section-label{margin:0;color:var(--muted);font-size:clamp(10px,.68vw,13px);font-weight:850;text-transform:uppercase}.action-card{padding:11px 14px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:9px}.action-card h2{margin:0;color:var(--ink);font-size:clamp(13px,.92vw,17px);font-weight:850;text-transform:uppercase;letter-spacing:.02em}.action-list{min-height:0;overflow:visible;display:grid;gap:8px;align-content:start}.action-row{display:grid;grid-template-columns:9px 1fr;gap:9px;border:1px solid var(--grid);border-radius:8px;background:#fff;padding:8px 9px;position:relative;overflow:visible}.action-row b{display:block;color:var(--ink);font-size:clamp(11px,.76vw,14px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.action-row p{margin:3px 0 0;color:var(--muted);font-size:clamp(10px,.68vw,12px);line-height:1.24}.action-row p strong{color:var(--ink);font-weight:850}.action-row .cap-row{display:grid;grid-template-columns:88px 1fr;gap:4px;margin:2px 0 0;align-items:baseline}.action-row .cap-label{font-size:clamp(9px,.64vw,11px);font-weight:900;text-transform:uppercase;color:var(--brand);white-space:nowrap}.action-row .cap-label.penyebab{color:var(--warn)}.action-row .cap-label.pencegahan{color:var(--ok)}.action-row .cap-label.penanganan{color:var(--risk)}.action-row .cap-label.masalah{color:var(--muted)}.action-row .cap-val{font-size:clamp(10px,.68vw,12px);color:var(--ink);line-height:1.26}.hover-detail{display:none}
-        .priority{padding:11px 13px}.priority h2{margin-bottom:7px}.table-scroll{height:calc(100% - 27px);overflow:auto;border:1px solid var(--grid);border-radius:7px;background:#fff}table{width:100%;border-collapse:collapse;color:var(--ink);font-size:clamp(14px,.9vw,16px)}th{height:32px;color:var(--muted);font-size:clamp(11px,.76vw,14px);text-align:left;text-transform:uppercase;background:var(--surface-soft);font-weight:850}td{border-bottom:1px solid var(--grid);vertical-align:middle}tbody tr:nth-child(even){background:#fafcff}th:first-child,td:first-child{width:32px;text-align:right;padding-right:8px}.order{width:142px;white-space:nowrap;font-size:clamp(12px,.82vw,15px)}.style{width:150px;white-space:nowrap}.delivery{text-align:center;white-space:nowrap}.num{text-align:right;font-weight:850;white-space:nowrap}.unit{padding-left:5px;font-size:clamp(11px,.76vw,14px);color:var(--muted);font-weight:700}.priority table{height:100%}.priority tbody tr{height:10%}.priority-detail-row td{padding:0 10px 10px;border-bottom:1px solid var(--grid);background:transparent}.priority-detail{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:clamp(10px,.7vw,12px);color:var(--muted);font-weight:750;line-height:1.25}.priority-detail b{color:var(--ink);font-weight:900}
+        .priority{padding:16px 18px 18px}.priority-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.priority h2{margin:0;font-size:clamp(15px,1.05vw,20px);letter-spacing:.02em}.download-btn{height:34px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(180deg,#fff,#edf7fb);color:var(--brand);font-size:13px;font-weight:900;text-transform:uppercase;padding:0 14px;cursor:pointer;box-shadow:0 6px 14px rgba(16,32,51,.05)}.download-btn:hover{border-color:var(--brand);background:#eaf6fb}.list-order-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 14px;padding:0 2px}.list-order-stat{border:1px solid rgba(219,228,238,.95);border-radius:10px;background:linear-gradient(180deg,#fff,#f8fbfd);box-shadow:0 8px 20px rgba(16,32,51,.04);padding:12px 14px;display:grid;gap:6px;min-height:76px}.list-order-stat span{display:block;color:var(--muted);font-size:12px;font-weight:850;text-transform:uppercase;letter-spacing:.03em}.list-order-stat strong{display:block;color:var(--ink);font-size:clamp(22px,1.55vw,32px);line-height:1.02;font-weight:950;text-align:center}.list-order-stat small{display:block;color:var(--muted);font-size:11px;font-weight:750;text-align:center}.table-scroll{height:calc(100% - 104px);overflow:auto;border:1px solid var(--grid);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(16,32,51,.03)}table{width:100%;border-collapse:separate;border-spacing:0;color:var(--ink);font-size:clamp(16px,1.1vw,20px)}th{height:44px;color:var(--muted);font-size:clamp(13px,.92vw,16px);text-align:center;text-transform:uppercase;background:var(--surface-soft);font-weight:900;letter-spacing:.03em;position:sticky;top:0;z-index:2}td{border-bottom:1px solid var(--grid);vertical-align:middle;padding:12px 14px;line-height:1.15}tbody tr:nth-child(even){background:#fafcff}tbody tr:hover{background:#f4f9fc}th:first-child,td:first-child{width:48px;text-align:right;padding-right:12px}.order{width:190px;white-space:nowrap;font-size:clamp(14px,1vw,18px)}.style{width:210px;white-space:nowrap;font-size:clamp(14px,1vw,18px)}.delivery{text-align:center;white-space:nowrap;font-size:clamp(14px,.98vw,17px)}.num{text-align:center;font-weight:900;white-space:nowrap;font-size:clamp(14px,1vw,18px)}.unit{padding-left:5px;font-size:clamp(11px,.76vw,14px);color:var(--muted);font-weight:700}.priority table{height:100%}.priority tbody tr{height:10%}.priority-detail-row td{padding:0 10px 10px;border-bottom:1px solid var(--grid);background:transparent}.priority-detail{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:clamp(10px,.7vw,12px);color:var(--muted);font-weight:750;line-height:1.25}.priority-detail b{color:var(--ink);font-weight:900}
         .modal-backdrop{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:9999;display:none;align-items:flex-start;justify-content:center;padding:58px 18px 28px;background:rgba(16,32,51,.42)}.modal-backdrop.open{display:flex}.detail-modal{width:min(1080px,94vw);height:auto;max-height:calc(100vh - 96px);border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 28px 70px rgba(16,32,51,.28);display:grid;grid-template-rows:52px minmax(0,1fr)}.modal-head{height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;border-bottom:1px solid var(--grid)}.modal-head h3{margin:0;color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.modal-close{width:32px;height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-size:22px;line-height:1;cursor:pointer}.modal-body{min-height:0;max-height:calc(100vh - 148px);padding:14px;overflow:auto}.calc-note{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.calc-item{border:1px solid var(--grid);border-radius:8px;background:var(--surface-soft);padding:9px 10px;text-align:center}.calc-item span{display:block;color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase}.calc-item strong{display:block;margin-top:4px;color:var(--ink);font-size:15px;font-weight:900}.calc-formula{grid-column:1/-1;border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 10px;color:var(--muted);font-size:12px;font-weight:750;text-align:center}.detail-table{border:1px solid var(--grid);border-radius:8px;overflow:auto}.detail-table table{font-size:13px}.detail-table th,.detail-table td{padding:8px 10px;text-align:center}.detail-table th:first-child,.detail-table td:first-child{width:auto;text-align:center;padding-right:10px}.detail-table .num{text-align:center}.detail-empty{padding:18px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-weight:750;text-align:center}
-        .workday-modal{width:min(980px,94vw)}.calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.calendar-tools button{height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 12px;cursor:pointer}.calendar-month-title{color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.calendar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.calendar-summary-item{border:1px solid var(--grid);border-radius:7px;background:var(--surface-soft);padding:7px 8px}.calendar-summary-item span{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase}.calendar-summary-item b{display:block;margin-top:3px;color:var(--ink);font-size:15px;font-weight:900}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calendar-head{padding:6px 4px;color:var(--muted);font-size:11px;font-weight:900;text-align:center;text-transform:uppercase}.calendar-day{min-height:62px;border:1px solid var(--grid);border-radius:7px;background:#fff;color:var(--ink);display:grid;grid-template-rows:auto 1fr;align-items:start;padding:6px;text-align:left;cursor:pointer}.calendar-day b{font-size:13px}.calendar-day span{align-self:end;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase}.calendar-day.out{opacity:.38}.calendar-day.sunday{background:#fff7f7}.calendar-day.work{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.calendar-day.half{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.calendar-day.holiday{border-color:#fecaca;background:#fee2e2;color:#991b1b}.calendar-day.today{box-shadow:inset 0 0 0 2px var(--brand)}.calendar-day:disabled{cursor:not-allowed;opacity:.42;filter:saturate(.75)}.calendar-day.locked{background:#f8fafc;border-color:#e2e8f0;color:#94a3b8}.calendar-legend{display:flex;gap:12px;align-items:center;margin-top:10px;color:var(--muted);font-size:12px;font-weight:750}.calendar-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}.legend-work{background:#f0fdf4;border:1px solid #bbf7d0}.legend-half{background:#fff7ed;border:1px solid #fed7aa}.legend-off{background:#fee2e2;border:1px solid #fecaca}.legend-sunday{background:#fff7f7;border:1px solid var(--grid)}.calendar-help{margin-top:8px;color:var(--muted);font-size:12px;font-weight:750}.modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px}.modal-actions button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 14px;cursor:pointer}.modal-actions .primary{border-color:var(--brand);background:var(--brand);color:#fff}.workday-message{margin-right:auto;color:var(--muted);font-size:12px;font-weight:750}
+        .workday-modal{width:min(980px,94vw)}.calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.calendar-tools button{height:32px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 12px;cursor:pointer}.calendar-month-title{color:var(--ink);font-size:16px;font-weight:900;text-transform:uppercase}.calendar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}.calendar-summary-item{border:1px solid var(--grid);border-radius:7px;background:var(--surface-soft);padding:7px 8px}.calendar-summary-item span{display:block;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase}.calendar-summary-item b{display:block;margin-top:3px;color:var(--ink);font-size:15px;font-weight:900}.calendar-summary-item small{display:block;margin-top:3px;color:var(--muted);font-size:9px;font-weight:750}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calendar-head{padding:6px 4px;color:var(--muted);font-size:11px;font-weight:900;text-align:center;text-transform:uppercase}.calendar-day{min-height:62px;border:1px solid var(--grid);border-radius:7px;background:#fff;color:var(--ink);display:grid;grid-template-rows:auto 1fr;align-items:start;padding:6px;text-align:left;cursor:pointer}.calendar-day b{font-size:13px}.calendar-day span{align-self:end;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase}.calendar-day.out{opacity:.38}.calendar-day.sunday{background:#fff7f7}.calendar-day.work{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.calendar-day.half{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.calendar-day.holiday{border-color:#fecaca;background:#fee2e2;color:#991b1b}.calendar-day.today{box-shadow:inset 0 0 0 2px var(--brand)}.calendar-day.locked{background:#f8fafc;border-color:#e2e8f0;color:#94a3b8}.calendar-legend{display:flex;gap:12px;align-items:center;margin-top:10px;color:var(--muted);font-size:12px;font-weight:750}.calendar-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}.legend-work{background:#f0fdf4;border:1px solid #bbf7d0}.legend-half{background:#fff7ed;border:1px solid #fed7aa}.legend-off{background:#fee2e2;border:1px solid #fecaca}.legend-sunday{background:#fff7f7;border:1px solid var(--grid)}.calendar-help{margin-top:8px;color:var(--muted);font-size:12px;font-weight:750}.modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px}.modal-actions button{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);font-weight:850;padding:0 14px;cursor:pointer}.modal-actions .primary{border-color:var(--brand);background:var(--brand);color:#fff}.workday-message{margin-right:auto;color:var(--muted);font-size:12px;font-weight:750}
         @media (max-height: 820px){
             .page{padding:8px var(--tv-safe-x) var(--tv-safe-bottom);grid-template-rows:40px minmax(0,1fr);gap:8px}
             .top{gap:8px}.title,.menu{height:38px}.menu button{height:30px;padding:0 12px}
@@ -103,7 +105,7 @@
             .dashboard{gap:8px}.left{gap:8px}.top-charts{gap:8px}.right{grid-template-rows:132px minmax(0,1fr);gap:8px}
             .chart-box,.capacity,.priority{padding:9px 11px}.chart-title{margin-bottom:5px}.chart-area{padding-top:23px}.legend{margin-top:4px}
             .kpi{padding:9px 10px}.kpi strong{margin-top:6px;font-size:clamp(21px,1.65vw,30px)}.kpi.balance-detail{gap:5px}.kpi-balance-row{font-size:clamp(11px,.76vw,14px);grid-template-columns:minmax(64px,1fr) 9px minmax(46px,.75fr) 24px;gap:5px}
-            .priority h2{margin-bottom:5px}.table-scroll{height:calc(100% - 24px);overflow:auto}.priority tbody tr{height:auto}
+            .priority h2{margin-bottom:5px}.table-scroll{height:calc(100% - 28px);overflow:auto}.priority tbody tr{height:auto}
             .analytics-view{grid-template-rows:58px 112px minmax(0,1fr);gap:8px}.analytics-detail{height:calc(100vh - 226px);gap:8px}.analytics,.summary,.action-card{padding:9px 11px}
             .condition-card{padding:8px 12px;grid-template-columns:150px 116px minmax(0,1fr) 90px;gap:10px}.condition-card.simple{grid-template-columns:180px 116px minmax(0,1fr) 104px}.condition-level{height:32px}
             .metric-grid{gap:8px}.metric{padding:8px 66px 8px 10px}.metric strong{margin-top:4px;font-size:clamp(16px,1.18vw,22px)}.detail-btn{height:21px;right:8px;bottom:8px}
@@ -115,7 +117,7 @@
             :root{--tv-safe-x:24px;--tv-safe-bottom:40px}
             .chart-title,.analytics h2,.summary h2,.priority h2,.action-card h2{font-size:clamp(12px,.82vw,16px)}
             .kpi strong{font-size:clamp(21px,1.65vw,32px)}
-            table{font-size:clamp(12px,.78vw,15px)}
+            table{font-size:clamp(15px,1vw,19px)}
             .action-row p,.accuracy-row p,.insight p{font-size:clamp(9px,.62vw,11px)}
         }
         .login-modal{width:min(360px,92vw)}.login-fields{display:grid;gap:10px}.login-fields label{display:grid;gap:5px;color:var(--muted);font-size:12px;font-weight:850;text-transform:uppercase}.login-fields input{height:38px;border:1px solid var(--line);border-radius:7px;padding:0 10px;color:var(--ink);font-size:14px;font-weight:750;outline:none}.login-fields input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(11,111,150,.14)}.login-message{margin-right:auto;color:var(--risk);font-size:12px;font-weight:750}
@@ -152,6 +154,7 @@
         <nav class="menu" aria-label="Menu dashboard">
             <button type="button" class="active" data-view="dashboard" data-i18n="dashboard">Dashboard</button>
             <button type="button" data-view="analytic" data-i18n="analytic">Analytic</button>
+            <button type="button" data-view="listOrder" data-i18n="list_order">List Order</button>
         </nav>
         <div class="delivery-toggle" id="analyticsDeliveryToggle" aria-label="Jumlah delivery">
             <button type="button" data-delivery-count="2">2 Delivery</button>
@@ -189,11 +192,14 @@
         <section class="right">
             <div class="kpis">
                 <article class="kpi"><span data-i18n="total_output_label">Total Output :</span><strong><b id="totalOutput">-</b> <small data-i18n="pcs">Pcs</small></strong></article>
-                <article class="kpi"><span data-i18n="balance_qty_label">Balance Qty :</span><strong><b id="balanceQty">-</b> <small data-i18n="pcs">Pcs</small></strong></article>
+                <article class="kpi"><span data-i18n="balance_qty_label">Balance Qty :</span><strong><b id="balanceQty">-</b> <small data-i18n="pcs">Pcs</small></strong><div class="kpi-remaining-days"><span id="remainingDaysLabel">Remaining from today (4 Delivery)</span><strong><span id="remainingDays">-</span> <small data-i18n="days">Days</small></strong></div></article>
                 <article class="kpi balance-detail"><span data-i18n="qty_short_label">Qty Yang Kurang :</span><div class="kpi-balance-list" id="balanceBreakdown"></div></article>
             </div>
             <div class="box priority">
-                <h2 data-i18n="top_priority_title">Material To Load :</h2>
+                <div class="priority-header">
+                    <h2 data-i18n="top_priority_title">Material To Load :</h2>
+                    <button type="button" class="download-btn" onclick="downloadMaterialToLoad()">Download Excel</button>
+                </div>
                 <div class="table-scroll">
                     <table>
                         <thead><tr><th>No.</th><th>Order</th><th>Style</th><th data-i18n="delivery_date">Tgl. Delivery</th><th data-i18n="qty_ready">Qty Ready</th></tr></thead>
@@ -239,6 +245,32 @@
             <div class="box action-card">
                 <h2 data-i18n="prevention_handling">Prevention & Handling :</h2>
                 <div class="action-list" id="managementActions"></div>
+            </div>
+        </section>
+    </main>
+
+    <main class="view list-order-view" id="listOrderView">
+        <section class="box priority list-order">
+            <div class="priority-header">
+                <h2 data-i18n="list_order_title">List Order : <span id="listOrderPeriodLabel">-</span></h2>
+            </div>
+            <div class="list-order-summary" id="listOrderSummary"></div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th data-i18n="cost_center">Cost Centre</th>
+                            <th>Style</th>
+                            <th data-i18n="delivery_date">Tgl. Delivery</th>
+                            <th data-i18n="qty_pdk">Qty PDK</th>
+                            <th data-i18n="qty_out">Qty Out</th>
+                            <th data-i18n="qty_in">Qty In</th>
+                            <th data-i18n="qty_balance">Qty Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listOrderRows"></tbody>
+                </table>
             </div>
         </section>
     </main>
@@ -401,6 +433,7 @@ const urls = {
     calendarLogout: <?= json_encode($calendar_logout_url) ?>,
     run: <?= json_encode($run_url) ?>,
     download: <?= json_encode($download_url) ?>,
+    materialToLoadDownload: <?= json_encode($material_to_load_download_url) ?>,
     qtyHistory: <?= json_encode($qty_history_url) ?>
 };
 const initialDashboardPayload = <?= json_encode($initial_dashboard_payload ?? array(), JSON_UNESCAPED_UNICODE) ?>;
@@ -421,6 +454,7 @@ const analyticsText = {
         app_title: 'DASHBOARD HEAT TRANSFER',
         dashboard: 'Dashboard',
         analytic: 'Analytic',
+        list_order: 'List Order',
         production_calendar: 'Production Calendar',
         last_data: 'Latest Data',
         last_update: 'Last Update',
@@ -432,8 +466,12 @@ const analyticsText = {
         capacity_output_input_chart: 'CAPACITY vs OUTPUT vs INPUT',
         qty_pdk: 'QTY PDK',
         qty_out: 'QTY OUT',
+        qty_in: 'QTY IN',
+        qty_balance: 'QTY BALANCE',
         input: 'Input',
+        cost_center: 'Cost Centre',
         top_priority_title: 'Material To Load :',
+        list_order_title: 'List Order :',
         delivery_date: 'Delivery Date',
         qty_ready: 'Qty Ready',
         main_condition: 'Main Area Condition :',
@@ -606,6 +644,7 @@ const analyticsText = {
         app_title: 'DASHBOARD HEAT TRANSFER',
         dashboard: 'Dashboard',
         analytic: 'Analytic',
+        list_order: 'List Order',
         production_calendar: 'Production Calender',
         last_data: 'Data Terakhir',
         last_update: 'Last Update',
@@ -617,8 +656,12 @@ const analyticsText = {
         capacity_output_input_chart: 'KAPASITAS vs OUTPUT vs INPUT',
         qty_pdk: 'QTY PDK',
         qty_out: 'QTY OUT',
+        qty_in: 'QTY IN',
+        qty_balance: 'QTY BALANCE',
         input: 'Input',
+        cost_center: 'Cost Centre',
         top_priority_title: 'Material To Load :',
+        list_order_title: 'List Order :',
         delivery_date: 'Tgl. Delivery',
         qty_ready: 'Qty Ready',
         main_condition: 'Kondisi Utama Area :',
@@ -886,6 +929,63 @@ function numberValue(...values) {
     return 0;
 }
 
+function downloadMaterialToLoad() {
+    const rows = (currentDashboard?.material_to_load || currentDashboard?.top_priority_orders || []);
+    if (!rows.length) {
+        const url = `${urls.materialToLoadDownload}?delivery_count=${encodeURIComponent(selectedDeliveryCount)}`;
+        window.location.href = url;
+        return;
+    }
+
+    const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+    const fmtQty = (value) => new Intl.NumberFormat('id-ID', {maximumFractionDigits: 0}).format(Number(value) || 0);
+    const html = `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Material To Load</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#102033;}
+table{border-collapse:collapse;width:100%;}
+th,td{border:1px solid #dbe4ee;padding:6px 8px;}
+th{background:#176b87;color:#fff;text-align:left;}
+.num{text-align:right;}
+</style>
+</head>
+<body>
+<h2>Material To Load - ${selectedDeliveryCount} Delivery</h2>
+<div>Source: dashboard Heat Transfer</div>
+<br>
+<table>
+<thead><tr><th>No.</th><th>Order</th><th>Style</th><th>Item Nr</th><th>Tgl. Delivery</th><th class="num">Qty Ready</th><th>Source</th><th class="num">Qty PDK</th><th class="num">Qty Out APS</th><th class="num">Qty Out Engage</th></tr></thead>
+<tbody>
+${rows.map((row, index) => `
+<tr>
+<td class="num">${index + 1}.</td>
+<td>${esc(row.order)}</td>
+<td>${esc(row.style)}</td>
+<td>${esc(row.item || '-')}</td>
+<td>${esc(row.delivery)}</td>
+<td class="num">${fmtQty(row.qty_ready)}</td>
+<td>${esc(row.source || '-')}</td>
+<td class="num">${fmtQty(row.qty_pdk)}</td>
+<td class="num">${fmtQty(row.qty_out_aps)}</td>
+<td class="num">${fmtQty(row.qty_out_engage)}</td>
+</tr>`).join('')}
+</tbody>
+</table>
+</body>
+</html>`;
+    const blob = new Blob([html], {type: 'application/vnd.ms-excel;charset=utf-8'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `material_to_load_${new Date().toISOString().slice(0,19).replace(/[T:]/g, '')}.xls`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+
 function shortDelivery(value) {
     if (!value) return '';
     return String(value).replace(/\s+202\d$/, '').replace(/\s+/g, '-');
@@ -905,6 +1005,113 @@ function renderPriorityRows(rows) {
     document.getElementById('priorityRows').innerHTML = body || `
         <tr>
             <td colspan="5" style="padding:16px 10px;text-align:center;color:var(--muted);font-weight:750;">Tidak ada data CSDB.</td>
+        </tr>
+    `;
+}
+
+function activePeriodLabel() {
+    const analytics = currentDashboard?.management_analytics?.details || {};
+    const currentPeriod = analytics.output?.current_period || analytics.daily_requirement?.period_calendar || null;
+    return currentPeriod?.label || currentDashboard?.qty_pdk_vs_output?.[0]?.label || "";
+}
+
+function normalizePeriodLabel(value) {
+    return String(value || "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function matchesActivePeriod(row, periodLabel) {
+    if (periodLabel === "") return true;
+    const target = normalizePeriodLabel(periodLabel);
+    const candidates = [
+        row?.period,
+        row?.delivery,
+        row?.delivery_label,
+        row?.delivery_period,
+    ];
+
+    return candidates.some(value => normalizePeriodLabel(value) === target);
+}
+function pickNonEmptyRows(primary, fallback) {
+    if (Array.isArray(primary) && primary.length) {
+        return primary;
+    }
+
+    if (Array.isArray(fallback) && fallback.length) {
+        return fallback;
+    }
+
+    return [];
+}
+function renderListOrderRows(rows) {
+    const listRows = Array.isArray(rows) ? rows : [];
+    const periodLabelEl = document.getElementById('listOrderPeriodLabel');
+    const deliveryLabel = currentDashboard?.delivery_count ? `${Number(currentDashboard.delivery_count)} Delivery` : `${selectedDeliveryCount} Delivery`;
+    if (periodLabelEl) {
+        periodLabelEl.textContent = deliveryLabel;
+    }
+    const totals = listRows.reduce((acc, row) => {
+        const qtyPdk = Number(row.qty_pdk) || 0;
+        const qtyOut = Number(row.qty_out_aps ?? row.qty_out ?? 0) || 0;
+        const qtyIn = Number(row.qty_in ?? row.qty_ready ?? row.qty_out_engage ?? qtyPdk) || 0;
+        const qtyBalance = Number(row.qty_balance ?? row.balance ?? Math.max(0, qtyPdk - qtyOut)) || 0;
+        acc.qtyPdk += qtyPdk;
+        acc.qtyOut += qtyOut;
+        acc.qtyIn += qtyIn;
+        acc.qtyBalance += qtyBalance;
+        return acc;
+    }, {qtyPdk: 0, qtyOut: 0, qtyIn: 0, qtyBalance: 0});
+
+    const summaryEl = document.getElementById('listOrderSummary');
+    if (summaryEl) {
+        summaryEl.innerHTML = `
+            <div class="list-order-stat">
+                <span>Total QTY PDK</span>
+                <strong>${fmt(Math.round(totals.qtyPdk))}</strong>
+                <small>Pcs</small>
+            </div>
+            <div class="list-order-stat">
+                <span>Total QTY OUT</span>
+                <strong>${fmt(Math.round(totals.qtyOut))}</strong>
+                <small>Pcs</small>
+            </div>
+            <div class="list-order-stat">
+                <span>Total QTY IN</span>
+                <strong>${fmt(Math.round(totals.qtyIn))}</strong>
+                <small>Pcs</small>
+            </div>
+            <div class="list-order-stat">
+                <span>Total QTY BALANCE</span>
+                <strong>${fmt(Math.round(totals.qtyBalance))}</strong>
+                <small>Pcs</small>
+            </div>
+        `;
+    }
+
+    const body = listRows.map((row, index) => {
+        const costCenter = row.cost_center || row.cost_centre || row.order || '-';
+        const deliveryLabel = row.delivery || shortDelivery(row.delivery) || '-';
+        const qtyPdk = Number(row.qty_pdk) || 0;
+        const qtyOut = Number(row.qty_out_aps ?? row.qty_out ?? 0) || 0;
+        const qtyIn = Number(row.qty_in ?? row.qty_ready ?? row.qty_out_engage ?? qtyPdk) || 0;
+        const qtyBalance = Number(row.qty_balance ?? row.balance ?? Math.max(0, qtyPdk - qtyOut)) || 0;
+
+        return `
+        <tr>
+            <td>${index + 1}.</td>
+            <td class="cost-center">${esc(costCenter)}</td>
+            <td class="style">${esc(row.style)}</td>
+            <td class="delivery">${esc(deliveryLabel)}</td>
+            <td class="num">${fmt(Math.round(qtyPdk))}</td>
+            <td class="num">${fmt(Math.round(qtyOut))}</td>
+            <td class="num qty-in">${fmt(Math.round(qtyIn))}</td>
+            <td class="num qty-balance">${fmt(Math.round(qtyBalance))}</td>
+        </tr>
+    `;
+    }).join('');
+
+    document.getElementById('listOrderRows').innerHTML = body || `
+        <tr>
+            <td colspan="8" style="padding:22px 10px;text-align:center;color:var(--muted);font-weight:750;">Tidak ada data list order.</td>
         </tr>
     `;
 }
@@ -1876,6 +2083,18 @@ function renderBalanceBreakdown(rows) {
     `).join('') : `<div class="db-last-empty">${esc(text('no_short_qty'))}</div>`;
 }
 
+function renderRemainingDays(dashboard) {
+    const remainingDays = numberValue(dashboard?.kpis?.prod_days_left);
+    const label = document.getElementById('remainingDaysLabel');
+    const value = document.getElementById('remainingDays');
+    if (label) {
+        label.textContent = `Remaining from today (${selectedDeliveryCount} Delivery)`;
+    }
+    if (value) {
+        value.textContent = fmt(remainingDays);
+    }
+}
+
 function calendarPeriods() {
     const dashboard = currentDashboard || {};
     const periods = dashboard.qty_pdk_vs_output || [];
@@ -1945,6 +2164,13 @@ function calendarWorkdaysForLabel(label) {
     return total;
 }
 
+function calendarEffectiveWorkdays(item) {
+    const totalWorkdays = calendarWorkdaysForLabel(item?.label);
+    const exportBuffer = Math.max(0, numberValue(item?.export_prep_days) || 4);
+    const rawTotal = totalWorkdays ?? numberValue(item?.total_workdays);
+    return Math.max(0, rawTotal - exportBuffer);
+}
+
 function renderCalendar() {
     const monthStart = new Date(calendarCursor.getFullYear(), calendarCursor.getMonth(), 1);
     const first = new Date(monthStart);
@@ -1960,7 +2186,6 @@ function renderCalendar() {
         const date = new Date(first);
         date.setDate(first.getDate() + i);
         const iso = isoDate(date);
-        const isPast = iso < today;
         const isCurrentMonth = date.getMonth() === monthStart.getMonth();
         const isSunday = date.getDay() === 0;
         const isHoliday = selectedHolidays.has(iso);
@@ -1969,7 +2194,7 @@ function renderCalendar() {
         const isWork = selectedWorkDays.has(iso);
         const label = isHoliday ? text('holiday') : (isQuarter ? text('quarter_day') : (isHalf ? text('half_day') : (isWork ? text('workday') : (isSunday ? text('sunday_off') : text('workday')))));
         cells.push(`
-            <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isQuarter ? 'quarter' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''} ${isPast ? 'locked' : ''}" data-date="${iso}" ${isPast ? 'disabled aria-disabled="true"' : ''}>
+            <button type="button" class="calendar-day ${isCurrentMonth ? '' : 'out'} ${isSunday ? 'sunday' : ''} ${isWork ? 'work' : ''} ${isHalf ? 'half' : ''} ${isQuarter ? 'quarter' : ''} ${isHoliday ? 'holiday' : ''} ${iso === today ? 'today' : ''}" data-date="${iso}">
                 <b>${date.getDate()}</b>
                 <span>${label}</span>
             </button>
@@ -1981,7 +2206,6 @@ function renderCalendar() {
     document.getElementById('calendarRows').innerHTML = dayNames.map(day => `<div class="calendar-head">${day}</div>`).join('') + cells.join('');
     document.querySelectorAll('#calendarRows .calendar-day').forEach(button => {
         button.addEventListener('click', () => {
-            if (button.disabled) return;
             const date = button.dataset.date;
             cycleCalendarDay(date);
             renderCalendar();
@@ -1994,15 +2218,13 @@ function renderCalendarSummary() {
     document.getElementById('calendarSummary').innerHTML = items.length ? items.slice(0, 4).map(item => `
         <div class="calendar-summary-item">
             <span>${esc(item.label)}</span>
-            <b>${fmt(calendarWorkdaysForLabel(item.label) ?? item.total_workdays)} ${esc(text('days'))}</b>
+            <b>${fmt(calendarEffectiveWorkdays(item))} ${esc(text('days'))}</b>
+            <small>Setelah buffer export: ${fmt(Math.max(0, numberValue(item.export_prep_days) || 4))} ${esc(text('days').toLowerCase())}</small>
         </div>
     `).join('') : '';
 }
 
 function cycleCalendarDay(date) {
-    if (date < isoDate(new Date())) {
-        return;
-    }
     const day = new Date(`${date}T00:00:00`).getDay();
     const isSunday = day === 0;
     const isHoliday = selectedHolidays.has(date);
@@ -2016,24 +2238,20 @@ function cycleCalendarDay(date) {
     selectedWorkDays.delete(date);
 
     if (isSunday) {
-        if (!isWork && !isHalf && !isQuarter && !isHoliday) {
-            selectedWorkDays.add(date);
-        } else if (isWork) {
-            selectedHalfDays.add(date);
-        } else if (isHalf) {
-            selectedQuarterDays.add(date);
-        } else if (isQuarter) {
-            selectedHolidays.add(date);
-        }
+        selectedWorkDays.add(date);
         return;
     }
 
-    if (!isHalf && !isQuarter && !isHoliday) {
+    if (isHoliday) {
         selectedHalfDays.add(date);
     } else if (isHalf) {
         selectedQuarterDays.add(date);
     } else if (isQuarter) {
+        selectedWorkDays.add(date);
+    } else if (isWork) {
         selectedHolidays.add(date);
+    } else {
+        selectedHalfDays.add(date);
     }
 }
 
@@ -2177,6 +2395,7 @@ function setActiveView(name) {
     document.querySelectorAll('.menu button').forEach(button => button.classList.toggle('active', button.dataset.view === name));
     document.getElementById('dashboardView').classList.toggle('active', name === 'dashboard');
     document.getElementById('analyticView').classList.toggle('active', name === 'analytic');
+    document.getElementById('listOrderView').classList.toggle('active', name === 'listOrder');
 
     if (name === 'dashboard' && currentDashboard) {
         renderDashboardCharts(currentDashboard);
@@ -2205,6 +2424,7 @@ function render(data) {
     document.getElementById('totalOutput').textContent = fmt(Math.round(numberValue(dashboard.kpis?.total_output)));
     document.getElementById('balanceQty').textContent = fmt(Math.round(balanceQty));
     renderBalanceBreakdown(dashboard.balance_breakdown || dashboard.qty_pdk_vs_output);
+    renderRemainingDays(dashboard);
 
     if (document.getElementById('dashboardView').classList.contains('active')) {
         renderDashboardCharts(dashboard);
@@ -2212,6 +2432,7 @@ function render(data) {
     renderAnalytics(dashboard.management_analytics);
 
     renderPriorityRows(dashboard.material_to_load || dashboard.top_priority_orders || []);
+    renderListOrderRows(pickNonEmptyRows(dashboard.list_orders, dashboard.top_priority_orders));
 }
 
 function refreshLanguage() {
@@ -2222,6 +2443,7 @@ function refreshLanguage() {
     document.getElementById('lastUpdate').textContent = `*${text('last_update')} : ${latestCapacity.label || '-'}`;
     renderLastUpdateList(currentDashboard);
     renderBalanceBreakdown(currentDashboard.balance_breakdown || currentDashboard.qty_pdk_vs_output);
+    renderRemainingDays(currentDashboard);
     if (document.getElementById('dashboardView').classList.contains('active')) {
         renderDashboardCharts(currentDashboard);
     }
@@ -2232,6 +2454,7 @@ function refreshLanguage() {
         renderAnalytics(currentDashboard.management_analytics);
     }
     renderPriorityRows(currentDashboard.material_to_load || currentDashboard.top_priority_orders || []);
+    renderListOrderRows(pickNonEmptyRows(currentDashboard.list_orders, currentDashboard.top_priority_orders));
 }
 
 async function loadStatus() {
@@ -2532,3 +2755,16 @@ setInterval(loadStatus, 60 * 60 * 1000);
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

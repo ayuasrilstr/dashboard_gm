@@ -5,12 +5,15 @@ import argparse
 import asyncio
 import json
 import os
+import shutil
+import time
 from datetime import datetime
 
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_CONFIG = ROOT / "config.json"
 DEFAULT_ENV = ROOT / ".env"
+ARCHIVE_DIR = ROOT / "archive"
 
 
 def load_env():
@@ -63,6 +66,49 @@ async def persist_download(download, target):
             if attempt == 5:
                 raise PermissionError(f"Tidak bisa menulis {target}. Tutup file Excel tersebut jika sedang dibuka.")
             await asyncio.sleep(2)
+
+
+def archive_stale_download(download_path):
+    if not download_path.is_file():
+        return False
+
+    file_date = datetime.fromtimestamp(download_path.stat().st_mtime).date()
+    today = datetime.now().date()
+    if file_date >= today:
+        return False
+
+    for attempt in range(1, 6):
+        try:
+            archive_dir = ARCHIVE_DIR / file_date.strftime("%Y-%m")
+            archive_dir.mkdir(parents=True, exist_ok=True)
+            archive_path = archive_dir / f"{file_date:%Y-%m-%d}_{download_path.name}"
+            if archive_path.exists():
+                archive_path.unlink()
+            shutil.move(str(download_path), str(archive_path))
+            log(f"File diarsipkan: {archive_path}")
+            return True
+        except PermissionError:
+            if attempt == 5:
+                log(f"Gagal memindah file lama ke archive karena masih dipakai: {download_path}")
+                return False
+            time.sleep(2)
+
+    return False
+
+
+def archive_download_folder(downloads_dir):
+    if not downloads_dir.exists():
+        return []
+
+    archived = []
+    for path in downloads_dir.iterdir():
+        if not path.is_file():
+            continue
+        if path.suffix.lower() not in {".xlsx", ".xls", ".csv", ".html"}:
+            continue
+        if archive_stale_download(path):
+            archived.append(path)
+    return archived
 
 
 def env_value(name):
@@ -184,6 +230,10 @@ async def run(config, headless=False):
         finally:
             await context.close()
             await browser.close()
+
+    archived = archive_download_folder(downloads)
+    if not archived:
+        log("Tidak ada file lama yang diarsipkan.")
 
 
 def check_config(config):
