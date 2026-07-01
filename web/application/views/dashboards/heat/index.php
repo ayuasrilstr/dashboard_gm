@@ -157,8 +157,9 @@
             <button type="button" data-view="listOrder" data-i18n="list_order">List Order</button>
         </nav>
         <div class="delivery-toggle" id="analyticsDeliveryToggle" aria-label="Jumlah delivery">
+            <button type="button" class="active" data-delivery-count="1">1 Delivery</button>
             <button type="button" data-delivery-count="2">2 Delivery</button>
-            <button type="button" class="active" data-delivery-count="4">4 Delivery</button>
+            <button type="button" data-delivery-count="4">4 Delivery</button>
         </div>
         <div class="last-update" id="lastUpdateBox">
             <button type="button" id="lastUpdate">*Last Update : -</button>
@@ -192,7 +193,7 @@
         <section class="right">
             <div class="kpis">
                 <article class="kpi"><span data-i18n="total_output_label">Total Output :</span><strong><b id="totalOutput">-</b> <small data-i18n="pcs">Pcs</small></strong></article>
-                <article class="kpi"><span data-i18n="balance_qty_label">Balance Qty :</span><strong><b id="balanceQty">-</b> <small data-i18n="pcs">Pcs</small></strong><div class="kpi-remaining-days"><span id="remainingDaysLabel">Remaining from today (4 Delivery)</span><strong><span id="remainingDays">-</span> <small data-i18n="days">Days</small></strong></div></article>
+                <article class="kpi"><span data-i18n="balance_qty_label">Balance Qty :</span><strong><b id="balanceQty">-</b> <small data-i18n="pcs">Pcs</small></strong><div class="kpi-remaining-days"><span id="remainingDaysLabel">Remaining from today (1 Delivery)</span><strong><span id="remainingDays">-</span> <small data-i18n="days">Days</small></strong></div></article>
                 <article class="kpi balance-detail"><span data-i18n="qty_short_label">Qty Yang Kurang :</span><div class="kpi-balance-list" id="balanceBreakdown"></div></article>
             </div>
             <div class="box priority">
@@ -264,8 +265,8 @@
                             <th>Style</th>
                             <th data-i18n="delivery_date">Tgl. Delivery</th>
                             <th data-i18n="qty_pdk">Qty PDK</th>
-                            <th data-i18n="qty_out">Qty Out</th>
                             <th data-i18n="qty_in">Qty In</th>
+                            <th data-i18n="qty_out">Qty Out</th>
                             <th data-i18n="qty_balance">Qty Balance</th>
                         </tr>
                     </thead>
@@ -437,7 +438,8 @@ const urls = {
     qtyHistory: <?= json_encode($qty_history_url) ?>
 };
 const initialDashboardPayload = <?= json_encode($initial_dashboard_payload ?? array(), JSON_UNESCAPED_UNICODE) ?>;
-const initialDeliveryCount = Number(<?= json_encode($initial_delivery_count ?? 4) ?>) === 2 ? 2 : 4;
+const initialDeliveryCountValue = Number(<?= json_encode($initial_delivery_count ?? 1) ?>);
+const initialDeliveryCount = [1, 2, 4].includes(initialDeliveryCountValue) ? initialDeliveryCountValue : 1;
 const featureVisibility = {
     criticalOrders: false,
     internalAnalytics: false
@@ -908,10 +910,8 @@ let selectedQuarterDays = new Set();
 let selectedWorkDays = new Set();
 let calendarAuthenticated = false;
 let pendingLoginAction = null;
-let selectedDeliveryCount = Number(localStorage.getItem('heatDeliveryCount')) === 4 ? 4 : 2;
-if (localStorage.getItem('heatDeliveryCount') === null) {
-    selectedDeliveryCount = initialDeliveryCount;
-}
+const storedDeliveryCount = Number(localStorage.getItem('heatDeliveryCount'));
+let selectedDeliveryCount = [1, 2, 4].includes(storedDeliveryCount) ? storedDeliveryCount : initialDeliveryCount;
 
 function floorDecimal(value, decimals) {
     const factor = Math.pow(10, decimals);
@@ -1051,8 +1051,8 @@ function renderListOrderRows(rows) {
     }
     const totals = listRows.reduce((acc, row) => {
         const qtyPdk = Number(row.qty_pdk) || 0;
-        const qtyOut = Number(row.qty_out_aps ?? row.qty_out ?? 0) || 0;
         const qtyIn = Number(row.qty_in ?? row.qty_ready ?? row.qty_out_engage ?? qtyPdk) || 0;
+        const qtyOut = Number(row.qty_out ?? row.qty_out_aps ?? 0) || 0;
         const qtyBalance = Number(row.qty_balance ?? row.balance ?? Math.max(0, qtyPdk - qtyOut)) || 0;
         acc.qtyPdk += qtyPdk;
         acc.qtyOut += qtyOut;
@@ -1070,13 +1070,13 @@ function renderListOrderRows(rows) {
                 <small>Pcs</small>
             </div>
             <div class="list-order-stat">
-                <span>Total QTY OUT</span>
-                <strong>${fmt(Math.round(totals.qtyOut))}</strong>
+                <span>Total QTY IN</span>
+                <strong>${fmt(Math.round(totals.qtyIn))}</strong>
                 <small>Pcs</small>
             </div>
             <div class="list-order-stat">
-                <span>Total QTY IN</span>
-                <strong>${fmt(Math.round(totals.qtyIn))}</strong>
+                <span>Total QTY OUT</span>
+                <strong>${fmt(Math.round(totals.qtyOut))}</strong>
                 <small>Pcs</small>
             </div>
             <div class="list-order-stat">
@@ -1091,8 +1091,8 @@ function renderListOrderRows(rows) {
         const costCenter = row.cost_center || row.cost_centre || row.order || '-';
         const deliveryLabel = row.delivery || shortDelivery(row.delivery) || '-';
         const qtyPdk = Number(row.qty_pdk) || 0;
-        const qtyOut = Number(row.qty_out_aps ?? row.qty_out ?? 0) || 0;
         const qtyIn = Number(row.qty_in ?? row.qty_ready ?? row.qty_out_engage ?? qtyPdk) || 0;
+        const qtyOut = Number(row.qty_out ?? row.qty_out_aps ?? 0) || 0;
         const qtyBalance = Number(row.qty_balance ?? row.balance ?? Math.max(0, qtyPdk - qtyOut)) || 0;
 
         return `
@@ -1102,8 +1102,8 @@ function renderListOrderRows(rows) {
             <td class="style">${esc(row.style)}</td>
             <td class="delivery">${esc(deliveryLabel)}</td>
             <td class="num">${fmt(Math.round(qtyPdk))}</td>
-            <td class="num">${fmt(Math.round(qtyOut))}</td>
             <td class="num qty-in">${fmt(Math.round(qtyIn))}</td>
+            <td class="num">${fmt(Math.round(qtyOut))}</td>
             <td class="num qty-balance">${fmt(Math.round(qtyBalance))}</td>
         </tr>
     `;
@@ -2483,11 +2483,20 @@ document.querySelectorAll('[data-analytics-lang]').forEach(button => {
 
 document.querySelectorAll('#analyticsDeliveryToggle button').forEach(button => {
     button.addEventListener('click', async () => {
-        selectedDeliveryCount = Number(button.dataset.deliveryCount) === 2 ? 2 : 4;
+        const deliveryCount = Number(button.dataset.deliveryCount);
+
+        // Hanya izinkan 1, 2, atau 4
+        selectedDeliveryCount = [1, 2, 4].includes(deliveryCount) ? deliveryCount : 4;
+
         localStorage.setItem('heatDeliveryCount', selectedDeliveryCount);
         document.cookie = `heatDeliveryCount=${selectedDeliveryCount}; path=/; max-age=31536000`;
+
         renderDeliveryToggle();
-        if (selectedDeliveryCount === initialDeliveryCount && initialDashboardPayload?.dashboard_data) {
+
+        if (
+            selectedDeliveryCount === initialDeliveryCount &&
+            initialDashboardPayload?.dashboard_data
+        ) {
             render(initialDashboardPayload);
         } else {
             await loadStatus();

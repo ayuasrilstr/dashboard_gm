@@ -1766,7 +1766,7 @@ class Dashboard_model extends CI_Model
             $this->summarize_engage_rows_by_order($outflow_32, $this->engage_filter_rules_32(), $selected_order_whitelist),
             $this->summarize_engage_rows_by_order($outflow_32a, $this->engage_filter_rules_32a(), $selected_order_whitelist),
         ));
-        $list_orders = $this->build_list_orders_from_rpa($ready_by_order, $orders, $out_summary['orders'], $selected_qty_pdk_vs_output);
+        $list_orders = $this->build_list_orders_from_rpa($ready_by_order, $orders, $out_summary['orders'], $selected_qty_pdk_vs_output, $in_summary_32a['orders']);
         // Grafik: output/input dari Engage. Kapasitas dari riwayat harian (snapshot) untuk hari lampau.
         $output_vs_capacity = $this->build_output_vs_capacity_from_engage_daily(
             $out_summary['daily'],
@@ -1798,7 +1798,8 @@ class Dashboard_model extends CI_Model
 
     private function normalize_delivery_count($delivery_count)
     {
-        return (int) $delivery_count === 2 ? 2 : 4;
+        $delivery_count = (int) $delivery_count;
+        return in_array($delivery_count, array(1, 2, 4), TRUE) ? $delivery_count : 4;
     }
 
     private function normalize_order_number($value)
@@ -2853,7 +2854,7 @@ class Dashboard_model extends CI_Model
         return $periods;
     }
 
-    private function build_list_orders_from_rpa($ready_by_order, $orders, $out_orders, $selected_qty_pdk_vs_output)
+    private function build_list_orders_from_rpa($ready_by_order, $orders, $out_orders, $selected_qty_pdk_vs_output, $qty_in_by_order = NULL)
     {
         $active_periods = $this->selected_period_whitelist($selected_qty_pdk_vs_output);
         $active_label = $this->heat_active_period_label($selected_qty_pdk_vs_output);
@@ -2871,7 +2872,14 @@ class Dashboard_model extends CI_Model
             $qty_pdk = isset($order_data['qty_pdk']) ? (int) $order_data['qty_pdk'] : 0;
             $qty_out_aps = isset($order_data['qty_out_aps']) ? (int) $order_data['qty_out_aps'] : 0;
             $qty_out_engage = isset($out_orders[$order]) && isset($out_orders[$order]['qty']) ? (int) $out_orders[$order]['qty'] : 0;
-            $qty_in = isset($ready['qty']) ? (int) $ready['qty'] : 0;
+            $qty_in = 0;
+            if (is_array($qty_in_by_order) && isset($qty_in_by_order[$order])) {
+                $qty_in = is_array($qty_in_by_order[$order])
+                    ? (int) (isset($qty_in_by_order[$order]['qty']) ? $qty_in_by_order[$order]['qty'] : 0)
+                    : (int) $qty_in_by_order[$order];
+            } elseif (isset($ready['qty'])) {
+                $qty_in = (int) $ready['qty'];
+            }
             $delivery = isset($order_data['delivery']) ? $order_data['delivery'] : (isset($ready['delivery']) ? $ready['delivery'] : '');
 
             $items[] = array(
@@ -2891,7 +2899,7 @@ class Dashboard_model extends CI_Model
                 'source' => 'rpa',
                 '_sort_delivery' => $this->parse_date_timestamp($delivery),
                 '_sort_balance' => max(0, $qty_pdk - $qty_out_aps),
-                '_sort_priority' => (($this->parse_date_timestamp($delivery) > 0 && $this->parse_date_timestamp($delivery) < $today_start && max(0, $qty_pdk - $qty_out_aps) <= 0) ? 1 : 0),
+                '_sort_priority' => (max(0, $qty_pdk - $qty_out_aps) <= 0 ? 1 : 0),
             );
         }
 
@@ -2956,11 +2964,11 @@ class Dashboard_model extends CI_Model
                 'qty_out' => $qty_out_aps,
                 'qty_out_aps' => $qty_out_aps,
                 'qty_out_engage' => isset($engage_output[$order]) ? (int) $engage_output[$order] : 0,
-                'qty_balance' => $sort_balance,
+                'qty_balance' => max(0, $qty_pdk - $qty_out_aps),
                 'source' => 'source',
                 '_sort_delivery' => $sort_delivery,
-                '_sort_balance' => $sort_balance,
-                '_sort_priority' => (($sort_delivery > 0 && $sort_delivery < $today_start && $sort_balance <= 0) ? 1 : 0),
+                '_sort_balance' => max(0, $qty_pdk - $qty_out_aps),
+                '_sort_priority' => (max(0, $qty_pdk - $qty_out_aps) <= 0 ? 1 : 0),
             );
         }
 

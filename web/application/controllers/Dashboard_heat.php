@@ -17,7 +17,8 @@ class Dashboard_heat extends Dashboard_base
     public function index()
     {
         $calendar_authenticated = $this->calendar_authenticated();
-        $selected_delivery_count = isset($_COOKIE['heatDeliveryCount']) && (int) $_COOKIE['heatDeliveryCount'] === 2 ? 2 : 4;
+        $cookie_delivery_count = isset($_COOKIE['heatDeliveryCount']) ? (int) $_COOKIE['heatDeliveryCount'] : 1;
+        $selected_delivery_count = in_array($cookie_delivery_count, array(1, 2, 4), TRUE) ? $cookie_delivery_count : 1;
         $this->load->view('dashboards/heat/index', array(
             'title' => 'Dashboard Heat Transfer',
             'status_url' => site_url('dashboard_heat/api/status'),
@@ -180,7 +181,7 @@ class Dashboard_heat extends Dashboard_base
     public function download_material_to_load()
     {
         $delivery_count = (int) $this->input->get('delivery_count', TRUE);
-        $delivery_count = ($delivery_count === 2) ? 2 : 4;
+        $delivery_count = in_array($delivery_count, array(1, 2, 4), TRUE) ? $delivery_count : 4;
         $dashboard = $this->dashboard->get_heat_dashboard_data($delivery_count);
 
         if (empty($dashboard['available'])) {
@@ -211,7 +212,7 @@ class Dashboard_heat extends Dashboard_base
 
     private function build_material_to_load_export(array $rows, $delivery_count)
     {
-        $title = 'Material To Load - ' . ($delivery_count === 2 ? '2 Delivery' : '4 Delivery');
+        $title = 'Material To Load - ' . (in_array((int) $delivery_count, array(1, 2, 4), TRUE) ? (int) $delivery_count : 4) . ' Delivery';
         $generated_at = date('Y-m-d H:i:s');
 
         $html = array();
