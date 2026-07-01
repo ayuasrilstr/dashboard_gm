@@ -1772,7 +1772,8 @@ class Dashboard_model extends CI_Model
             $out_summary['daily'],
             $selected_qty_pdk_vs_output,
             $in_summary['daily'],
-            $out_summary_scoped['daily']
+            $out_summary_scoped['daily'],
+            $qty_pdk_vs_output
         );
 
         return array(
@@ -2048,7 +2049,7 @@ class Dashboard_model extends CI_Model
         return $orders;
     }
 
-    private function build_output_vs_capacity_from_engage_daily($engage_daily_output, $qty_rows, $engage_daily_input = array(), $engage_daily_for_balance = array())
+    private function build_output_vs_capacity_from_engage_daily($engage_daily_output, $qty_rows, $engage_daily_input = array(), $engage_daily_for_balance = array(), $historical_qty_rows = NULL)
     {
         ksort($engage_daily_output);
         $latest_output_day = $engage_daily_output ? max(array_keys($engage_daily_output)) : date('Y-m-d');
@@ -2064,32 +2065,38 @@ class Dashboard_model extends CI_Model
             $cursor = strtotime('-1 day', $cursor);
         }
 
-        $period_end = $this->selected_delivery_period_end($qty_rows);
-        $delivery_count = $this->active_delivery_count($qty_rows);
-        $capacity_history = $this->read_heat_capacity_history($delivery_count);
-        $capacity_history_changed = FALSE;
+        $selected_qty_rows = is_array($qty_rows) ? $qty_rows : array();
+        $historical_qty_rows = is_array($historical_qty_rows) && $historical_qty_rows ? $historical_qty_rows : $selected_qty_rows;
+        $selected_delivery_count = $this->active_delivery_count($selected_qty_rows);
+        $selected_capacity_history = $this->read_heat_capacity_history($selected_delivery_count);
+        $historical_capacity_history = $this->read_heat_capacity_history($selected_delivery_count);
+        $selected_capacity_history_changed = FALSE;
         $items = array();
-        $balance_reference_daily = $engage_daily_for_balance ? $engage_daily_for_balance : $engage_daily_output;
+        $selected_balance_reference_daily = $engage_daily_for_balance ? $engage_daily_for_balance : $engage_daily_output;
         $today = date('Y-m-d');
 
         foreach ($days as $day) {
-            if ($day < $today && isset($capacity_history[$day])) {
-                $snapshot = $capacity_history[$day];
-            } else {
-                $balance_day = $day;
-                $balance_qty = $this->balance_qty_for_capacity_day($balance_day, $qty_rows, $balance_reference_daily);
-
-                $capacity_detail = $this->capacity_from_delivery_aggregate($balance_qty, $day, $period_end, $qty_rows);
-                $snapshot = $this->capacity_snapshot_entry($capacity_detail, $balance_day, $delivery_count);
-
-                if ($day < $today) {
-                    if (!isset($capacity_history[$day])) {
-                        $capacity_history[$day] = $snapshot;
-                        $capacity_history_changed = TRUE;
-                    }
+            if ($day === $today) {
+                if (isset($selected_capacity_history[$day])) {
+                    $snapshot = $selected_capacity_history[$day];
                 } else {
-                    $capacity_history[$day] = $snapshot;
-                    $capacity_history_changed = TRUE;
+                    $balance_day = $day;
+                    $balance_qty = $this->balance_qty_for_capacity_day($balance_day, $selected_qty_rows, $selected_balance_reference_daily);
+
+                    $capacity_detail = $this->capacity_from_delivery_aggregate($balance_qty, $day, $this->selected_delivery_period_end($selected_qty_rows), $selected_qty_rows);
+                    $snapshot = $this->capacity_snapshot_entry($capacity_detail, $balance_day, $selected_delivery_count);
+                    $selected_capacity_history[$day] = $snapshot;
+                    $selected_capacity_history_changed = TRUE;
+                }
+            } else {
+                if (isset($historical_capacity_history[$day])) {
+                    $snapshot = $historical_capacity_history[$day];
+                } else {
+                    $balance_day = $day;
+                    $balance_qty = $this->balance_qty_for_capacity_day($balance_day, $historical_qty_rows, $engage_daily_output);
+
+                    $capacity_detail = $this->capacity_from_delivery_aggregate($balance_qty, $day, $this->selected_delivery_period_end($historical_qty_rows), $historical_qty_rows);
+                    $snapshot = $this->capacity_snapshot_entry($capacity_detail, $balance_day, 0);
                 }
             }
 
@@ -2110,8 +2117,8 @@ class Dashboard_model extends CI_Model
             );
         }
 
-        if ($capacity_history_changed) {
-            $this->write_heat_capacity_history($capacity_history);
+        if ($selected_capacity_history_changed) {
+            $this->write_heat_capacity_history($selected_capacity_history);
         }
 
         return $items;
@@ -2172,7 +2179,7 @@ class Dashboard_model extends CI_Model
         }
 
 
-        $items = $this->build_output_vs_capacity_from_engage_daily($summary['daily'], $qty_rows, $input_summary['daily'], $summary['daily']);
+        $items = $this->build_output_vs_capacity_from_engage_daily($summary['daily'], $qty_rows, $input_summary['daily'], $summary['daily'], $qty_rows);
         return $items ? $items : $fallback;
     }
 
@@ -2404,7 +2411,7 @@ class Dashboard_model extends CI_Model
             'balance_breakdown' => $balance_breakdown,
             'ready_to_load' => $ready_to_load,
             'selected_ready_to_load' => $selected_ready_to_load,
-            'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $selected_qty_pdk_vs_output),
+            'output_vs_capacity' => $this->build_output_vs_capacity_from_source($daily_output_keys, $selected_qty_pdk_vs_output, $qty_pdk_vs_output),
             'list_orders' => $list_orders,
             'top_priority_orders' => $top_priority_orders,
         );
@@ -2787,7 +2794,7 @@ class Dashboard_model extends CI_Model
         return $this->export_workdays_from_remaining($this->count_workdays($start, $range['end'], $this->dashboard_calendar_days()));
     }
 
-    private function build_output_vs_capacity_from_source($daily_output_keys, $qty_rows, $daily_input_keys = array())
+    private function build_output_vs_capacity_from_source($daily_output_keys, $qty_rows, $historical_qty_rows = NULL, $daily_input_keys = array())
     {
         $calendar_days = $this->dashboard_calendar_days();
         $daily = array();
@@ -2806,7 +2813,7 @@ class Dashboard_model extends CI_Model
             }
         }
 
-        return $this->build_output_vs_capacity_from_engage_daily($daily, $qty_rows, $daily_input, $daily);
+        return $this->build_output_vs_capacity_from_engage_daily($daily, $qty_rows, $daily_input, $daily, $historical_qty_rows);
     }
 
     private function format_output_day_label_from_serial($serial)
